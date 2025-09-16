@@ -4,8 +4,9 @@ WORKDIR /app
 RUN npm i -g pnpm
 COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 
-# ZAKTUALIZOWANA LINIA: Dodajemy flagę --prod=false, aby zainstalować devDependencies
-RUN pnpm install --prod=false
+# ZAKTUALIZOWANA LINIA: Dodajemy `pnpm --version`, by na 100% przełamać cache
+# i upewnić się, że devDependencies (jak tailwindcss) zostaną zainstalowane.
+RUN pnpm --version && pnpm install --prod=false
 
 COPY . .
 RUN pnpm run build
