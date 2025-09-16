@@ -6,9 +6,19 @@ RUN npm i -g pnpm
 # Zależności build-time dla "sharp" (Nuxt Image / IPX)
 # libc6-compat jest wymagane dla prekompilowanych binarek, a jeśli będą kompilowane z źródeł,
 # potrzebne są python3, g++ i make oraz vips-dev
-RUN apk add --no-cache libc6-compat python3 make g++ vips-dev
+RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-compat autoconf automake libtool nasm libpng-dev \
+    && ln -sf python3 /usr/bin/python \
+    && python3 -m ensurepip \
+    && pip3 install --no-cache --upgrade pip setuptools
 
-COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
+RUN corepack enable pnpm
+
+COPY ["package.json", "pnpm-lock.yaml", ".npmrc", "./"]
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+# https://github.com/nuxt/image/issues/1210#issuecomment-1917921546
+RUN pnpm rebuild sharp
 RUN pnpm --version && pnpm install --prod=false
 COPY . .
 RUN pnpm run build
@@ -26,7 +36,9 @@ RUN apk add --no-cache vips libc6-compat
 
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/.output ./.output
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY --from=builder /app/.output ./.outpu
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3000/ || exit 1
 CMD ["node", ".output/server/index.mjs"]
+HEALTHCHECK --start-period=5s --timeout=5s CMD curl -f http://0.0.0.0:${PORT}/health || exit 1
