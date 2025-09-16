@@ -10,13 +10,10 @@ export default defineNuxtConfig({
 	// Konfiguracja Nuxt Image – wymuszenie providera IPX (lokalny),
 	// dzięki czemu obrazy z katalogu `public/` działają bez zewnętrznych usług
 	image: {
-		provider: process.env.NUXT_IMAGE_PROVIDER || 'ipx',
-		// Domyślny katalog publicznych assetów – używamy ścieżek zaczynających się od '/'
-		// np. <NuxtImg src="/imgs/steel-flower.webp" />
-		quality: 85,
-		format: ['webp', 'avif', 'jpeg'],
-		// Jeśli użyjesz zewnętrznych źródeł, dodaj je tutaj
-		domains: ['dev.makoto.com.pl', 'makoto.com.pl']
+		provider: "ipx",
+		dir: "public",
+		domains: ['dev.makoto.com.pl', 'makoto.com.pl'],
+		staticFilename: '[publicPath]/[name]-[hash][ext]',
 	},
 
 	tres: {
