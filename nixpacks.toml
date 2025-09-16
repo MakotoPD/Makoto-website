@@ -13,5 +13,5 @@ providers = ["node"]
   cmds = ["npm run build"]
 
 # Faza uruchomienia gotowej aplikacji
-[start]
+[phases.start]
 cmd = 'node .output/server/index.mjs'
