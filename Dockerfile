@@ -14,7 +14,7 @@ FROM node:20-alpine
 
 # ===================================================================
 # DODAJ TĘ LINIĘ: Instalujemy zależności systemowe dla 'sharp' (używanego przez NuxtImg)
-RUN apk add --no-cache vips
+RUN apk add --no-cache vips-dev g++ make
 # ===================================================================
 
 WORKDIR /app
