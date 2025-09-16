@@ -1,0 +1,106 @@
+{
+	"menu.policy": "Terms and conditions",
+	"menu.home": "Home",
+	"menu.about": "About",
+	"menu.work": "Work",
+	"menu.blog": "Blog",
+	"menu.more": "More",
+	"menu.call": "Book a Call",
+
+	"menu.more.links": "Links",
+	"menu.more.links.desc": "All my links are here",
+	"menu.more.uses": "Uses",
+	"menu.more.uses.desc": "My digital space",
+	"menu.more.attributons": "Attributons",
+	"menu.more.attributons.desc": "Tech to create this site",
+
+	"footer": {
+		"sloganLine1": "From vision to {boldPart}",
+		"sloganLine1Bold": "reality.",
+		"sloganLine2": "Let's make it {boldPart}",
+		"sloganLine2Bold": "happen!",
+		"openToWork": "· OPEN TO WORK ·",
+		"ctaButton": "Ready to Grow?",
+		"availability": "I'm available for full-time roles & freelance projects.",
+		"passion": "I am enthusiastic about the challenges involved in building modern web applications,{br}putting fluidity and end-user satisfaction first.",
+		"desc": "I'm Makoto - a web developer, freelancer. Thanks for checking out my site!",
+		"menu": {
+			"general": "General",
+			"more": "More"
+		}
+	},
+
+	"page": {
+		"home": {
+			"hero": {
+				"title": "I help crafting digital {br}experiences {highlightedText}",
+				"titleHighlight": "from bold ideas",
+				"greeting": "Hello, I'm Makoto",
+				"role": "a Web developer",
+				
+				"notification": {
+					"title": "Coppied to clipboard",
+					"desc": "Email address copied successfully.",
+					"btn": "Send Email"
+				}
+			},
+			"grid": {
+				"tech":{
+					"line1": "Exploring the frontier",
+   					"line2": "of technology"
+				},
+				"saas": {
+					"heading": "I am currently working on my own SAAS application.",
+					"desc": "It will be an innovative application for managing tasks within a group."
+				},
+				"globe": {
+					"line1": "I'm very flexible with time",
+					"line2": "zone communications"
+				},
+				"communication": {
+					"heading": "I treat every customer with the utmost care.",
+					"desc": "Communication is paramount, and thanks to it, I can complete every project to the full satisfaction of my clients."
+				},
+				"question": {
+					"line1": "Do you want to",
+					"line2": "ask a question?"
+				},
+
+				"notification": {
+					"title": "Skopiowano do schowka",
+					"desc": "Adres e-mail został pomyślnie skopiowany.",
+					"btn": "Wyślij e-mail"
+				}
+			},
+			"skills": {
+				"line1": "My skills",
+				"line2": "Digital",
+				"greeting": "Alchemy"
+			},
+			"projects": {
+				"line1": "Featured projects",
+				"line2": "Selected",
+				"greeting": "work"
+			},
+			"trusted": {
+				"subtitle": "TRUSTED",
+				"mainSentence": "They {highlighted} me",
+				"highlightedWord": "trusted"
+			},
+			"aboutMe": {
+				"subtitle": "KNOW ABOUT ME",
+				"heading": "Web Developer and a little bit of {highlighted}",
+				"highlightedWord": "everything",
+				"descriptionP1": "Hi, I'm Patryk, a full-stack developer passionate about building vibrant web applications. I excel at solving complex challenges, whether I'm on the frontend with Nuxt.js and TypeScript or diving into the backend with Node.js and Fastify.",
+				"descriptionP2": "I believe in maintaining a healthy work-life balance, and my natural curiosity gives me a fresh perspective on everything I do. For me, every day is an opportunity to build something great.",
+				"github": "Github",
+				"linkedin": "LinkedIn",
+				"email": "Email"
+			}
+		},
+		"error": {
+			"title": "Oops! Something went wrong",
+			"btn": "Back to home"
+		}
+	}
+}

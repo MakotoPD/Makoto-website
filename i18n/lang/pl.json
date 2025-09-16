@@ -1,0 +1,108 @@
+{
+	"menu.policy": "Regulamin",
+	"menu.home": "Start",
+	"menu.about": "O mnie",
+	"menu.work": "Praca",
+	"menu.blog": "Blog",
+	"menu.more": "Więcej",
+	"menu.call": "Zarezerwuj rozmowę",
+
+	"menu.more.links": "Linki",
+	"menu.more.links.desc": "Wszystkie moje linki",
+	"menu.more.uses": "Sprzęt",
+	"menu.more.uses.desc": "Moja przestrzeń cyfrowa",
+	"menu.more.attributons": "Atrybuty",
+	"menu.more.attributons.desc": "Technologia do stworzenia tej strony",
+
+
+	"footer": {
+		"sloganLine1": "Od wizji do {boldPart}",
+		"sloganLine1Bold": "rzeczywistości.",
+		"sloganLine2": "Sprawmy, by to się {boldPart}",
+		"sloganLine2Bold": "stało!",
+		"openToWork": "· OTWARTY NA OFERTY ·",
+		"ctaButton": "Gotowy na rozwój?",
+		"availability": "Jestem dostępny do pracy na pełen etat i projektów freelancerskich.",
+		"passion": "Z entuzjazmem podchodzę do wyzwań związanych z budową nowoczesnych aplikacji internetowych,{br}stawiając na pierwszym miejscu płynność i zadowolenie użytkownika.",
+		"desc": "Jestem Patryk - jestem programistą stron internetowych, freelancerem. Dziękuję za odwiedzenie mojej strony!",
+		"menu": {
+			"general": "Ogólne",
+			"more": "Więcej"
+		}
+	},
+
+	"page": {
+		"home": {
+			"hero": {
+				"title": "Pomagam tworzyć cyfrowe {br}doświadczenia {highlightedText}",
+				"titleHighlight": "z odważnych pomysłów",
+				"greeting": "Cześć, jestem Makoto",
+				"role": "Programista stron www",
+
+				"notification": {
+					"title": "Skopiowano do schowka",
+					"desc": "Adres e-mail został pomyślnie skopiowany.",
+					"btn": "Wyślij e-mail"
+				}
+			},
+			"grid": {
+				"tech":{
+					"line1": "Odkrywając granice",
+    				"line2": "technologii"
+				},
+				"saas": {
+					"heading": "Obecnie pracuję nad własną aplikacją SAAS",
+					"desc": "Będzie to innowacyjna aplikacja do zarządzania zadaniami w grupie"
+				},
+				"globe": {
+					"line1": "Nie mam problemu z komunikacją",
+					"line2": "w różnych strefach czasowych."
+				},
+				"communication": {
+					"heading": "Każdego klienta traktuję z najwyższą troską.",
+					"desc": "Komunikacja jest najważniejsza i dzięki niej mogę realizować każdy projekt ku pełnej satysfakcji moich klientów."
+				},
+				"question": {
+					"line1": "Czy chcesz",
+					"line2": "zadać pytanie?"
+				},
+				
+				"notification": {
+					"title": "Skopiowano do schowka",
+					"desc": "Adres e-mail został pomyślnie skopiowany.",
+					"btn": "Wyślij e-mail"
+				}
+			},
+			"skills": {
+				"line1": "Moje umiejętności",
+				"line2": "Cyfrowa",
+				"greeting": "Alchemi"
+			},
+
+			"projects": {
+				"line1": "Wybrane projekty",
+				"line2": "Wybrane",
+				"greeting": "prace"
+			},
+			"trusted": {
+				"subtitle": "ZAUFANIE",
+				"mainSentence": "{highlighted} mi",
+				"highlightedWord": "Zaufali"
+			},
+			"aboutMe": {
+				"subtitle": "POZNAJ MNIE",
+				"heading": "Web Developer i trochę {highlighted}",
+				"highlightedWord": "wszystkiego",
+				"descriptionP1": "Cześć, jestem Patryk, full-stack developer z pasją do tworzenia dynamicznych aplikacji internetowych. Doskonale radzę sobie ze złożonymi wyzwaniami, niezależnie od tego, czy pracuję nad frontendem w Nuxt.js i TypeScript, czy zagłębiam się w backend z Node.js i Fastify.",
+				"descriptionP2": "Wierzę w utrzymanie zdrowej równowagi między pracą a życiem prywatnym, a moja naturalna ciekawość daje mi świeże spojrzenie na wszystko, co robię. Dla mnie każdy dzień jest okazją do zbudowania czegoś wspaniałego.",
+				"github": "Github",
+				"linkedin": "LinkedIn",
+				"email": "Email"
+			}
+		},
+		"error": {
+			"title": "Ups! Coś poszło nie tak",
+			"btn": "Powrót na stronę główną"
+		}
+	}
+}
