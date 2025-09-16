@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 	// dzięki czemu obrazy z katalogu `public/` działają bez zewnętrznych usług
 	image: {
 		provider: "ipx",
-		dir: "public",
+		dir: "app/assets/images",
 		domains: ['dev.makoto.com.pl', 'makoto.com.pl'],
 	},
 
