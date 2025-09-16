@@ -1,11 +1,8 @@
 [variables]
   NODE_ENV = "production"
 
-
 [phases.setup]
   nixPkgs = ['npm', 'nodejs']
-
-
 
 [phases.install]
   cmds = ["npm install"]
