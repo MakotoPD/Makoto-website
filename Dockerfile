@@ -6,10 +6,7 @@ RUN npm i -g pnpm
 # Zależności build-time dla "sharp" (Nuxt Image / IPX)
 # libc6-compat jest wymagane dla prekompilowanych binarek, a jeśli będą kompilowane z źródeł,
 # potrzebne są python3, g++ i make oraz vips-dev
-RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-compat autoconf automake libtool nasm libpng-dev \
-    && ln -sf python3 /usr/bin/python \
-    && python3 -m ensurepip \
-    && pip3 install --no-cache --upgrade pip setuptools
+RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-compat autoconf automake libtool nasm libpng-dev
 
 RUN corepack enable pnpm
 
@@ -18,7 +15,6 @@ RUN pnpm --version && pnpm install --prod=false
 COPY . .
 RUN pnpm run build
 
-# ---
 
 # Etap 2: Uruchomienie aplikacji (Runner)
 FROM node:20-alpine
