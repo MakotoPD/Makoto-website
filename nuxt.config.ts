@@ -25,7 +25,7 @@ export default defineNuxtConfig({
 	},
 
 	build: {
-		transpile: ['gsap'],
+		transpile: ['gsap', 'sharp'],
 	},
 
 	css: [
