@@ -1,16 +1,17 @@
-providers = ['node']
+providers = ["node"]
 
 [variables]
   NODE_ENV = "production"
 
-[phases.setup]
-  nixPkgs = ['npm', 'nodejs']
-
+# Faza instalacji jest obsługiwana automatycznie przez providera node,
+# ale dla jasności można ją zostawić.
 [phases.install]
   cmds = ["npm install"]
 
+# Faza budowania aplikacji
 [phases.build]
   cmds = ["npm run build"]
 
+# Faza uruchomienia gotowej aplikacji
 [phases.start]
   startCmd = "node .output/server/index.mjs"
