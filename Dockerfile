@@ -16,8 +16,8 @@ COPY . .
 RUN pnpm run build
 
 
-RUN rm -rf /node_modules/sharp && pnpm install sharp
-RUN pnpm rebuild --arch=x64 --platform=linux --libc=musl sharp
+RUN rm -rf /node_modules/sharp && npm install sharp
+RUN npm rebuild --arch=x64 --platform=linux --libc=musl sharp
 # Etap 2: Uruchomienie aplikacji (Runner)
 FROM node:20-alpine
 
