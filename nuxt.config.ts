@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 	// Konfiguracja Nuxt Image – wymuszenie providera IPX (lokalny),
 	// dzięki czemu obrazy z katalogu `public/` działają bez zewnętrznych usług
 	image: {
-		provider: 'ipx',
+		provider: process.env.NUXT_IMAGE_PROVIDER || 'ipx',
 		// Domyślny katalog publicznych assetów – używamy ścieżek zaczynających się od '/'
 		// np. <NuxtImg src="/imgs/steel-flower.webp" />
 		quality: 85,
