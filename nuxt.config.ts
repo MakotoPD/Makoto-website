@@ -7,7 +7,18 @@ export default defineNuxtConfig({
 
 	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n'],
 	
-	
+	// Konfiguracja Nuxt Image – wymuszenie providera IPX (lokalny),
+	// dzięki czemu obrazy z katalogu `public/` działają bez zewnętrznych usług
+	image: {
+		provider: 'ipx',
+		// Domyślny katalog publicznych assetów – używamy ścieżek zaczynających się od '/'
+		// np. <NuxtImg src="/imgs/steel-flower.webp" />
+		quality: 85,
+		format: ['webp', 'avif', 'jpeg'],
+		// Jeśli użyjesz zewnętrznych źródeł, dodaj je tutaj
+		domains: [],
+	},
+
 	tres: {
 		devtools: true,
 		glsl: true,
