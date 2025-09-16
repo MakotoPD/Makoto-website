@@ -3,6 +3,9 @@ providers = ["node"]
 [variables]
   NODE_ENV = "production"
 
+[phases.setup]
+  nixPkgs = ["nodejs_20"]
+
 # Faza instalacji jest obsługiwana automatycznie przez providera node,
 # ale dla jasności można ją zostawić.
 [phases.install]
