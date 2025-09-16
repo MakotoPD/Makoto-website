@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		provider: "ipx",
 		dir: "public",
 		domains: ['dev.makoto.com.pl', 'makoto.com.pl'],
-		staticFilename: '[publicPath]/[name]-[hash][ext]',
+		staticFilename: '[publicPath]/[name][ext]',
 	},
 
 	tres: {
