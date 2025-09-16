@@ -80,6 +80,12 @@ export default defineNuxtConfig({
 		}
 	},
 
+	postcss: {
+		plugins: {
+		  '@tailwindcss/postcss': {},
+		},
+	  },
+
 	app: {
 		head: {
 			title: 'Makoto - Web developer',
