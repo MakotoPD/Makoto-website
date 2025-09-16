@@ -16,8 +16,8 @@ COPY . .
 RUN pnpm run build
 
 
-RUN npm install sharp
-RUN npm rebuild --arch=x64 --platform=linux --libc=musl sharp
+RUN pnpm install sharp
+RUN pnpm rebuild --arch=x64 --platform=linux --libc=musl sharp
 # Etap 2: Uruchomienie aplikacji (Runner)
 FROM node:20-alpine
 
@@ -31,5 +31,5 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/.output ./.output
 EXPOSE 3000
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3000/ || exit 1
 CMD ["node", ".output/server/index.mjs"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3000/ || exit 1
