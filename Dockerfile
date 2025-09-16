@@ -6,19 +6,19 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Instalujemy pnpm globalnie w kontenerze
-RUN npm i
+RUN npm i -g pnpm
 
 # Kopiujemy pliki manifestu zależności
-COPY package.json ./
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 
 # Instalujemy zależności używając pnpm
-RUN npm install
+RUN pnpm install
 
 # Kopiujemy resztę kodu źródłowego aplikacji
 COPY . .
 
 # Budujemy aplikację Nuxt w trybie produkcyjnym
-RUN npm run build
+RUN pnpm run build
 
 # ---
 
