@@ -1,19 +1,19 @@
 # Etap 1: Budowanie aplikacji (Builder)
 FROM node:20-alpine AS builder
 WORKDIR /app
-RUN npm i -g pnpm
+RUN npm i -g yarn
 
 # Zależności build-time dla "sharp" (Nuxt Image / IPX)
 # libc6-compat jest wymagane dla prekompilowanych binarek, a jeśli będą kompilowane z źródeł,
 # potrzebne są python3, g++ i make oraz vips-dev
 RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-compat autoconf automake libtool nasm libpng-dev
 
-RUN corepack enable pnpm
+RUN corepack enable yarn
 
-COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
-RUN pnpm --version && pnpm install --prod=false
+COPY package.json yarn.lock ./
+RUN yarn --version && yarn install --prod=false
 COPY . .
-RUN pnpm run build
+RUN yarn build
 
 
 # Etap 2: Uruchomienie aplikacji (Runner)
