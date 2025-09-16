@@ -9,7 +9,7 @@ providers = ["node"]
 # Faza instalacji jest obsługiwana automatycznie przez providera node,
 # ale dla jasności można ją zostawić.
 [phases.install]
-  cmds = ["npm install"]
+  cmds = ["pnpm install"]
 
 # Faza budowania aplikacji
 [phases.build]
