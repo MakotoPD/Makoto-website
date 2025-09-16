@@ -13,12 +13,7 @@ RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-com
 
 RUN corepack enable pnpm
 
-COPY ["package.json", "pnpm-lock.yaml", ".npmrc", "./"]
-
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-
-# https://github.com/nuxt/image/issues/1210#issuecomment-1917921546
-RUN pnpm rebuild sharp
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 RUN pnpm --version && pnpm install --prod=false
 COPY . .
 RUN pnpm run build
