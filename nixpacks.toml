@@ -1,0 +1,19 @@
+providers = ["node"]
+
+[variables]
+  NODE_ENV = "production"
+
+
+[phases.setup]
+  nixPkgs = ['npm', 'nodejs']
+
+
+
+[phases.install]
+  cmds = ["npm install"]
+
+[phases.build]
+  cmds = ["npm run build"]
+
+[phases.start]
+  startCmd = "node .output/server/index.mjs"
