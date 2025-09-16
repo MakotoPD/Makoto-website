@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 		quality: 85,
 		format: ['webp', 'avif', 'jpeg'],
 		// Jeśli użyjesz zewnętrznych źródeł, dodaj je tutaj
-		domains: [],
+		domains: ['dev.makoto.com.pl', 'makoto.com.pl']
 	},
 
 	tres: {
