@@ -1,19 +1,17 @@
-providers = ["node"]
-
-[variables]
-  NODE_ENV = "production"
+# nixpacks.toml
 
 [phases.setup]
-  nixPkgs = ["nodejs_20"]
+  # Instalujemy Node.js w wersji 20 oraz pnpm
+  nixPkgs = ["nodejs_20", "pnpm"]
 
 [phases.install]
-  # Używamy pnpm, który lepiej radzi sobie z zależnościami
+  # Używamy pnpm do instalacji zależności
   cmds = ["pnpm install"]
 
 [phases.build]
-  # Wystarczy `npm run build`, bo `nuxt prepare` uruchomi się automatycznie po instalacji
-  cmds = ["npm run build"]
+  # Budujemy aplikację
+  cmds = ["pnpm run build"]
 
 [phases.start]
-  # Poprawiony klucz z `cmd` na `startCmd`
+  # Uruchamiamy serwer produkcyjny
   startCmd = "node .output/server/index.mjs"
