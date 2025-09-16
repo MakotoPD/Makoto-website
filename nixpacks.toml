@@ -13,7 +13,7 @@ providers = ["node"]
 
 # Faza budowania aplikacji
 [phases.build]
-  cmds = ["npm run build"]
+  cmds = ["npm run prepare", "npm run build"]
 
 # Faza uruchomienia gotowej aplikacji
 [phases.start]
