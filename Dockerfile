@@ -36,9 +36,7 @@ RUN apk add --no-cache vips libc6-compat
 
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=dependencies /app/node_modules ./node_modules
-COPY --from=builder /app/.output ./.outpu
+COPY --from=builder /app/.output ./.output
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3000/ || exit 1
 CMD ["node", ".output/server/index.mjs"]
-HEALTHCHECK --start-period=5s --timeout=5s CMD curl -f http://0.0.0.0:${PORT}/health || exit 1
