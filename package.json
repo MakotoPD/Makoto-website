@@ -8,7 +8,7 @@
     "host": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "prepare": "nuxt prepare"
   },
   "dependencies": {
     "@nuxt/image": "^1.11.0",
