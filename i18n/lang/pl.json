@@ -79,7 +79,19 @@
 				"line2": "Cyfrowa",
 				"greeting": "Alchemi"
 			},
-
+			"scroller": {
+				"items": [
+					"Zoptymalizowane pod SEO",
+					"Interaktywne",
+					"Bezpieczne",
+					"Niezawodne",
+					"Angażujące",
+					"Dostępne",
+					"Responsywne",
+					"Dynamiczne",
+					"Skalowalne"
+				]
+			},
 			"projects": {
 				"line1": "Wybrane projekty",
 				"line2": "Wybrane",

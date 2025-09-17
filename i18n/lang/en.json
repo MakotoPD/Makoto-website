@@ -79,6 +79,19 @@
 				"line2": "Digital",
 				"greeting": "Alchemy"
 			},
+			"scroller": {
+				"items": [
+					"Search Optimized",
+					"Interactive",
+					"Secure",
+					"Reliable",
+					"Engaging",
+					"Accessible",
+					"Responsive",
+					"Dynamic",
+					"Scalable"
+				]
+			},
 			"projects": {
 				"line1": "Featured projects",
 				"line2": "Selected",

@@ -21,7 +21,7 @@
 				<div class="z-2 flex w-[102dvw] -rotate-3 items-center justify-center overflow-hidden bg-linear-to-r from-sky-600 via-sky-500 to-sky-600 py-1.5 will-change-transform lg:py-4">
 					<UiTextScroller
 						class="serif relative z-10"
-						:items="['Search Optimized', 'Interactive', 'Secure', 'Reliable', 'Engaging', 'Accessible', 'Responsive', 'Dynamic', 'Scalable']"
+						:items="scrollerItems"
 						speed="15s"
 						gap="1rem"
 						separator="✦"
@@ -44,6 +44,22 @@
 	</div>
 </template>
 
+<script setup lang="ts">
+const { t, tm } = useI18n();
+
+// Ta właściwość będzie automatycznie aktualizować się przy zmianie języka
+// Używamy tm() tylko do pobrania długości tablicy, a każdy element renderujemy przez t(),
+// aby zawsze otrzymać zwykłe stringi zamiast obiektów AST/kompilatora.
+const scrollerItems = computed(() => {
+  const raw = tm('page.home.scroller.items');
+  const length = Array.isArray(raw) ? raw.length : 0;
+  return Array.from({ length }, (_, i) => t(`page.home.scroller.items.${i}`));
+});
+
+onMounted(() => {
+	console.log('Zawartość scrollerItems:', scrollerItems.value);
+})
+</script>
 
 <style scoped>
 
