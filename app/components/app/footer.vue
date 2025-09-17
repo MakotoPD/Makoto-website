@@ -72,10 +72,10 @@
 						</p>
 
 						<div class="">
-							<p class="test-xm text-neutral-600">Change lang:</p>
+							<p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
 							<div class="flex gap-x-1.5">
-								<a href="#" class="bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-300 flex gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
-									<NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain" height="16px" :alt="locale.code" />
+								<a href="#" class="bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-300 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
+									<NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
 									{{ locale.name }}
 								</a>
 							</div>

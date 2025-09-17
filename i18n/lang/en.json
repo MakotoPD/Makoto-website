@@ -14,6 +14,8 @@
 	"menu.more.attributons": "Attributons",
 	"menu.more.attributons.desc": "Tech to create this site",
 
+	"changelang": "Change lang",
+
 	"footer": {
 		"sloganLine1": "From vision to {boldPart}",
 		"sloganLine1Bold": "reality.",
