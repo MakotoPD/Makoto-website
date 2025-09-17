@@ -272,8 +272,3 @@ body:before {
 section.section {
   content-visibility: auto;
 }
-
-::target-text {
-  background-color: #28b4eb;
-  color: white;
-}

@@ -76,7 +76,6 @@ export default defineNuxtConfig({
 			useCookie: true,
 			cookieKey: 'i18n_locale',
 			redirectOn: 'root',
-			alwaysRedirect: false, // Zapobiega automatycznym przekierowaniom
 		}
 	},
 
@@ -148,11 +147,6 @@ export default defineNuxtConfig({
 				},
 				{
 					children: "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '1516447535903195');fbq('track', 'PageView');"
-				},
-				{
-					defer: true,
-					src: 'https://cloud.umami.is/script.js',
-					"data-website-id": '84056d40-a170-4a24-9d8a-e10d2144dd7e'
 				},
 				{
 					type: 'application/ld+json',

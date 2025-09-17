@@ -1,5 +1,6 @@
 <template>
-	<div class="z-0 relative h-screen w-screen flex justify-center items-center">
+	<div class="z-10 relative h-screen w-screen flex justify-center items-center">
+    
 		<div class="relative z-50 text-white text-xl">
 			<h1 class="serif text-5xl md:text-6xl text-center leading-18 text-shadow-lg/30 text-shadow-white max-w-2xl">
 				<i18n-t keypath="page.home.hero.title" scope="global">
@@ -41,9 +42,7 @@
 			</div>
 		</div>
 
-		<div class="absolute w-full h-full top-0 right-0 z-10">
-			<ModelsMakotologo class="fixed top-0 -z-1"/>
-		</div>
+
 		
 	</div>
 </template>

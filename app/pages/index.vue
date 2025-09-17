@@ -1,7 +1,10 @@
 <template>
 	<div>
-		<section class="section sectionHero">
+		<section class="section sectionHero relative">
 			<AppHero/>
+			<div class="absolute w-full h-full top-0 right-0 -z-10">
+				<ModelsMakotologo class="relative top-0 -z-1"/>
+			</div>
 		</section>
 		<div class="container mx-auto">
 			<section class="section w-full px-4">
