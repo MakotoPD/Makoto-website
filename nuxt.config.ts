@@ -82,7 +82,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 
 		public: {
-			apiUrl: process.env.NUXT_PUBLIC_API_URL || 'https://api.makoto.com.pl'
+			apiUrl: process.env.NUXT_PUBLIC_API_URL
 		}
 	},
 
