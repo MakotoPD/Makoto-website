@@ -28,7 +28,9 @@
     "autoprefixer": "^10.4.21",
     "cobe": "^0.6.4",
     "gsap": "^3.13.0",
+    "highlight.js": "^11.11.1",
     "lucide-vue-next": "^0.543.0",
+    "markdown-it": "^14.1.0",
     "nuxt": "^4.0.3",
     "postcss": "^8.5.6",
     "reka-ui": "^2.5.0",
@@ -45,6 +47,7 @@
     "@iconify-json/simple-icons": "^1.2.50",
     "@iconify-json/solar": "^1.2.4",
     "@tailwindcss/postcss": "^4.1.13",
+    "@types/markdown-it": "^14.1.2",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5.9.2"
   },
