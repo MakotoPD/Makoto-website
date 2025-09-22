@@ -2,7 +2,7 @@
 	<div v-if="blocks?.length">
 		<component
 		v-for="(block, index) in blocks"
-		:key="`${block.__component}-${index}`"
+		:key="`${block.__component}-${index}-${locale}`"
 		:is="resolveComponent(block.__component)"
 		v-bind="block"
 		/>
@@ -10,6 +10,7 @@
 </template>
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 // Definiujemy prop `blocks`, oczekując tablicy
 interface Block {
@@ -19,6 +20,9 @@ interface Block {
 defineProps<{
   blocks: Block[] | null | undefined;
 }>();
+
+// bieżąca lokalizacja do wymuszenia remount przy zmianie języka
+const { locale } = useI18n();
 
 // Mapa mapująca nazwy komponentów ze Strapi na komponenty Vue
 // Używamy `defineAsyncComponent` dla lepszej wydajności (lazy loading)

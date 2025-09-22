@@ -3,10 +3,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import MarkdownIt from 'markdown-it';
 import { bundledLanguages, getHighlighter } from 'shiki';
 import shiki from '@shikijs/markdown-it';
+import { useI18n } from 'vue-i18n';
 
 // Definiujemy propsy komponentu, oczekując na właściwość `body` typu string
 const props = defineProps<{
@@ -15,6 +16,10 @@ const props = defineProps<{
 
 // `ref` do przechowywania wyrenderowanego HTML
 const renderedMarkdown = ref('');
+const shikiInitialized = ref(false);
+
+// i18n locale (aby prze-renderować przy zmianie języka)
+const { locale } = useI18n();
 
 // Inicjalizujemy markdown-it
 const md = new MarkdownIt({
@@ -30,14 +35,17 @@ const renderMarkdown = async () => {
     return;
   }
 
-  // Konfiguracja podświetlania składni za pomocą Shiki
-  md.use(await shiki({
-    // Możesz tutaj dostosować motywy dla jasnego i ciemnego trybu
-    theme: 'tokyo-night',
-    // Wczytaj języki, które chcesz wspierać
-    // `bundledLanguages` zawiera wszystkie popularne języki
-    langs: Object.keys(bundledLanguages)
-  }));
+  // Konfiguracja podświetlania składni za pomocą Shiki (inicjalizujemy tylko raz)
+  if (!shikiInitialized.value) {
+    md.use(await shiki({
+      // Możesz tutaj dostosować motywy dla jasnego i ciemnego trybu
+      theme: 'tokyo-night',
+      // Wczytaj języki, które chcesz wspierać
+      // `bundledLanguages` zawiera wszystkie popularne języki
+      langs: Object.keys(bundledLanguages)
+    }));
+    shikiInitialized.value = true;
+  }
 
   // Renderujemy zawartość markdown do HTML
   renderedMarkdown.value = md.render(props.body);
@@ -46,7 +54,13 @@ const renderMarkdown = async () => {
 // `onMounted` jest używane, aby upewnić się, że renderowanie odbywa się
 // po stronie klienta (w przeglądarce), ponieważ Shiki/Shikiji
 // może mieć problemy z renderowaniem po stronie serwera (SSR) bez dodatkowej konfiguracji.
-onMounted(() => {
+// Renderuj gdy treść (body) się zmienia oraz natychmiast po zamontowaniu
+watch(() => props.body, () => {
+  renderMarkdown();
+}, { immediate: true });
+
+// Renderuj ponownie przy zmianie języka
+watch(locale, () => {
   renderMarkdown();
 });
 
