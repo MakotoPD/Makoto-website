@@ -1,86 +1,70 @@
 <template>
-	<div class="prose max-w-none" v-html="renderedMarkdown"></div>
-  </template>
-  
+  <div v-if="body" v-html="renderedMarkdown" class="prose max-w-none"></div>
+</template>
+
 <script setup lang="ts">
-  import { computed } from 'vue';
-  import MarkdownIt from 'markdown-it';
-  import hljs from 'highlight.js'; // 1. Import biblioteki highlight.js
-  
-  // 2. Import wybranego motywu kolorystycznego.
-  // Możesz to przenieść do globalnego pliku CSS lub nuxt.config.ts, jeśli wolisz.
-  import 'highlight.js/styles/atom-one-dark.css';
-  
-  const props = defineProps<{
-	body: string;
-  }>();
-  
-  // 3. Konfiguracja markdown-it z opcją 'highlight'
-  const md = new MarkdownIt({
-	html: true,
-	linkify: true,
-	typographer: true,
-	highlight: (str, lang) => {
-		const highlightedCode = (() => {
-		if (lang && hljs.getLanguage(lang)) {
-			try { return hljs.highlight(str, { language: lang, ignoreIllegals: true }).value; } 
-			catch (__) {}
-		}
-		try { return hljs.highlightAuto(str).value; } 
-		catch (__) {}
-		return md.utils.escapeHtml(str);
-		})();
-		
-		// KROK 1: Zmiana w generowanym HTML
-		// Zamiast zwracać samo <pre><code>...</code></pre>, opakowujemy je w div
-		// i dodajemy przycisk z wywołaniem funkcji `copyCode`.
-		return `
-		<div class="code-container">
-			<button class="copy-button" onclick="copyCode(this)">Kopiuj</button>
-			<pre class="hljs"><code>${highlightedCode}</code></pre>
-		</div>
-		`;
-	},
-	});
-  
-  const renderedMarkdown = computed(() => {
-	return props.body ? md.render(props.body) : '';
-  });
+import { ref, onMounted } from 'vue';
+import MarkdownIt from 'markdown-it';
+import { bundledLanguages, getHighlighter } from 'shiki';
+import shiki from '@shikijs/markdown-it';
 
-onMounted(() => {
-  window.copyCode = async (buttonElement: HTMLButtonElement) => {
-    // Znajdź kontener nadrzędny i w nim element `code`
-    const container = buttonElement.parentElement;
-    if (!container) return;
-    
-    const codeElement = container.querySelector('code');
-    if (!codeElement) return;
+// Definiujemy propsy komponentu, oczekując na właściwość `body` typu string
+const props = defineProps<{
+  body: string | null | undefined;
+}>();
 
-    // Użyj nowoczesnego API schowka
-    await navigator.clipboard.writeText(codeElement.innerText);
+// `ref` do przechowywania wyrenderowanego HTML
+const renderedMarkdown = ref('');
 
-    // Daj znać użytkownikowi, że kod został skopiowany
-    buttonElement.innerText = 'Copied!';
-    setTimeout(() => {
-      buttonElement.innerText = 'Copy';
-    }, 2000); // Wróć do pierwotnego tekstu po 2 sekundach
-  };
+// Inicjalizujemy markdown-it
+const md = new MarkdownIt({
+  html: true,        // Włącz renderowanie HTML wewnątrz markdown
+  linkify: true,     // Automatycznie konwertuj tekst wyglądający jak URL na linki
+  typographer: true, // Włącz inteligentne cytaty i inne ulepszenia typograficzne
 });
 
-onUnmounted(() => {
-  if (window.copyCode) {
-    delete window.copyCode;
+// Funkcja do renderowania markdown, która zostanie wywołana po stronie klienta
+const renderMarkdown = async () => {
+  if (!props.body) {
+    renderedMarkdown.value = '';
+    return;
   }
+
+  // Konfiguracja podświetlania składni za pomocą Shiki
+  md.use(await shiki({
+    // Możesz tutaj dostosować motywy dla jasnego i ciemnego trybu
+    theme: 'tokyo-night',
+    // Wczytaj języki, które chcesz wspierać
+    // `bundledLanguages` zawiera wszystkie popularne języki
+    langs: Object.keys(bundledLanguages)
+  }));
+
+  // Renderujemy zawartość markdown do HTML
+  renderedMarkdown.value = md.render(props.body);
+};
+
+// `onMounted` jest używane, aby upewnić się, że renderowanie odbywa się
+// po stronie klienta (w przeglądarce), ponieważ Shiki/Shikiji
+// może mieć problemy z renderowaniem po stronie serwera (SSR) bez dodatkowej konfiguracji.
+onMounted(() => {
+  renderMarkdown();
 });
 
 </script>
-  
-<style>
-@import "tailwindcss";
-  /* Poprawka: Domyślnie Tailwind Prose może ustawiać białe tło dla bloków pre/code.
-	 Nadpisujemy je, aby motyw z highlight.js był w pełni widoczny. */
 
-.prose h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, blockquote,  {
+<style>
+@reference '../../../assets/css/main.css';
+/* Style dla podświetlania składni Shiki */
+/* Możesz dostosować te style lub użyć gotowych motywów */
+
+.shiki {
+  background-color: #212529 !important; /* Ciemne tło dla bloku kodu */
+  padding: 1em;
+  border-radius: 0.5em;
+  overflow-x: auto;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6, .prose p, .prose ul, .prose ol, .prose li, .prose figure, .prose blockquote, .prose pre {
 	@apply my-1;
 }
 .prose h1{
@@ -123,40 +107,7 @@ onUnmounted(() => {
 	@apply bg-slate-700/30 px-4 py-1 rounded-lg w-fit;
 }
 
-.prose > pre {
-	@apply !bg-slate-700/30 px-4 rounded-2xl h-fit;
-}
-
-.prose .code-container {
-	@apply h-fit;
-}
-
-.prose pre {
-	background-color: transparent;
-
-}
-
-.code-container {
-  position: relative;
-}
-
-.copy-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  background-color: #4a5568; /* Ciemnoszary */
-  color: #e2e8f0; /* Jasnoszary tekst */
-  border: none;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-family: sans-serif;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s ease-in-out;
-}
-
-.copy-button:hover {
-  opacity: 1;
+.prose a {
+  @apply text-sky-600 hover:underline;
 }
 </style>

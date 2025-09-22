@@ -1,17 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
 	devtools: {
 		enabled: true
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n'],
-	
-	// Konfiguracja Nuxt Image – wymuszenie providera IPX (lokalny),
-	// dzięki czemu obrazy z katalogu `public/` działają bez zewnętrznych usług
-	image: {
+	vite: {
+		plugins: [
+			tailwindcss()
+		]
+	},
 
-		// dir: "app/assets/images",
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n'],
+
+
+	image: {
 		domains: ['dev.makoto.com.pl', 'makoto.com.pl', 'api.makoto.com.pl'],
 	},
 
@@ -23,6 +28,23 @@ export default defineNuxtConfig({
 	build: {
 		transpile: ['gsap', 'sharp'],
 	},
+
+	tailwindcss: {
+    config: {
+      content: [
+        // Upewnij się, że ścieżki do twoich plików są tutaj poprawne
+        './components/**/*.{js,vue,ts}',
+        './layouts/**/*.vue',
+        './pages/**/*.vue',
+        './plugins/**/*.{js,ts}',
+        './nuxt.config.{js,ts}',
+      ],
+      plugins: [
+        // Tutaj dodajemy wtyczkę typography
+        require('@tailwindcss/typography'),
+      ],
+    },
+  },
 
 	css: [
 		'~/assets/css/main.css',
@@ -85,6 +107,8 @@ export default defineNuxtConfig({
 			apiUrl: process.env.NUXT_PUBLIC_API_URL
 		}
 	},
+
+
 
 	postcss: {
 		plugins: {

@@ -1,6 +1,6 @@
 <template>
-	<figure v-if="imageUrl" class="my-6">
-	  <img :src="imageUrl" :alt="altText" class="w-full h-auto rounded-lg shadow-md" />
+	<figure v-if="imageUrl" class="my-6 max-w-2xl">
+	  <img :src="imageUrl" :alt="altText" class="w-full h-auto rounded-xl shadow-md" />
 	  <figcaption v-if="caption" class="mt-2 text-sm text-center text-gray-500">{{ caption }}</figcaption>
 	</figure>
   </template>

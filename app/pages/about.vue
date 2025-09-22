@@ -5,7 +5,7 @@
 		</h1>
 		
 		<br/><br/>
-		<div class="container mx-auto px-12">
+		<div class="w-full max-w-5xl mx-auto px-12">
 			<StrapiBlocks :blocks="blockNodes" />
 		</div>
 	</div>
@@ -38,8 +38,6 @@ const { data: about, pending: isPending, error } = useFetch<AboutResponse>('/api
 
     },
 
-    // `watch: [locale]` jest opcjonalne, bo Nuxt 3 robi to automatycznie dla refów w query,
-    // ale dla pewności można zostawić.
     watch: [locale]
 });
 

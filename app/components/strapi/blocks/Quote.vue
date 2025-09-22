@@ -1,7 +1,10 @@
 <template>
-	<blockquote class="p-4 my-4 border-l-4 border-gray-300 bg-gray-50">
-	  <h3 v-if="title" class="text-xl font-semibold">{{ title }}</h3>
-	  <p class="text-lg italic leading-relaxed text-gray-900">"{{ body }}"</p>
+	<blockquote class="relative p-4 mb-4 bg-gray-950/40 border border-[#222530] rounded-xl">
+		<div class=" backdrop-blur-sm absolute -left-4 -top-4 flex items-center justify-center h-10 w-10 bg-gray-950/40 border border-[#222530] rounded-lg">
+			<UIcon name="i-lucide-quote" class="size-5" />
+		</div>
+		<h3 v-if="title" class="text-xl font-semibold serif">{{ title }}</h3>
+		<p class="text-lg italic leading-relaxed text-gray-100/90">{{ body }}</p>
 	</blockquote>
   </template>
   

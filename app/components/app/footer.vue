@@ -53,11 +53,9 @@
 					</p>
 				</div>
 			</div>
-			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b from-transparent opacity-100 to-black">
-			</div>
-			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b to-transparent opacity-100 from-black">
-			</div>
-			<div aria-hidden="true" class="absolute inset-0 z-0 opacity-65 bg-black/50"></div>
+			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b from-transparent opacity-100 to-[#0f1013]"></div>
+			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b to-transparent opacity-100 from-[#0f1013]"></div>
+			<div aria-hidden="true" class="absolute inset-0 z-0 opacity-65 bg-[#0f1013]/50"></div>
 		</section>
 		<footer class="mx-auto my-6 max-w-6xl max-lg:px-4">
 			<div
