@@ -1,68 +1,31 @@
 <template>
-  <div v-if="body" v-html="renderedMarkdown" class="prose max-w-none"></div>
+  <div v-if="body" v-html="renderedHtml" class="prose max-w-none"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import MarkdownIt from 'markdown-it';
-import { bundledLanguages, getHighlighter } from 'shiki';
-import shiki from '@shikijs/markdown-it';
-import { useI18n } from 'vue-i18n';
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-// Definiujemy propsy komponentu, oczekując na właściwość `body` typu string
-const props = defineProps<{
-  body: string | null | undefined;
-}>();
-
-// `ref` do przechowywania wyrenderowanego HTML
-const renderedMarkdown = ref('');
-const shikiInitialized = ref(false);
+// Props
+const props = defineProps<{ body: string | null | undefined }>()
 
 // i18n locale (aby prze-renderować przy zmianie języka)
-const { locale } = useI18n();
+const { locale } = useI18n()
 
-// Inicjalizujemy markdown-it
-const md = new MarkdownIt({
-  html: true,        // Włącz renderowanie HTML wewnątrz markdown
-  linkify: true,     // Automatycznie konwertuj tekst wyglądający jak URL na linki
-  typographer: true, // Włącz inteligentne cytaty i inne ulepszenia typograficzne
-});
+// Reaktywne źródła danych do obserwacji
+const safeBody = computed(() => props.body || '')
 
-// Funkcja do renderowania markdown, która zostanie wywołana po stronie klienta
-const renderMarkdown = async () => {
-  if (!props.body) {
-    renderedMarkdown.value = '';
-    return;
-  }
+// SSR-friendly render via server API with caching
+// Używamy reaktywnego klucza zależnego od treści i języka, aby uniknąć starych danych po przełączeniu języka
+const { data } = await useAsyncData(
+  () => `richtext-render-${locale.value}-${safeBody.value.length}-${safeBody.value.slice(0, 16)}`,
+  () => $fetch<{ html: string }>('/api/render-md', {
+    method: 'POST',
+    body: { body: safeBody.value }
+  })
+)
 
-  // Konfiguracja podświetlania składni za pomocą Shiki (inicjalizujemy tylko raz)
-  if (!shikiInitialized.value) {
-    md.use(await shiki({
-      // Możesz tutaj dostosować motywy dla jasnego i ciemnego trybu
-      theme: 'tokyo-night',
-      // Wczytaj języki, które chcesz wspierać
-      // `bundledLanguages` zawiera wszystkie popularne języki
-      langs: Object.keys(bundledLanguages)
-    }));
-    shikiInitialized.value = true;
-  }
-
-  // Renderujemy zawartość markdown do HTML
-  renderedMarkdown.value = md.render(props.body);
-};
-
-// `onMounted` jest używane, aby upewnić się, że renderowanie odbywa się
-// po stronie klienta (w przeglądarce), ponieważ Shiki/Shikiji
-// może mieć problemy z renderowaniem po stronie serwera (SSR) bez dodatkowej konfiguracji.
-// Renderuj gdy treść (body) się zmienia oraz natychmiast po zamontowaniu
-watch(() => props.body, () => {
-  renderMarkdown();
-}, { immediate: true });
-
-// Renderuj ponownie przy zmianie języka
-watch(locale, () => {
-  renderMarkdown();
-});
+const renderedHtml = computed(() => data.value?.html || '')
 
 </script>
 
@@ -110,11 +73,11 @@ watch(locale, () => {
 }
 
 .prose ul {
-	@apply list-disc list-inside;
+	@apply list-disc list-inside marker:text-sky-400;
 }
 
 .prose ol {
-	@apply list-decimal list-inside;
+	@apply list-decimal list-inside marker:text-sky-400;
 }
 
 .prose blockquote {

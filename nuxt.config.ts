@@ -93,7 +93,7 @@ export default defineNuxtConfig({
 		],
 		langDir: 'lang/',
 		defaultLocale: 'en',
-		strategy: 'no_prefix', // Unika przekierowań URL
+		strategy: 'prefix_except_default', // przekierowańe URL
 		detectBrowserLanguage: {
 			useCookie: true,
 			cookieKey: 'i18n_locale',
