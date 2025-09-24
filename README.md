@@ -1,4 +1,4 @@
-# Makoto - Portfolio Website
+# ⚡ Makoto - Portfolio Website
 
 ![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
@@ -8,7 +8,7 @@
 ![TresJS](https://img.shields.io/badge/TresJS-82DBC5?style=for-the-badge&logo=three.js&logoColor=black)
 ![GSAP](https://img.shields.io/badge/GSAP-00DC82?style=for-the-badge&logo=gsap&logoColor=white)
 
-## 📖 About the project
+## 📦 About the project
 
 This is the repository for the modern website "Makoto," created as a portfolio for a developer and graphic designer. The project was built using the latest web technologies, with a focus on performance, interactivity, and aesthetics. The site uses **Nuxt** for server-side rendering (SSR), which ensures excellent SEO and fast loading speeds. Integration with **TresJS** allows for the implementation of advanced 3D graphics, and **Strapi** as a headless CMS facilitates content management.
 
@@ -104,3 +104,10 @@ The most important directories in the project:
 ├── nuxt.config.ts      # Main Nuxt config file
 └── package.json        # Project dependencies and 
 ```
+
+
+## ❤️ Thanks
+
+Everyone who submits ideas, issues, and PRs
+
+The Nuxt, Vue, and TypeScript community
