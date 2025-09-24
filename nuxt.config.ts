@@ -13,9 +13,11 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer'],
 
-
+	vitalizer: {
+    	disableStylesheets: 'entry'
+  	},
 	image: {
 		domains: ['dev.makoto.com.pl', 'makoto.com.pl', 'api.makoto.com.pl'],
 	},
