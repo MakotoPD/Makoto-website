@@ -93,7 +93,8 @@ export default defineNuxtConfig({
 		],
 		langDir: 'lang/',
 		defaultLocale: 'en',
-		strategy: 'no_prefix', // przekierowańe URL
+		baseUrl: 'https://makoto.com.pl',
+		strategy: 'prefix_except_default', // przekierowańe URL
 		detectBrowserLanguage: {
 			useCookie: true,
 			cookieKey: 'i18n_locale',
@@ -129,9 +130,6 @@ export default defineNuxtConfig({
 	app: {
 		head: {
 			title: 'Makoto - Website Developer and Graphic designer',
-			htmlAttrs: {
-				lang: 'en',
-			},
 			meta: [{
 					charset: 'utf-8'
 				},
@@ -164,11 +162,16 @@ export default defineNuxtConfig({
 				{
 					rel: 'alternate',
 					hreflang: 'pl-PL',
+					href: 'https://makoto.com.pl/pl'
+				},
+				{
+					rel: 'alternate',
+					hreflang: 'en',
 					href: 'https://makoto.com.pl'
 				},
 				{
 					rel: 'alternate',
-					hreflang: 'en-GB',
+					hreflang: 'x-default',
 					href: 'https://makoto.com.pl'
 				},
 				{

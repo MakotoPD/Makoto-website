@@ -34,6 +34,10 @@
 
 	"page": {
 		"home": {
+			"seo": {
+				"title": "Makoto - Website Developer and Graphic designer",
+				"description": "Makoto - Web developer. Experienced web developer offers modern, responsive designs, SEO optimization and technical support. Specializing in JavaScript, VueJS and more. Create exceptional websites with us!"
+			},
 			"hero": {
 				"title": "I help crafting digital {br}experiences {highlightedText}",
 				"titleHighlight": "from bold ideas",

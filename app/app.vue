@@ -82,66 +82,7 @@ onMounted(() => {
   }
 
 
-
-
 })
 
-
-// // Inside <script setup> of CustomCursor.vue
-// import { reactive, onMounted, onUnmounted, ref } from 'vue';
-// const { $gsap } = useNuxtApp();
-
-// const cursorRef = ref<HTMLElement | null>(null);
-// const followerRef = ref<HTMLElement | null>(null);
-// let ctx: gsap.Context;
-
-// // Centralized state management for the cursor
-// const cursorState = reactive({
-//   x: 0,
-//   y: 0,
-//   isHovering: false,
-//   targetBounds: { width: 0, height: 0, x: 0, y: 0 }
-// });
-
-// const updateMousePosition = (event: MouseEvent) => {
-//   cursorState.x = event.clientX;
-//   cursorState.y = event.clientY;
-// };
-
-// onMounted(() => {
-//   ctx = $gsap.context(() => {
-//     // Set initial position and fade in
-//     $gsap.set(, {
-//       x: window.innerWidth / 2,
-//       y: window.innerHeight / 2,
-//       opacity: 0
-//     });
-//     $gsap.to(, { opacity: 1, duration: 0.5 });
-
-//     window.addEventListener('mousemove', updateMousePosition);
-
-//     // Main cursor dot for immediate response
-//     $gsap.to(cursorRef.value, {
-//       duration: 0.15,
-//       x: () => cursorState.x,
-//       y: () => cursorState.y,
-//       ease: 'power3.out',
-//       repeat: -1
-//     });
-
-//     // Follower with a slight delay for a smooth, trailing effect
-//     $gsap.to(followerRef.value, {
-//       duration: 0.4, // Controls the amount of "lag"
-//       x: () => cursorState.x,
-//       y: () => cursorState.y,
-//       ease: 'power3.out',
-//       repeat: -1 // Keeps the animation running indefinitely
-//     });
-//   });
-// });
-
-// onUnmounted(() => {
-//   ctx.revert(); // Removes the mousemove listener automatically
-// });
 
 </script>
