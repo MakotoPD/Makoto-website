@@ -31,38 +31,6 @@ const { data: projects, pending, error, refresh } = await useAsyncData(
   
 )
 
-console.log(projects)
-
-
-// --- ZOPTYMALIZOWANE POBIERANIE DANYCH ---
-// useFetch jest teraz w pełni reaktywny na zmianę `locale`
-// const { data: projects, pending: isPending, error } = useFetch('/api/featured-projects', {
-//     baseURL: STRAPI_URL,
-//     // Przekazujemy `locale` bezpośrednio. Nuxt będzie go obserwował za nas.
-//     query: {
-//         locale,
-//         populate: '*',
-//     },
-//     // Uproszczona transformacja danych
-//     transform: (rawData) => {
-//         if (!rawData.data) return [];
-//         return rawData.data.map((project) => {
-//             const imageUrl = project.image?.url
-//                 ? `${STRAPI_URL}${project.image.url}`
-//                 : '/images/placeholder.jpg';
-
-//             return {
-//                 ...project,
-//                 imageUrl,
-//             };
-//         });
-//     },
-//     // `watch: [locale]` jest opcjonalne, bo Nuxt 3 robi to automatycznie dla refów w query,
-//     // ale dla pewności można zostawić.
-//     watch: [locale]
-// });
-
-
 onMounted(() => {
 
 	

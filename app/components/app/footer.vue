@@ -135,10 +135,6 @@ import { en, pl } from '@nuxt/ui/locale'
 
 const { locale, setLocale } = useI18n()
 
-
-const availableLocales = computed(() => {
-  return locales.value.filter(i => i.code)
-})
 // Define the refs for the elements
 const btnGetInTouch = ref<HTMLButtonElement | null>(null)
 const buttonContainer = ref<HTMLDivElement | null>(null)
