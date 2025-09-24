@@ -5,7 +5,7 @@
 		</div>
 		<h3 v-if="title" class="text-xl font-semibold serif">{{ title }}</h3>
 		<p class="text-lg italic leading-relaxed text-gray-100/90">{{ body }}</p>
-		<img class="absolute -z-10 w-full top-1/2 left-0 -translate-y-1/2 -translate-x-1/4 opacity-45" aria-hidden="true" src="/bg/elipse.png" alt="">
+		<img class="absolute -z-10 w-full top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 xl:-translate-x-1/4 opacity-45" aria-hidden="true" src="/bg/elipse.png" alt="">
 	</blockquote>
   </template>
   
