@@ -72,6 +72,11 @@ const renderedHtml = computed(() => data.value?.html || '')
 	@apply text-lg;
 }
 
+.prose > p > code{
+	@apply bg-slate-700/50 rounded-sm px-1;
+}
+
+
 .prose ul {
 	@apply list-disc list-inside marker:text-sky-400;
 }
