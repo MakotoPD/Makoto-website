@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-const { t, tm } = useI18n();
+const { t, tm, locale } = useI18n();
 
 // Ta właściwość będzie automatycznie aktualizować się przy zmianie języka
 // Używamy tm() tylko do pobrania długości tablicy, a każdy element renderujemy przez t(),
@@ -55,6 +55,29 @@ const scrollerItems = computed(() => {
   const length = Array.isArray(raw) ? raw.length : 0;
   return Array.from({ length }, (_, i) => t(`page.home.scroller.items.${i}`));
 });
+
+const i18nHead = useLocaleHead({
+  dir: true,
+  lang: true
+})
+console.log(locale.value)
+
+useHead({
+  title: t('page.home.seo.title'),
+  htmlAttrs: {
+    lang: locale.value,
+	dir: i18nHead.value.htmlAttrs.dir
+  },
+  meta: [
+    { name: 'description', content: t('page.home.seo.description') },
+    // Open Graph
+    { property: 'og:title', content: t('page.home.seo.title') },
+    { property: 'og:description', content: t('page.home.seo.description') },
+    // ... inne meta tagi
+  ],
+  link: [...(i18nHead.value.link || [])],
+  meta: [...(i18nHead.value.meta || [])]
+})
 
 </script>
 

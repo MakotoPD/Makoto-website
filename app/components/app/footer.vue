@@ -69,16 +69,17 @@
 							{{ $t('footer.desc') }}
 						</p>
 
-						<div class="">
-							<p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
+						<ClientOnly>
+							<div class="">
+								<p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
 
-							<ULocaleSelect
-								v-model="locale"
-								:locales="[en, pl]"
-								@update:model-value="setLocale($event)"
-							/>
-						</div>
-
+								<ULocaleSelect
+									v-model="locale"
+									:locales="[en, pl]"
+									@update:model-value="setLocale($event)"
+								/>
+							</div>
+						</ClientOnly>
 
 					</div>
 					<div class="flex flex-col items-start justify-end gap-6 md:mx-4 md:w-1/2 md:flex-row md:gap-24">
