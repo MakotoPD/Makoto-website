@@ -6,6 +6,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Strapi](https://img.shields.io/badge/Strapi-2E7EEA?style=for-the-badge&logo=strapi&logoColor=white)
 ![TresJS](https://img.shields.io/badge/TresJS-82DBC5?style=for-the-badge&logo=three.js&logoColor=black)
+![GSAP](https://img.shields.io/badge/GSAP-00DC82?style=for-the-badge&logo=gsap&logoColor=white)
 
 ## 📖 About the project
 
