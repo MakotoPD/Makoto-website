@@ -128,7 +128,7 @@ export default defineNuxtConfig({
 
 	app: {
 		head: {
-			title: 'Makoto - Web developer',
+			title: 'Makoto - Website Developer and Graphic designer',
 			htmlAttrs: {
 				lang: 'en',
 			},
@@ -163,8 +163,8 @@ export default defineNuxtConfig({
 				},
 				{
 					rel: 'alternate',
-					hreflang: 'pl',
-					href: 'https://makoto.com.pl/pl'
+					hreflang: 'pl-PL',
+					href: 'https://makoto.com.pl'
 				},
 				{
 					rel: 'alternate',
