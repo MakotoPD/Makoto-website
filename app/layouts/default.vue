@@ -29,10 +29,9 @@ useHead({
     // Open Graph
     { property: 'og:title', content: t('page.home.seo.title') },
     { property: 'og:description', content: t('page.home.seo.description') },
-    // ... inne meta tagi
+    ...(i18nHead.value.meta || [])
   ],
   link: [...(i18nHead.value.link || [])],
-  meta: [...(i18nHead.value.meta || [])]
 })
 
 </script>
