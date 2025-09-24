@@ -15,7 +15,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
+const { find } = useStrapi()
+const { locale, t } = useI18n();
+const config = useRuntimeConfig()
 type AboutResponse = {
   data?: {
     title?: string
@@ -23,23 +25,36 @@ type AboutResponse = {
   }
 }
 
-const config = useRuntimeConfig()
+
 
 const STRAPI_URL = config.public.apiUrl;
 
 // Pobieranie i18n
-const { locale, t } = useI18n();
 
-const { data: about, pending: isPending, error } = useFetch<AboutResponse>('/api/about?populate[blocks][populate]=*', {
-    baseURL: STRAPI_URL,
-    // Przekazujemy `locale` bezpośrednio. Nuxt będzie go obserwował za nas.
-    query: {
-        locale,
 
-    },
 
-    watch: [locale]
-});
+const queryParams = computed(() => {
+  return {
+    // 1. Dynamiczny parametr języka (zmienia się)
+    locale: locale.value,
+
+    // 2. Statyczny, zagnieżdżony parametr populate (pozostaje taki sam)
+    populate: {
+      blocks: {
+        populate: '*'
+      }
+    }
+  }
+})
+
+const { data: about, pending, error, refresh } = await useAsyncData(
+  'about',
+  () => find('about', queryParams.value),
+  {
+    watch: [queryParams]
+  }
+)
+
 
 const blockNodes = computed(() => about.value?.data?.blocks ?? [])
 </script>

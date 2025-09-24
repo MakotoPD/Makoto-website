@@ -11,7 +11,7 @@
 		:autoplay="{ delay: 2000 }"
       	:ui="{
 			viewport: 'rounded-xl',
-        	item: 'basis-[70%] transition-opacity [&:not(.is-snapped)]:opacity-10 [&:not(.is-snapped)]:scale-95',
+        	item: 'basis-[70%] transition-opacity [&:not(.is-snapped)]:opacity-10',
         	container: 'rounded-lg',
 			prev: 'bg-zinc-700/60 border-zinc-600 hover:bg-zinc-600 text-white/60',
 			next: 'bg-zinc-700/60 border-zinc-600 hover:bg-zinc-600 text-white/60'

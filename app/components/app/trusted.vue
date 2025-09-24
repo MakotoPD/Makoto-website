@@ -19,7 +19,10 @@
 		</h2>
 
 		<div>
-			<AppTrustedBy :speed="20" :logos="clientLogos" />
+			<UMarquee>
+				<img v-for="img in clientLogos" class="w-44 h-auto grayscale-100 hover:grayscale-0" :src="img.src" :alt="img.alt">
+			</UMarquee>
+			<!-- <AppTrustedBy :speed="20" :logos="clientLogos" /> -->
 		</div>
 	</div>
 </template>

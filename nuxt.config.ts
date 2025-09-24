@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi'],
 
 
 	image: {
@@ -93,12 +93,22 @@ export default defineNuxtConfig({
 		],
 		langDir: 'lang/',
 		defaultLocale: 'en',
-		strategy: 'prefix_except_default', // przekierowańe URL
+		strategy: 'no_prefix', // przekierowańe URL
 		detectBrowserLanguage: {
 			useCookie: true,
 			cookieKey: 'i18n_locale',
 			redirectOn: 'root',
 		}
+	},
+
+	strapi: {
+		url: process.env.NUXT_PUBLIC_API_URL,
+		token: process.env.STRAPI_TOKEN || undefined,
+		prefix: '/api',
+		admin: '/admin',
+		version: 'v5',
+		cookie: {},
+		cookieName: 'strapi_jwt'
 	},
 
 	runtimeConfig: {

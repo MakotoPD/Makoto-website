@@ -71,5 +71,36 @@ export default defineAppConfig({
 				color: 'primary'
 			}
 		},
+		marquee: {
+			variants: {
+				overlay: {
+				true: {
+					root: 'before:absolute before:pointer-events-none before:content-[""] before:z-2 before:from-[#0f1013] before:to-transparent after:absolute after:pointer-events-none after:content-[""] after:z-2 after:from-[#0f1013] after:to-transparent'
+				}
+				}
+			},
+		},
+		selectMenu: {
+			slots: {
+				base: [
+				'relative group rounded-md inline-flex items-center focus:outline-none disabled:cursor-not-allowed disabled:opacity-75',
+				'transition-colors'
+				],
+				content: [
+					'max-h-60 w-(--reka-select-trigger-width) bg-black shadow-lg rounded-md ring ring-default overflow-hidden data-[state=open]:animate-[scale-in_100ms_ease-out] data-[state=closed]:animate-[scale-out_100ms_ease-in] origin-(--reka-select-content-transform-origin) pointer-events-auto flex flex-col',
+					'origin-(--reka-combobox-content-transform-origin) w-(--reka-combobox-trigger-width)'
+				],
+
+			},
+			variants: {
+				variant: {
+					outline: 'text-highlighted bg-black/50 ring ring-inset ring-accented',
+					soft: 'text-highlighted bg-elevated/50 hover:bg-elevated focus:bg-elevated disabled:bg-elevated/50',
+					subtle: 'text-highlighted bg-elevated ring ring-inset ring-accented',
+					ghost: 'text-highlighted bg-transparent hover:bg-elevated focus:bg-elevated disabled:bg-transparent dark:disabled:bg-transparent',
+					none: 'text-highlighted bg-transparent'
+				},
+			},
+		}
 	}
 })

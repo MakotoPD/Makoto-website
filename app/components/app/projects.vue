@@ -4,45 +4,63 @@ import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const config = useRuntimeConfig()
-
+const { find } = useStrapi()
+const { locale, t } = useI18n();
 
 gsap.registerPlugin(ScrollTrigger);
 // Indeks aktywnego projektu
 const activeProjectIndex = ref(0);
 
+const queryParams = computed(() => {
+  return {
+    locale: locale.value,
+    populate: '*',
+  }
+})
+
 
 const STRAPI_URL = config.public.apiUrl;
 
-// Pobieranie i18n
-const { locale, t } = useI18n();
+
+const { data: projects, pending, error, refresh } = await useAsyncData(
+  'featured-projects', // Unikalny klucz dla danych
+  () => find('featured-projects', queryParams.value), // Funkcja pobierająca dane
+  {
+    watch: [queryParams] // Obserwuj zmiany w parametrach i wykonaj zapytanie ponownie
+  }
+  
+)
+
+console.log(projects)
+
 
 // --- ZOPTYMALIZOWANE POBIERANIE DANYCH ---
 // useFetch jest teraz w pełni reaktywny na zmianę `locale`
-const { data: projects, pending: isPending, error } = useFetch('/api/featured-projects', {
-    baseURL: STRAPI_URL,
-    // Przekazujemy `locale` bezpośrednio. Nuxt będzie go obserwował za nas.
-    query: {
-        locale,
-        populate: '*',
-    },
-    // Uproszczona transformacja danych
-    transform: (rawData) => {
-        if (!rawData.data) return [];
-        return rawData.data.map((project) => {
-            const imageUrl = project.image?.url
-                ? `${STRAPI_URL}${project.image.url}`
-                : '/images/placeholder.jpg';
+// const { data: projects, pending: isPending, error } = useFetch('/api/featured-projects', {
+//     baseURL: STRAPI_URL,
+//     // Przekazujemy `locale` bezpośrednio. Nuxt będzie go obserwował za nas.
+//     query: {
+//         locale,
+//         populate: '*',
+//     },
+//     // Uproszczona transformacja danych
+//     transform: (rawData) => {
+//         if (!rawData.data) return [];
+//         return rawData.data.map((project) => {
+//             const imageUrl = project.image?.url
+//                 ? `${STRAPI_URL}${project.image.url}`
+//                 : '/images/placeholder.jpg';
 
-            return {
-                ...project,
-                imageUrl,
-            };
-        });
-    },
-    // `watch: [locale]` jest opcjonalne, bo Nuxt 3 robi to automatycznie dla refów w query,
-    // ale dla pewności można zostawić.
-    watch: [locale]
-});
+//             return {
+//                 ...project,
+//                 imageUrl,
+//             };
+//         });
+//     },
+//     // `watch: [locale]` jest opcjonalne, bo Nuxt 3 robi to automatycznie dla refów w query,
+//     // ale dla pewności można zostawić.
+//     watch: [locale]
+// });
 
 
 onMounted(() => {
@@ -244,7 +262,7 @@ const styleMap = {
 		<div class="flex relative gap-x-4">
 			<div class="grid grid-cols-1 gap-x-6 px-4 lg:px-0 gap-y-6 md:grid-cols-2 lg:flex lg:flex-col lg:gap-y-36 lg:w-7/12">
 				<div 
-					v-for="project in projects" 
+					v-for="project in projects.data" 
 					:key="project.id" 
 					class="project-item lg:flex justify-end lg:pr-8 items-center rounded-2xl"
 				>
@@ -256,7 +274,11 @@ const styleMap = {
 							<p :class="styleMap[project.theme]?.textColor" class="hidden lg:block serif text-2xl mb-12">
 								{{ project.slogan }}
 							</p>
-							<NuxtImg class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]" :class="styleMap[project.theme]?.imgGlow" :src="project.imageUrl" :alt="project.title" />
+							<img class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
+                :class="styleMap[project.theme]?.imgGlow"
+                :src="'https://api.makoto.com.pl'+project.image.url"
+                :alt="project.title"
+              />
 						</div>
 					</div>
 					
@@ -276,7 +298,7 @@ const styleMap = {
 			<div class="hidden h-[500px] w-5/12 lg:sticky top-64 lg:flex justify-center items-top pt-0">
 				<div class="relative w-full h-64">
 					<div
-						v-for="(project, index) in projects"
+						v-for="(project, index) in projects.data"
 						:key="project.id"
 						class="description-content"
 						:class="{ 'is-active': activeProjectIndex === index }"
