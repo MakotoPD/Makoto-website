@@ -22,7 +22,7 @@ useHead({
   title: t('page.home.seo.title'),
   htmlAttrs: {
     lang: locale.value,
-	dir: i18nHead.value.htmlAttrs.dir
+	  dir: i18nHead.value.htmlAttrs.dir
   },
   meta: [
     { name: 'description', content: t('page.home.seo.description') },
