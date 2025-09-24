@@ -56,9 +56,6 @@ const scrollerItems = computed(() => {
   return Array.from({ length }, (_, i) => t(`page.home.scroller.items.${i}`));
 });
 
-onMounted(() => {
-	console.log('Zawartość scrollerItems:', scrollerItems.value);
-})
 </script>
 
 <style scoped>
