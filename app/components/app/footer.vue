@@ -71,18 +71,15 @@
 
 						<div class="">
 							<p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
-							<!-- <div class="flex gap-x-1.5">
-								<a href="#" class="bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-300 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
-									<NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
-									{{ locale.name }}
-								</a>
-							</div> -->
+
 							<ULocaleSelect
 								v-model="locale"
 								:locales="[en, pl]"
 								@update:model-value="setLocale($event)"
 							/>
 						</div>
+
+
 					</div>
 					<div class="flex flex-col items-start justify-end gap-6 md:mx-4 md:w-1/2 md:flex-row md:gap-24">
 						<div class="flex flex-col gap-2 md:gap-4">
