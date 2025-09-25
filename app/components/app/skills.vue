@@ -53,7 +53,7 @@ let skins = [
 	{ name: 'NuxtUI', logo:'i-logos-vueuse' },
 	{ name: 'Fastify', logo:'i-simple-icons-fastify' },
 	{ name: 'NodeJS', logo:'i-logos-nodejs-icon' },
-	{ name: 'Express', logo:'i-logos-nuxt-icon' },
+	{ name: 'Express', logo:'i-simple-icons-express' },
 	{ name: 'Pinia', logo:'i-logos-pinia' },
 	{ name: 'Docker', logo:'i-logos-docker-icon' },
 	{ name: 'Bun', logo:'i-logos-bun' },
