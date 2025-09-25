@@ -20,6 +20,21 @@ export default defineNuxtConfig({
 		domains: ['dev.makoto.com.pl', 'makoto.com.pl', 'api.makoto.com.pl'],
 	},
 
+	sitemap: {
+      xsl: false, // Opcjonalnie: wyłącza stylizację XSL dla mapy witryny
+      i18n: true, // Automatycznie dodaje alternatywne linki językowe
+      urls: async () => {
+        // Tutaj możesz dodać dynamiczne ścieżki, np. z CMS
+        // Na razie zostawiamy puste, jeśli masz tylko statyczne strony
+        return []
+      }
+    },
+
+    // Upewnij się, że masz ustawiony site.url, jest to wymagane przez sitemap
+    site: {
+      url: 'https://makoto.com.pl',
+    },
+
 	tres: {
 		devtools: true,
 		glsl: true,
