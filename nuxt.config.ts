@@ -82,13 +82,15 @@ export default defineNuxtConfig({
 				code: 'en',
 				name: 'English',
 				iso: 'en-US',
-				file: 'en.json'
+				file: 'en.json',
+				dir: 'ltr'
 			},
 			{
 				code: 'pl',
 				name: 'Polski',
 				iso: 'pl-PL',
-				file: 'pl.json'
+				file: 'pl.json',
+				dir: 'ltr'
 			}
 		],
 		langDir: 'lang/',

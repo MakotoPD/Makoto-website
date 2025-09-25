@@ -56,7 +56,16 @@ const scrollerItems = computed(() => {
   return Array.from({ length }, (_, i) => t(`page.home.scroller.items.${i}`));
 });
 
+const title = computed(() => t('page.home.seo.title'))
+const description = computed(() => t('page.home.seo.description'))
 
+// Ustawianie metadanych SEO
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: title,
+  ogDescription: description,
+})
 </script>
 
 <style scoped>

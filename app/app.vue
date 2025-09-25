@@ -62,7 +62,7 @@
 
 <script setup lang="ts">
 import { gsap } from "gsap";
-
+const { locale, locales } = useI18n()
 
 onMounted(() => {
   if (innerWidth > 1023) {
@@ -84,5 +84,18 @@ onMounted(() => {
 
 })
 
+
+// Znajdź pełne dane dla bieżącego locale
+const currentLocale = computed(() => {
+  return locales.value.find(l => l.code === locale.value)
+})
+
+// Użyj useHead do dynamicznego ustawienia atrybutów
+useHead({
+  htmlAttrs: {
+    lang: () => currentLocale.value?.code,
+    dir: () => currentLocale.value?.dir
+  }
+})
 
 </script>
