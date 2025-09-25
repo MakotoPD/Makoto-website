@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap'],
 
 
 	image: {

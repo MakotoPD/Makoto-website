@@ -18,18 +18,14 @@ import { computed } from 'vue'
 const { find } = useStrapi()
 const { locale, t } = useI18n();
 const config = useRuntimeConfig()
+
+
 type AboutResponse = {
   data?: {
     title?: string
     blocks?: unknown[]
   }
 }
-
-
-
-const STRAPI_URL = config.public.apiUrl;
-
-// Pobieranie i18n
 
 
 
