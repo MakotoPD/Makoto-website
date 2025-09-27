@@ -43,7 +43,7 @@
                 <div>
                   <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
                 </div>
-                <NuxtImg src="/imgs/portfolio1.webp" class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
+                <NuxtImg src="/imgs/portfolio.webp" alt="Portfolio image" aria-hidden class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
               </NuxtLink>
             </div>
             <div class="flex flex-col gap-2">
