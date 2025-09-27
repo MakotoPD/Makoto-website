@@ -147,6 +147,7 @@ export default defineNuxtConfig({
 	  },
 
 	app: {
+		pageTransition: { name: 'page', mode: 'out-in' },
 		head: {
 			title: 'Makoto - Website Developer and Graphic designer',
 			meta: [{
