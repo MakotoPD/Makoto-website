@@ -121,7 +121,7 @@ export default defineNuxtConfig({
 
 	strapi: {
 		url: process.env.STRAPI_URL,
-		token: process.env.STRAPI_TOKEN || undefined,
+		token: process.env.STRAPI_TOKEN,
 		prefix: '/api',
 		admin: '/admin',
 		version: 'v5',
@@ -131,9 +131,11 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 
-		public: {
-			apiUrl: process.env.STRAPI_URL
-		}
+		strapiToken: process.env.STRAPI_TOKEN,
+
+        public: {
+            apiUrl: process.env.STRAPI_URL
+        }
 	},
 
 

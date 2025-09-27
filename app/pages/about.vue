@@ -43,14 +43,27 @@ const queryParams = computed(() => {
   }
 })
 
-const { data: about, pending, error, refresh } = await useAsyncData(
-  'about',
+const { data: about, pending, error, refresh } = useAsyncData(
+  () => `about-${locale.value}`,
   () => find('about', queryParams.value),
   {
-    watch: [queryParams]
+    watch: [() => locale.value]
   }
 )
 
 
 const blockNodes = computed(() => about.value?.data?.blocks ?? [])
+
+
+
+const title = computed(() => t('page.about.seo.title'))
+const description = computed(() => t('page.about.seo.description'))
+
+// Ustawianie metadanych SEO
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: title,
+  ogDescription: description,
+})
 </script>

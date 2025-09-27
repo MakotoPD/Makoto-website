@@ -65,12 +65,14 @@
             </div>
           </NuxtLink>
           <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
-            <div class="flex justify-center gap-x-4">
-              <a href="#" class=" bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
-                <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
-                {{ locale.name }}
-              </a>
-            </div>
+            <ClientOnly>
+              <div class="flex justify-center gap-x-4">
+                <button class=" bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
+                  <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
+                  {{ locale.name }}
+                </button>
+              </div>
+            </ClientOnly>
         </div>
       </span>
 
@@ -92,7 +94,9 @@
 import { ref, reactive, watch, onMounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 
-const { locales, setLocale, t } = useI18n()
+const { locale, locales, setLocale, t } = useI18n()
+
+const currentLocale = locale.value
 
 const availableLocales = computed(() => {
   return locales.value.filter(i => i.code)

@@ -117,6 +117,12 @@
 				"email": "Email"
 			}
 		},
+		"about": {
+			"seo": {
+				"title": "Makoto - About",
+				"description": "Makoto - Web developer. Experienced web developer offers modern, responsive designs, SEO optimization and technical support. Specializing in JavaScript, VueJS and more. Create exceptional websites with us!"
+			}
+		},
 		"error": {
 			"title": "Oops! Something went wrong",
 			"btn": "Back to home"
