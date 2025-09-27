@@ -74,7 +74,7 @@
 								<p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
 
 								<ULocaleSelect
-									v-model="locale"
+									:model-value="locale"
 									:locales="[en, pl]"
 									@update:model-value="setLocale($event)"
 								/>
@@ -179,4 +179,10 @@ onMounted(() => {
         console.error("Magnetic button elements not found!");
     }
 })
+
+function handleLocaleChange(newLocale: string) {
+  if (newLocale === 'en' || newLocale === 'pl') {
+    setLocale(newLocale)
+  }
+}
 </script>

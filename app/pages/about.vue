@@ -9,7 +9,7 @@
 			<StrapiBlocks :blocks="blockNodes" />
 		</div>
 	</div>
-	<div class="pt-44 mx-auto max-w-5xl" v-else-if="isPending">Loading…</div>
+	<div class="pt-44 mx-auto max-w-5xl" v-else-if="pending">Loading…</div>
 	<div class="pt-44 mx-auto max-w-5xl" v-else-if="error">Error: {{ error }}</div>
 </template>
 

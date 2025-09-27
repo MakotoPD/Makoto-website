@@ -56,15 +56,5 @@
     "@tailwindcss/typography": "^0.5.18",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5.9.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "sharp": "0.33.4"
-    },
-    "onlyBuiltDependencies": [
-      "sharp",
-      "@parcel/watcher",
-      "esbuild"
-    ]
   }
 }
