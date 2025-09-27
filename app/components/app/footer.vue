@@ -59,7 +59,8 @@
 		</section>
 		<footer class="mx-auto my-6 max-w-6xl max-lg:px-4">
 			<div
-				class="relative mx-auto flex flex-col items-center gap-6 rounded-3xl px-4 py-10 shadow-sm backdrop-blur-lg md:flex-row bg-white/5">
+				class="relative mx-auto flex flex-col items-center gap-6 rounded-3xl px-4 py-10 shadow-sm backdrop-blur-lg md:flex-row bg-white/5"
+			>
 				<div class="flex flex-1 flex-col items-start gap-4 md:flex-row md:gap-10 md:px-8">
 					<div class="flex-col gap-y-1 md:flex md:w-1/2">
 						<NuxtLink>
@@ -71,7 +72,7 @@
 
 						<ClientOnly>
 							<div class="">
-								<p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
+								<p class="test-xm text-neutral-500">{{ $t('changelang') }}:</p>
 
 								<ULocaleSelect
 									:model-value="locale"
@@ -80,7 +81,6 @@
 								/>
 							</div>
 						</ClientOnly>
-
 					</div>
 					<div class="flex flex-col items-start justify-end gap-6 md:mx-4 md:w-1/2 md:flex-row md:gap-24">
 						<div class="flex flex-col gap-2 md:gap-4">

@@ -36,43 +36,61 @@
       {{ $t('menu.more') }}
 
       <span class="absolute left-0 -translate-x-1/2 top-[100%] pt-2 opacity-0 scale-95 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-in-out">
-        <div  class="px-2 py-2 text-white rounded-3xl border border-primary-400/20 bg-black flex flex-col gap-2">
-          <NuxtLink to="#" class="w-70 bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
-            <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-              <UIcon name="i-solar-link-line-duotone" class="size-6" />
+        <div  class="z-100 px-2 py-2 text-white rounded-3xl border border-primary-400/20 bg-black flex flex-col gap-y-1">
+          <div class="flex gap-x-4">
+            <div>
+              <NuxtLink :to="localePath('portfolio')" class="z-40 h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
+                <div>
+                  <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
+                </div>
+                <NuxtImg src="/imgs/portfolio1.webp" class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
+              </NuxtLink>
             </div>
-            <div class="px-4 text-left">
-              <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
-              <p class="font-normal text-white/50">{{ $t('menu.more.links.desc') }}</p>
+            <div class="flex flex-col gap-2">
+              <NuxtLink to="#" class="w-70 bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
+                <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
+                  <UIcon name="i-solar-link-line-duotone" class="size-6" />
+                </div>
+                <div class="px-4 text-left">
+                  <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
+                  <p class="font-normal text-white/50">{{ $t('menu.more.links.desc') }}</p>
+                </div>
+              </NuxtLink>
+              <NuxtLink to="#" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
+                <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
+                  <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
+                </div>
+                <div class="px-4 text-left">
+                  <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
+                  <p class="font-normal text-white/50">{{ $t('menu.more.uses.desc') }}</p>
+                </div>
+              </NuxtLink>
+              <NuxtLink to="#" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
+                <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
+                  <UIcon name="i-solar-widget-5-bold-duotone" class="size-6" />
+                </div>
+                <div class="px-4 text-left">
+                  <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
+                  <p class="font-normal text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
+                </div>
+              </NuxtLink>
             </div>
-          </NuxtLink>
-          <NuxtLink to="#" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
-            <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-              <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
-            </div>
-            <div class="px-4 text-left">
-              <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
-              <p class="font-normal text-white/50">{{ $t('menu.more.uses.desc') }}</p>
-            </div>
-          </NuxtLink>
-          <NuxtLink to="#" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
-            <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-              <UIcon name="i-solar-widget-5-bold-duotone" class="size-6" />
-            </div>
-            <div class="px-4 text-left">
-              <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
-              <p class="font-normal text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
-            </div>
-          </NuxtLink>
-          <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
+          </div>
+
+
+
+          <div class="flex gap-3 justify-end pr-2 w-full">
+            <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
             <ClientOnly>
-              <div class="flex justify-center gap-x-4">
+              <div class="flex justify-center gap-x-2">
                 <button class=" bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
                   <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
                   {{ locale.name }}
                 </button>
               </div>
             </ClientOnly>
+          </div>
+
         </div>
       </span>
 

@@ -1,6 +1,6 @@
 <template>
 	<div class="pt-44" v-if="about?.data">
-		<h1 class="text-6xl text-center">
+		<h1 class="text-6xl text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
 			{{ about.data.title }}
 		</h1>
 		
