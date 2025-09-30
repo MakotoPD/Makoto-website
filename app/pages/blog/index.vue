@@ -9,111 +9,29 @@
 		<div class="w-full max-w-5xl mx-auto px-12 mt-24">
 			<UPageGrid>
 				<UPageCard
-					title="Tailwind CSS"
-					description="Nuxt UI integrates with latest Tailwind CSS v4, bringing significant improvements."
+					v-for="article in articles.data"
+					:key="article.id"
+					:title="article.title"
+					:description="article.description"
 					orientation="vertical"
 					spotlight
 					variant="subtle"
 					spotlight-color="primary"
-					to="https://tailwindcss.com/docs/v4-beta"
+					:to="localePath(`/blog/${article.slug}`)"
 					target="_blank"
 				>
-					<img src="/imgs/portfolio.webp" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
+					<img :src="config.public.apiUrl + article.cover.url" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
 					<template #footer>
-						<div class="flex gap-1">
-							<UBadge variant="soft" color="primary" size="md" icon="i-logos-vue" >VueJS</UBadge>
+						<div class="flex flex-wrap gap-1">
+							<UBadge v-for="category in article.categories" :key="category.id" variant="soft" color="primary" size="md" :icon="getCategoryIcon(category.slug)" >{{ category.name }}</UBadge>
 						</div>
 					</template>
 
 					<div>
 						<UUser
-							name="John Doe"
+							:name="article.author.name"
 							:avatar="{
-								src: 'https://i.pravatar.cc/150?u=john-doe',
-								icon: 'i-lucide-image'
-							}"
-							size="xs"
-						/>
-					</div>
-				</UPageCard>
-				<UPageCard
-					title="Tailwind CSS"
-					description="Nuxt UI integrates with latest Tailwind CSS v4, bringing significant improvements."
-					orientation="vertical"
-					spotlight
-					variant="subtle"
-					spotlight-color="primary"
-					to="https://tailwindcss.com/docs/v4-beta"
-					target="_blank"
-				>
-					<img src="/imgs/portfolio.webp" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
-					<template #footer>
-						<div class="flex gap-1">
-							<UBadge variant="soft" color="primary" size="md" icon="i-logos-vue" >VueJS</UBadge>
-						</div>
-					</template>
-
-					<div>
-						<UUser
-							name="John Doe"
-							:avatar="{
-								src: 'https://i.pravatar.cc/150?u=john-doe',
-								icon: 'i-lucide-image'
-							}"
-							size="xs"
-						/>
-					</div>
-				</UPageCard>
-				<UPageCard
-					title="Tailwind CSS"
-					description="Nuxt UI integrates with latest Tailwind CSS v4, bringing significant improvements."
-					orientation="vertical"
-					spotlight
-					variant="subtle"
-					spotlight-color="primary"
-					to="https://tailwindcss.com/docs/v4-beta"
-					target="_blank"
-				>
-					<img src="/imgs/portfolio.webp" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
-					<template #footer>
-						<div class="flex gap-1">
-							<UBadge variant="soft" color="primary" size="md" icon="i-logos-vue" >VueJS</UBadge>
-						</div>
-					</template>
-
-					<div>
-						<UUser
-							name="John Doe"
-							:avatar="{
-								src: 'https://i.pravatar.cc/150?u=john-doe',
-								icon: 'i-lucide-image'
-							}"
-							size="xs"
-						/>
-					</div>
-				</UPageCard>
-				<UPageCard
-					title="Tailwind CSS"
-					description="Nuxt UI integrates with latest Tailwind CSS v4, bringing significant improvements."
-					orientation="vertical"
-					spotlight
-					variant="subtle"
-					spotlight-color="primary"
-					to="https://tailwindcss.com/docs/v4-beta"
-					target="_blank"
-				>
-					<img src="/imgs/portfolio.webp" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
-					<template #footer>
-						<div class="flex gap-1">
-							<UBadge variant="soft" color="primary" size="md" icon="i-logos-vue" >VueJS</UBadge>
-						</div>
-					</template>
-
-					<div>
-						<UUser
-							name="John Doe"
-							:avatar="{
-								src: 'https://i.pravatar.cc/150?u=john-doe',
+								src: config.public.apiUrl + article.author.avatar.url,
 								icon: 'i-lucide-image'
 							}"
 							size="xs"
@@ -126,13 +44,48 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
+import type { ArticlesResponse, Article } from '~/types/article'
+import { getCategoryIcon } from '~/types/article'
 
+const { t, locale } = useI18n()
+const { find } = useStrapi()
+const config = useRuntimeConfig()
+
+const localePath = useLocalePath()
+
+
+const queryParams = computed(() => {
+  return {
+    locale: locale.value,
+    populate: {
+      cover: {
+        populate: '*'
+      },
+      author: {
+        populate: '*'
+      },
+      categories: {
+        populate: '*'
+      }
+    }
+  }
+})
+
+const { data: articles, pending, error, refresh } = useAsyncData<ArticlesResponse>(
+  () => `articles-${locale.value}`,
+  () => find<ArticlesResponse>('articles', queryParams.value),
+  {
+    watch: [() => locale.value]
+  }
+)
+
+console.log(articles)
+// Teraz masz pełne typowanie dla articles.data
+// articles.value?.data będzie typu Article[]
 
 const title = computed(() => t('page.blog.seo.title'))
 const description = computed(() => t('page.blog.seo.description'))
 
-// Ustawianie metadanych SEO
 useSeoMeta({
   title: title,
   description: description,
