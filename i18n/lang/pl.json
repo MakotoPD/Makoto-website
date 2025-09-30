@@ -133,6 +133,16 @@
 				"description": "Moje projekty"
 			}
 		},
+		"blog":{
+			"seo": {
+				"title": "Makoto - Blog",
+				"description": "Makoto - programista stron internetowych. Doświadczony programista stron internetowych oferuje nowoczesne, responsywne projekty, optymalizację SEO i wsparcie techniczne. Specjalizuje się w JavaScript, VueJS i nie tylko. Stwórz z nami wyjątkowe strony internetowe!"
+			},
+			"hero": {
+				"title": "Blog",
+				"description": "Poczytaj a może się dowiesz czegoś nowego :D"
+			}
+		},
 		"error": {
 			"title": "Ups! Coś poszło nie tak",
 			"btn": "Powrót na stronę główną"

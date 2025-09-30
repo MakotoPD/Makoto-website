@@ -133,6 +133,16 @@
 				"description": "My projects"
 			}
 		},
+		"blog":{
+			"seo": {
+				"title": "Makoto - Blog",
+				"description": "Makoto - Web developer. Experienced web developer offers modern, responsive designs, SEO optimization and technical support. Specializing in JavaScript, VueJS and more. Create exceptional websites with us!"
+			},
+			"hero": {
+				"title": "Blog",
+				"description": "Read it and you might learn something new :D"
+			}
+		},
 		"error": {
 			"title": "Oops! Something went wrong",
 			"btn": "Back to home"
