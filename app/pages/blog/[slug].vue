@@ -1,21 +1,21 @@
 <template>
 	<div class="pt-44">
-		<div v-if="pending">Ładowanie...</div>
+		<div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
 		<div v-else-if="error">Błąd: {{ error }}</div>
 		<div v-else-if="article">
-			<article class="w-full max-w-4xl mx-auto px-12">
-				<!-- Cover image -->
+			<div>
 				<img 
 					v-if="article.cover"
 					:src="config.public.apiUrl + article.cover.url" 
 					:alt="article.title" 
-					class="w-full h-96 object-cover rounded-lg border border-neutral-500/25 mb-8"  
+					class="mask-y-from-40% mask-y-to-99% w-full h-[35rem] object-cover absolute top-0 left-0 -z-10"  
 				/>
-				
-				<!-- Title -->
+			</div>
+
+			<article class="mt-[20rem] w-full max-w-4xl mx-auto px-12">
+
 				<h1 class="text-5xl font-bold mb-4">{{ article.title }}</h1>
 				
-				<!-- Meta info -->
 				<div class="flex items-center gap-4 mb-8">
 					<UUser
 						v-if="article.author"
@@ -31,7 +31,6 @@
 					</time>
 				</div>
 				
-				<!-- Categories -->
 				<div v-if="article.categories" class="flex flex-wrap gap-2 mb-8">
 					<UBadge 
 						v-for="category in article.categories" 
@@ -45,7 +44,6 @@
 					</UBadge>
 				</div>
 								
-				<!-- Content -->
 				<div>
 					<StrapiBlocks :blocks="blockNodes" />
 				</div>
@@ -53,6 +51,13 @@
 		</div>
 	</div>
 </template>
+
+<style>
+.coverimage{
+	-webkit-mask-image: -webkit-gradient(linear, left 0%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+}
+
+</style>
 
 <script setup lang="ts">
 import type { Article } from '~/types/article'
