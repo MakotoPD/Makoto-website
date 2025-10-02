@@ -112,6 +112,11 @@ export const getCategoryIcon = (slug: string): string => {
 	cover: Image
 	author: Author
 	categories: Category[]
+	localizations?: Array<{
+		id: number
+		slug: string
+		locale: string
+	}>
   }
   
   export interface ArticlesResponse {

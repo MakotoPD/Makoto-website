@@ -18,7 +18,6 @@
 					variant="subtle"
 					spotlight-color="primary"
 					:to="localePath(`/blog/${article.slug}`)"
-					target="_blank"
 				>
 					<img :src="config.public.apiUrl + article.cover.url" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
 					<template #footer>
@@ -79,9 +78,7 @@ const { data: articles, pending, error, refresh } = useAsyncData<ArticlesRespons
   }
 )
 
-console.log(articles)
-// Teraz masz pełne typowanie dla articles.data
-// articles.value?.data będzie typu Article[]
+
 
 const title = computed(() => t('page.blog.seo.title'))
 const description = computed(() => t('page.blog.seo.description'))

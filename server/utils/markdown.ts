@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it'
 import shiki from '@shikijs/markdown-it'
 import { bundledLanguages } from 'shiki'
 import { createHash } from 'node:crypto'
+import taskLists from  'markdown-it-task-lists'
 
 // Singleton MarkdownIt instance with Shiki, initialized once per server process
 let md: MarkdownIt | null = null
@@ -60,6 +61,12 @@ async function ensureMarkdown(): Promise<MarkdownIt> {
         theme: 'tokyo-night',
         langs,
       }))
+
+      // Enable GitHub-style task lists: "- [ ]" and "- [x]"
+      instance.use(taskLists, {
+        label: true,
+        labelAfter: true,
+      })
 
       md = instance
     })()
