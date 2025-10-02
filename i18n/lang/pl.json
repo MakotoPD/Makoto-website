@@ -121,6 +121,13 @@
 			"seo": {
 				"title": "Makoto - O mnie",
 				"description": "Makoto - programista stron internetowych. Doświadczony programista stron internetowych oferuje nowoczesne, responsywne projekty, optymalizację SEO i wsparcie techniczne. Specjalizuje się w JavaScript, VueJS i nie tylko. Stwórz z nami wyjątkowe strony internetowe!"
+			},
+			"heading": "Patryk, programista od zadań {highlighted}",
+			"highlightedWord": "kreatywnych",
+			"work": {
+				"subtitle": "DOŚWIADCZENIE",
+				"heading": "Moje doświadczenie, Twoje {highlighted}",
+				"highlighted": "zrealizowane projekty."
 			}
 		},
 		"portfolio":{

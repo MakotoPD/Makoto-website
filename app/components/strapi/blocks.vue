@@ -17,13 +17,12 @@ interface Block {
   __component: string;
   [key: string]: any;
 }
-defineProps<{
+const props = defineProps<{
   blocks: Block[] | null | undefined;
 }>();
 
 // bieżąca lokalizacja do wymuszenia remount przy zmianie języka
 const { locale } = useI18n();
-
 // Mapa mapująca nazwy komponentów ze Strapi na komponenty Vue
 // Używamy `defineAsyncComponent` dla lepszej wydajności (lazy loading)
 const blockComponents = {

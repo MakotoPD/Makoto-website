@@ -121,6 +121,13 @@
 			"seo": {
 				"title": "Makoto - About",
 				"description": "Makoto - Web developer. Experienced web developer offers modern, responsive designs, SEO optimization and technical support. Specializing in JavaScript, VueJS and more. Create exceptional websites with us!"
+			},
+			"heading": "I'm Patryk, a programmer for {highlighted} tasks",
+			"highlightedWord": "creative",
+			"work": {
+				"subtitle": "The Experience",
+				"heading": "My experience, your {highlighted}",
+				"highlighted": "completed projects."
 			}
 		},
 		"portfolio":{

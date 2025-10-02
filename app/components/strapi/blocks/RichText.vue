@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n'
 
 // Props
 const props = defineProps<{ body: string | null | undefined }>()
-
+console.log(props.body)
 // i18n locale (aby prze-renderować przy zmianie języka)
 const { locale } = useI18n()
 
@@ -70,6 +70,10 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 .prose p{
 	@apply text-lg;
+}
+
+.timeline-right > .prose p {
+	@apply text-sm
 }
 
 .prose table {
