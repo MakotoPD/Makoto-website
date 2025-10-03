@@ -1,15 +1,14 @@
 <template>
-  <div ref="timelineContainer" class="w-full max-w-7xl mx-auto px-4 py-16 relative">
+  <div class="w-full max-w-7xl mx-auto px-4 py-16 relative">
     <!-- Główna linia timeline -->
-    <div ref="timelineLine" class="absolute left-[35.5%] transform -translate-x-1/2 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700 hidden md:block"></div>
+    <div class="absolute left-[35.5%] transform -translate-x-1/2 top-0 bottom-0 w-px bg-gray-700 hidden md:block"></div>
     
     <!-- Animowana linia postępu -->
     <div 
-      ref="progressLine"
       class="timeline-progress absolute left-[35.5%] transform -translate-x-1/2 top-0 w-px hidden md:block"
       :style="{ 
         backgroundColor: accentColor,
-        height: '0%',
+        height: progressHeight + '%',
         boxShadow: `0 0 10px ${accentColor}`
       }"
     ></div>
@@ -24,7 +23,8 @@
         <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_2fr] gap-8 items-start">
           <!-- Lewa kolumna -->
           <div
-            class="timeline-left md:text-left space-y-2 opacity-0"
+            class="timeline-left md:text-left space-y-2 opacity-0 transition-all duration-700"
+            :class="{ 'timeline-visible': true }"
           >
             <h3 class="text-4xl serif">
               {{ item.company }}
@@ -52,15 +52,17 @@
           <!-- Środek - Timeline -->
           <div class="timeline-center flex flex-col items-center relative z-10">
             <div
-              class="timeline-dot w-6 h-6 rounded-full border-4 border-white dark:border-gray-900 bg-gray-300 dark:bg-gray-600 relative z-10"
+              class="timeline-dot w-6 h-6 rounded-full border-4 border-white dark:border-gray-900 bg-gray-300 dark:bg-gray-600 relative z-10 transition-all duration-500"
+              :class="{ 'dot-active': false }"
             ></div>
           </div>
 
           <!-- Prawa kolumna -->
           <div
-            class="timeline-right space-y-3 opacity-0"
+            class="timeline-right space-y-3 opacity-0 transition-all duration-700"
+            :class="{ 'timeline-visible': true }"
           >
-            <h4 class="text-xl font-bold text-white">
+            <h4 class="text-xl font-bold text-gray-900 dark:text-white">
               {{ item.title || item.Title }}
             </h4>
             <StrapiBlocksRichText class="text-gray-300 leading-relaxed !text-sm" :body="item.description" />
@@ -75,13 +77,8 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   data: {
@@ -127,173 +124,109 @@ const props = defineProps({
 
 const timelineData = ref(props.data)
 const accentColor = ref(props.color)
-const timelineContainer = ref(null)
-const progressLine = ref(null)
-const timelineLine = ref(null)
+const progressHeight = ref(0)
 
-let scrollTriggerInstances = []
+const handleScroll = () => {
+  const timelineContainer = document.querySelector('.max-w-7xl')
+  if (!timelineContainer) return
 
-const initAnimations = () => {
-  if (!timelineContainer.value) return
+  const containerRect = timelineContainer.getBoundingClientRect()
+  const containerTop = containerRect.top
+  const containerHeight = containerRect.height
+  const windowHeight = window.innerHeight
 
-  // Animacja linii postępu
-  const progressAnimation = gsap.to(progressLine.value, {
-    height: '100%',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: timelineContainer.value,
-      start: 'top center',
-      end: 'bottom center',
-      scrub: 1,
-    }
-  })
-  scrollTriggerInstances.push(progressAnimation.scrollTrigger)
-
-  // Animacja dla każdego elementu timeline
-  const items = timelineContainer.value.querySelectorAll('.timeline-item')
+  // Oblicz procent przewinięcia timeline
+  const scrollStart = containerTop
+  const scrollEnd = containerTop + containerHeight - windowHeight
+  const scrollProgress = Math.max(0, Math.min(1, -scrollStart / (containerHeight - windowHeight)))
   
-  items.forEach((item, index) => {
+  progressHeight.value = scrollProgress * 100
+
+  // Animacja elementów
+  const items = document.querySelectorAll('.timeline-item')
+  
+  items.forEach((item) => {
+    const rect = item.getBoundingClientRect()
+    const isVisible = rect.top < windowHeight * 0.8 && rect.bottom > 0
+    
     const leftContent = item.querySelector('.timeline-left')
     const rightContent = item.querySelector('.timeline-right')
     const dot = item.querySelector('.timeline-dot')
-
-    // Animacja lewej kolumny
-    const leftAnim = gsap.fromTo(leftContent,
-      {
-        opacity: 0,
-        x: -50
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse'
-        }
+    
+    if (isVisible) {
+      leftContent.classList.add('timeline-visible')
+      rightContent.classList.add('timeline-visible')
+      
+      // Sprawdź czy kropka jest w zakresie animowanej linii
+      const dotRect = dot.getBoundingClientRect()
+      const dotCenter = dotRect.top + dotRect.height / 2
+      const progressLine = document.querySelector('.timeline-progress')
+      const progressRect = progressLine?.getBoundingClientRect()
+      
+      if (progressRect && dotCenter <= progressRect.bottom) {
+        dot.classList.add('dot-active')
+        dot.style.backgroundColor = accentColor.value
+        dot.style.transform = 'scale(1.3)'
+        dot.style.boxShadow = `0 0 20px ${accentColor.value}`
+      } else {
+        dot.classList.remove('dot-active')
+        dot.style.backgroundColor = ''
+        dot.style.transform = 'scale(1)'
+        dot.style.boxShadow = 'none'
       }
-    )
-    scrollTriggerInstances.push(leftAnim.scrollTrigger)
-
-    // Animacja prawej kolumny
-    const rightAnim = gsap.fromTo(rightContent,
-      {
-        opacity: 0,
-        x: 50
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-    scrollTriggerInstances.push(rightAnim.scrollTrigger)
-
-    // Animacja kropki
-    const dotAnim = gsap.fromTo(dot,
-      {
-        backgroundColor: '#d1d5db',
-        scale: 1,
-        boxShadow: 'none'
-      },
-      {
-        backgroundColor: accentColor.value,
-        scale: 1.3,
-        boxShadow: `0 0 20px ${accentColor.value}`,
-        duration: 0.5,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 60%',
-          end: 'top 40%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-    scrollTriggerInstances.push(dotAnim.scrollTrigger)
+    } else {
+      leftContent.classList.remove('timeline-visible')
+      rightContent.classList.remove('timeline-visible')
+      dot.classList.remove('dot-active')
+      dot.style.backgroundColor = ''
+      dot.style.transform = 'scale(1)'
+      dot.style.boxShadow = 'none'
+    }
   })
 }
-
-const cleanupAnimations = () => {
-  scrollTriggerInstances.forEach(st => {
-    if (st) st.kill()
-  })
-  scrollTriggerInstances = []
-  ScrollTrigger.getAll().forEach(st => st.kill())
-
-  // Kill tweens and clear inline styles to avoid residual states between language switches
-  if (timelineContainer.value) {
-    const items = timelineContainer.value.querySelectorAll('.timeline-item')
-    items.forEach((item) => {
-      const leftContent = item.querySelector('.timeline-left')
-      const rightContent = item.querySelector('.timeline-right')
-      const dot = item.querySelector('.timeline-dot')
-
-      ;[leftContent, rightContent, dot].forEach((el) => {
-        if (!el) return
-        gsap.killTweensOf(el)
-        gsap.set(el, { clearProps: 'all' })
-      })
-    })
-  }
-
-  if (progressLine.value) {
-    gsap.killTweensOf(progressLine.value)
-    gsap.set(progressLine.value, { height: '0%' })
-  }
-}
-
-const refreshAnimations = async () => {
-  cleanupAnimations()
-  await nextTick()
-  initAnimations()
-  ScrollTrigger.refresh()
-}
-
-// Watch dla zmiany danych (np. zmiana języka)
-watch(() => props.data, async (newData) => {
-  if (!newData || newData.length === 0) return
-  timelineData.value = newData
-  
-  // Poczekaj na pełne wyrenderowanie DOM
-  await nextTick()
-  await new Promise(resolve => setTimeout(resolve, 100))
-  
-  await refreshAnimations()
-}, { deep: true })
-
-// Watch dla zmiany koloru
-watch(() => props.color, (newColor) => {
-  accentColor.value = newColor
-})
 
 onMounted(() => {
-  initAnimations()
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
 })
 
 onUnmounted(() => {
-  cleanupAnimations()
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
+
 <style scoped>
 .timeline-progress {
-  transition: none;
+  transition: height 0.1s linear;
+}
+
+.timeline-left {
+  transform: translateX(-30px);
+}
+
+.timeline-right {
+  transform: translateX(30px);
+}
+
+.timeline-left.timeline-visible,
+.timeline-right.timeline-visible {
+  opacity: 1 !important;
+  transform: translateX(0);
+}
+
+.timeline-dot {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (max-width: 768px) {
   .timeline-left,
   .timeline-right {
     transform: translateY(20px);
+  }
+  
+  .timeline-left.timeline-visible,
+  .timeline-right.timeline-visible {
+    transform: translateY(0);
   }
 }
 </style>
