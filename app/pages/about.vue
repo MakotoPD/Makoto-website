@@ -55,11 +55,19 @@
             </i18n-t>
           </span>
       </h2>
-      <div>
+      <div v-if="work?.data">
           <AppTimeline 
+            v-if="work"
+            :key="`timeline-${locale}`"
             :data="work.data" 
             color="#10A0B9FF" 
           />
+      </div>
+      <div v-else-if="workPending">
+        Loading…
+      </div>
+      <div v-else-if="workError">
+        Error: {{ workError }}
       </div>
 		</div>
 	</div>
@@ -68,55 +76,9 @@
 </template>
 
 <script setup lang="ts">
-import { data } from 'autoprefixer';
 import { computed } from 'vue'
-const { find, findAll } = useStrapi()
+const { find } = useStrapi()
 const { locale, t } = useI18n();
-const config = useRuntimeConfig()
-
-
-const jobs = [
-  {
-    company: 'Moja Firma',
-    from: '2023',
-    to: 'obecnie',
-    location: 'Warszawa',
-    isRemote: false,
-    title: 'Frontend Developer',
-    description: 'Tworzenie nowoczesnych aplikacji...',
-    tags: ['Vue', 'Nuxt', 'TypeScript']
-  },
-  {
-    company: 'Moja Firma',
-    from: '2023',
-    to: 'obecnie',
-    location: 'Warszawa',
-    isRemote: true,
-    title: 'Frontend Developer',
-    description: 'Tworzenie nowoczesnych aplikacji...',
-    tags: ['Vue', 'Nuxt', 'TypeScript']
-  },
-  {
-    company: 'Moja Firma',
-    from: '2023',
-    to: 'obecnie',
-    location: 'Warszawa',
-    isRemote: false,
-    title: 'Frontend Developer',
-    description: 'Tworzenie nowoczesnych aplikacji...',
-    tags: ['Vue', 'Nuxt', 'TypeScript']
-  },
-  {
-    company: 'Moja Firma',
-    from: '2023',
-    to: 'obecnie',
-    location: 'Warszawa',
-    isRemote: false,
-    title: 'Frontend Developer',
-    description: 'Tworzenie nowoczesnych aplikacji...',
-    tags: ['Vue', 'Nuxt', 'TypeScript']
-  }
-]
 
 type AboutResponse = {
   data?: {
@@ -151,10 +113,10 @@ const { data: about, pending, error, refresh } = useAsyncData(
 
 
 const { data: work, pending: workPending, error: workError, refresh: workRefresh } = useAsyncData(
-  () => `works-${locale.value}`,
+  `works-${locale.value}`,
   () => find('works', { locale: locale.value, sort: 'from:asc'}),
   {
-    watch: [() => locale.value]
+    watch: [locale]
   }
 )
 

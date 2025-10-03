@@ -17,7 +17,7 @@
     <div class="space-y-16">
       <div
         v-for="(item, index) in timelineData"
-        :key="index"
+        :key="item.id || index"
         class="timeline-item relative"
         :data-index="index"
       >
@@ -60,10 +60,10 @@
           <div
             class="timeline-right space-y-3 opacity-0"
           >
-            <h4 class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ item.Title }}
+            <h4 class="text-xl font-bold text-white">
+              {{ item.title || item.Title }}
             </h4>
-            <StrapiBlocksRichText class="text-gray-700 dark:text-gray-300 leading-relaxed !text-sm" :body="item.description" />
+            <StrapiBlocksRichText class="text-gray-300 leading-relaxed !text-sm" :body="item.description" />
 
             <div class="flex flex-wrap gap-2">
               <UBadge variant="soft" v-for="(tag, tagIndex) in item.tags" :key="tagIndex">{{ tag }}</UBadge>
@@ -75,8 +75,9 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -132,7 +133,7 @@ const timelineLine = ref(null)
 
 let scrollTriggerInstances = []
 
-onMounted(() => {
+const initAnimations = () => {
   if (!timelineContainer.value) return
 
   // Animacja linii postępu
@@ -221,17 +222,69 @@ onMounted(() => {
     )
     scrollTriggerInstances.push(dotAnim.scrollTrigger)
   })
-})
+}
 
-onUnmounted(() => {
-  // Cleanup ScrollTrigger instances
+const cleanupAnimations = () => {
   scrollTriggerInstances.forEach(st => {
     if (st) st.kill()
   })
+  scrollTriggerInstances = []
   ScrollTrigger.getAll().forEach(st => st.kill())
+
+  // Kill tweens and clear inline styles to avoid residual states between language switches
+  if (timelineContainer.value) {
+    const items = timelineContainer.value.querySelectorAll('.timeline-item')
+    items.forEach((item) => {
+      const leftContent = item.querySelector('.timeline-left')
+      const rightContent = item.querySelector('.timeline-right')
+      const dot = item.querySelector('.timeline-dot')
+
+      ;[leftContent, rightContent, dot].forEach((el) => {
+        if (!el) return
+        gsap.killTweensOf(el)
+        gsap.set(el, { clearProps: 'all' })
+      })
+    })
+  }
+
+  if (progressLine.value) {
+    gsap.killTweensOf(progressLine.value)
+    gsap.set(progressLine.value, { height: '0%' })
+  }
+}
+
+const refreshAnimations = async () => {
+  cleanupAnimations()
+  await nextTick()
+  initAnimations()
+  ScrollTrigger.refresh()
+}
+
+// Watch dla zmiany danych (np. zmiana języka)
+watch(() => props.data, async (newData) => {
+  if (!newData || newData.length === 0) return
+  timelineData.value = newData
+  
+  // Poczekaj na pełne wyrenderowanie DOM
+  await nextTick()
+  await new Promise(resolve => setTimeout(resolve, 100))
+  
+  await refreshAnimations()
+}, { deep: true })
+
+// Watch dla zmiany koloru
+watch(() => props.color, (newColor) => {
+  accentColor.value = newColor
+})
+
+onMounted(() => {
+  initAnimations()
+})
+
+onUnmounted(() => {
+  cleanupAnimations()
 })
 </script>
-
 <style scoped>
 .timeline-progress {
   transition: none;
