@@ -31,7 +31,7 @@
             </h3>
             <div class="text-gray-600 dark:text-gray-400 space-y-1">
               <p class="font-medium text-sm">
-                {{ item.from }} - {{ item.to }}
+                {{ item.from.split('-')[1] }}/{{ item.from.split('-')[0] }} - {{ item.to }}
               </p>
               <p v-if="item.isRemote" class="text-sm flex items-center md:justify-start gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
