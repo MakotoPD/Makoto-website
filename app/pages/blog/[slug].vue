@@ -3,12 +3,12 @@
 		<div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
 		<div v-else-if="error">Błąd: {{ error }}</div>
 		<div v-else-if="article">
-			<div>
+			<div class="absolute left-0 top-0 h-[35rem] w-full mask-y-from-60% mask-y-to-99% -z-10">
 				<img 
 					v-if="article.cover"
 					:src="config.public.apiUrl + article.cover.url" 
 					:alt="article.title" 
-					class="mask-y-from-40% mask-y-to-99% w-full h-[35rem] object-cover absolute top-0 left-0 -z-10"  
+					class="imagemask w-full h-[35rem] object-cover "  
 				/>
 			</div>
 
@@ -25,10 +25,8 @@
 							icon: 'i-lucide-image'
 						}"
 						size="sm"
+						:description="new Date(article.publishedAt).toLocaleDateString(locale)"
 					/>
-					<time class="text-zinc-400">
-						{{ new Date(article.publishedAt).toLocaleDateString(locale) }}
-					</time>
 				</div>
 				
 				<div v-if="article.categories" class="flex flex-wrap gap-2 mb-8">
@@ -55,6 +53,18 @@
 <style>
 .coverimage{
 	-webkit-mask-image: -webkit-gradient(linear, left 0%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+}
+
+
+.imagemask {
+	-webkit-mask-image: radial-gradient(circle, #0000 50%, #000 0);
+    mask-image: radial-gradient(circle, #0000 50%, #000 0);
+    -webkit-mask-position: 50%;
+    mask-position: 50%;
+    -webkit-mask-size: 4px 4px;
+    mask-size: 4px 4px;
+    position: relative;
+    transition: -webkit-mask-size .3s, mask-size .3s;
 }
 
 </style>

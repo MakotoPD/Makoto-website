@@ -144,12 +144,100 @@ const renderedHtml = computed(() => data.value?.html || '')
 }
 
 .prose a {
-  @apply text-sky-600 hover:underline;
+  @apply underline underline-offset-4 decoration-sky-600 decoration-2 hover:text-neutral-300 duration-300;
 }
 
 .prose hr {
 	@apply border-slate-700;
 }
+
+
+/* Dodaj te style na końcu sekcji <style> w richtext.vue */
+
+/* Alert boxes */
+.prose .alert {
+  @apply my-4 rounded-lg border-l-4 p-4 shadow-sm;
+}
+
+.prose .alert-title {
+  @apply flex items-center gap-2 font-semibold mb-2;
+}
+
+.prose .alert-icon {
+  @apply shrink-0;
+}
+
+.prose .alert-type {
+  @apply text-base;
+}
+
+.prose .alert-content {
+  @apply text-sm leading-relaxed;
+}
+
+/* NOTE - niebieski */
+.prose .alert-note {
+  @apply bg-blue-950/30 border-blue-500;
+}
+
+.prose .alert-note .alert-title {
+  @apply text-blue-400;
+}
+
+/* INFO - cyan */
+.prose .alert-info {
+  @apply bg-cyan-950/30 border-cyan-500;
+}
+
+.prose .alert-info .alert-title {
+  @apply text-cyan-400;
+}
+
+/* SUCCESS - zielony */
+.prose .alert-success {
+  @apply bg-green-950/30 border-green-500;
+}
+
+.prose .alert-success .alert-title {
+  @apply text-green-400;
+}
+
+/* TIP - fioletowy */
+.prose .alert-tip {
+  @apply bg-purple-950/30 border-purple-500;
+}
+
+.prose .alert-tip .alert-title {
+  @apply text-purple-400;
+}
+
+/* IMPORTANT - różowy/magenta */
+.prose .alert-important {
+  @apply bg-pink-950/30 border-pink-500;
+}
+
+.prose .alert-important .alert-title {
+  @apply text-pink-400;
+}
+
+/* WARNING - pomarańczowy */
+.prose .alert-warning {
+  @apply bg-orange-950/30 border-orange-500;
+}
+
+.prose .alert-warning .alert-title {
+  @apply text-orange-400;
+}
+
+/* CAUTION - czerwony */
+.prose .alert-caution {
+  @apply bg-red-950/30 border-red-500;
+}
+
+.prose .alert-caution .alert-title {
+  @apply text-red-400;
+}
+
 
 
 
