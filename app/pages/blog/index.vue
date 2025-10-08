@@ -1,6 +1,6 @@
 <template>
 	<div class="pt-44">
-		<h1 class="text-6xl text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+		<h1 class="text-6xl pb-2 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
 			{{ t('page.blog.hero.title') }}
 		</h1>
 		<h2 class="serif text-4xl text-center text-zinc-400">

@@ -9,6 +9,7 @@ const { locale, t } = useI18n();
 
 const localePath = useLocalePath()
 
+
 gsap.registerPlugin(ScrollTrigger);
 // Indeks aktywnego projektu
 const activeProjectIndex = ref(0);
@@ -25,8 +26,8 @@ const STRAPI_URL = config.public.apiUrl;
 
 
 const { data: projects, pending, error, refresh } = await useAsyncData(
-  'projects', // Unikalny klucz dla danych
-  () => find('projects', queryParams.value), // Funkcja pobierająca dane
+  'featured-projects', // Unikalny klucz dla danych
+  () => find('featured-projects', queryParams.value), // Funkcja pobierająca dane
   {
     watch: [queryParams] // Obserwuj zmiany w parametrach i wykonaj zapytanie ponownie
   }
@@ -222,15 +223,21 @@ const styleMap = {
 
 <template>
 	<div class="mt-24">
+		<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-24 size-full -translate-y-6 md:-translate-y-10">
+			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-white/70">{{ $t('page.home.projects.line1') }}</p>
+			<span class="serif">
+				<span class="">{{ $t('page.home.projects.line2') }}</span> 
+				<span class="pl-2 tracking-tight italic bg-gradient-to-r from-cyan-400 to-blue-700 bg-clip-text text-transparent">{{ $t('page.home.projects.greeting') }}</span>
+			</span>
+		</h2>
 		<div class="flex relative gap-x-4">
 			<div class="grid grid-cols-1 gap-x-6 px-4 lg:px-0 gap-y-6 md:grid-cols-2 lg:flex lg:flex-col lg:gap-y-36 lg:w-7/12">
 				<div 
 					v-for="project in projects.data" 
 					:key="project.id" 
 					class="project-item lg:flex justify-end lg:pr-8 items-center rounded-2xl"
-          :id="project.title"
 				>
-					<NuxtLink :to="localePath(project.link)" target="_blank" class="group relative max-w-2xl bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-700 shadow-2xl lg:shadow-gray-800/40">
+					<NuxtLink :to="localePath(`/work#${project.title}`)" class="group relative max-w-2xl bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-700 shadow-2xl lg:shadow-gray-800/40">
 						<div class="absolute -top-0.5 left-0 w-full h-px glowbig"></div>
 						<div :class="styleMap[project.theme]?.bg" class="overflow-hidden rounded-xl pt-2 lg:pt-8 px-8 relative flex flex-col justify-end" >
 							<div class="absolute -top-0 left-0 w-full h-px glow"></div>
@@ -238,7 +245,7 @@ const styleMap = {
 							<p :class="styleMap[project.theme]?.textColor" class="hidden lg:block serif text-2xl mb-12">
 								{{ project.slogan }}
 							</p>
-							<img class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-300 rounded-t-xl shadow-[0px_-4px_25px_0px]"
+							<img class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
                 :class="styleMap[project.theme]?.imgGlow"
                 :src="'https://api.makoto.com.pl'+project.image.url"
                 :alt="project.title"

@@ -32,7 +32,7 @@
 		</div>
 		<div class="container mx-auto">
 			<section class="section">
-				<AppProjects/>
+				<AppFeaturedProjects/>
 			</section>
 			<section class="section mt-64">
 				<AppTrusted/>

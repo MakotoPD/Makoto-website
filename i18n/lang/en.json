@@ -143,11 +143,21 @@
 		"blog":{
 			"seo": {
 				"title": "Makoto - Blog",
-				"description": "Makoto - Web developer. Experienced web developer offers modern, responsive designs, SEO optimization and technical support. Specializing in JavaScript, VueJS and more. Create exceptional websites with us!"
+				"description": "Practical guides to Vue.js, Nuxt.js, and Tailwind CSS. Learn how to build fast applications, manage state with Pinia, and integrate the headless CMS Strapi."
 			},
 			"hero": {
-				"title": "Blog",
-				"description": "Read it and you might learn something new :D"
+				"title": "Blog - Modern Frontend",
+				"description": "Where theory meets practice"
+			}
+		},
+		"work":{
+			"seo": {
+				"title": "Makoto | Projects built with Nuxt.js and Strapi",
+				"description": "Explore my portfolio of web projects built with Nuxt.js, Vue.js, and Tailwind CSS. Discover how I build modern, fast, and interactive web applications."
+			},
+			"hero": {
+				"title": "My Work",
+				"description": "Every project is a story about solving a specific problem. See how I turn ideas into functional and high-performance project"
 			}
 		},
 		"error": {

@@ -143,11 +143,21 @@
 		"blog":{
 			"seo": {
 				"title": "Makoto - Blog",
-				"description": "Makoto - programista stron internetowych. Doświadczony programista stron internetowych oferuje nowoczesne, responsywne projekty, optymalizację SEO i wsparcie techniczne. Specjalizuje się w JavaScript, VueJS i nie tylko. Stwórz z nami wyjątkowe strony internetowe!"
+				"description": "Praktyczne poradniki Vue.js, Nuxt.js i Tailwind CSS. Zobacz, jak tworzyć szybkie aplikacje, zarządzać stanem z Pinia i integrować headless CMS Strapi"
 			},
 			"hero": {
-				"title": "Blog",
-				"description": "Poczytaj a może się dowiesz czegoś nowego :D"
+				"title": "Blog - Nowoczesny Frontend",
+				"description": "Miejsce, gdzie teoria spotyka praktykę."
+			}
+		},
+		"work":{
+			"seo": {
+				"title": "Makoto | Projekty z wykorzystaniem Nuxt.js i Strapi",
+				"description": "Zobacz moje portfolio projektów webowych opartych o Nuxt.js, Vue.js i Tailwind CSS. Sprawdź, jak tworzę nowoczesne, szybkie i interaktywne aplikacje internetowe."
+			},
+			"hero": {
+				"title": "Moje Projekty",
+				"description": "Każdy projekt to historia o rozwiązaniu konkretnego problemu. Zobacz, jak przekuwam pomysły w działający i wydajny projekt"
 			}
 		},
 		"error": {
