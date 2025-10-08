@@ -129,7 +129,7 @@ function markdownItAlerts(md: MarkdownIt) {
     const alertConfig = alertTypes[alertType as keyof typeof alertTypes]
     
     const token_open = state.push('html_block', '', 0)
-    token_open.content = `<div class="alert ${alertConfig.class}"><div class="alert-title"><span class="alert-icon text-white"> ${alertConfig.icon} </span><span class="alert-type">${alertType}</span></div>`
+    token_open.content = `<div class="alert ${alertConfig.class}"><div class="alert-title"><span class="alert-icon text-white"> ${alertConfig.icon} </span></div>`
 
     if (content) {
       const token_content_open = state.push('alert_content_open', 'div', 1)

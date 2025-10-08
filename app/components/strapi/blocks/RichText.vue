@@ -156,28 +156,24 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* Alert boxes */
 .prose .alert {
-  @apply my-4 rounded-lg border-l-4 p-4 shadow-sm;
+  @apply my-4 rounded-lg px-3 flex gap-2 border;
 }
 
 .prose .alert-title {
-  @apply flex items-center gap-2 font-semibold mb-2;
+  @apply flex items-center gap-2 font-semibold pr-2 py-2 border-r-1 border-gray-300/40;
 }
 
 .prose .alert-icon {
   @apply shrink-0;
 }
 
-.prose .alert-type {
-  @apply text-base;
-}
-
 .prose .alert-content {
-  @apply text-sm leading-relaxed;
+  @apply text-sm leading-relaxed py-2;
 }
 
 /* NOTE - niebieski */
 .prose .alert-note {
-  @apply bg-blue-950/30 border-blue-500;
+  @apply bg-blue-950/30 border-blue-800;
 }
 
 .prose .alert-note .alert-title {
@@ -186,7 +182,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* INFO - cyan */
 .prose .alert-info {
-  @apply bg-cyan-950/30 border-cyan-500;
+  @apply bg-cyan-950/30 border-cyan-800;
 }
 
 .prose .alert-info .alert-title {
@@ -195,7 +191,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* SUCCESS - zielony */
 .prose .alert-success {
-  @apply bg-green-950/30 border-green-500;
+  @apply bg-green-950/30 border-green-800;
 }
 
 .prose .alert-success .alert-title {
@@ -204,7 +200,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* TIP - fioletowy */
 .prose .alert-tip {
-  @apply bg-purple-950/30 border-purple-500;
+  @apply bg-purple-950/30 border-purple-800;
 }
 
 .prose .alert-tip .alert-title {
@@ -213,7 +209,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* IMPORTANT - różowy/magenta */
 .prose .alert-important {
-  @apply bg-pink-950/30 border-pink-500;
+  @apply bg-pink-950/30 border-pink-800;
 }
 
 .prose .alert-important .alert-title {
@@ -222,7 +218,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* WARNING - pomarańczowy */
 .prose .alert-warning {
-  @apply bg-orange-950/30 border-orange-500;
+  @apply bg-orange-950/30 border-orange-800;
 }
 
 .prose .alert-warning .alert-title {
@@ -231,7 +227,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 
 /* CAUTION - czerwony */
 .prose .alert-caution {
-  @apply bg-red-950/30 border-red-500;
+  @apply bg-red-950/30 border-red-800;
 }
 
 .prose .alert-caution .alert-title {
