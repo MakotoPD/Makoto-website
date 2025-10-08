@@ -88,22 +88,22 @@
 							<ul
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-300">
 								<li>
-									<NuxtLink class="link-underline" to="/">
+									<NuxtLink class="link-underline" :to="localePath('/')">
 										{{ $t('menu.home') }}
 									</NuxtLink> 
 								</li>
 								<li>
-									<NuxtLink class="link-underline" to="/about">
+									<NuxtLink class="link-underline" :to="localePath('about')">
 										{{ $t('menu.about') }}
 									</NuxtLink>
 								</li>
 								<li>
-									<NuxtLink class="link-underline" to="/work">
+									<NuxtLink class="link-underline" :to="localePath('work')">
 										{{ $t('menu.work') }}
 									</NuxtLink>
 								</li>
 								<li>
-									<NuxtLink class="link-underline" to="/blog">
+									<NuxtLink class="link-underline" :to="localePath('blog')">
 										{{ $t('menu.blog') }}
 									</NuxtLink>
 								</li>
@@ -113,9 +113,8 @@
 							<h4 class="text-base text-white">{{ $t('footer.menu.more') }}</h4>
 							<ul
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-300">
-								<li>{{ $t('menu.more.attributons') }}</li>
-								<li>{{ $t('menu.more.links') }}</li>
-								<li>{{ $t('menu.more.uses') }}</li>
+								<li> <NuxtLink :to="localePath('rules')">{{ $t('menu.rules') }}</NuxtLink></li>
+								<li><NuxtLink :to="localePath('privacy')">{{ $t('menu.privacy') }}</NuxtLink></li>
 								<li>RSS</li>
 							</ul>
 						</div>
@@ -132,6 +131,8 @@ import { gsap } from 'gsap'
 import { en, pl } from '@nuxt/ui/locale'
 
 const { locale, setLocale } = useI18n()
+
+const localePath = useLocalePath()
 
 // Define the refs for the elements
 const btnGetInTouch = ref<HTMLButtonElement | null>(null)

@@ -1,5 +1,6 @@
 {
-	"menu.policy": "Regulamin",
+	"menu.rules": "Regulamin",
+	"menu.privacy": "Polityka Prywatności",
 	"menu.home": "Start",
 	"menu.about": "O mnie",
 	"menu.work": "Praca",
@@ -11,7 +12,7 @@
 	"menu.more.links.desc": "Wszystkie moje linki",
 	"menu.more.uses": "Sprzęt",
 	"menu.more.uses.desc": "Moja przestrzeń cyfrowa",
-	"menu.more.attributons": "Atrybuty",
+	"menu.more.attributons": "Technologia",
 	"menu.more.attributons.desc": "Technologia do stworzenia tej strony",
 
 	"changelang": "Zmień język",
@@ -152,13 +153,26 @@
 		},
 		"work":{
 			"seo": {
-				"title": "Makoto | Projekty z wykorzystaniem Nuxt.js i Strapi",
+				"title": "Makoto - Projekty z wykorzystaniem Nuxt.js i Strapi",
 				"description": "Zobacz moje portfolio projektów webowych opartych o Nuxt.js, Vue.js i Tailwind CSS. Sprawdź, jak tworzę nowoczesne, szybkie i interaktywne aplikacje internetowe."
 			},
 			"hero": {
 				"title": "Moje Projekty",
 				"description": "Każdy projekt to historia o rozwiązaniu konkretnego problemu. Zobacz, jak przekuwam pomysły w działający i wydajny projekt"
 			}
+		},
+		"rule":{
+			"seo": {
+				"title": "Makoto - Regulamin",
+				"description": "Przeczytaj regulamin korzystania ze strony internetowej Makoto. Dokument określa zasady użytkowania serwisu."
+			}
+		},
+		"privacy": {
+			"seo": {
+				"title": "Makoto - Polityka Prywatności",
+				"description": "Zapoznaj się z polityką prywatności strony Makoto. Dowiedz się, jakie dane osobowe są gromadzone, w jaki sposób są przetwarzane oraz jakie prawa Ci przysługują (m.in. w związku z RODO i plikami cookies)."
+			},
+			"lastupdate": "Ostatnia aktualizacja:"
 		},
 		"error": {
 			"title": "Ups! Coś poszło nie tak",

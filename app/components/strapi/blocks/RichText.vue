@@ -264,4 +264,6 @@ const renderedHtml = computed(() => data.value?.html || '')
   cursor: default;
   opacity: 0.9;
 }
+
+
 </style>

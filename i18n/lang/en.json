@@ -1,5 +1,6 @@
 {
-	"menu.policy": "Terms and conditions",
+	"menu.rules": "Terms of Service",
+	"menu.privacy": "Privacy Policy",
 	"menu.home": "Home",
 	"menu.about": "About",
 	"menu.work": "Work",
@@ -11,7 +12,7 @@
 	"menu.more.links.desc": "All my links are here",
 	"menu.more.uses": "Uses",
 	"menu.more.uses.desc": "My digital space",
-	"menu.more.attributons": "Attributons",
+	"menu.more.attributons": "Technology",
 	"menu.more.attributons.desc": "Tech to create this site",
 
 	"changelang": "Change lang",
@@ -152,13 +153,26 @@
 		},
 		"work":{
 			"seo": {
-				"title": "Makoto | Projects built with Nuxt.js and Strapi",
+				"title": "Makoto - Projects built with Nuxt.js and Strapi",
 				"description": "Explore my portfolio of web projects built with Nuxt.js, Vue.js, and Tailwind CSS. Discover how I build modern, fast, and interactive web applications."
 			},
 			"hero": {
 				"title": "My Work",
 				"description": "Every project is a story about solving a specific problem. See how I turn ideas into functional and high-performance project"
 			}
+		},
+		"rule":{
+			"seo": {
+				"title": "Makoto - Terms of Service",
+				"description": "Read the terms of service for the Makoto website. This document outlines the rules for using the site."
+			}
+		},
+		"privacy": {
+			"seo": {
+				"title": "Makoto - Privacy Policy",
+				"description": "Review the privacy policy for the Makoto website. Learn what personal data is collected, how it is processed, and what your rights are, in accordance with GDPR and policies on cookies."
+			},
+			"lastupdate": "Last update:"
 		},
 		"error": {
 			"title": "Oops! Something went wrong",
