@@ -1,10 +1,15 @@
 <template>
-	<div class="pt-44" v-if="rule?.data">
-		<h1 class="text-6xl pb-1 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
-			{{ rule.data.title }}
-		</h1>
-    <div class="mt-12 container mx-auto">
-      <StrapiBlocksRichText :body="blockNodes" />
+	<div class="pt-44">
+    <div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
+		<div v-else-if="error">Błąd: {{ error }}</div>
+
+    <div v-if="rule?.data">
+      <h1 class="text-6xl pb-1 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+        {{ rule.data.title }}
+      </h1>
+      <div class="mt-12 container mx-auto">
+        <StrapiBlocksRichText :body="blockNodes" />
+      </div>
     </div>
   </div>
 </template>
