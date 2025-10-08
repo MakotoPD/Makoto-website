@@ -47,7 +47,7 @@
               </NuxtLink>
             </div>
             <div class="flex flex-col gap-2">
-              <NuxtLink to="#" class="w-70 bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
+              <NuxtLink :to="localePath('/links')" class="w-70 bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
                 <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
                   <UIcon name="i-solar-link-line-duotone" class="size-6" />
                 </div>

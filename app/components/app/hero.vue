@@ -129,7 +129,7 @@ const copyemail = async (e: Event) => {
         toast.add({
             title: 'Błąd',
             description: 'Nie udało się skopiować adresu e-mail.',
-            color: 'red'
+            color: 'error'
         })
     }
 }
