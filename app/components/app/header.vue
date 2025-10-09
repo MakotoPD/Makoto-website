@@ -96,14 +96,19 @@
 
     </UButton>
 
-      <UButton 
-        variant="soft" 
-        to="#" 
-        class="relative z-20 font-normal text-white/80 rounded-full px-3 bg-gradient-to-t from-sky-500/30 to-sky-400/10"
-      >
-        {{t('menu.call')}}
-      </UButton>
+      <UDrawer should-scale-background set-background-color-on-scale>
+        <UButton 
+          variant="soft" 
+          to="#" 
+          class="relative z-20 font-normal text-white/80 rounded-full px-3 bg-gradient-to-t from-sky-500/30 to-sky-400/10"
+        >
+          {{t('menu.call')}}
+        </UButton>
 
+        <template #content>
+						<UiConnectform />
+					</template>
+      </UDrawer>
     </div>
   </div>
 </template>

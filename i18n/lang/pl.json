@@ -33,6 +33,15 @@
 		}
 	},
 
+	"contactform": {
+		"labelName": "Imię i Nazwisko",
+		"name": "Imię i Nazwisko",
+		"labelEmail": "E-mail",
+		"email": "Twój adres e-mail",
+		"labelMessage": "Wiadomość",
+		"message": "Treść wiadomości"
+	},
+
 	"page": {
 		"home": {
 			"seo": {

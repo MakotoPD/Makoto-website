@@ -101,6 +101,22 @@ export default defineAppConfig({
 					none: 'text-highlighted bg-transparent'
 				},
 			},
+		},
+		drawer: {
+			slots: {
+				overlay: 'fixed inset-0 bg-elevated/75',
+				content: 'fixed bg-zinc-950 max-w-3xl mx-auto ring ring-zinc-700 flex focus:outline-none',
+				handle: [
+					'shrink-0 !bg-accented',
+					'transition-opacity'
+				],
+				container: 'w-full flex flex-col gap-4 p-4 overflow-y-auto',
+				header: '',
+				title: 'text-highlighted font-semibold',
+				description: 'mt-1 text-muted text-sm',
+				body: 'flex-1',
+				footer: 'flex flex-col gap-1.5'
+			},
 		}
 	}
 })

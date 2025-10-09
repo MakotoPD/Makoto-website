@@ -32,14 +32,19 @@
 					</div>
 				</span>
 
-				<div ref="buttonContainer" class="p-6" style="overflow: hidden;">
-					<button ref="btnGetInTouch" class="flex items-center gap-2 px-6 py-3 text-xl font-semibold bg-white text-black rounded-xl hover:bg-neutral-100 transition-colors duration-200">
-						{{ $t('footer.ctaButton') }}
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-							<path d="m9 18 6-6-6-6" />
-						</svg>
-					</button>
-				</div>
+				<UDrawer should-scale-background set-background-color-on-scale>
+					<div ref="buttonContainer" class="p-6" style="overflow: hidden;">
+					
+						<button ref="btnGetInTouch" class="flex items-center gap-2 px-6 py-3 text-xl font-semibold bg-white text-black rounded-xl hover:bg-neutral-100 transition-colors duration-200">
+							{{ $t('footer.ctaButton') }}
+							<UIcon name="i-solar-alt-arrow-right-linear" class="size-6" />
+						</button>
+					</div>
+
+					<template #content>
+						<UiConnectform />
+					</template>
+				</UDrawer>
 
 				<div class="text-xl font-semibold">
 					<p>{{ $t('footer.availability') }}</p>

@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile'],
 
 
 	image: {
@@ -91,6 +91,10 @@ export default defineNuxtConfig({
 		}
 	},
 
+	turnstile: {
+		siteKey: process.env.TURNSTILE,
+	},
+
 
 	i18n: {
 		locales: [
@@ -133,7 +137,10 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 
 		strapiToken: process.env.STRAPI_TOKEN,
-
+		turnstile: {
+			// This can be overridden at runtime via the NUXT_TURNSTILE_SECRET_KEY
+			secretKey: process.env.TURNSTILE,
+		},
         public: {
             apiUrl: process.env.STRAPI_URL
         }

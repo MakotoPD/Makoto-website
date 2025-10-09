@@ -1,16 +1,17 @@
 <template>
-  <div>
+  <UApp>
     <NuxtLoadingIndicator color="aqua" errorColor="red"  />
-    <NuxtLayout>
-      <UApp>
-        <NuxtPage />
-      </UApp>
-    </NuxtLayout>
+    <div class="bg-[var(--color-background-app)]" data-vaul-drawer-wrapper>
+      <NuxtLayout>
+          <NuxtPage />
+      </NuxtLayout>
+    </div>
+
     <div class="custom-cursor">
       <div ref="cursorRef" class="custom-cursor__cursor"></div>
       <div ref="followerRef" class="custom-cursor__follower"></div>
     </div>
-  </div>
+  </UApp>
 </template>
 
 <style>
