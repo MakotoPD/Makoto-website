@@ -6,7 +6,7 @@
 	"menu.work": "Work",
 	"menu.blog": "Blog",
 	"menu.more": "More",
-	"menu.call": "Book a Call",
+	"menu.call": "Let's talk",
 
 	"menu.more.links": "Links",
 	"menu.more.links.desc": "All my links are here",
@@ -160,6 +160,18 @@
 				"title": "My Work",
 				"description": "Every project is a story about solving a specific problem. See how I turn ideas into functional and high-performance project"
 			}
+		},
+		"uses": {
+			"seo": {
+				"title": "Makoto - To co używam",
+				"description": "Dowiedz się z czego kożystam podczas pracy. Zainspiruj się i może wdróż część do swojego świata cyfrowego."
+			},
+			"header": {
+				"subtitle": "my current setup",
+				"heading": "The {highlighted}",
+				"highlightedWord": "Toolkit"
+			},
+			"soft": "Software & Tools"
 		},
 		"rule":{
 			"seo": {

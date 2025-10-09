@@ -151,17 +151,17 @@
 }
 
 @theme {
-  --font-display: 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  --font-display: 'Outfit', 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 @custom-variant hover (&:hover);
 
 :root{
-  font-family: 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Outfit', 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 h1 {
-  font-family: 'Instrument Serif', 'Times New Roman', Times, serif;
+  font-family: 'Playfair Display', 'Instrument Serif', 'Times New Roman', Times, serif;
 }
 
 body {
@@ -191,7 +191,7 @@ body:before {
     filter: contrast(2) brightness(.5);
 }
 .serif {
-  font-family: 'Instrument Serif', 'Times New Roman', Times, serif;
+  font-family: 'Playfair Display', 'Instrument Serif', 'Times New Roman', Times, serif;
 }
 
 .bg-background-card {

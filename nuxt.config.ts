@@ -84,9 +84,10 @@ export default defineNuxtConfig({
 	googleFonts: {
 		download: true,
 		families: {
-			Poppins: '100..900',
 			'Roboto Flex': '100..900',
-			'Instrument Serif': '100..900'
+			'Outfit': '100..900',
+			'Instrument Serif': '100..900',
+			'Playfair Display': '100..900'
 		}
 	},
 

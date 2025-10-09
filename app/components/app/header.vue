@@ -56,7 +56,7 @@
                   <p class="font-normal text-white/50">{{ $t('menu.more.links.desc') }}</p>
                 </div>
               </NuxtLink>
-              <NuxtLink to="#" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
+              <NuxtLink :to="localePath('/uses')" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
                 <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
                   <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
                 </div>
@@ -101,7 +101,7 @@
         to="#" 
         class="relative z-20 font-normal text-white/80 rounded-full px-3 bg-gradient-to-t from-sky-500/30 to-sky-400/10"
       >
-        Book a Call
+        {{t('menu.call')}}
       </UButton>
 
     </div>
