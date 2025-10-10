@@ -21,14 +21,23 @@ export default defineNuxtConfig({
 	},
 
 	sitemap: {
-      xsl: false, // Opcjonalnie: wyłącza stylizację XSL dla mapy witryny
-      i18n: true, // Automatycznie dodaje alternatywne linki językowe
-      urls: async () => {
-        // Tutaj możesz dodać dynamiczne ścieżki, np. z CMS
-        // Na razie zostawiamy puste, jeśli masz tylko statyczne strony
-        return []
-      }
-    },
+		hostname: 'https://makoto.com.pl',
+		gzip: true,
+		defaults: {
+			changefreq: 'weekly',
+			priority: 0.7,
+			lastmod: new Date(),
+		},
+		autoLastmod: true,
+		exclude: ['/panel/**'], // przykład — można usunąć
+		// Pobierz dynamiczne wpisy bloga
+		sources: [
+			'/api/__sitemap__/blog' // lokalny endpoint
+		],
+		// Integracja z i18n
+		i18n: true,
+		autoI18n: true,
+	},
 
     // Upewnij się, że masz ustawiony site.url, jest to wymagane przez sitemap
     site: {
