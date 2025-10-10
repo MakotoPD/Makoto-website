@@ -20,7 +20,7 @@
 					<div class="w-full group">
 						<div class="border border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
 							<div class="flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-800 bg-gradient-to-r from-0% to-65% from-purple-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-solar-mailbox-line-duotone" class="size-8" />
+								<UIcon name="i-simple-icons-discord" class="size-8" />
 								<p>Discord</p>
 							</div>
 							<div class="py-4 px-3 group-hover:bg-zinc-900/50 duration-300">
@@ -32,7 +32,7 @@
 					<NuxtLink to="https://instagram.com/MakotoPD" target="_blank" class="w-full group">
 						<div class="border border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
 							<div class="flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-800 bg-gradient-to-r from-0% to-65% from-rose-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-solar-mailbox-line-duotone" class="size-8" />
+								<UIcon name="i-simple-icons-instagram" class="size-8" />
 								<p>Instagram</p>
 							</div>
 							<div class="py-4 px-3 group-hover:bg-zinc-900/50 duration-300">
