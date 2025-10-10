@@ -182,7 +182,7 @@
 			},
 			"soft": "Software & Tools"
 		},
-		"rule":{
+		"rules":{
 			"seo": {
 				"title": "Makoto - Terms of Service",
 				"description": "Read the terms of service for the Makoto website. This document outlines the rules for using the site."
@@ -194,6 +194,16 @@
 				"description": "Review the privacy policy for the Makoto website. Learn what personal data is collected, how it is processed, and what your rights are, in accordance with GDPR and policies on cookies."
 			},
 			"lastupdate": "Last update:"
+		},
+		"links": {
+			"seo": {
+				"title": "Makoto - Links"
+			}
+		},
+		"admin": {
+			"seo": {
+				"title": "Makoto - Fake Admin panel"
+			}
 		},
 		"error": {
 			"title": "Oops! Something went wrong",

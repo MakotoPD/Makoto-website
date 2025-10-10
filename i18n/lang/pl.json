@@ -182,7 +182,7 @@
 			},
 			"soft": "Oprogramowanie i narzędzia"
 		},
-		"rule":{
+		"rules":{
 			"seo": {
 				"title": "Makoto - Regulamin",
 				"description": "Przeczytaj regulamin korzystania ze strony internetowej Makoto. Dokument określa zasady użytkowania serwisu."
@@ -194,6 +194,16 @@
 				"description": "Zapoznaj się z polityką prywatności strony Makoto. Dowiedz się, jakie dane osobowe są gromadzone, w jaki sposób są przetwarzane oraz jakie prawa Ci przysługują (m.in. w związku z RODO i plikami cookies)."
 			},
 			"lastupdate": "Ostatnia aktualizacja:"
+		},
+		"links": {
+			"seo": {
+				"title": "Makoto - Linki"
+			}
+		},
+		"admin": {
+			"seo": {
+				"title": "Makoto - Fake Admin panel"
+			}
 		},
 		"error": {
 			"title": "Ups! Coś poszło nie tak",

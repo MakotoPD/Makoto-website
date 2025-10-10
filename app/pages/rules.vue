@@ -36,8 +36,8 @@ console.log(rule)
 
 const blockNodes = computed(() => rule.value?.data?.description ?? [])
 
-const title = computed(() => t('page.rule.seo.title'))
-const description = computed(() => t('page.rule.seo.description'))
+const title = computed(() => t('page.rules.seo.title'))
+const description = computed(() => t('page.rules.seo.description'))
 
 // Ustawianie metadanych SEO
 useSeoMeta({
