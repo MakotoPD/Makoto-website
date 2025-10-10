@@ -15,7 +15,6 @@ RUN pnpm --version && pnpm install --prod=false
 COPY . .
 RUN pnpm run build
 
-ENV SITE_URL=https://twoja-domena.pl
 RUN pnpm run gen:llm
 
 # Rebuild sharp dla Alpine
