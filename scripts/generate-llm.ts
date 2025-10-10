@@ -61,7 +61,11 @@ async function generateLLMFile() {
 
   for (const lang of langs) {
     const isDefault = lang === 'en'
-    const pages = allUrls.filter(u => (isDefault ? !u.includes('/pl') : u.includes(`/${lang}`)))
+    const pages = allUrls.filter(u => {
+		const isBlogPost = /\/blog\/[^/]+$/.test(u)  // wpisy blogowe
+		if (isBlogPost) return false                 // wykluczamy je z pages
+		return isDefault ? !u.includes('/pl') : u.includes(`/${lang}`)
+	})
 
     const titlesMap = loadI18nTitles(lang)
 
