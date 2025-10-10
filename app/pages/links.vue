@@ -1,7 +1,7 @@
 <template>
 	<div class="pt-24">
 		<div class="absolute left-0 top-0 h-[30rem] w-full mask-y-from-60% mask-y-to-99% -z-10">
-			<img 
+			<NuxtImg 
 				src="/bg/footer.webp" 
 				alt="background"
 				arial-hidden 
