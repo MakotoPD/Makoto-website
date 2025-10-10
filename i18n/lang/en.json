@@ -12,8 +12,8 @@
 	"menu.more.links.desc": "All my links are here",
 	"menu.more.uses": "Uses",
 	"menu.more.uses.desc": "My digital space",
-	"menu.more.attributons": "Technology",
-	"menu.more.attributons.desc": "Tech to create this site",
+	"menu.more.attributons": "FAQ",
+	"menu.more.attributons.desc": "Practical advice",
 
 	"changelang": "Change lang",
 
@@ -182,6 +182,125 @@
 				"highlightedWord": "Toolkit"
 			},
 			"soft": "Software & Tools"
+		},
+		"faq": {
+			"seo": {
+				"title": "Makoto - FAQ",
+				"description": "In the FAQ section, you will find answers to frequently asked questions about my web projects, the technologies I use, and tools for developers. Here, I share practical advice and tips on working with Nuxt 3, React, web frameworks, and modern application development. The FAQ page was created to facilitate contact, introduce my workshop, and inspire other developers and people interested in modern web development."
+			},
+			"header": {
+				"subtitle": "Advice and information",
+				"heading": "{highlighted}",
+				"highlightedWord": "FAQ"
+			},
+			"faq": [
+				{
+					"name": "About Me and My Work",
+					"icon": "i-solar-user-heart-rounded-line-duotone",
+					"q": [
+					{
+						"label": "How did your programming journey start?",
+						"content": "xxx"
+					},
+					{
+						"label": "Which technologies do you feel most comfortable with?",
+						"content": "xxx"
+					},
+					{
+						"label": "Do you work only remotely or also on-site?",
+						"content": "xxx"
+					},
+					{
+						"label": "What does a typical day as a programmer look like for you?",
+						"content": "xxx"
+					}
+					]
+				},
+				{
+					"name": "Projects and Experience",
+					"icon": "i-solar-folder-with-files-line-duotone",
+					"q": [
+					{
+						"label": "Which projects do you enjoy working on the most?",
+						"content": "xxx"
+					},
+					{
+						"label": "Have you ever worked on open source projects?",
+						"content": "xxx"
+					},
+					{
+						"label": "What type of applications/programs do you usually create?",
+						"content": "xxx"
+					},
+					{
+						"label": "How do you choose technologies for your projects?",
+						"content": "xxx"
+					}
+					]
+				},
+				{
+					"name": "Tools and Workflow",
+					"icon": "i-solar-programming-line-duotone",
+					"q": [
+					{
+						"label": "Which tools and frameworks do you use daily?",
+						"content": "xxx"
+					},
+					{
+						"label": "What does your work environment look like (hardware, software)?",
+						"content": "xxx"
+					},
+					{
+						"label": "Do you use any tricks to increase productivity?",
+						"content": "xxx"
+					},
+					{
+						"label": "How do you organize your tasks/projects?",
+						"content": "xxx"
+					}
+					]
+				},
+				{
+					"name": "Advice for Other Developers",
+					"icon": "i-solar-notebook-minimalistic-line-duotone",
+					"q": [
+					{
+						"label": "Which books/courses/resources do you recommend for beginners?",
+						"content": "xxx"
+					},
+					{
+						"label": "How to best start learning NuxtJS?",
+						"content": "xxx"
+					},
+					{
+						"label": "How to handle debugging tricky errors?",
+						"content": "xxx"
+					},
+					{
+						"label": "How to build a portfolio that will attract employers?",
+						"content": "xxx"
+					}
+					]
+				},
+				{
+					"name": "Collaboration and Contact",
+					"icon": "i-solar-chat-round-line-line-duotone",
+					"q": [
+					{
+						"label": "Do you accept commissions or collaborations?",
+						"content": "xxx"
+					},
+					{
+						"label": "What is the best way to contact you regarding projects?",
+						"content": "xxx"
+					},
+					{
+						"label": "What does the collaboration process with you look like?",
+						"content": "xxx"
+					}
+					]
+				}
+			]
 		},
 		"rules":{
 			"seo": {

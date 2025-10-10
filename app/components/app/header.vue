@@ -65,9 +65,9 @@
                   <p class="font-normal text-white/50">{{ $t('menu.more.uses.desc') }}</p>
                 </div>
               </NuxtLink>
-              <NuxtLink to="#" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
+              <NuxtLink :to="localePath('/faq')" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
                 <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-                  <UIcon name="i-solar-widget-5-bold-duotone" class="size-6" />
+                  <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
                 </div>
                 <div class="px-4 text-left">
                   <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>

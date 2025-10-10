@@ -43,6 +43,18 @@
 <script setup lant="ts">
 	const { t } = useI18n()
 
+const title = computed(() => t('page.uses.seo.title'))
+const description = computed(() => t('page.uses.seo.description'))
+
+// Ustawianie metadanych SEO
+useSeoMeta({
+  title: title,
+  description: description,
+  ogTitle: title,
+  ogDescription: description,
+})
+
+
 	const soft = [
 		{ name: "Visual Studio Code", icon: "i-devicon-vscode"},
 		{ name: "Notion", icon: "i-devicon-notion"},
