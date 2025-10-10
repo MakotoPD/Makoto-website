@@ -49,6 +49,7 @@
 
 			<UForm :schema="schema" :state="state" @submit="onSubmit" class="flex flex-col gap-4" >
 				<input type="hidden" name="access_key" v-model="state.access_key">
+				<input type="hidden" name="subject" v-model="state.subject">
 				<UFormField :label="t('contactform.labelName')" name="name" required>
 					<UInput v-model="state.name" type="text" :placeholder="t('contactform.name')" required class="w-full" />
 				</UFormField>
@@ -76,8 +77,9 @@ const schema = z.object({
   email: z.email('Invalid email'),
   name: z.string('Your name is required'),
   message: z.string('Message is required').min(12, ('Message must be at least 12 characters')),
-  token: z.string('Token is empty').min(12, ('Check you are not a robot.')),
-  access_key: z.string('accesskey is empty')
+  token: z.string('Token is required').min(12, ('Check you are not a robot.')),
+  subject: z.string('Subject is required'),
+  access_key: z.string('accesskey is required. Contact with admin! contact@makoto.com.pl')
 })
 
 type Schema = z.output<typeof schema>
@@ -88,28 +90,41 @@ const state = reactive<Partial<Schema>>({
   email: '',
   message: '',
   token: '',
+  subject: 'Nowa wiadomość z strony internetowej',
   access_key: '5570e19a-cefa-433f-8b62-26c58fa27628'
 })
 
 const toast = useToast()
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
-  console.log(event.data)
+let onSubmit = async (event: FormSubmitEvent<Schema>) => {
+	try {
+		const json = JSON.stringify(state)
+		const { data, error } = await useFetch('https://api.web3forms.com/submit', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: json
+		})
 
-  const json = JSON.stringify(state)
-  useFetch('https://api.web3forms.com/submit', {
-	method: 'POST',
-	headers: {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json'
-	},
-	body: json
-  })
+		if (error.value) {
+		// obsługa błędu
+			toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
+		} else {
+		// obsługa odpowiedzi serwera
+			toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
+				
+			state.email = ''
+			state.message = ''
+			state.name = ''
+		}
 
-  state.email = ''
-  state.message = ''
-  state.name = ''
+  	}catch (err) {
+		toast.add({ title: 'Error', description: 'Error when try to submit form. Contact with admin', color: 'error' })
+		console.error(err)
+  	}
+
 }
 
 
