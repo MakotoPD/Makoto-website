@@ -15,7 +15,10 @@ RUN pnpm --version && pnpm install --prod=false
 COPY . .
 RUN pnpm run build
 
+ENV SITE_URL=https://twoja-domena.pl
+RUN pnpm run gen:llm
 
+# Rebuild sharp dla Alpine
 RUN rm -rf /node_modules/sharp && npm install sharp
 RUN npm rebuild --arch=x64 --platform=linux --libc=musl sharp
 # Etap 2: Uruchomienie aplikacji (Runner)
@@ -30,6 +33,7 @@ RUN apk add --no-cache vips libc6-compat
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/.output ./.output
+COPY --from=builder /app/public ./public
 EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3000/ || exit 1
