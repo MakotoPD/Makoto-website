@@ -227,10 +227,10 @@ const styleMap = {
 				<div 
 					v-for="project in projects.data" 
 					:key="project.id" 
-					class="project-item lg:flex justify-end lg:pr-8 items-center rounded-2xl"
+					class="project-item lg:flex lg:justify-end lg:pr-8 items-center rounded-2xl"
           :id="project.title"
 				>
-					<NuxtLink :to="localePath(project.link)" target="_blank" class="group relative max-w-2xl bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-700 shadow-2xl lg:shadow-gray-800/40">
+					<NuxtLink :to="localePath(project.link)" target="_blank" class="group block relative max-w-2xl bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-700 shadow-2xl lg:shadow-gray-800/40">
 						<div class="absolute -top-0.5 left-0 w-full h-px glowbig"></div>
 						<div :class="styleMap[project.theme]?.bg" class="overflow-hidden rounded-xl pt-2 lg:pt-8 px-8 relative flex flex-col justify-end" >
 							<div class="absolute -top-0 left-0 w-full h-px glow"></div>

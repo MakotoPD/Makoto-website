@@ -45,19 +45,19 @@ const renderedHtml = computed(() => data.value?.html || '')
 	@apply my-1;
 }
 .prose h1{
-	@apply text-6xl;
+	@apply text-4xl md:text-6xl;
 }
 
 .prose h2{
-	@apply text-4xl;
+	@apply text-3xl md:text-4xl;
 }
 
 .prose h3{
-	@apply text-2xl;
+	@apply text-2xl md:text-2xl;
 }
 
 .prose h4{
-	@apply text-xl;
+	@apply text-xl md:text-xl;
 }
 
 .prose h5{

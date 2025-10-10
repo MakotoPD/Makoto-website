@@ -1,20 +1,21 @@
 <template>
-	<div class="pt-44">
+	<div class="">
 		<div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
 		<div v-else-if="error">Błąd: {{ error }}</div>
 		<div v-else-if="article">
-			<div class="absolute left-0 top-0 h-[35rem] w-full mask-y-from-60% mask-y-to-99% -z-10">
-				<img 
+			<div class="h-72 md:h-[35rem] w-full mask-y-from-60% mask-y-to-99%">
+				<NuxtImg 
 					v-if="article.cover"
-					:src="config.public.apiUrl + article.cover.url" 
+					provider="strapi"
+					:src="article.cover.url" 
 					:alt="article.title" 
-					class="imagemask w-full h-[35rem] object-cover "  
+					class="imagemask w-full h-72 md:h-[35rem] object-cover"  
 				/>
 			</div>
 
-			<article class="mt-[20rem] w-full max-w-4xl mx-auto px-12">
+			<article class="relative -mt-16 w-full max-w-4xl mx-auto px-12 !z-50">
 
-				<h1 class="text-5xl font-bold mb-4">{{ article.title }}</h1>
+				<h1 class="text-4xl md:text-5xl font-bold mb-4">{{ article.title }}</h1>
 				
 				<div class="flex items-center gap-4 mb-8">
 					<UUser

@@ -17,7 +17,7 @@
 				</template>
 			</i18n-t>
 		</h2>
-		<div class="mt-12 w-full max-w-5xl mx-auto flex flex-col items-center">
+		<div class="px-4 xl:px-0 mt-12 w-full max-w-5xl mx-auto flex flex-col items-center">
 			<NuxtImg src="/imgs/uses/macbook-air.jpg" lazy class="w-5xl rounded-3xl outline-offset-3 outline-2 outline-sky-500 shadow-2xl"  />
 			<p class="mt-4 serif text-2xl"> MacBook Air M1 <span class="bg-gradient-to-r from-gray-400 to-gray-500 bg-clip-text text-transparent">Space Grey</span></p>
 			

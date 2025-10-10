@@ -1,17 +1,17 @@
 <template>
-	<div class="pt-24">
-		<div class="absolute left-0 top-0 h-[30rem] w-full mask-y-from-60% mask-y-to-99% -z-10">
+	<div class="">
+		<div class="h-72 md:h-[30rem] w-full mask-y-from-60% mask-y-to-99%">
 			<NuxtImg 
 				src="/bg/footer.webp" 
 				alt="background"
 				arial-hidden 
-				class="imagemask w-full h-[30rem] object-cover "  
+				class="imagemask w-full h-72 md:h-[30rem] object-cover"  
 			/>
 		</div>
 
-		<div v-if="pending" class="mt-[20rem] w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
+		<div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
 		<div v-else-if="error" class="mt-[20rem]">Błąd: {{ error }}</div>
-		<div v-if="makoto?.data" class="mt-[16rem] w-full max-w-4xl mx-auto px-12 flex flex-col items-center gap-3">
+		<div v-if="makoto?.data" class="relative -mt-16 w-full max-w-4xl mx-auto px-12 flex flex-col items-center gap-3">
 
 				<NuxtImg class="h-36 w-36 object-cover rounded-2xl outline-offset-3 outline-2 outline-sky-500" :src="'https://api.makoto.com.pl'+makoto.data.picture.url" alt="Makoto profile picture" />
 				<h2 class="text-3xl serif text-center">{{ makoto.data.name }}</h2>

@@ -5,7 +5,7 @@
 		</h1>
 		
     <div class="relative mx-auto flex max-w-6xl flex-col items-center justify-center gap-8 pb-12 lg:size-full lg:flex-row lg:justify-between">
-        <div class="max-w-[60%]">
+        <div class="max-w-[95%] md:max-w-[60%]">
             <h2 style="text-shadow:0px 4px 8px rgba(255,255,255,.05),0px 8px 30px rgba(255,255,255,.25)"
                 class="relative z-2 font-medium tracking-tight md:mb-36 md:text-6xl text-center lg:text-left !mb-8 text-3xl sm:text-4xl text-balance md:mt-28">
                 

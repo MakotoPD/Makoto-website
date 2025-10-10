@@ -3,7 +3,7 @@
 		 <UTabs :items="items" variant="pill" :ui="{ trigger: 'grow' }" class="gap-4 w-full">
 			<template #quick="{ item }">
 
-				<div class="flex justify-between gap-4 mt-3 mb-8">
+				<div class="flex flex-col md:flex-row justify-between gap-4 mt-3 mb-8">
 					<NuxtLink to="mailto:contact@makoto.com.pl?subject=Let's catch up for a opportunity!" target="_blank" class="w-full group">
 						<div class="border border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
 							<div class="flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-800 bg-gradient-to-r from-0% to-65% from-sky-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">

@@ -50,7 +50,7 @@
           </div>
 
           <!-- Środek - Timeline -->
-          <div class="timeline-center flex flex-col items-center relative z-10">
+          <div class="hidden timeline-center md:flex flex-col items-center relative z-10">
             <div
               class="timeline-dot w-6 h-6 rounded-full border-4 border-white dark:border-gray-900 bg-gray-300 dark:bg-gray-600 relative z-10 transition-all duration-500"
               :class="{ 'dot-active': false }"
