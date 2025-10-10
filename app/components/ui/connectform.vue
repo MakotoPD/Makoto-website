@@ -76,7 +76,7 @@ const schema = z.object({
   email: z.email('Invalid email'),
   name: z.string('Your name is required'),
   message: z.string('Message is required').min(12, ('Message must be at least 12 characters')),
-  token: z.string('Token is empty'),
+  token: z.string('Token is empty').min(12, ('Check you are not a robot.')),
   access_key: z.string('accesskey is empty')
 })
 
