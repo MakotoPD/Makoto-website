@@ -1,0 +1,10 @@
+# 🌐 Website sitemap for makoto.com.pl
+# Last generated: 2025-10-10 10:01
+
+## ─────────────── EN pages (en)
+
+## ─────────────── PL pages (pl)
+
+## ─────────────── Blog posts
+https://dev.makoto.com.pl/blog/my-first-blog-post | lang: en | type: post | title: My first test blog post
+https://dev.makoto.com.pl/pl/blog/my-first-blog-post | lang: pl | type: post | title: My first test blog post

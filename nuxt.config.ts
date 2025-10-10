@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
+import fs from 'fs'
+import path from 'path'
 
 export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
@@ -21,7 +23,7 @@ export default defineNuxtConfig({
 	},
 
 	sitemap: {
-		hostname: 'https://makoto.com.pl',
+		hostname: 'https://dev.makoto.com.pl',
 		gzip: true,
 		defaults: {
 			changefreq: 'weekly',
@@ -41,7 +43,7 @@ export default defineNuxtConfig({
 
     // Upewnij się, że masz ustawiony site.url, jest to wymagane przez sitemap
     site: {
-      url: 'https://makoto.com.pl',
+      url: 'https://dev.makoto.com.pl',
     },
 
 	tres: {
@@ -124,7 +126,7 @@ export default defineNuxtConfig({
 		],
 		langDir: 'lang/',
 		defaultLocale: 'en',
-		baseUrl: 'https://makoto.com.pl',
+		baseUrl: 'https://dev.makoto.com.pl',
 		strategy: 'prefix_except_default', // przekierowańe URL
 		detectBrowserLanguage: {
 			useCookie: true,
@@ -199,21 +201,21 @@ export default defineNuxtConfig({
 				{
 					rel: 'alternate',
 					hreflang: 'pl-PL',
-					href: 'https://makoto.com.pl/pl'
+					href: 'https://dev.makoto.com.pl/pl'
 				},
 				{
 					rel: 'alternate',
 					hreflang: 'en',
-					href: 'https://makoto.com.pl'
+					href: 'https://dev.makoto.com.pl'
 				},
 				{
 					rel: 'alternate',
 					hreflang: 'x-default',
-					href: 'https://makoto.com.pl'
+					href: 'https://dev.makoto.com.pl'
 				},
 				{
 					rel: 'canonical',
-					href: 'https://makoto.com.pl'
+					href: 'https://dev.makoto.com.pl'
 				}
 			],
 			script: [{
