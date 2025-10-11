@@ -200,19 +200,15 @@
 					"q": [
 					{
 						"label": "Jak zaczęła się Twoja przygoda z programowaniem?",
-						"content": "xxx"
+						"content": "Już w młodym wieku zacząłem interesować się programowaniem. Fascynowało mnie, w jaki sposób działają komputery, programy oraz strony internetowe. Początkowo oglądałem różne filmy o tej tematyce, a następnie zdecydowałem się na jedną, konkretną gałąź – tworzenie stron internetowych. To właśnie wtedy zacząłem przeglądać pierwsze poradniki i kursy w tej dziedzinie."
 					},
 					{
 						"label": "W jakich technologiach czujesz się najlepiej?",
-						"content": "xxx"
+						"content": "Najlepiej czuję się w środowisku Vue.js i Nuxt.js. To framework, który jest bardzo przystępny i ma niski próg wejścia, a zarazem posiada ogromny potencjał do rozwijania większych aplikacji. Oczywiście, ma on też swoje minusy, ale uważam, że jego zalety znacząco je przewyższają."
 					},
 					{
 						"label": "Czy pracujesz tylko zdalnie, czy też stacjonarnie?",
-						"content": "xxx"
-					},
-					{
-						"label": "Jak wygląda Twój typowy dzień pracy jako programista?",
-						"content": "xxx"
+						"content": "Pracuję głównie zdalnie, ale gdy tylko jest to możliwe, chętnie spotykam się z klientami. Uważam, że takie spotkania pomagają budować lepsze relacje. Dzięki nim mogę precyzyjniej dopasować projekt do wizji klienta. Z kolei zadowolony klient chętniej nawiązuje współpracę długoterminową, co jest korzystne dla obu stron."
 					}
 					]
 				},
@@ -222,19 +218,19 @@
 					"q": [
 					{
 						"label": "Jakie projekty najbardziej lubisz robić?",
-						"content": "xxx"
+						"content": "Najbardziej lubię pracować nad prostszymi projektami, takimi jak strony informacyjne dla firm. Można zapytać: dlaczego? Odpowiedź jest prosta. W tego typu witrynach niewielkim nakładem pracy można dodać wiele efektów wizualnych. Sprawia to, że strona, mimo swojej prostoty, jest bardzo efektowna i pozwala klientowi wywrzeć na odwiedzających świetne pierwsze wrażenie."
 					},
 					{
 						"label": "Czy pracowałeś kiedyś nad projektami open source?",
-						"content": "xxx"
+						"content": "Staram się, aby większość moich projektów była publikowana jako open source. Jestem zwolennikiem takiego podejścia, ponieważ wtedy każdy może zajrzeć do kodu i wyciągnąć z niego wnioski. Ktoś może zauważyć błąd, którego autor nie dostrzegł i go zgłosić, albo po prostu zainspirować się i przenieść jakieś rozwiązanie do swojego projektu."
 					},
 					{
 						"label": "Jakiego typu aplikacje/programy tworzysz najczęściej?",
-						"content": "xxx"
+						"content": "Najczęściej tworzę strony typu landing page oraz sklepy internetowe. Zdarza mi się również budować aplikacje w modelu SaaS lub dedykowane panele administracyjne. Taki panel, działający jak autorski system CMS dla klienta, jest w pełni zabezpieczony i pozwala na łatwą edycję zawartości strony."
 					},
 					{
 						"label": "Jak wybierasz technologie do projektów?",
-						"content": "xxx"
+						"content": "Zazwyczaj korzystam ze swojego sprawdzonego stosu technologicznego, jednak przy większych projektach podchodzę do tego inaczej. Najpierw dokładnie analizuję i rozpisuję wymagania, a następnie dobieram technologie, które najlepiej pasują do zadania. Przykładowo, jeśli projekt zakłada bloga, rozważam użycie gotowego systemu CMS. Z kolei przy aplikacji do rezerwacji wizyt, oceniam, czy efektywniej będzie stworzyć rozwiązanie od podstaw, czy zaadaptować istniejące już narzędzie."
 					}
 					]
 				},
@@ -244,19 +240,19 @@
 					"q": [
 					{
 						"label": "Jakie narzędzia i frameworki używasz na co dzień?",
-						"content": "xxx"
+						"content": "Mój codzienny stos technologiczny opiera się na TypeScript, Vue.js z Nuxt.js oraz Tailwind CSS wraz z powiązanymi rozszerzeniami, takimi jak Nuxt/UI czy Nuxt/Image. Jeśli chodzi o systemy zarządzania treścią (CMS), najczęściej wybieram Strapi."
 					},
 					{
 						"label": "Jak wygląda Twoje środowisko pracy (sprzęt, software)?",
-						"content": "xxx"
+						"content": "Tak jak opisywałem na stronie 'Sprzęt', na co dzień pracuję na MacBooku Air M1, który na ten moment w pełni zaspokaja moje potrzeby. Z kluczowych programów używam Visual Studio Code, terminala Warp oraz GitHub Desktop, uzupełniając je innymi podstawowymi narzędziami niezbędnymi w pracy programisty."
 					},
 					{
 						"label": "Czy używasz jakiś trików do zwiększenia produktywności?",
-						"content": "xxx"
+						"content": "Mam kilka własnych sposobów na zwiększenie produktywności, ale jestem zdania, że każdy powinien wypracować je indywidualnie. Najprostszym trikiem, od którego warto zacząć, jest tworzenie gotowych szablonów (template'ów) do ponownego użytku. Pozostałych metod celowo nie zdradzam, ponieważ odkrywanie własnych, idealnie dopasowanych rozwiązań jest kluczową częścią rozwoju."
 					},
 					{
 						"label": "Jak organizujesz swoje zadania / projekty?",
-						"content": "xxx"
+						"content": "Kluczowe jest, aby na początku dokładnie przeanalizować projekt: zdefiniować jego cele, wygląd oraz grupę docelową. Następnym krokiem jest stworzenie fundamentu, czyli zebranie niezbędnych modułów i komponentów. Po takim przygotowaniu można efektywnie rozpocząć właściwe prace deweloperskie."
 					}
 					]
 				},
@@ -266,19 +262,19 @@
 					"q": [
 					{
 						"label": "Jakie książki / kursy / źródła polecasz dla początkujących?",
-						"content": "xxx"
+						"content": "Początkującym programistom polecam sięgnąć po kilka sprawdzonych pozycji, takich jak „Czysty kod” Roberta C. Martina czy cała seria „Rusz głową!”. Jeśli chodzi o darmowe kursy online, świetnym i powszechnie chwalonym miejscem na start są platformy takie jak FreeCodeCamp oraz Khan Academy."
 					},
 					{
 						"label": "Jak najlepiej zacząć naukę NuxtJS?",
-						"content": "xxx"
+						"content": "Przede wszystkim, zanim zanurkujesz w Nuxt.js, upewnij się, że masz solidne podstawy Vue.js. Nuxt to framework do Vue, więc bez znajomości jego fundamentów będzie Ci o wiele trudniej. Kiedy już czujesz się pewnie w Vue, najlepszym startem jest oficjalna dokumentacja Nuxt.js – jest naprawdę dobrze napisana i prowadzi za rękę. Po prostu postaw swój pierwszy projekt komendą npx nuxi init nazwa-projektu, a potem zacznij eksperymentować z tworzeniem stron w folderze pages i budowaniem komponentów. To właśnie magia Nuxta – wiele rzeczy dzieje się automatycznie, co pozwala szybko zobaczyć efekty i nabrać motywacji do dalszej nauki."
 					},
 					{
 						"label": "Jak radzić sobie z debugowaniem trudnych błędów?",
-						"content": "xxx"
+						"content": "Najprostszym odruchem może wydawać się skopiowanie treści błędu i wklejenie jej do AI. Pamiętaj jednak, że w ten sposób nie zrozumiesz, co tak naprawdę poszło nie tak. Możesz oczywiście korzystać z takich narzędzi, ale zawsze staraj się wyciągnąć z tego lekcję: przeanalizuj, co zostało zmienione i dlaczego. Czytaj komunikaty o błędach, ponieważ nowoczesne frameworki zazwyczaj opisują je w bardzo czytelny sposób."
 					},
 					{
 						"label": "Jak budować portfolio, które przyciągnie pracodawców?",
-						"content": "xxx"
+						"content": "Zamiast wymyślać coś od zera, znajdź aplikację, której używasz na co dzień i spróbuj ją odwzorować na swój własny sposób. Taki projekt nie tylko świetnie wygląda w portfolio, bo pokazuje realne umiejętności, ale też uczy, jak budować kompleksowe i użyteczne narzędzia."
 					}
 					]
 				},
@@ -288,15 +284,15 @@
 					"q": [
 					{
 						"label": "Czy przyjmujesz zlecenia lub współpracę?",
-						"content": "xxx"
+						"content": "Tak, jestem otwarty na różnorodne zlecenia. Specjalizuję się w tworzeniu stron internetowych i sklepów e-commerce, ale chętnie podejmuję się również budowy aplikacji mobilnych oraz prostych aplikacji desktopowych."
 					},
 					{
 						"label": "Jak najlepiej się z Tobą skontaktować w sprawie projektów?",
-						"content": "xxx"
+						"content": "W sprawach dotyczących projektu najwygodniej skontaktować się ze mną mailowo pod adresem contact{'@'}makoto.com.pl. Pozwoli mi to dokładnie przeanalizować Twoje zapytanie i przygotować wstępną wycenę. Chociaż jestem dostępny również na Instagramie i Discordzie, rozmowę i tak finalnie przeniesiemy na maila, aby zachować porządek. Na dalszym etapie współpracy z pewnością zorganizujemy spotkanie na Teams lub Discord, aby omówić wszystkie szczegóły."
 					},
 					{
 						"label": "Jak wygląda proces współpracy z Tobą?",
-						"content": "xxx"
+						"content": "Proces współpracy zawsze zaczynam od serii pytań, aby dogłębnie zrozumieć Twoje potrzeby i cele projektu. Następnie przechodzimy do etapu projektowania – mogę pracować na Twoim gotowym designie lub stworzyć go od zera, oczywiście w stałej konsultacji z Tobą. Co najważniejsze, moja rola nie kończy się po wdrożeniu strony. Zapewniam dwuletnie wsparcie techniczne, dbając o to, by Twój projekt był zawsze aktualny i zgodny ze standardami, w tym SEO."
 					}
 					]
 				}
