@@ -7,6 +7,9 @@
 			{{ t('page.blog.hero.description') }}
 		</h2>
 		<div class="w-full max-w-5xl mx-auto px-12 mt-24">
+			<div v-if="pending" class="text-center">
+				Loading...
+			</div>
 			<UPageGrid v-if="articles?.data">
 				<UPageCard
 					v-for="article in articles.data"
