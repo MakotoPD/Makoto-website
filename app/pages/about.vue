@@ -80,14 +80,6 @@ import { computed } from 'vue'
 const { find } = useStrapi()
 const { locale, t } = useI18n();
 
-type AboutResponse = {
-  data?: {
-    title?: string
-    blocks?: unknown[]
-  }
-}
-
-
 
 const queryParams = computed(() => {
   return {
@@ -119,8 +111,6 @@ const { data: work, pending: workPending, error: workError, refresh: workRefresh
     watch: [locale]
   }
 )
-
-console.log(work)
 
 const blockNodes = computed(() => about.value?.data?.blocks ?? [])
 
