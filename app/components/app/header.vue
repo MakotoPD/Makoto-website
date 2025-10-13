@@ -246,7 +246,7 @@
             <button @click="openMoreMobile" class="flex items-center justify-between gap-3 border-b border-zinc-700 py-2">
               <div class="flex items-center gap-3">
                 <UIcon name="i-solar-layers-minimalistic-line-duotone" class="size-6" />
-                More
+                {{t('menu.more')}}
               </div>
               <UIcon :name="toggleMoreMobileButtonIcon ? 'i-solar-alt-arrow-up-line-duotone' : 'i-solar-alt-arrow-down-line-duotone'" class="size-6" />
             </button>
