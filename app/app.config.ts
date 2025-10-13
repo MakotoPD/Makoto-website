@@ -75,7 +75,7 @@ export default defineAppConfig({
 			variants: {
 				overlay: {
 				true: {
-					root: 'before:absolute before:pointer-events-none before:content-[""] before:z-2 before:from-[#f8f9fd] before:dark:from-[#0f1013] before:to-transparent after:absolute after:pointer-events-none after:content-[""] after:z-2 after:from-[#f8f9fd] after:dark:from-[#0f1013] after:to-transparent'
+					root: 'before:absolute before:pointer-events-none before:content-[""] before:z-2 before:from-[#f8f9fd] dark:before:from-[#0f1013] before:to-transparent after:absolute after:pointer-events-none after:content-[""] after:z-2 after:from-[#f8f9fd] dark:after:from-[#0f1013] after:to-transparent'
 				}
 				}
 			},
