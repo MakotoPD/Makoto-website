@@ -111,11 +111,27 @@
       </UDrawer>
     </div>
     <div class="fixed sm:hidden block top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
-      <div class="flex justify-between items-center py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
-        <NuxtImg src="/logo.png" arial-hidden class=" h-6" />
+      <div class="py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
+        <div class="flex justify-between items-center ">
+          <NuxtImg src="/logo.png" arial-hidden class=" h-6" />
 
-        <UButton icon="i-solar-menu-dots-line-duotone" size="md" color="primary" variant="soft"></UButton>
+          <UButton @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
+        </div>
+        <div ref="mobilemenu" class="w-full overflow-hidden h-0 transition-all duration-300">
+          <div class="py-6">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum a
+            odio sed ipsum interdum convallis non quis diam. Aenean consectetur
+            dolor aliquam, scelerisque neque interdum, vehicula mi. Aenean
+            vestibulum sagittis tincidunt. In hendrerit tristique scelerisque. Ut
+            at justo justo. In ultrices felis eu lorem dapibus, sed finibus nibh
+            convallis. Donec vulputate elit at nulla aliquam viverra. Sed eu
+            ligula eleifend nunc euismod faucibus. Vivamus id sollicitudin urna,
+            accumsan blandit arcu. Fusce id felis quis felis iaculis laoreet. Duis
+            facilisis eget enim vel pulvinar. Nunc hendrerit finibus maximus.
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -135,6 +151,18 @@ const availableLocales = computed(() => {
 const localePath = useLocalePath()
 
 const route = useRoute()
+
+const mobilemenu = ref()
+let isClicked = ref(false)
+
+let togglemobilemenu = (e) => {
+  console.log(e)
+  console.log(mobilemenu)
+  mobilemenu.value.classList.toggle('h-92')
+  console.log(isClicked.value)
+  isClicked.value = !isClicked.value
+  console.log(isClicked.value)
+}
 
 const links = computed(() => [
   { label: t('menu.home'), to: '/' },
