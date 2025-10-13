@@ -13,7 +13,7 @@
 			</h1>
 
 			<div class="serif relative">
-				<h2 class="flex gap-2 justify-center items-center text-md md:text-2xl">
+				<h2 class="flex flex-col sm:flex-row gap-2 justify-center items-center text-md md:text-2xl">
 					<span class="font-semibold text-center bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
 						{{ $t('page.home.hero.greeting') }}
 					</span>

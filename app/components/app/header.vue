@@ -113,21 +113,59 @@
     <div class="fixed sm:hidden block top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
       <div class="py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
         <div class="flex justify-between items-center ">
-          <NuxtImg src="/logo.png" arial-hidden class=" h-6" />
+          <NuxtImg src="/logo.png" arial-hidden class=" h-7" />
 
-          <UButton @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
+          <div class="flex">
+            <UButton @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
+          </div>
         </div>
-        <div ref="mobilemenu" class="w-full overflow-hidden h-0 transition-all duration-300">
-          <div class="py-6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum a
-            odio sed ipsum interdum convallis non quis diam. Aenean consectetur
-            dolor aliquam, scelerisque neque interdum, vehicula mi. Aenean
-            vestibulum sagittis tincidunt. In hendrerit tristique scelerisque. Ut
-            at justo justo. In ultrices felis eu lorem dapibus, sed finibus nibh
-            convallis. Donec vulputate elit at nulla aliquam viverra. Sed eu
-            ligula eleifend nunc euismod faucibus. Vivamus id sollicitudin urna,
-            accumsan blandit arcu. Fusce id felis quis felis iaculis laoreet. Duis
-            facilisis eget enim vel pulvinar. Nunc hendrerit finibus maximus.
+        <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300">
+          <div class="py-4 flex flex-col">
+            <NuxtLink :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-home-smile-line-duotone" class="size-6" />
+              {{t('menu.home')}}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-user-rounded-line-duotone" class="size-6" />
+              {{t('menu.about')}}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-buildings-line-duotone" class="size-6" />
+              {{t('menu.work')}}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-document-text-line-duotone" class="size-6" />
+              {{t('menu.blog')}}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-folder-path-connect-line-duotone" class="size-6" />
+              Portfolio
+            </NuxtLink>
+            <NuxtLink :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
+              {{ t('menu.more.uses') }}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
+              {{ t('menu.more.attributons') }}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/links')" class="flex items-center gap-3 py-2">
+              <UIcon name="i-solar-link-line-duotone" class="size-6" />
+              {{ t('menu.more.links') }}
+            </NuxtLink>
+          </div>
+          <div>
+            <div class="flex gap-3 justify-end pr-2 w-full">
+              <p class="test-xm text-neutral-400">{{ $t('changelang') }}:</p>
+              <ClientOnly>
+                <div class="flex justify-center gap-x-2">
+                  <button class=" bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
+                    <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
+                    {{ locale.name }}
+                  </button>
+                </div>
+              </ClientOnly>
+            </div>
           </div>
         </div>
       </div>
@@ -158,7 +196,7 @@ let isClicked = ref(false)
 let togglemobilemenu = (e) => {
   console.log(e)
   console.log(mobilemenu)
-  mobilemenu.value.classList.toggle('h-92')
+  mobilemenu.value.classList.toggle('max-h-[26rem]')
   console.log(isClicked.value)
   isClicked.value = !isClicked.value
   console.log(isClicked.value)
