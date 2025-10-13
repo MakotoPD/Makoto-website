@@ -110,7 +110,7 @@
 					</template>
       </UDrawer>
     </div>
-    <div class="fixed sm:hidden block top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
+    <div class="fixed sm:hidden top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
       <div class="py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
         <div class="flex justify-between items-center ">
           <NuxtLink :to="localePath('/')" title="Home page">
