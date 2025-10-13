@@ -270,10 +270,10 @@
             </div>
 
             <UDrawer should-scale-background set-background-color-on-scale>
-              <UButton class="flex items-center gap-3 py-2">
+              <button class="flex items-center gap-3 py-2">
                 <UIcon name="i-solar-chat-round-call-line-duotone" class="size-6" />
                 {{ t('menu.call') }}
-              </UButton>
+              </button>
 
               <template #content>
                   <UiConnectform />
