@@ -7,7 +7,7 @@
 			{{ t('page.blog.hero.description') }}
 		</h2>
 		<div class="w-full max-w-5xl mx-auto px-12 mt-24">
-			<UPageGrid>
+			<UPageGrid v-if="articles?.data">
 				<UPageCard
 					v-for="article in articles.data"
 					:key="article.id"
