@@ -5,7 +5,7 @@
         <div class="pointer-events-none absolute inset-0 z-10 opacity-100" style="backdrop-filter:blur(3px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%)"></div>
         <div class="pointer-events-none absolute inset-0 z-20 opacity-100" style="backdrop-filter:blur(5px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 1) 100%)"></div></div>
     </div>
-    <div class="z-10 w-fit rounded-full bg-primary/10 border border-primary/15 backdrop-blur-2xl px-1 py-1 flex gap-1 items-center">
+    <div class="hidden sm:flex z-10 w-fit rounded-full bg-primary/10 border border-primary/15 backdrop-blur-2xl px-1 py-1 gap-1 items-center">
       
       <UButton 
         v-for="link in links"
@@ -109,6 +109,13 @@
 						<UiConnectform />
 					</template>
       </UDrawer>
+    </div>
+    <div class="fixed sm:hidden block top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
+      <div class="flex justify-between items-center py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
+        <NuxtImg src="/logo.png" arial-hidden class=" h-6" />
+
+        <UButton icon="i-solar-menu-dots-line-duotone" size="md" color="primary" variant="soft"></UButton>
+      </div>
     </div>
   </div>
 </template>

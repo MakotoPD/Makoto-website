@@ -14,7 +14,7 @@
 				<AppSkills/>
 			</section>
 		</div>
-		<div class="my-36">
+		<div class="my-36 overflow-x-hidden">
 			<div class="h-44 pt-8  ">
 				<div class="z-0 flex w-[102dvw] translate-y-10 rotate-6 bg-linear-to-r from-sky-800 via-sky-600 to-sky-800 py-4 opacity-60 md:rotate-3 lg:translate-y-16 lg:py-8">
 				</div>
