@@ -116,7 +116,7 @@
           <NuxtImg src="/logo.png" arial-hidden class=" h-7" />
 
           <div class="flex">
-            <UButton @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
+            <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
           </div>
         </div>
         <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300">
@@ -137,22 +137,43 @@
               <UIcon name="i-solar-document-text-line-duotone" class="size-6" />
               {{t('menu.blog')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
-              <UIcon name="i-solar-folder-path-connect-line-duotone" class="size-6" />
-              Portfolio
-            </NuxtLink>
-            <NuxtLink :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
-              <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
-              {{ t('menu.more.uses') }}
-            </NuxtLink>
-            <NuxtLink :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
-              <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
-              {{ t('menu.more.attributons') }}
-            </NuxtLink>
-            <NuxtLink :to="localePath('/links')" class="flex items-center gap-3 py-2">
-              <UIcon name="i-solar-link-line-duotone" class="size-6" />
-              {{ t('menu.more.links') }}
-            </NuxtLink>
+            <button @click="openMoreMobile" class="flex items-center justify-between gap-3 border-b border-zinc-700 py-2">
+              <div class="flex items-center gap-3">
+                <UIcon name="i-solar-layers-minimalistic-line-duotone" class="size-6" />
+                More
+              </div>
+              <UIcon :name="toggleMoreMobileButtonIcon ? 'i-solar-alt-arrow-up-line-duotone' : 'i-solar-alt-arrow-down-line-duotone'" class="size-6" />
+            </button>
+            <div ref="moreMenuMobile" class="px-2 overflow-hidden max-h-0 transition-all duration-300">
+              <NuxtLink :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+                <UIcon name="i-solar-folder-path-connect-line-duotone" class="size-6" />
+                Portfolio
+              </NuxtLink>
+              <NuxtLink :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+                <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
+                {{ t('menu.more.uses') }}
+              </NuxtLink>
+              <NuxtLink :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+                <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
+                {{ t('menu.more.attributons') }}
+              </NuxtLink>
+              <NuxtLink :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+                <UIcon name="i-solar-link-line-duotone" class="size-6" />
+                {{ t('menu.more.links') }}
+              </NuxtLink>
+            </div>
+
+            <UDrawer should-scale-background set-background-color-on-scale>
+              <Button class="flex items-center gap-3 py-2">
+                <UIcon name="i-solar-chat-round-call-line-duotone" class="size-6" />
+                {{ t('menu.call') }}
+              </Button>
+
+              <template #content>
+                  <UiConnectform />
+                </template>
+            </UDrawer>
+            
           </div>
           <div>
             <div class="flex gap-3 justify-end pr-2 w-full">
@@ -192,14 +213,16 @@ const route = useRoute()
 
 const mobilemenu = ref()
 let isClicked = ref(false)
-
+let toggleMoreMobileButtonIcon = ref(false)
+const moreMenuMobile = ref()
 let togglemobilemenu = (e) => {
-  console.log(e)
-  console.log(mobilemenu)
-  mobilemenu.value.classList.toggle('max-h-[26rem]')
-  console.log(isClicked.value)
+  mobilemenu.value.classList.toggle('max-h-[30rem]')
   isClicked.value = !isClicked.value
-  console.log(isClicked.value)
+}
+
+let openMoreMobile = () => {
+  moreMenuMobile.value.classList.toggle('max-h-[28rem]')
+  toggleMoreMobileButtonIcon.value = !toggleMoreMobileButtonIcon.value
 }
 
 const links = computed(() => [
