@@ -39,7 +39,7 @@
         <div  class="z-100 px-2 py-2 text-white rounded-3xl border border-primary-400/20 bg-black flex flex-col gap-y-1">
           <div class="flex gap-x-4">
             <div>
-              <NuxtLink :to="localePath('portfolio')" class="z-40 h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
+              <NuxtLink :to="localePath('/portfolio')" class="z-40 h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
                 <div>
                   <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
                 </div>
@@ -113,7 +113,9 @@
     <div class="fixed sm:hidden block top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
       <div class="py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
         <div class="flex justify-between items-center ">
-          <NuxtImg src="/logo.png" arial-hidden class=" h-7" />
+          <NuxtLink :to="localePath('/')" title="Home page">
+            <NuxtImg src="/logo.png" arial-hidden class=" h-7" />
+          </NuxtLink>
 
           <div class="flex">
             <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
