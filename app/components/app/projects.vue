@@ -227,10 +227,9 @@ const styleMap = {
 				<div 
 					v-for="project in projects.data" 
 					:key="project.id" 
-					class="project-item lg:flex lg:justify-end lg:pr-8 items-center rounded-2xl"
-          :id="project.title"
+					class="project-item lg:flex justify-end lg:pr-8 items-center rounded-2xl"
 				>
-					<NuxtLink :to="localePath(project.link)" target="_blank" class="group block relative max-w-2xl bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-700 shadow-2xl lg:shadow-gray-800/40">
+					<NuxtLink :to="localePath(project.link)" target="_blank" class="group block relative max-w-2xl bg-gray-200 dark:bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-300 dark:border-gray-700 shadow-2xl lg:shadow-gray-800/40">
 						<div class="absolute -top-0.5 left-0 w-full h-px glowbig"></div>
 						<div :class="styleMap[project.theme]?.bg" class="overflow-hidden rounded-xl pt-2 lg:pt-8 px-8 relative flex flex-col justify-end" >
 							<div class="absolute -top-0 left-0 w-full h-px glow"></div>
@@ -238,7 +237,7 @@ const styleMap = {
 							<p :class="styleMap[project.theme]?.textColor" class="hidden lg:block serif text-2xl mb-12">
 								{{ project.slogan }}
 							</p>
-							<img class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-300 rounded-t-xl shadow-[0px_-4px_25px_0px]"
+							<img class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
                 :class="styleMap[project.theme]?.imgGlow"
                 :src="'https://api.makoto.com.pl'+project.image.url"
                 :alt="project.title"
@@ -247,12 +246,12 @@ const styleMap = {
 					</NuxtLink>
 					
 					<div class="block mt-3 lg:hidden">
-						<h3 class="serif text-xl">{{ project.title }}</h3>
+						<h3 class="serif text-xl text-black dark:text-white">{{ project.title }}</h3>
 						<div class="py-0.5 text-sm text-neutral-400">
 							<p>{{ project.description }}</p>
 						</div>
 						<div class="tech-stack">
-							<UBadge variant="soft" :class="styleMap[project.theme]?.textColor" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
+							<UBadge class="text-black dark:text-white" variant="soft" :class="styleMap[project.theme]?.textColor" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
 						</div>
 					</div>
 
@@ -270,12 +269,12 @@ const styleMap = {
 						<div class="flex">
 							<div aria-hidden="true" class="my-4 mr-4 h-1 min-w-6 rounded-full" :class="styleMap[project.theme]?.accentColor"></div>
 							<div class="max-w-md">
-								<h3 class="serif text-3xl">{{ project.title }}</h3>
+								<h3 class="serif text-3xl text-black dark:text-white">{{ project.title }}</h3>
 								<div class="py-4 text-md text-neutral-400">
 									<p>{{ project.description }}</p>
 								</div>
 								<div class="tech-stack">
-									<UBadge variant="subtle" :icon="tech.logo" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
+									<UBadge class="text-black dark:text-white" variant="subtle" :icon="tech.logo" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
 								</div>
 							</div>
 						</div>

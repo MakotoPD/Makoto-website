@@ -4,10 +4,11 @@
 			class="relative z-0 mt-40 flex w-full justify-center overflow-x-hidden bg-[url('/bg/footer.webp')] bg-cover bg-center px-4 py-20">
 			<div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-y-4 py-10 text-center lg:mx-0">
 				<div>
-					<NuxtImg height="44px" alt="Logo Makoto" src="/logo.png" />
+					<NuxtImg v-if="$colorMode.value === 'dark'" height="44px" alt="Logo Makoto" src="/logo.png" />
+					<NuxtImg v-else height="44px" alt="Logo Makoto" src="/logo-dark.png" />
 				</div>
 
-				<span class="relative mt-4 text-2xl uppercase font-light tracking-wide sm:text-4xl lg:text-5xl text-white">
+				<span class="relative mt-4 text-2xl uppercase font-light tracking-wide sm:text-4xl lg:text-5xl text-black dark:text-white">
 						
 					<h3 class="text-nowrap">
 						<i18n-t keypath="footer.sloganLine1" scope="global">
@@ -26,7 +27,7 @@
 					</h3>
 
 					<div class="absolute -right-8 -bottom-8 hover:scale-110 duration-150">
-						<div class="text-sm rounded-full border-4 border-sky-600 px-4 py-2 bg-black/40 backdrop-blur-lg -rotate-12">
+						<div class="text-sm rounded-full border-4 border-sky-600 px-4 py-2 bg-white/400 dark:bg-black/40 backdrop-blur-lg -rotate-12">
 							<p>{{ $t('footer.openToWork') }}</p>
 						</div>
 					</div>
@@ -35,7 +36,7 @@
 				<UDrawer should-scale-background set-background-color-on-scale>
 					<div ref="buttonContainer" class="p-6" style="overflow: hidden;">
 					
-						<button ref="btnGetInTouch" class="flex items-center gap-2 px-6 py-3 text-xl font-semibold bg-white text-black rounded-xl hover:bg-neutral-100 transition-colors duration-200">
+						<button ref="btnGetInTouch" class="flex items-center gap-2 px-6 py-3 text-xl font-semibold bg-black/80 dark:bg-white text-white dark:text-black rounded-xl hover:bg-black/60 hover:dark:bg-neutral-100 transition-colors duration-200">
 							{{ $t('footer.ctaButton') }}
 							<UIcon name="i-solar-alt-arrow-right-linear" class="size-6" />
 						</button>
@@ -46,38 +47,38 @@
 					</template>
 				</UDrawer>
 
-				<div class="text-xl font-semibold">
+				<div class="text-xl font-semibold text-black dark:text-white">
 					<p>{{ $t('footer.availability') }}</p>
 				</div>
 					
 				<div>
-					<p class="text-lg font-thin">
+					<p class="text-lg font-thin text-black dark:text-white">
 						<i18n-t keypath="footer.passion" scope="global">
 							<template #br><br /></template>
 						</i18n-t>
 					</p>
 				</div>
 			</div>
-			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b from-transparent opacity-100 to-[#0f1013]"></div>
-			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b to-transparent opacity-100 from-[#0f1013]"></div>
-			<div aria-hidden="true" class="absolute inset-0 z-0 opacity-65 bg-[#0f1013]/50"></div>
+			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b from-transparent opacity-100 to-[#f8f9fd] dark:to-[#0f1013]"></div>
+			<div aria-hidden="true" class="absolute inset-0 z-0 bg-linear-to-b to-transparent opacity-100 from-[#f8f9fd] dark:from-[#0f1013]"></div>
+			<div aria-hidden="true" class="absolute inset-0 z-0 opacity-65 bg-[#f8f9fd]/50 dark:bg-[#0f1013]/50"></div>
 		</section>
 		<footer class="mx-auto my-6 max-w-6xl max-lg:px-4">
 			<div
-				class="relative mx-auto flex flex-col items-center gap-6 rounded-3xl px-4 py-10 shadow-sm backdrop-blur-lg md:flex-row bg-white/5"
+				class="relative mx-auto flex flex-col items-center gap-6 rounded-3xl px-4 py-10 shadow-sm backdrop-blur-lg md:flex-row bg-black/5 dark:bg-white/5"
 			>
 				<div class="flex flex-1 flex-col items-start gap-4 md:flex-row md:gap-10 md:px-8">
 					<div class="flex-col gap-y-1 md:flex md:w-1/2">
 						<NuxtLink>
 							<LazyNuxtImg src="/favicon.png" alt="sygnet makoto" height="46" />
 						</NuxtLink>
-						<p class="w-60 text-sm leading-5 text-neutral-300">
+						<p class="w-60 text-sm leading-5 text-zinc-700 dark:text-neutral-300">
 							{{ $t('footer.desc') }}
 						</p>
 
 						<ClientOnly>
 							<div class="">
-								<p class="test-xm text-neutral-500">{{ $t('changelang') }}:</p>
+								<p class="test-xm text-black/50 dark:text-neutral-500">{{ $t('changelang') }}:</p>
 
 								<ULocaleSelect
 									:model-value="locale"
@@ -89,9 +90,9 @@
 					</div>
 					<div class="flex flex-col items-start justify-end gap-6 md:mx-4 md:w-1/2 md:flex-row md:gap-24">
 						<div class="flex flex-col gap-2 md:gap-4">
-							<h4 class="text-base text-white">{{ $t('footer.menu.general') }}</h4>
+							<h4 class="text-base text-black dark:text-white">{{ $t('footer.menu.general') }}</h4>
 							<ul
-								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-300">
+								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
 								<li>
 									<NuxtLink class="link-underline" :to="localePath('/')">
 										{{ $t('menu.home') }}
@@ -115,12 +116,11 @@
 							</ul>
 						</div>
 						<div class="flex flex-col gap-2 md:gap-4">
-							<h4 class="text-base text-white">{{ $t('footer.menu.more') }}</h4>
+							<h4 class="text-base text-black dark:text-white">{{ $t('footer.menu.more') }}</h4>
 							<ul
-								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-300">
+								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
 								<li> <NuxtLink :to="localePath('rules')">{{ $t('menu.rules') }}</NuxtLink></li>
 								<li><NuxtLink :to="localePath('privacy')">{{ $t('menu.privacy') }}</NuxtLink></li>
-								<li>RSS</li>
 							</ul>
 						</div>
 					</div>

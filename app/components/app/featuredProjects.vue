@@ -224,9 +224,9 @@ const styleMap = {
 <template>
 	<div class="mt-24">
 		<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-24 size-full -translate-y-6 md:-translate-y-10">
-			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-white/70">{{ $t('page.home.projects.line1') }}</p>
+			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">{{ $t('page.home.projects.line1') }}</p>
 			<span class="serif">
-				<span class="">{{ $t('page.home.projects.line2') }}</span> 
+				<span class="text-black dark:text-white">{{ $t('page.home.projects.line2') }}</span> 
 				<span class="pl-2 tracking-tight italic bg-gradient-to-r from-cyan-400 to-blue-700 bg-clip-text text-transparent">{{ $t('page.home.projects.greeting') }}</span>
 			</span>
 		</h2>
@@ -237,7 +237,7 @@ const styleMap = {
 					:key="project.id" 
 					class="project-item lg:flex justify-end lg:pr-8 items-center rounded-2xl"
 				>
-					<NuxtLink :to="localePath(`/work#${project.title}`)" class="group block relative max-w-2xl bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-700 shadow-2xl lg:shadow-gray-800/40">
+					<NuxtLink :to="localePath(`/work#${project.title}`)" class="group block relative max-w-2xl bg-gray-200 dark:bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-300 dark:border-gray-700 shadow-2xl lg:shadow-gray-800/40">
 						<div class="absolute -top-0.5 left-0 w-full h-px glowbig"></div>
 						<div :class="styleMap[project.theme]?.bg" class="overflow-hidden rounded-xl pt-2 lg:pt-8 px-8 relative flex flex-col justify-end" >
 							<div class="absolute -top-0 left-0 w-full h-px glow"></div>
@@ -254,12 +254,12 @@ const styleMap = {
 					</NuxtLink>
 					
 					<div class="block mt-3 lg:hidden">
-						<h3 class="serif text-xl">{{ project.title }}</h3>
+						<h3 class="serif text-xl text-black dark:text-white">{{ project.title }}</h3>
 						<div class="py-0.5 text-sm text-neutral-400">
 							<p>{{ project.description }}</p>
 						</div>
 						<div class="tech-stack">
-							<UBadge variant="soft" :class="styleMap[project.theme]?.textColor" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
+							<UBadge class="text-black dark:text-white" variant="soft" :class="styleMap[project.theme]?.textColor" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
 						</div>
 					</div>
 
@@ -277,12 +277,12 @@ const styleMap = {
 						<div class="flex">
 							<div aria-hidden="true" class="my-4 mr-4 h-1 min-w-6 rounded-full" :class="styleMap[project.theme]?.accentColor"></div>
 							<div class="max-w-md">
-								<h3 class="serif text-3xl">{{ project.title }}</h3>
+								<h3 class="serif text-3xl text-black dark:text-white">{{ project.title }}</h3>
 								<div class="py-4 text-md text-neutral-400">
 									<p>{{ project.description }}</p>
 								</div>
 								<div class="tech-stack">
-									<UBadge variant="subtle" :icon="tech.logo" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
+									<UBadge class="text-black dark:text-white" variant="subtle" :icon="tech.logo" v-for="tech in project.stack" :key="tech">{{ tech.name }}</UBadge>
 								</div>
 							</div>
 						</div>

@@ -29,6 +29,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+const colorMode = useColorMode()
 
 const containerRef = ref<HTMLDivElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
@@ -55,75 +56,123 @@ function resizeGlobe() {
 }
 
 onMounted(async () => {
-  if (process.client && canvasRef.value) {
-    await nextTick()
-    try {
-        // Dynamically import cobe only on client side
-        const cobeModule = await import('cobe')
-        const createGlobe = cobeModule.default || cobeModule
-        resizeGlobe()
-          globe = createGlobe(canvasRef.value, {
-            devicePixelRatio: 2,
-            width: width * 2,
-            height: width * 2 * 0.4,
-            phi: 0,
-            theta: 0,
-            dark: 1,
-            diffuse: 1.2,
-            scale: 1.5,  // Increased scale to make globe bigger
-            mapSamples: 16000,
-            mapBrightness: 0.98,
-            baseColor: [1, 1, 1],
-            markerColor: [0.4, 0.8, 1],
-            glowColor: [52/225, 92/255, 112/255],
-            offset: [0, -0.3],  // Move globe up to show only top 2/3
-            markers: [
-              { location: [37.7595, -122.4367], size: 0.05 },
-              { location: [40.7128, -74.006], size: 0.1 },
-              { location: [52.1423, 20.3612], size: 0.1 },
-              { location: [-6.6090, -36.1789], size: 0.05 },
-              { location: [-35.4713, 149.8242], size: 0.1 },
-              { location: [35.6630, 139.7411], size: 0.05 },
-            ],
-            onRender: (state: any) => {
-              // Called on every animation frame.
-              // `state` will be an empty object, return updated params.
-              if (!pointerInteracting) {
-                phi += 0.004
+  watch(
+    colorMode,
+    async () => {
+      if (process.client && canvasRef.value) {
+        await nextTick()
+        try {
+            // Dynamically import cobe only on client side
+            const cobeModule = await import('cobe')
+            const createGlobe = cobeModule.default || cobeModule
+            resizeGlobe()
+              if(colorMode.preference == 'dark'){
+                globe = createGlobe(canvasRef.value, {
+                  devicePixelRatio: 2,
+                  width: width * 2,
+                  height: width * 2 * 0.4,
+                  phi: 0,
+                  theta: 0,
+                  dark: 1,
+                  diffuse: 1.2,
+                  scale: 1.5,  // Increased scale to make globe bigger
+                  mapSamples: 16000,
+                  mapBrightness: 0.98,
+                  baseColor: [1, 1, 1],
+                  markerColor: [0.4, 0.8, 1],
+                  glowColor: [52/225, 92/255, 112/255],
+                  offset: [0, -0.3],  // Move globe up to show only top 2/3
+                  markers: [
+                    { location: [37.7595, -122.4367], size: 0.05 },
+                    { location: [40.7128, -74.006], size: 0.1 },
+                    { location: [52.1423, 20.3612], size: 0.1 },
+                    { location: [-6.6090, -36.1789], size: 0.05 },
+                    { location: [-35.4713, 149.8242], size: 0.1 },
+                    { location: [35.6630, 139.7411], size: 0.05 },
+                  ],
+                  onRender: (state: any) => {
+                    // Called on every animation frame.
+                    // `state` will be an empty object, return updated params.
+                    if (!pointerInteracting) {
+                      phi += 0.004
+                    }
+                    state.phi = phi
+                    state.theta = theta
+                    state.width = width * 2
+                    state.height = width * 2 * 0.7
+                    state.scale = 1.5
+                    state.offset = [0, -0.3]
+                  },
+                })
+              } else {
+                globe = createGlobe(canvasRef.value, {
+                devicePixelRatio: 2,
+                width: width * 2,
+                height: width * 2 * 0.4,
+                phi: 0,
+                theta: 0,
+                dark: 0,
+                diffuse: 1.2,
+                scale: 1.5,  // Increased scale to make globe bigger
+                mapSamples: 16000,
+                mapBrightness: 0.98,
+                baseColor: [1, 1, 1],
+                markerColor: [0.4, 0.8, 1],
+                glowColor: [168/225, 202/255, 219/255],
+                offset: [0, -0.3],  // Move globe up to show only top 2/3
+                markers: [
+                  { location: [37.7595, -122.4367], size: 0.05 },
+                  { location: [40.7128, -74.006], size: 0.1 },
+                  { location: [52.1423, 20.3612], size: 0.1 },
+                  { location: [-6.6090, -36.1789], size: 0.05 },
+                  { location: [-35.4713, 149.8242], size: 0.1 },
+                  { location: [35.6630, 139.7411], size: 0.05 },
+                ],
+                onRender: (state: any) => {
+                  // Called on every animation frame.
+                  // `state` will be an empty object, return updated params.
+                  if (!pointerInteracting) {
+                    phi += 0.004
+                  }
+                  state.phi = phi
+                  state.theta = theta
+                  state.width = width * 2
+                  state.height = width * 2 * 0.7
+                  state.scale = 1.5
+                  state.offset = [0, -0.3]
+                },
+              })
               }
-              state.phi = phi
-              state.theta = theta
-              state.width = width * 2
-              state.height = width * 2 * 0.7
-              state.scale = 1.5
-              state.offset = [0, -0.3]
-            },
-          })
-        setTimeout(() => {
-        canvasOpacity.value = 1
-      }, 0)
+              
+            setTimeout(() => {
+            canvasOpacity.value = 1
+          }, 0)
 
-        // Add mouse/touch event listeners for dragging
-        const canvas = canvasRef.value
-        window.addEventListener('resize', resizeGlobe)
-        // Mouse events
-        // canvas.addEventListener('mousedown', onPointerDown)
-        // canvas.addEventListener('mousemove', onPointerMove)
-        // canvas.addEventListener('mouseup', onPointerUp)
-        // canvas.addEventListener('mouseleave', onPointerUp)
-        
-        // // Touch events
-        // canvas.addEventListener('touchstart', onTouchStart, { passive: false })
-        // canvas.addEventListener('touchmove', onTouchMove, { passive: false })
-        // canvas.addEventListener('touchend', onPointerUp)
-        
-        // Prevent context menu on right click
-        canvas.addEventListener('contextmenu', (e) => e.preventDefault())
-        
-    } catch (error) {
-      console.error('Failed to initialize globe:', error)
-    }
-  }
+            // Add mouse/touch event listeners for dragging
+            const canvas = canvasRef.value
+            window.addEventListener('resize', resizeGlobe)
+            // Mouse events
+            // canvas.addEventListener('mousedown', onPointerDown)
+            // canvas.addEventListener('mousemove', onPointerMove)
+            // canvas.addEventListener('mouseup', onPointerUp)
+            // canvas.addEventListener('mouseleave', onPointerUp)
+            
+            // // Touch events
+            // canvas.addEventListener('touchstart', onTouchStart, { passive: false })
+            // canvas.addEventListener('touchmove', onTouchMove, { passive: false })
+            // canvas.addEventListener('touchend', onPointerUp)
+            
+            // Prevent context menu on right click
+            canvas.addEventListener('contextmenu', (e) => e.preventDefault())
+            
+        } catch (error) {
+          console.error('Failed to initialize globe:', error)
+        }
+      }
+    },
+    { immediate: true }
+  )
+
 })
 
 const onPointerDown = (e: MouseEvent) => {

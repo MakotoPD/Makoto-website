@@ -41,6 +41,10 @@ const renderedHtml = computed(() => data.value?.html || '')
   overflow-x: auto;
 }
 
+.prose {
+  @apply text-black dark:text-white
+}
+
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6, .prose p, .prose ul, .prose ol, .prose li, .prose figure, .prose blockquote, .prose pre {
 	@apply my-1;
 }

@@ -1,13 +1,13 @@
 <template>
 	<div class="pt-24">
 		<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
-			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-white/70">
+			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
 				{{ $t('page.home.trusted.subtitle') }}
 			</p>
 			<i18n-t 
 				keypath="page.home.trusted.mainSentence" 
 				tag="span" 
-				class="serif"
+				class="serif text-black dark:text-white"
 				scope="global"
 			>
 				<template #highlighted>

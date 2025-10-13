@@ -7,7 +7,7 @@
 :root {
   /* Kolory podstawowe - domyślnie jasny motyw */
 	--color-primary: #287deb;
-	--color-background-app: #0f1013;
+	--color-background-app: #f8f9fd;
 	--color-background-card: #393f40;
 	--color-background-input: #565f63;
 	--color-divide-card: #515b5e;

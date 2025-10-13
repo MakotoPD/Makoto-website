@@ -1,13 +1,13 @@
 <template>
 	<div class="pt-36">
 		<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
-			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-white/70">
+			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
 				{{ t('page.faq.header.subtitle') }}
 			</p>
 			<i18n-t 
 				keypath="page.faq.header.heading" 
 				tag="span" 
-				class="serif"
+				class="serif text-black dark:text-white"
 				scope="global"
 			>
 				<template #highlighted>
@@ -21,12 +21,12 @@
 				<div class="w-full" v-for="(section, i) in faq" :key="i">
 					<div class="flex gap-4 items-center mb-2 mt-6">
 						<UIcon :name="rt(section.icon)" class="size-9 text-sky-400"/>
-						<h2 class="text-3xl serif">{{ rt(section.name) }}</h2>
+						<h2 class="text-3xl serif text-black dark:text-white">{{ rt(section.name) }}</h2>
 					</div>
 					
-					<UAccordion :items="section.q">
-						<template #="{item}">
-							{{ rt(item.label) }}
+					<UAccordion :items="section.q" class="text-black dark:text-white">
+						<template #="{item}" >
+							<p class="text-black dark:text-white">{{ rt(item.label) }}</p>
 						</template>
 						<template #content="{item}">
 							<p class="text-zinc-400">

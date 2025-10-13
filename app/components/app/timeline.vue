@@ -26,7 +26,7 @@
             class="timeline-left md:text-left space-y-2 opacity-0 transition-all duration-700"
             :class="{ 'timeline-visible': true }"
           >
-            <h3 class="text-4xl serif">
+            <h3 class="text-4xl serif text-black dark:text-white">
               {{ item.company }}
             </h3>
             <div class="text-gray-600 dark:text-gray-400 space-y-1">
@@ -65,10 +65,10 @@
             <h4 class="text-xl font-bold text-gray-900 dark:text-white">
               {{ item.title || item.Title }}
             </h4>
-            <StrapiBlocksRichText class="text-gray-300 leading-relaxed !text-sm" :body="item.description" />
+            <StrapiBlocksRichText class="text-gray-700 dark:text-gray-300 leading-relaxed !text-sm" :body="item.description" />
 
             <div class="flex flex-wrap gap-2">
-              <UBadge variant="soft" v-for="(tag, tagIndex) in item.tags" :key="tagIndex">{{ tag }}</UBadge>
+              <UBadge variant="soft" class="text-sky-500 dark:text-white" v-for="(tag, tagIndex) in item.tags" :key="tagIndex">{{ tag }}</UBadge>
             </div>
           </div>
         </div>

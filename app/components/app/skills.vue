@@ -11,9 +11,9 @@
 					</div>
 				</div>
 				<h2  class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-0 md:mb-0 size-full -translate-y-6 md:-translate-y-10">
-					<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-white/70">{{ $t('page.home.skills.line1') }}</p>
+					<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">{{ $t('page.home.skills.line1') }}</p>
 					<span class="serif">
-						<span class="">{{ $t('page.home.skills.line2') }} </span>
+						<span class="text-black dark:text-white">{{ $t('page.home.skills.line2') }} </span>
 						<span class="pl-2 tracking-tight italic bg-gradient-to-r from-cyan-400 to-blue-700 bg-clip-text text-transparent"> {{ $t('page.home.skills.greeting') }}</span>
 					</span>
 				</h2>

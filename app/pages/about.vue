@@ -1,6 +1,6 @@
 <template>
 	<div class="pt-44" v-if="about?.data">
-		<h1 class="text-6xl text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+		<h1 class="text-6xl text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-800 dark:via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
 			{{ about.data.title }}
 		</h1>
 		
@@ -13,7 +13,7 @@
                     {{ about.data.subTitle }}
                 </p>
 
-                <i18n-t keypath="page.about.heading" tag="span" class="serif" scope="global">
+                <i18n-t keypath="page.about.heading" tag="span" class="serif text-black dark:text-white" scope="global">
                     <template #highlighted>
                         <span class="italic bg-gradient-to-r from-cyan-400 to-blue-700 bg-clip-text text-transparent serif pe-2 tracking-tight">
                             {{ $t('page.about.highlightedWord') }}
@@ -44,9 +44,9 @@
     </div>
 		<div class="w-full max-w-5xl mx-auto px-12 mt-24">
 			<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-12 size-full -translate-y-6 md:-translate-y-10">
-          <p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-white/70">{{ $t('page.about.work.subtitle') }}</p>
+          <p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">{{ $t('page.about.work.subtitle') }}</p>
           <span class="serif">
-            <i18n-t keypath="page.about.work.heading" tag="span" class="serif" scope="global">
+            <i18n-t keypath="page.about.work.heading" tag="span" class="serif text-black dark:text-white" scope="global">
                 <template #highlighted>
                     <span class="italic bg-gradient-to-r from-cyan-400 to-blue-700 bg-clip-text text-transparent serif pe-2 tracking-tight">
                         {{ $t('page.about.work.highlighted') }}

@@ -5,117 +5,18 @@
         <div class="pointer-events-none absolute inset-0 z-10 opacity-100" style="backdrop-filter:blur(3px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%)"></div>
         <div class="pointer-events-none absolute inset-0 z-20 opacity-100" style="backdrop-filter:blur(5px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 1) 100%)"></div></div>
     </div>
-    <div class="hidden  z-10 w-fit rounded-full bg-primary/10 border border-primary/15 backdrop-blur-2xl px-1 py-1 gap-1 items-center">
-      
-      <UButton 
-        v-for="link in links"
-        :key="link.to"
-        variant="ghost" 
-        :to="localePath(link.to)"
-        active-class="bg-gradient-to-t from-sky-700/40 to-transparent" 
-        class="relative z-20 font-normal text-white/80 rounded-full px-3 duration-150 hover:bg-gradient-to-t from-sky-700/30 to-transparent/10"
-      >
-        {{ link.label }}
-        
-        <span 
-          :ref="el => indicatorRefs[link.label] = el"
-          class="indicator absolute inset-0 -z-10 w-full rounded-full bg-white/10 pointer-events-none"
-          :class="{ 'active': isActiveLink(localePath(link.to)) }"
-        >
-          <div class="indicatorBox bg-primary absolute -bottom-[9px] left-1/2 h-1 w-8 -translate-x-1/2 rounded-b-full">
-            <div class="bg-primary/20 absolute -top-2 -left-2 h-4 w-12 rounded-full blur-md"></div>
-            <div class="bg-primary/20 absolute -top-1 h-4 w-8 rounded-full blur-md"></div>
-            <div class="bg-primary/20 absolute top-0 left-2 h-2 w-4 rounded-full blur-sm"></div>
-          </div>
-        </span>
-      </UButton>
-      <UButton 
-        variant="ghost" 
-        class="group relative z-20 font-normal text-white/80 rounded-full px-3 duration-150 hover:bg-gradient-to-t from-sky-700/30 to-transparent/10"
-      >
-        {{ $t('menu.more') }}
-
-        <span class="absolute left-0 -translate-x-1/2 top-[100%] pt-2 opacity-0 scale-95 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-in-out">
-          <div  class="z-100 px-2 py-2 text-white rounded-3xl border border-primary-400/20 bg-black flex flex-col gap-y-1">
-            <div class="flex gap-x-4">
-              <div>
-                <NuxtLink :to="localePath('/portfolio')" class="z-40 h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
-                  <div>
-                    <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
-                  </div>
-                  <NuxtImg src="/imgs/portfolio.webp" alt="Portfolio image" aria-hidden class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
-                </NuxtLink>
-              </div>
-              <div class="flex flex-col gap-2">
-                <NuxtLink :to="localePath('/links')" class="w-70 bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
-                  <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-                    <UIcon name="i-solar-link-line-duotone" class="size-6" />
-                  </div>
-                  <div class="px-4 text-left">
-                    <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
-                    <p class="font-normal text-white/50">{{ $t('menu.more.links.desc') }}</p>
-                  </div>
-                </NuxtLink>
-                <NuxtLink :to="localePath('/uses')" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
-                  <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-                    <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
-                  </div>
-                  <div class="px-4 text-left">
-                    <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
-                    <p class="font-normal text-white/50">{{ $t('menu.more.uses.desc') }}</p>
-                  </div>
-                </NuxtLink>
-                <NuxtLink :to="localePath('/faq')" class="bg-primary/10 flex hover:bg-primary/15 duration-100 rounded-2xl p-4">
-                  <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-primary/30 rounded-xl">
-                    <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
-                  </div>
-                  <div class="px-4 text-left">
-                    <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
-                    <p class="font-normal text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
-                  </div>
-                </NuxtLink>
-              </div>
-            </div>
-
-
-
-            <div class="flex gap-3 justify-end pr-2 w-full">
-              <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
-              <ClientOnly>
-                <div class="flex justify-center gap-x-2">
-                  <button class=" bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
-                    <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
-                    {{ locale.name }}
-                  </button>
-                </div>
-              </ClientOnly>
-            </div>
-
-          </div>
-        </span>
-
-      </UButton>
-
-      <UDrawer should-scale-background set-background-color-on-scale>
-        <UButton 
-          variant="soft" 
-          to="#" 
-          class="relative z-20 font-normal text-white/80 rounded-full px-3 bg-gradient-to-t from-sky-500/30 to-sky-400/10"
-        >
-          {{t('menu.call')}}
-        </UButton>
-
-        <template #content>
-						<UiConnectform />
-					</template>
-      </UDrawer>
-    </div>
-    <div class="fixed max-w-6xl mx-auto top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-600">
-      <div class="py-1 px-2 rounded-xl border border-zinc-800 bg-zinc-900 shadow-lg">
+    <div class="fixed max-w-6xl mx-auto top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-200 dark:border-zinc-600">
+      <div class="py-1 px-2 rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 shadow-lg">
         <div class="flex justify-between items-center ">
-          <NuxtLink :to="localePath('/')" title="Home page">
-            <NuxtImg src="/logo.png" arial-hidden class=" h-7" />
-          </NuxtLink>
+          <div class="flex gap-1">
+            <NuxtLink :to="localePath('/')" title="Home page">
+              <NuxtImg v-if="$colorMode.value === 'dark'" src="/logo.png" arial-hidden class=" h-7" />
+              <NuxtImg v-else src="/logo-dark.png" arial-hidden class=" h-7" />
+            </NuxtLink>
+            <UColorModeButton />
+          </div>
+
+
 
           <div class="hidden md:flex gap-x-1">
             <UButton 
@@ -123,14 +24,14 @@
               :key="link.to"
               variant="ghost" 
               :to="localePath(link.to)"
-              active-class="bg-gradient-to-t from-sky-700/40 to-transparent" 
-              class="relative z-20 font-normal text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-700/30 to-transparent/10"
+              active-class="bg-gradient-to-t from-sky-300 dark:from-sky-700/40 to-transparent" 
+              class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
             >
               {{ link.label }}
               
               <span 
                 :ref="el => indicatorRefs[link.label] = el"
-                class="indicator absolute inset-0 -z-10 w-full rounded-lg bg-white/10 pointer-events-none"
+                class="indicator absolute inset-0 -z-10 w-full rounded-lg bg-black/10 dark:bg-white/10 pointer-events-none"
                 :class="{ 'active': isActiveLink(localePath(link.to)) }"
               >
                 <div class="indicatorBox bg-primary absolute -bottom-[14px] left-1/2 h-1 w-8 -translate-x-1/2 rounded-b-full">
@@ -142,12 +43,12 @@
             </UButton>
             <UButton 
               variant="ghost" 
-              class="group relative z-20 font-normal text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-700/30 to-transparent/10"
+              class="group relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
             >
               {{ $t('menu.more') }}
 
               <span class="absolute right-0 translate-x-1/12 top-[100%] pt-2 opacity-0 scale-95 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-in-out">
-                <div  class="z-100 px-2 py-2 text-white rounded-3xl border border-zinc-400/20 bg-black flex flex-col gap-y-1">
+                <div  class="z-100 px-2 py-2 text-black dark:text-white rounded-3xl border border-zinc-600/20 dark:border-zinc-400/20 bg-white dark:bg-black flex flex-col gap-y-1">
                   <div class="flex gap-x-4">
                     <div>
                       <NuxtLink :to="localePath('/portfolio')" class="z-40 h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
@@ -158,31 +59,31 @@
                       </NuxtLink>
                     </div>
                     <div class="flex flex-col gap-2">
-                      <NuxtLink :to="localePath('/links')" class="w-70 bg-zinc-700/30 flex hover:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink :to="localePath('/links')" class="w-70 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-link-line-duotone" class="size-6" />
                         </div>
                         <div class="px-4 text-left">
                           <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
-                          <p class="font-normal text-white/50">{{ $t('menu.more.links.desc') }}</p>
+                          <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.links.desc') }}</p>
                         </div>
                       </NuxtLink>
-                      <NuxtLink :to="localePath('/uses')" class="bg-zinc-700/30 flex hover:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink :to="localePath('/uses')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
                         </div>
                         <div class="px-4 text-left">
                           <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
-                          <p class="font-normal text-white/50">{{ $t('menu.more.uses.desc') }}</p>
+                          <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.uses.desc') }}</p>
                         </div>
                       </NuxtLink>
-                      <NuxtLink :to="localePath('/faq')" class="bg-zinc-700/30 flex hover:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink :to="localePath('/faq')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
                         </div>
                         <div class="px-4 text-left">
                           <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
-                          <p class="font-normal text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
+                          <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
                         </div>
                       </NuxtLink>
                     </div>
@@ -191,7 +92,7 @@
                     <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
                     <ClientOnly>
                       <div class="flex justify-center gap-x-2">
-                        <button class=" bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
+                        <button class="bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
                           <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
                           {{ locale.name }}
                         </button>
@@ -207,7 +108,7 @@
             <UDrawer should-scale-background set-background-color-on-scale >
               <UButton 
                 variant="soft" 
-                class="relative z-20 font-normal text-white/80 rounded-lg px-3 bg-gradient-to-t from-gray-500/30 to-gray-400/10 hover:bg-zinc-600"
+                class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 bg-gradient-to-t from-gray-500/30 to-gray-400/10 hover:bg-zinc-300 hover:dark:bg-zinc-600"
               >
                 {{t('menu.call')}}
               </UButton>
@@ -218,32 +119,29 @@
             </UDrawer>
           </div>
 
-
-
-
           <div class="flex md:hidden">
-            <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft"></UButton>
+            <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft" class="text-black dark:text-white"></UButton>
           </div>
         </div>
-        <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300">
+        <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300 text-black dark:text-white">
           <div class="py-4 flex flex-col">
-            <NuxtLink :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+            <NuxtLink :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-home-smile-line-duotone" class="size-6" />
               {{t('menu.home')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+            <NuxtLink :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-user-rounded-line-duotone" class="size-6" />
               {{t('menu.about')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+            <NuxtLink :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-buildings-line-duotone" class="size-6" />
               {{t('menu.work')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+            <NuxtLink :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-document-text-line-duotone" class="size-6" />
               {{t('menu.blog')}}
             </NuxtLink>
-            <button @click="openMoreMobile" class="flex items-center justify-between gap-3 border-b border-zinc-700 py-2">
+            <button @click="openMoreMobile" class="flex items-center justify-between gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <div class="flex items-center gap-3">
                 <UIcon name="i-solar-layers-minimalistic-line-duotone" class="size-6" />
                 {{t('menu.more')}}
@@ -251,19 +149,19 @@
               <UIcon :name="toggleMoreMobileButtonIcon ? 'i-solar-alt-arrow-up-line-duotone' : 'i-solar-alt-arrow-down-line-duotone'" class="size-6" />
             </button>
             <div ref="moreMenuMobile" class="px-2 overflow-hidden max-h-0 transition-all duration-300">
-              <NuxtLink :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <NuxtLink :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-folder-path-connect-line-duotone" class="size-6" />
                 Portfolio
               </NuxtLink>
-              <NuxtLink :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <NuxtLink :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
                 {{ t('menu.more.uses') }}
               </NuxtLink>
-              <NuxtLink :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <NuxtLink :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
                 {{ t('menu.more.attributons') }}
               </NuxtLink>
-              <NuxtLink :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-700 py-2">
+              <NuxtLink :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-link-line-duotone" class="size-6" />
                 {{ t('menu.more.links') }}
               </NuxtLink>
@@ -286,10 +184,10 @@
               <p class="test-xm text-neutral-400">{{ $t('changelang') }}:</p>
               <ClientOnly>
                 <div class="flex justify-center gap-x-2">
-                  <UButton class="py-0 bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
+                  <button class="py-0 bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
                     <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
                     {{ locale.name }}
-                  </UButton>
+                  </button>
                 </div>
               </ClientOnly>
             </div>
@@ -302,8 +200,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted, nextTick } from 'vue'
+import { ref, reactive, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
+import type { Ref } from 'vue'
+
+// Type for indicator refs
+interface IndicatorRefs {
+  [key: string]: HTMLElement | null
+}
 
 const { locale, locales, setLocale, t } = useI18n()
 
@@ -314,23 +218,34 @@ const availableLocales = computed(() => {
 })
 
 const localePath = useLocalePath()
-
 const route = useRoute()
 
-const mobilemenu = ref()
-let isClicked = ref(false)
-let toggleMoreMobileButtonIcon = ref(false)
-const moreMenuMobile = ref()
-let togglemobilemenu = (e) => {
-  mobilemenu.value.classList.toggle('max-h-[30rem]')
-  isClicked.value = !isClicked.value
+// Refs for mobile menu
+const mobilemenu = ref<HTMLElement | null>(null)
+const isClicked = ref(false)
+const toggleMoreMobileButtonIcon = ref(false)
+const moreMenuMobile = ref<HTMLElement | null>(null)
+const resizeObserver = ref<ResizeObserver | null>(null)
+let updateTimeout: ReturnType<typeof setTimeout> | null = null
+
+// Mobile menu toggle
+const togglemobilemenu = (e: Event) => {
+  e.preventDefault()
+  if (mobilemenu.value) {
+    mobilemenu.value.classList.toggle('max-h-[30rem]')
+    isClicked.value = !isClicked.value
+  }
 }
 
-let openMoreMobile = () => {
-  moreMenuMobile.value.classList.toggle('max-h-[28rem]')
-  toggleMoreMobileButtonIcon.value = !toggleMoreMobileButtonIcon.value
+// More mobile menu toggle
+const openMoreMobile = () => {
+  if (moreMenuMobile.value) {
+    moreMenuMobile.value.classList.toggle('max-h-[28rem]')
+    toggleMoreMobileButtonIcon.value = !toggleMoreMobileButtonIcon.value
+  }
 }
 
+// Navigation links
 const links = computed(() => [
   { label: t('menu.home'), to: '/' },
   { label: t('menu.about'), to: '/about' },
@@ -338,6 +253,7 @@ const links = computed(() => [
   { label: t('menu.blog'), to: '/blog' },
 ])
 
+// More menu items
 const more = [
   {
     type: 'label',
@@ -351,18 +267,93 @@ const more = [
     type: 'label',
     slot: 'attr' as const
   },
-]
+] as const
 
-// Przechowywanie referencji do elementów
-const indicatorRefs = reactive<Record<string, HTMLElement | null>>({})
+// Indicator refs with proper typing
+const indicatorRefs = ref<Record<string, HTMLElement | null>>({})
+const animations = ref<Record<string, Animation | null>>({})
 
-// Przechowywanie animacji
-const animations = ref<Record<string, any>>({})
-
-// Funkcja do sprawdzania aktywnego linku
+// Check if link is active
 const isActiveLink = (linkTo: string) => {
   return route.path === linkTo
 }
+
+// Update active indicator position
+const updateActiveIndicator = () => {
+  if (updateTimeout) {
+    clearTimeout(updateTimeout)
+  }
+  
+  updateTimeout = setTimeout(() => {
+    try {
+      const activeLink = document.querySelector('.router-link-active')
+      if (!activeLink) return
+
+      const linkText = activeLink.textContent?.trim()
+      if (!linkText || !indicatorRefs.value[linkText]) return
+
+      const indicator = indicatorRefs.value[linkText]
+      const indicatorBox = indicator?.querySelector('.indicatorBox') as HTMLElement
+      
+      if (!indicatorBox) return
+
+      const activeLinkRect = activeLink.getBoundingClientRect()
+      const containerRect = activeLink.parentElement?.getBoundingClientRect()
+      
+      if (!containerRect) return
+
+      indicatorBox.style.width = `${activeLinkRect.width}px`
+      indicatorBox.style.left = `${activeLinkRect.left - containerRect.left}px`
+    } catch (error) {
+      console.error('Error updating active indicator:', error)
+    }
+  }, 50)
+}
+
+// Setup resize observer
+const setupResizeObserver = () => {
+  if (resizeObserver.value) {
+    resizeObserver.value.disconnect()
+  }
+  
+  const container = document.querySelector('.flex.justify-between.items-center')
+  if (container) {
+    resizeObserver.value = new ResizeObserver(updateActiveIndicator)
+    resizeObserver.value.observe(container)
+  }
+}
+
+// Watch for route changes
+watch(() => route.path, () => {
+  nextTick(updateActiveIndicator)
+}, { immediate: true })
+
+// Lifecycle hooks
+onMounted(() => {
+  nextTick(() => {
+    updateActiveIndicator()
+    setupResizeObserver()
+    window.addEventListener('resize', updateActiveIndicator)
+  })
+})
+
+// Cleanup on unmount
+onBeforeUnmount(() => {
+  if (resizeObserver.value) {
+    resizeObserver.value.disconnect()
+  }
+  window.removeEventListener('resize', updateActiveIndicator)
+  if (updateTimeout) {
+    clearTimeout(updateTimeout)
+  }
+  
+  // Cleanup animations
+  Object.values(animations.value).forEach(animation => {
+    if (animation) {
+      animation.cancel()
+    }
+  })
+})
 
 </script>
 

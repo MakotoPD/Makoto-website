@@ -1,6 +1,6 @@
 <template>
 	<div class="pt-44">
-		<h1 class="text-6xl pb-2 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+		<h1 class="text-6xl pb-2 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-800 dark:via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
 			{{ t('page.blog.hero.title') }}
 		</h1>
 		<h2 class="serif text-4xl text-center text-zinc-400">
@@ -25,7 +25,7 @@
 					<img :src="config.public.apiUrl + article.cover.url" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
 					<template #footer>
 						<div class="flex flex-wrap gap-1">
-							<UBadge v-for="category in article.categories" :key="category.id" variant="soft" color="primary" size="md" :icon="getCategoryIcon(category.slug)" >{{ category.name }}</UBadge>
+							<UBadge v-for="category in article.categories" :key="category.id" variant="soft" color="primary" size="md" class="text-black dark:text-white" :icon="getCategoryIcon(category.slug)" >{{ category.name }}</UBadge>
 						</div>
 					</template>
 

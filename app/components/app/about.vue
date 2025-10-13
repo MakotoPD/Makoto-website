@@ -8,7 +8,7 @@
                     {{ $t('page.home.aboutMe.subtitle') }}
                 </p>
 
-                <i18n-t keypath="page.home.aboutMe.heading" tag="span" class="serif" scope="global">
+                <i18n-t keypath="page.home.aboutMe.heading" tag="span" class="serif text-black dark:text-white" scope="global">
                     <template #highlighted>
                         <span class="italic bg-gradient-to-r from-cyan-400 to-blue-700 bg-clip-text text-transparent serif pe-2 tracking-tight">
                             {{ $t('page.home.aboutMe.highlightedWord') }}

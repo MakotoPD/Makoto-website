@@ -15,7 +15,7 @@
 
 			<article class="relative -mt-16 w-full max-w-4xl mx-auto px-12 !z-50">
 
-				<h1 class="text-4xl md:text-5xl font-bold mb-4">{{ article.title }}</h1>
+				<h1 class="text-4xl md:text-5xl font-bold mb-4 text-black dark:text-white">{{ article.title }}</h1>
 				
 				<div class="flex items-center gap-4 mb-8">
 					<UUser
@@ -37,6 +37,7 @@
 						variant="soft" 
 						color="primary" 
 						size="md" 
+						class="text-black dark:text-white"
 						:icon="getCategoryIcon(category.slug)"
 					>
 						{{ category.name }}
@@ -54,6 +55,10 @@
 <style>
 .coverimage{
 	-webkit-mask-image: -webkit-gradient(linear, left 0%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+}
+
+.dark .coverimage{
+	-webkit-mask-image: -webkit-gradient(linear, left 0%, left bottom, from(rgb(255, 255, 255)), to(rgba(255, 255, 255, 0)))
 }
 
 

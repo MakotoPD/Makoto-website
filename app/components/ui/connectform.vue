@@ -5,39 +5,39 @@
 
 				<div class="flex flex-col md:flex-row justify-between gap-4 mt-3 mb-8">
 					<NuxtLink to="mailto:contact@makoto.com.pl?subject=Let's catch up for a opportunity!" target="_blank" class="w-full group">
-						<div class="border border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
-							<div class="flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-800 bg-gradient-to-r from-0% to-65% from-sky-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
+						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
+							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-sky-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
 								<UIcon name="i-solar-mailbox-line-duotone" class="size-8" />
 								<p>Email</p>
 							</div>
-							<div class="py-4 px-3 group-hover:bg-zinc-900/50 duration-300">
-								<p>contact@makoto.com.pl</p>
-								<p class="mt-2 text-zinc-400">Send me a email</p>
+							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
+								<p class="text-black dark:text-white">contact@makoto.com.pl</p>
+								<p class="mt-2 text-zinc-600 dark:text-zinc-400">Send me a email</p>
 							</div>
 						</div>
 					</NuxtLink>
 
 					<div class="w-full group">
-						<div class="border border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
-							<div class="flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-800 bg-gradient-to-r from-0% to-65% from-purple-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
+						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
+							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-purple-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
 								<UIcon name="i-simple-icons-discord" class="size-8" />
 								<p>Discord</p>
 							</div>
-							<div class="py-4 px-3 group-hover:bg-zinc-900/50 duration-300">
-								<p>@MakotoPD</p>
-								<p class="mt-2 text-zinc-400">Text to me on Discord</p>
+							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
+								<p class="text-black dark:text-white">@MakotoPD</p>
+								<p class="mt-2 text-zinc-600 dark:text-zinc-400">Text to me on Discord</p>
 							</div>
 						</div>
 					</div>
 					<NuxtLink to="https://instagram.com/MakotoPD" target="_blank" class="w-full group">
-						<div class="border border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
-							<div class="flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-800 bg-gradient-to-r from-0% to-65% from-rose-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
+						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
+							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-rose-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
 								<UIcon name="i-simple-icons-instagram" class="size-8" />
 								<p>Instagram</p>
 							</div>
-							<div class="py-4 px-3 group-hover:bg-zinc-900/50 duration-300">
-								<p>@MakotoPD</p>
-								<p class="mt-2 text-zinc-400">Text to me on Instagram</p>
+							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
+								<p class="text-black dark:text-white">@MakotoPD</p>
+								<p class="mt-2 text-zinc-600 dark:text-zinc-400">Text to me on Instagram</p>
 							</div>
 						</div>
 					</NuxtLink>
@@ -60,7 +60,7 @@
 					<UTextarea v-model="state.message" :placeholder="t('contactform.message')" required autoresize class="w-full" />
 				</UFormField>
 				<NuxtTurnstile v-model="state.token" />
-				<UButton label="Send" trailing-icon="i-solar-map-arrow-right-outline" type="submit" variant="subtle" class="self-end" />
+				<UButton label="Send" trailing-icon="i-solar-map-arrow-right-outline" type="submit" variant="subtle" class="self-end text-black dark:text-white" />
 			</UForm>
 			</template>
 		</UTabs>

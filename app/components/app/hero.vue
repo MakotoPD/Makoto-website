@@ -1,11 +1,11 @@
 <template>
 	<div class="z-10 relative h-screen w-screen flex justify-center items-center">
     
-		<div class="relative z-50 text-white text-xl">
-			<h1 class="serif text-5xl md:text-6xl text-center leading-18 text-shadow-lg/30 text-shadow-white max-w-2xl">
+		<div class="relative z-50 text-slate-900 dark:text-white text-xl">
+			<h1 class="serif text-5xl md:text-6xl text-center leading-18 text-shadow-lg/30 text-shadow-black dark:text-shadow-white max-w-2xl">
 				<i18n-t keypath="page.home.hero.title" scope="global">
 				<template #highlightedText>
-					<span class="italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+					<span class="italic bg-gradient-to-b bg-linear-to-b from-zinc-300 via-zinc-800 to-zinc-900 dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50 bg-clip-text text-transparent">
 					{{ $t('page.home.hero.titleHighlight') }}
 					</span>
 				</template>
@@ -14,7 +14,7 @@
 
 			<div class="serif relative">
 				<h2 class="flex flex-col sm:flex-row gap-2 justify-center items-center text-md md:text-2xl">
-					<span class="font-semibold text-center bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+					<span class="font-semibold text-center bg-gradient-to-b bg-linear-to-b from-zinc-300 via-zinc-800 to-zinc-900 dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50 bg-clip-text text-transparent">
 						{{ $t('page.home.hero.greeting') }}
 					</span>
 
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 
-					<span class="font-semibold text-center bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+					<span class="font-semibold text-center bg-gradient-to-b bg-linear-to-b from-zinc-300 via-zinc-800 to-zinc-900 dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50 bg-clip-text text-transparent">
 						{{ $t('page.home.hero.role') }}
 					</span>
 				</h2>
