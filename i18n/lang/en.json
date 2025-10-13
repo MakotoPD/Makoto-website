@@ -148,7 +148,13 @@
 			},
 			"hero": {
 				"title": "Portfolio",
-				"description": "My projects"
+				"description": "My graphic projects"
+			},
+			"filters": {
+				"title": "Filters",
+				"web": "Websites",
+				"logo": "Logos",
+				"all": "All"
 			}
 		},
 		"blog":{

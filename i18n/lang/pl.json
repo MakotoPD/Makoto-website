@@ -148,7 +148,13 @@
 			},
 			"hero": {
 				"title": "Portfolio",
-				"description": "Moje projekty"
+				"description": "Moje projekty graficzne"
+			},
+			"filters": {
+				"title": "Filtry",
+				"web": "Strony WWW",
+				"logo": "Logotypy",
+				"all": "Wszystko"
 			}
 		},
 		"blog":{
