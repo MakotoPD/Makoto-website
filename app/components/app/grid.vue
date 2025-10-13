@@ -19,7 +19,7 @@
 				<UiCarousel/>
 			</div>
 
-			<div class="absolute inset-0 -z-10 h-2/1">
+			<div class="absolute inset-0 -z-10 h-full">
 				<UiRipple animationType="expand" :numCircles="8" :spawnInterval="1000" :animationDuration="8000" :startSize="200" color="rgba(96, 165, 250, 0.4)" />
 			</div>
 
@@ -30,7 +30,7 @@
 			<div class="absolute inset-0 -z-10">
 				<UiGridpattern 
 					:grid-size="50"
-					:highlight-size="0",
+					:highlight-size="0"
 					:lineColor="$colorMode.value === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'"
 				/>
 			</div>
@@ -39,7 +39,7 @@
 				<h3 class="serif text-3xl text-slate-700 dark:text-slate-300 group-hover:text-black dark:group-hover:text-white duration-300">{{ t('page.home.grid.saas.heading') }}</h3>
 				<p class="serif text-md text-slate-600 dark:text-slate-400 opacity-0 group-hover:opacity-100 duration-300">{{ t('page.home.grid.saas.desc') }}</p>
 			</div>
-			<NuxtImg src="/imgs/SnippetSAAS.webp" alt="Sample of code block" class="opacity-50 absolute -bottom-12 -right-8 h-64 -z-5 group-hover:h-74 group-hover:-right-3 group-hover:-bottom-8 group-hover:opacity-95 duration-300" />
+			<NuxtImg src="/imgs/SnippetSAAS.webp" alt="Sample of code block" class="opacity-50 absolute -bottom-12 -right-8 h-64 -z-10 group-hover:h-72 group-hover:-right-3 group-hover:-bottom-8 group-hover:opacity-95 duration-300" />
 		</div>
 		<div 
 			class="relative overflow-hidden [box-shadow:0_-20px_80px_-20px_#0000001F_inset] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] col-start-1 row-span-2 row-start-4 lg:col-start-3 md:row-start-2 bg-zinc-100/60 dark:bg-zinc-900/40 border border-gray-300/40 dark:border-gray-800/60 rounded-xl hover:bg-zinc-300/60 dark:hover:bg-zinc-900/60 duration-300"
@@ -62,7 +62,7 @@
 			</span>
 			
 			<ClientOnly>
-				<div class="absolute bottom-0 translate-y-1/12">
+				<div class="absolute bottom-0 translate-y-1">
 					<UiGlobe/>
 				</div>
 				<template #fallback>
@@ -83,9 +83,9 @@
 				/>
 			</div>
 
-			<div class="left-2/12 -z-10 relative w-11/12 md:w-8/12 rounded-lg p-8 h-5/6 group-hover:w-10/12 group-hover:left-1/12 duration-300 overflow-hidden">
+			<div class="left-2 -z-10 relative w-11/12 md:w-8/12 rounded-lg p-8 h-5/6 group-hover:w-10/12 group-hover:left-1 duration-300 overflow-hidden">
 
-				<div ref="centerRef" class="absolute top-1/2 right-8 transform -translate-x-1/2 -translate-y-1/2 z-30">
+				<div ref="centerRef" class="absolute top-1/2 right-8 transform -translate-x-1/2 -translate-y-1/2 z-40">
 					<div class="h-16 w-16 group-hover:h-20 group-hover:w-20 duration-300 rounded-full border-2 border-zinc-500 bg-zinc-800 flex items-center justify-center shadow-lg">
 						<NuxtImg src="/imgs/smallAvatar.jpg" title="Makoto" alt="Profile picture" height="128" class="h-full object-cover rounded-full" />
 					</div>
@@ -96,7 +96,7 @@
 				</div>
 
 				<UiAnimatedBeam :fromRef="centerRef" :toRef="clientRef" :duration="2" :delay="2" :curvature="30" :path-width="2" :beam-length="40" :path-color="$colorMode.value === 'dark' ? '#e8f0fe' : '#2C2E31FF'" gradient-start-color="#42DFF4FF" gradient-stop-color="#A71AE8FF" />
-				<UiAnimatedBeam :fromRef="clientRef" :toRef="centerRef" :duration="2" :delay="0" :curvature="-30" :path-width="2" :beam-length="40":path-color="$colorMode.value === 'dark' ? '#e8f0fe' : '#2C2E31FF'"  gradient-start-color="#F4E842FF" gradient-stop-color="#1a73e8" />
+				<UiAnimatedBeam :fromRef="clientRef" :toRef="centerRef" :duration="2" :delay="0" :curvature="-30" :path-width="2" :beam-length="40" :path-color="$colorMode.value === 'dark' ? '#e8f0fe' : '#2C2E31FF'" gradient-start-color="#F4E842FF" gradient-stop-color="#1a73e8" />
 			</div>
 
 			<div class="absolute z-10 left-0 bottom-0 pl-6 pb-0 group-hover:pb-6 duration-300">

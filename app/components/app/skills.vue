@@ -4,13 +4,13 @@
 			<div>
 				<div class="relative mx-auto size-fit overflow-hidden">
 					<div
-						class="[mask-image:linear-gradient(to_top,transparent,black_50%,black_90%,transparent)] [masak-image:linear-gradient(to_top,transparent,#000_100%)]">
+						class="[mask-image:linear-gradient(to_top,transparent,black_50%,black_90%,transparent)] [mask-image:linear-gradient(to_top,transparent,#000_100%)]">
 						<div ref="flower" class="relative mx-auto size-[300px] translate-y-36 md:size-[380px] md:translate-y-40 animate-[spin_6s_linear_infinite]">
 							<NuxtImg src="/imgs/steel-bg.png" draggable="false" alt="bg" class="z-10 w-full opacity-65 select-none" />
 						</div>
 					</div>
 				</div>
-				<h2  class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-0 md:mb-0 size-full -translate-y-6 md:-translate-y-10">
+				<h2  class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-40 mb-0 md:mb-0 size-full -translate-y-6 md:-translate-y-10">
 					<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">{{ $t('page.home.skills.line1') }}</p>
 					<span class="serif">
 						<span class="text-black dark:text-white">{{ $t('page.home.skills.line2') }} </span>

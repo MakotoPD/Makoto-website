@@ -16,9 +16,9 @@
 		</div>
 		<div class="my-36 h-56 overflow-x-hidden">
 			<div class="pt-8 relative -left-2">
-				<div class="z-0 flex w-[102dvw] translate-y-10 rotate-6 bg-linear-to-r from-sky-200 dark:from-sky-800 via-sky-600 to-sky-200 dark:to-sky-800 py-4 opacity-60 md:rotate-3 lg:translate-y-16 lg:py-8">
+				<div class="z-0 flex w-[102dvw] translate-y-10 rotate-6 bg-gradient-to-r from-sky-200 dark:from-sky-800 via-sky-600 to-sky-200 dark:to-sky-800 py-4 opacity-60 md:rotate-3 lg:translate-y-16 lg:py-8">
 				</div>
-				<div class="z-2 flex w-[102dvw] -rotate-3 items-center justify-center overflow-hidden bg-linear-to-r from-sky-400 dark:from-sky-600 via-sky-500 to-sky-400 dark:to-sky-600 py-1.5 will-change-transform lg:py-4">
+				<div class="z-2 flex w-[102dvw] -rotate-3 items-center justify-center overflow-hidden bg-gradient-to-r from-sky-400 dark:from-sky-600 via-sky-500 to-sky-400 dark:to-sky-600 py-1.5 will-change-transform lg:py-4">
 					<UiTextScroller
 						class="serif relative z-10"
 						:items="scrollerItems"

@@ -10,8 +10,8 @@
         <div class="flex justify-between items-center ">
           <div class="flex gap-1">
             <NuxtLink :to="localePath('/')" title="Home page">
-              <NuxtImg v-if="$colorMode.value === 'dark'" src="/logo.png" arial-hidden class=" h-7" />
-              <NuxtImg v-else src="/logo-dark.png" arial-hidden class=" h-7" />
+              <NuxtImg v-if="$colorMode.value === 'dark'" src="/logo.png" aria-hidden class=" h-7" />
+              <NuxtImg v-else src="/logo-dark.png" aria-hidden class=" h-7" />
             </NuxtLink>
             <UColorModeButton />
           </div>
@@ -28,18 +28,6 @@
               class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
             >
               {{ link.label }}
-              
-              <span 
-                :ref="el => indicatorRefs[link.label] = el"
-                class="indicator absolute inset-0 -z-10 w-full rounded-lg bg-black/10 dark:bg-white/10 pointer-events-none"
-                :class="{ 'active': isActiveLink(localePath(link.to)) }"
-              >
-                <div class="indicatorBox bg-primary absolute -bottom-[14px] left-1/2 h-1 w-8 -translate-x-1/2 rounded-b-full">
-                  <div class="bg-primary/20 absolute -top-2 -left-2 h-4 w-12 rounded-full blur-md"></div>
-                  <div class="bg-primary/20 absolute -top-1 h-4 w-8 rounded-full blur-md"></div>
-                  <div class="bg-primary/20 absolute top-0 left-2 h-2 w-4 rounded-full blur-sm"></div>
-                </div>
-              </span>
             </UButton>
             <UButton 
               variant="ghost" 
@@ -47,11 +35,11 @@
             >
               {{ $t('menu.more') }}
 
-              <span class="absolute right-0 translate-x-1/12 top-[100%] pt-2 opacity-0 scale-95 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-in-out">
-                <div  class="z-100 px-2 py-2 text-black dark:text-white rounded-3xl border border-zinc-600/20 dark:border-zinc-400/20 bg-white dark:bg-black flex flex-col gap-y-1">
+              <span class="absolute right-0 translate-x-1 top-[100%] pt-2 opacity-0 scale-95 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-in-out">
+                <div  class="z-[100] px-2 py-2 text-black dark:text-white rounded-3xl border border-zinc-600/20 dark:border-zinc-400/20 bg-white dark:bg-black flex flex-col gap-y-1">
                   <div class="flex gap-x-4">
                     <div>
-                      <NuxtLink :to="localePath('/portfolio')" class="z-40 h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
+                      <NuxtLink :to="localePath('/portfolio')" class="z-[40] h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
                         <div>
                           <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
                         </div>
@@ -59,7 +47,7 @@
                       </NuxtLink>
                     </div>
                     <div class="flex flex-col gap-2">
-                      <NuxtLink :to="localePath('/links')" class="w-70 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink :to="localePath('/links')" class="w-72 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-link-line-duotone" class="size-6" />
                         </div>
@@ -200,14 +188,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import type { Ref } from 'vue'
-
-// Type for indicator refs
-interface IndicatorRefs {
-  [key: string]: HTMLElement | null
-}
 
 const { locale, locales, setLocale, t } = useI18n()
 
@@ -225,8 +207,6 @@ const mobilemenu = ref<HTMLElement | null>(null)
 const isClicked = ref(false)
 const toggleMoreMobileButtonIcon = ref(false)
 const moreMenuMobile = ref<HTMLElement | null>(null)
-const resizeObserver = ref<ResizeObserver | null>(null)
-let updateTimeout: ReturnType<typeof setTimeout> | null = null
 
 // Mobile menu toggle
 const togglemobilemenu = (e: Event) => {
@@ -269,91 +249,6 @@ const more = [
   },
 ] as const
 
-// Indicator refs with proper typing
-const indicatorRefs = ref<Record<string, HTMLElement | null>>({})
-const animations = ref<Record<string, Animation | null>>({})
-
-// Check if link is active
-const isActiveLink = (linkTo: string) => {
-  return route.path === linkTo
-}
-
-// Update active indicator position
-const updateActiveIndicator = () => {
-  if (updateTimeout) {
-    clearTimeout(updateTimeout)
-  }
-  
-  updateTimeout = setTimeout(() => {
-    try {
-      const activeLink = document.querySelector('.router-link-active')
-      if (!activeLink) return
-
-      const linkText = activeLink.textContent?.trim()
-      if (!linkText || !indicatorRefs.value[linkText]) return
-
-      const indicator = indicatorRefs.value[linkText]
-      const indicatorBox = indicator?.querySelector('.indicatorBox') as HTMLElement
-      
-      if (!indicatorBox) return
-
-      const activeLinkRect = activeLink.getBoundingClientRect()
-      const containerRect = activeLink.parentElement?.getBoundingClientRect()
-      
-      if (!containerRect) return
-
-      indicatorBox.style.width = `${activeLinkRect.width}px`
-      indicatorBox.style.left = `${activeLinkRect.left - containerRect.left}px`
-    } catch (error) {
-      console.error('Error updating active indicator:', error)
-    }
-  }, 50)
-}
-
-// Setup resize observer
-const setupResizeObserver = () => {
-  if (resizeObserver.value) {
-    resizeObserver.value.disconnect()
-  }
-  
-  const container = document.querySelector('.flex.justify-between.items-center')
-  if (container) {
-    resizeObserver.value = new ResizeObserver(updateActiveIndicator)
-    resizeObserver.value.observe(container)
-  }
-}
-
-// Watch for route changes
-watch(() => route.path, () => {
-  nextTick(updateActiveIndicator)
-}, { immediate: true })
-
-// Lifecycle hooks
-onMounted(() => {
-  nextTick(() => {
-    updateActiveIndicator()
-    setupResizeObserver()
-    window.addEventListener('resize', updateActiveIndicator)
-  })
-})
-
-// Cleanup on unmount
-onBeforeUnmount(() => {
-  if (resizeObserver.value) {
-    resizeObserver.value.disconnect()
-  }
-  window.removeEventListener('resize', updateActiveIndicator)
-  if (updateTimeout) {
-    clearTimeout(updateTimeout)
-  }
-  
-  // Cleanup animations
-  Object.values(animations.value).forEach(animation => {
-    if (animation) {
-      animation.cancel()
-    }
-  })
-})
 
 </script>
 

@@ -44,6 +44,7 @@
   transform: translate(-50%, -50%); /* Center the element on the cursor position */
 }
 
+
 .custom-cursor__cursor {
   width: 8px;
   height: 8px;
@@ -54,7 +55,11 @@
 .custom-cursor__follower {
   width: 30px;
   height: 30px;
-  border: 1px solid white;
+  border: 1px solid black;
+}
+
+.dark .custom-cursor__follower {
+  border: 1px solid white !important;
 }
 
 .custom-cursor__follower.active {
