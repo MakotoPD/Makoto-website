@@ -41,8 +41,9 @@
                   <div class="flex gap-x-4">
                     <div>
                       <NuxtLink prefetch :to="localePath('/portfolio')" class="z-[40] h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
-                        <div>
+                        <div class="flex flex-col  items-start">
                           <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
+                          <p class="text-md group-hover/portfolio:text-lg duration-300 text-white/70 group-hover/portfolio:text-white">My graphic portfolio</p>
                         </div>
                         <NuxtImg src="/imgs/portfolio.webp" alt="Portfolio image" loading="lazy" aria-hidden class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
                       </NuxtLink>
