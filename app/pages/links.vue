@@ -14,7 +14,7 @@
 		<div v-if="makoto?.data" class="relative -mt-16 w-full max-w-4xl mx-auto px-12 flex flex-col items-center gap-3">
 
 				<NuxtImg loading="lazy" class="h-36 w-36 object-cover rounded-2xl outline-offset-3 outline-2 outline-sky-500" provider="strapi" :src="makoto.data.picture.url" alt="Makoto profile picture" />
-				<h2 class="text-3xl serif text-center">{{ makoto.data.name }}</h2>
+				<h2 class="text-3xl serif text-center text-black dark:text-white">{{ makoto.data.name }}</h2>
 
 				<div class="flex gap-3">
 					<UBadge variant="soft" :class="styleMap[tag.theme]?.textColor + ' ' + styleMap[tag.theme]?.accentColor" v-for="tag in makoto.data.tags" :key="tag">{{ tag.name }}</UBadge>
@@ -35,7 +35,7 @@
 
 				<div class="w-full max-w-xl flex flex-col gap-3">
 					<NuxtLink 
-						class="relative w-full py-3 flex justify-center bg-gray-900 border border-neutral-700 rounded-full hover:bg-gray-800 hover:border-gray-600 duration-300" 
+						class="relative w-full py-3 flex justify-center text-black dark:text-white bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-neutral-700 rounded-full hover:bg-gray-300 hover:dark:bg-gray-800 hover:border-gray-600 duration-300" 
 						v-for="link in makoto.data.links"
 						target="_blank"
 						:to="link.link"
@@ -96,9 +96,21 @@
 
 
 
-
-
 .bookmarkBtn {
+  width: 16rem;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.349);
+  background-color: rgb(226, 226, 226);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+}
+
+.dark .bookmarkBtn {
   width: 16rem;
   height: 40px;
   border-radius: 40px;
@@ -130,6 +142,18 @@
 }
 
 .text {
+  height: 100%;
+  width: 13.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  z-index: 1;
+  transition-duration: 0.3s;
+  font-size: 1.04em;
+}
+
+.dark .text {
   height: 100%;
   width: 13.3rem;
   display: flex;

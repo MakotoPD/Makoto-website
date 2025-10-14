@@ -14,7 +14,7 @@
 				<AppSkills/>
 			</section>
 		</div>
-		<div class="my-36 h-56 overflow-x-hidden">
+		<div class="my-12 h-56 overflow-x-hidden">
 			<div class="pt-8 relative -left-2">
 				<div class="z-0 flex w-[102dvw] translate-y-10 rotate-6 bg-gradient-to-r from-sky-200 dark:from-sky-800 via-sky-600 to-sky-200 dark:to-sky-800 py-4 opacity-60 md:rotate-3 lg:translate-y-16 lg:py-8">
 				</div>
@@ -34,10 +34,10 @@
 			<section class="section">
 				<AppFeaturedProjects/>
 			</section>
-			<section class="section mt-64">
+			<section class="section mt-12 lg:mt-64">
 				<AppTrusted/>
 			</section>
-			<section class="section">
+			<section class="section mt-12 lg:mt-0">
 				<AppAbout />
 			</section>
 		</div>
