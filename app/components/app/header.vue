@@ -24,6 +24,7 @@
               :key="link.to"
               variant="ghost" 
               :to="localePath(link.to)"
+              prefetch
               active-class="bg-gradient-to-t from-sky-300 dark:from-sky-700/40 to-transparent" 
               class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
             >
@@ -39,7 +40,7 @@
                 <div  class="z-[100] px-2 py-2 text-black dark:text-white rounded-3xl border border-zinc-600/20 dark:border-zinc-400/20 bg-white dark:bg-black flex flex-col gap-y-1">
                   <div class="flex gap-x-4">
                     <div>
-                      <NuxtLink :to="localePath('/portfolio')" class="z-[40] h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
+                      <NuxtLink prefetch :to="localePath('/portfolio')" class="z-[40] h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
                         <div>
                           <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
                         </div>
@@ -47,7 +48,7 @@
                       </NuxtLink>
                     </div>
                     <div class="flex flex-col gap-2">
-                      <NuxtLink :to="localePath('/links')" class="w-72 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink prefetch :to="localePath('/links')" class="w-72 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-link-line-duotone" class="size-6" />
                         </div>
@@ -56,7 +57,7 @@
                           <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.links.desc') }}</p>
                         </div>
                       </NuxtLink>
-                      <NuxtLink :to="localePath('/uses')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink prefetch :to="localePath('/uses')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
                         </div>
@@ -65,7 +66,7 @@
                           <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.uses.desc') }}</p>
                         </div>
                       </NuxtLink>
-                      <NuxtLink :to="localePath('/faq')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
+                      <NuxtLink prefetch :to="localePath('/faq')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
                           <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
                         </div>
@@ -113,19 +114,19 @@
         </div>
         <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300 text-black dark:text-white">
           <div class="py-4 flex flex-col">
-            <NuxtLink :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+            <NuxtLink prefetch :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-home-smile-line-duotone" class="size-6" />
               {{t('menu.home')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+            <NuxtLink prefetch :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-user-rounded-line-duotone" class="size-6" />
               {{t('menu.about')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+            <NuxtLink prefetch :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-buildings-line-duotone" class="size-6" />
               {{t('menu.work')}}
             </NuxtLink>
-            <NuxtLink :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+            <NuxtLink prefetch :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <UIcon name="i-solar-document-text-line-duotone" class="size-6" />
               {{t('menu.blog')}}
             </NuxtLink>
@@ -137,19 +138,19 @@
               <UIcon :name="toggleMoreMobileButtonIcon ? 'i-solar-alt-arrow-up-line-duotone' : 'i-solar-alt-arrow-down-line-duotone'" class="size-6" />
             </button>
             <div ref="moreMenuMobile" class="px-2 overflow-hidden max-h-0 transition-all duration-300">
-              <NuxtLink :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+              <NuxtLink prefetch :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-folder-path-connect-line-duotone" class="size-6" />
                 Portfolio
               </NuxtLink>
-              <NuxtLink :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+              <NuxtLink prefetch :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
                 {{ t('menu.more.uses') }}
               </NuxtLink>
-              <NuxtLink :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+              <NuxtLink prefetch :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
                 {{ t('menu.more.attributons') }}
               </NuxtLink>
-              <NuxtLink :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+              <NuxtLink prefetch :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
                 <UIcon name="i-solar-link-line-duotone" class="size-6" />
                 {{ t('menu.more.links') }}
               </NuxtLink>

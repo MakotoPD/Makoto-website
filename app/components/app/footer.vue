@@ -94,22 +94,22 @@
 							<ul
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
 								<li>
-									<NuxtLink class="link-underline" :to="localePath('/')">
+									<NuxtLink class="link-underline" :to="localePath('/')" prefetch>
 										{{ $t('menu.home') }}
 									</NuxtLink> 
 								</li>
 								<li>
-									<NuxtLink class="link-underline" :to="localePath('about')">
+									<NuxtLink class="link-underline" :to="localePath('about')" prefetch>
 										{{ $t('menu.about') }}
 									</NuxtLink>
 								</li>
 								<li>
-									<NuxtLink class="link-underline" :to="localePath('work')">
+									<NuxtLink class="link-underline" :to="localePath('work')" prefetch>
 										{{ $t('menu.work') }}
 									</NuxtLink>
 								</li>
 								<li>
-									<NuxtLink class="link-underline" :to="localePath('blog')">
+									<NuxtLink class="link-underline" :to="localePath('blog')" prefetch>
 										{{ $t('menu.blog') }}
 									</NuxtLink>
 								</li>
