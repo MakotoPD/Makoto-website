@@ -151,13 +151,14 @@
 }
 
 @theme {
-  --font-display: 'Outfit', 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	--font-display: swap, 'Outfit', 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 @custom-variant hover (&:hover);
 
 :root{
-  font-family: 'Outfit', 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-family: 'Outfit', 'Roboto Flex', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-display: swap
 }
 
 h1 {

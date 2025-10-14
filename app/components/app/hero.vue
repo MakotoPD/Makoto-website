@@ -5,6 +5,7 @@
 			<h1 class="serif text-5xl md:text-6xl text-center leading-18 text-shadow-lg/30 text-shadow-black dark:text-shadow-white max-w-2xl">
 				<i18n-t keypath="page.home.hero.title" scope="global">
 				<template #highlightedText>
+          <br/>
 					<span class="italic bg-gradient-to-b bg-linear-to-b from-zinc-300 via-zinc-800 to-zinc-900 dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50 bg-clip-text text-transparent">
 					{{ $t('page.home.hero.titleHighlight') }}
 					</span>
