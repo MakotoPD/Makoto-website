@@ -9,6 +9,10 @@ export default defineNuxtConfig({
 		enabled: true
 	},
 
+	features: {
+		inlineStyles: false
+	},
+
 	vite: {
 		plugins: [
 			tailwindcss()
@@ -97,6 +101,7 @@ export default defineNuxtConfig({
 
 	googleFonts: {
 		download: true,
+		display: 'swap',
 		families: {
 			'Roboto Flex': '100..900',
 			'Outfit': '100..900',
