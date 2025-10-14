@@ -270,4 +270,5 @@ body:before {
 
 section.section {
   content-visibility: auto;
+  contain-intrinsic-size: 1500px;
 }

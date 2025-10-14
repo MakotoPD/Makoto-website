@@ -247,7 +247,6 @@ const styleMap = {
 							</p>
 							<NuxtImg class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
                 :class="styleMap[project.theme]?.imgGlow"
-                loading="lazy"
                 provider="strapi"
                 :src="project.image.url"
                 :alt="project.title"
