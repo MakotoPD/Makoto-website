@@ -10,8 +10,8 @@
         <div class="flex justify-between items-center ">
           <div class="flex gap-1">
             <NuxtLink :to="localePath('/')" title="Home page">
-              <NuxtImg src="/logo.png" aria-hidden class="h-7 dark:block hidden" />
-              <NuxtImg src="/logo-dark.png" aria-hidden class=" h-7 dark:hidden block" />
+              <NuxtImg src="/logo.png" alt="Makoto Logo" aria-hidden class="h-7 dark:block hidden" />
+              <NuxtImg src="/logo-dark.png" alt="Makoto Logo" aria-hidden class=" h-7 dark:hidden block" />
             </NuxtLink>
             <UColorModeButton />
           </div>
