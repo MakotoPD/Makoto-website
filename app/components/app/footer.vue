@@ -70,7 +70,7 @@
 				<div class="flex flex-1 flex-col items-start gap-4 md:flex-row md:gap-10 md:px-8">
 					<div class="flex-col gap-y-1 md:flex md:w-1/2">
 						<NuxtLink :to="localePath('/')">
-							<LazyNuxtImg loading="lazy" src="/favicon.png" alt="sygnet makoto" height="46" />
+							<NuxtImg loading="lazy" src="/favicon.png" alt="sygnet makoto" height="46" />
 						</NuxtLink>
 						<p class="w-60 text-sm leading-5 text-zinc-700 dark:text-neutral-300">
 							{{ $t('footer.desc') }}
