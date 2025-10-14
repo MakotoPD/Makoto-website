@@ -13,7 +13,7 @@
 		<div v-else-if="error" class="mt-[20rem]">Błąd: {{ error }}</div>
 		<div v-if="makoto?.data" class="relative -mt-16 w-full max-w-4xl mx-auto px-12 flex flex-col items-center gap-3">
 
-				<NuxtImg class="h-36 w-36 object-cover rounded-2xl outline-offset-3 outline-2 outline-sky-500" :src="'https://api.makoto.com.pl'+makoto.data.picture.url" alt="Makoto profile picture" />
+				<NuxtImg loading="lazy" class="h-36 w-36 object-cover rounded-2xl outline-offset-3 outline-2 outline-sky-500" provider="strapi" :src="makoto.data.picture.url" alt="Makoto profile picture" />
 				<h2 class="text-3xl serif text-center">{{ makoto.data.name }}</h2>
 
 				<div class="flex gap-3">

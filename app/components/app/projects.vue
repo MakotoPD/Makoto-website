@@ -237,9 +237,11 @@ const styleMap = {
 							<p :class="styleMap[project.theme]?.textColor" class="hidden lg:block serif text-2xl mb-12">
 								{{ project.slogan }}
 							</p>
-							<img class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
+							<NuxtImg class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
                 :class="styleMap[project.theme]?.imgGlow"
-                :src="'https://api.makoto.com.pl'+project.image.url"
+                loading="lazy"
+                provider="strapi"
+                :src="project.image.url"
                 :alt="project.title"
               />
 						</div>

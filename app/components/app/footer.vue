@@ -4,8 +4,8 @@
 			class="relative z-0 mt-40 flex w-full justify-center overflow-x-hidden bg-[url('/bg/footer.webp')] bg-cover bg-center px-4 py-20">
 			<div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-y-4 py-10 text-center lg:mx-0">
 				<div>
-					<NuxtImg class="dark:block hidden h-8" height="44px" alt="Logo Makoto" src="/logo.png" />
-					<NuxtImg class="block dark:hidden h-8" height="44px" alt="Logo Makoto" src="/logo-dark.png" />
+					<NuxtImg loading="lazy" class="dark:block hidden h-8" height="44px" alt="Logo Makoto" src="/logo.png" />
+					<NuxtImg loading="lazy" class="block dark:hidden h-8" height="44px" alt="Logo Makoto" src="/logo-dark.png" />
 				</div>
 
 				<span class="relative mt-4 text-2xl uppercase font-light tracking-wide sm:text-4xl lg:text-5xl text-black dark:text-white">
@@ -70,7 +70,7 @@
 				<div class="flex flex-1 flex-col items-start gap-4 md:flex-row md:gap-10 md:px-8">
 					<div class="flex-col gap-y-1 md:flex md:w-1/2">
 						<NuxtLink>
-							<LazyNuxtImg src="/favicon.png" alt="sygnet makoto" height="46" />
+							<LazyNuxtImg loading="lazy" src="/favicon.png" alt="sygnet makoto" height="46" />
 						</NuxtLink>
 						<p class="w-60 text-sm leading-5 text-zinc-700 dark:text-neutral-300">
 							{{ $t('footer.desc') }}
@@ -119,7 +119,7 @@
 							<h4 class="text-base text-black dark:text-white">{{ $t('footer.menu.more') }}</h4>
 							<ul
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
-								<li> <NuxtLink :to="localePath('rules')">{{ $t('menu.rules') }}</NuxtLink></li>
+								<li><NuxtLink :to="localePath('rules')">{{ $t('menu.rules') }}</NuxtLink></li>
 								<li><NuxtLink :to="localePath('privacy')">{{ $t('menu.privacy') }}</NuxtLink></li>
 							</ul>
 						</div>

@@ -22,7 +22,7 @@
 					spotlight-color="primary"
 					:to="localePath(`/blog/${article.slug}`)"
 				>
-					<img :src="config.public.apiUrl + article.cover.url" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/25"  />
+					<NuxtImg loading="lazy" provider="strapi" :src="article.cover.url" alt="Tailwind CSS" class="w-full h-36 object-cover rounded-lg border border-neutral-500/50"  />
 					<template #footer>
 						<div class="flex flex-wrap gap-1">
 							<UBadge v-for="category in article.categories" :key="category.id" variant="soft" color="primary" size="md" class="text-black dark:text-white" :icon="getCategoryIcon(category.slug)" >{{ category.name }}</UBadge>
