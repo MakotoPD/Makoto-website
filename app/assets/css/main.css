@@ -186,6 +186,15 @@ body:before {
 
 body:before {
     background: black;
+	z-index: 1;
+    background-image: url(/imgs/grain.svg);
+    background-attachment: fixed;
+    filter: contrast(2) brightness(.5);
+}
+
+.dark body:before {
+    background: none;
+	z-index: 1;
     background-image: url(/imgs/grain.svg);
     background-attachment: fixed;
     filter: contrast(2) brightness(.5);
