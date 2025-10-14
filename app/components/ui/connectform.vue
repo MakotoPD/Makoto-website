@@ -60,7 +60,10 @@
 					<UTextarea v-model="state.message" :placeholder="t('contactform.message')" required autoresize class="w-full" />
 				</UFormField>
 				<NuxtTurnstile v-model="state.token" />
-				<UButton label="Send" trailing-icon="i-solar-map-arrow-right-outline" type="submit" variant="subtle" class="self-end text-black dark:text-white" />
+				<button type="submit" label="Send" class="w-full bg-sky-600/60 hover:bg-sky-500/90 dark:bg-sky-700/20 hover:dark:bg-sky-700/30 duration-150 border border-sky-600/90 dark:border-sky-600/50 py-1 rounded-lg flex items-center justify-center gap-2 hover:gap-4 relative">
+					Send
+					<UIcon name="i-solar-map-arrow-right-outline" class="size-5" />
+				</button>
 			</UForm>
 			</template>
 		</UTabs>
