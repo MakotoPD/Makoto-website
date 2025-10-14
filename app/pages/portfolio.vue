@@ -1,20 +1,27 @@
 <template>
 	<div class="pt-44">
-		<h1 class="text-6xl text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
+		<h1 class="text-6xl text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-800 dark:via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
 			{{ t('page.portfolio.hero.title') }}
 		</h1>
 		<h2 class="serif text-4xl text-center text-zinc-400">
 			{{ t('page.portfolio.hero.description') }}
 		</h2>
 		<div class="mt-24 max-w-4xl mx-auto px-2">
-			<h2 class="text-3xl">{{t('page.portfolio.filters.title')}}:</h2>
+			<h2 class="text-3xl text-black dark:text-white">{{t('page.portfolio.filters.title')}}:</h2>
 			<div class="flex gap-3">
-				<UButton @click="changefilters('')" :variant="isActive('') ? 'solid' : 'subtle'" color="primary">{{t('page.portfolio.filters.all')}}</UButton>
-				<UButton @click="changefilters('web')" :variant="isActive('web') ? 'solid' : 'subtle'" color="primary">{{t('page.portfolio.filters.web')}}</UButton>
-				<UButton @click="changefilters('logo')" :variant="isActive('logo') ? 'solid' : 'subtle'" color="primary">{{t('page.portfolio.filters.logo')}}</UButton>
+				<UButton class="text-black dark:text-white" @click="changefilters('')" :variant="isActive('') ? 'solid' : 'subtle'" color="primary">{{t('page.portfolio.filters.all')}}</UButton>
+				<UButton class="text-black dark:text-white" @click="changefilters('web')" :variant="isActive('web') ? 'solid' : 'subtle'" color="primary">{{t('page.portfolio.filters.web')}}</UButton>
+				<UButton class="text-black dark:text-white" @click="changefilters('logo')" :variant="isActive('logo') ? 'solid' : 'subtle'" color="primary">{{t('page.portfolio.filters.logo')}}</UButton>
 			</div>
-			<div class="mt-8 grid gap-4 grid-cols-2 md:grid-cols-3">
-				<div v-for="img in portfolio.data" class="self-center overflow-hidden rounded-2xl border border-zinc-700 p-1 duration-300 hover:border-sky-600 hover:-translate-y-3">
+			<div v-if="pending" class="mt-8">
+				Loading
+			</div>
+			<div v-else-if="error" class="mt-8">
+				Error:
+				{{ error }}
+			</div>
+			<div v-else class="mt-8 grid gap-4 grid-cols-2 md:grid-cols-3">
+				<div v-for="img in portfolio?.data" class="self-center overflow-hidden rounded-2xl border border-zinc-700 p-1 duration-300 hover:border-sky-600 hover:-translate-y-3">
 					<NuxtImg provider="strapi" :src="img.image.url" loading="lazy" class="rounded-xl" />
 				</div>
 			</div>
