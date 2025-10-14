@@ -83,9 +83,9 @@
 				/>
 			</div>
 
-			<div class="left-2 -z-10 relative w-11/12 md:w-8/12 rounded-lg p-8 h-5/6 group-hover:w-10/12 group-hover:left-1 duration-300 overflow-hidden">
+			<div class="left-2/12 -z-10 relative w-11/12 md:w-8/12 rounded-lg p-8 h-5/6 group-hover:w-10/12 group-hover:left-1/12 duration-300 overflow-hidden">
 
-				<div ref="centerRef" class="absolute top-1/2 right-8 transform -translate-x-1/2 -translate-y-1/2 z-40">
+				<div ref="centerRef" class="absolute top-1/2 right-2 transform -translate-x-1/2 -translate-y-1/2 z-40">
 					<div class="h-16 w-16 group-hover:h-20 group-hover:w-20 duration-300 rounded-full border-2 border-zinc-500 bg-zinc-800 flex items-center justify-center shadow-lg">
 						<NuxtImg src="/imgs/smallAvatar.jpg" title="Makoto" alt="Profile picture" height="128" class="h-full object-cover rounded-full" />
 					</div>
