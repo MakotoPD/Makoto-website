@@ -4,8 +4,8 @@
 			class="relative z-0 mt-40 flex w-full justify-center overflow-x-hidden bg-[url('/bg/footer.webp')] bg-cover bg-center px-4 py-20">
 			<div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-y-4 py-10 text-center lg:mx-0">
 				<div>
-					<NuxtImg v-if="$colorMode.value === 'dark'" height="44px" alt="Logo Makoto" src="/logo.png" />
-					<NuxtImg v-else height="44px" alt="Logo Makoto" src="/logo-dark.png" />
+					<NuxtImg class="dark:block hidden h-8" height="44px" alt="Logo Makoto" src="/logo.png" />
+					<NuxtImg class="block dark:hidden h-8" height="44px" alt="Logo Makoto" src="/logo-dark.png" />
 				</div>
 
 				<span class="relative mt-4 text-2xl uppercase font-light tracking-wide sm:text-4xl lg:text-5xl text-black dark:text-white">
