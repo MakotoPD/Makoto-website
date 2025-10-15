@@ -239,6 +239,11 @@ export default defineNuxtConfig({
 					async: true,
 					src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7443176231652937',
 					crossorigin: "anonymous"
+				},
+				{
+					defer: true,
+					src: "https://cloud.umami.is/script.js",
+					'data-website-id': '84056d40-a170-4a24-9d8a-e10d2144dd7e'
 				}
 			],
 		},
