@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="relative grid aspect-square w-92 place-content-center lg:me-10 lg:mt-20 lg:w-[500px]">
-            <NuxtImg loading="lazy" src="/imgs/avatar-square.webp" alt="Makoto Picture" class="w-full h-full object-contain rounded-4xl rotate-3 drop-shadow-[0_8px_20px_rgb(76_179_202_/_0.5)] hover:scale-105 hover:-rotate-1 duration-300" />
+            <NuxtImg :placeholder="[200, 200, 40, 10]" loading="lazy" src="/imgs/avatar-square.webp" alt="Makoto Picture" class="w-full h-full object-contain rounded-4xl rotate-3 drop-shadow-[0_8px_20px_rgb(76_179_202_/_0.5)] hover:scale-105 hover:-rotate-1 duration-300" />
         </div>
     </div>
 		<div class="w-full max-w-5xl mx-auto px-12 mt-24">

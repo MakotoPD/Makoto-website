@@ -6,7 +6,7 @@
 					<div
 						class="[mask-image:linear-gradient(to_top,transparent,black_50%,black_90%,transparent)] [mask-image:linear-gradient(to_top,transparent,#000_100%)]">
 						<div ref="flower" class="relative mx-auto size-[300px] translate-y-36 md:size-[380px] md:translate-y-40 animate-[spin_6s_linear_infinite]">
-							<NuxtImg src="/imgs/steel-bg.png" draggable="false" alt="bg" class="z-10 w-full opacity-65 select-none" />
+							<NuxtImg :placeholder="[200, 200, 30, 10]" src="/imgs/steel-bg.png" draggable="false" alt="bg" class="z-10 w-full opacity-65 select-none" />
 						</div>
 					</div>
 				</div>
