@@ -18,7 +18,7 @@ This is the repository for the modern website "Makoto," created as a portfolio f
 * **🎨 3D Graphics:** Interactive 3D elements thanks to integration with TresJS.
 * **🌍 Multilingual:** Support for English and Polish languages with the `@nuxtjs/i18n` module.
 * **📝 Content Management:** Integrated with the headless CMS Strapi (`@nuxtjs/strapi`).
-* **📱 Fully Responsive:** Modern design with UI components from `@nuxt/ui` and typography from `@tailwindcss/typography`.
+* **📱 Fully Responsive:** Modern design with UI components from `@nuxt/ui`,typography from `@tailwindcss/typography` and color modes from `@nuxtjs/color-mode`.
 * **⚡ Optimization:** Optimized image (`@nuxt/image`) and font (`@nuxtjs/google-fonts`) loading.
 * **🎬 Animations:** Smooth animations using the GSAP library.
 
@@ -29,7 +29,7 @@ The project uses a wide range of modern tools and libraries:
 | Category | Technology |
 | :--- | :--- |
 | **Framework** | Nuxt, Vue.js |
-| **Styling** | Tailwind CSS, PostCSS, `@nuxt/ui` |
+| **Styling** | Tailwind CSS, PostCSS, `@nuxt/ui`, `@nuxtjs/color-mode` |
 | **3D Graphics** | TresJS, Three.js |
 | **CMS** | Strapi |
 | **Multilingual** | `@nuxtjs/i18n` |
