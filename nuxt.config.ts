@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine'],
 
 
 	image: {
@@ -38,17 +38,14 @@ export default defineNuxtConfig({
 			lastmod: new Date(),
 		},
 		autoLastmod: true,
-		exclude: ['/panel/**'], // przykład — można usunąć
-		// Pobierz dynamiczne wpisy bloga
+		exclude: ['/panel/**'],
 		sources: [
-			'/api/__sitemap__/blog' // lokalny endpoint
+			'/api/__sitemap__/blog'
 		],
-		// Integracja z i18n
 		i18n: true,
 		autoI18n: true,
 	},
 
-    // Upewnij się, że masz ustawiony site.url, jest to wymagane przez sitemap
     site: {
       url: 'https://dev.makoto.com.pl',
     },
@@ -63,21 +60,19 @@ export default defineNuxtConfig({
 	},
 
 	tailwindcss: {
-    config: {
-      content: [
-        // Upewnij się, że ścieżki do twoich plików są tutaj poprawne
-        './components/**/*.{js,vue,ts}',
-        './layouts/**/*.vue',
-        './pages/**/*.vue',
-        './plugins/**/*.{js,ts}',
-        './nuxt.config.{js,ts}',
-      ],
-      plugins: [
-        // Tutaj dodajemy wtyczkę typography
-        require('@tailwindcss/typography'),
-      ],
-    },
-  },
+		config: {
+			content: [
+				'./app/components/**/*.{js,vue,ts}',
+				'./app/layouts/**/*.vue',
+				'./app/pages/**/*.vue',
+				'.app/plugins/**/*.{js,ts}',
+				'./nuxt.config.{js,ts}',
+			],
+			plugins: [
+				require('@tailwindcss/typography'),
+			],
+		},
+	},
 
 	css: [
 		'~/assets/css/main.css',
@@ -85,8 +80,8 @@ export default defineNuxtConfig({
 
 
 	colorMode: {
-		preference: 'system', // domyślnie używaj preferencji systemowych
-		fallback: 'dark', // fallback gdy nie można wykryć preferencji
+		preference: 'dark',
+		fallback: 'dark',
 		hid: 'nuxt-color-mode-script',
 		globalName: '__NUXT_COLOR_MODE__',
 		componentName: 'ColorScheme',
@@ -135,7 +130,7 @@ export default defineNuxtConfig({
 		langDir: 'lang/',
 		defaultLocale: 'en',
 		baseUrl: 'https://dev.makoto.com.pl',
-		strategy: 'prefix_except_default', // przekierowańe URL
+		strategy: 'prefix_except_default',
 		detectBrowserLanguage: {
 			useCookie: true,
 			cookieKey: 'i18n_locale',
@@ -162,7 +157,6 @@ export default defineNuxtConfig({
 
 		strapiToken: process.env.STRAPI_TOKEN,
 		turnstile: {
-			// This can be overridden at runtime via the NUXT_TURNSTILE_SECRET_KEY
 			secretKey: process.env.TURNSTILE,
 		},
         public: {
