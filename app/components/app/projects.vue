@@ -23,12 +23,10 @@ const STRAPI_URL = config.public.apiUrl;
 
 
 const { data: projects, pending, error, refresh } = await useAsyncData(
-  'projects', // Unikalny klucz dla danych
+  // Zmieniamy klucz na dynamiczny, zależny od języka.
+  // Nuxt automatycznie zapisze w cache dane dla 'projects-en', 'projects-pl' itd.
+  () => `projects-${locale.value}`,
   () => find('projects', queryParams.value), // Funkcja pobierająca dane
-  {
-    watch: [queryParams] // Obserwuj zmiany w parametrach i wykonaj zapytanie ponownie
-  }
-  
 )
 
 // --- POCZĄTEK ZMIAN ---
