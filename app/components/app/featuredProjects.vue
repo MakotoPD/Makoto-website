@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const config = useRuntimeConfig()
@@ -8,7 +8,6 @@ const { find } = useStrapi()
 const { locale, t } = useI18n();
 
 const localePath = useLocalePath()
-// Indeks aktywnego projektu
 const activeProjectIndex = ref(0);
 
 const queryParams = computed(() => {
@@ -23,71 +22,56 @@ const STRAPI_URL = config.public.apiUrl;
 
 
 const { data: projects, pending, error, refresh } = await useAsyncData(
-  'featured-projects', // Unikalny klucz dla danych
+  `featured-rojects`,
   () => find('featured-projects', queryParams.value), // Funkcja pobierająca dane
   {
-    watch: [queryParams] // Obserwuj zmiany w parametrach i wykonaj zapytanie ponownie
+    watch: [queryParams]
   }
   
 )
 
-// --- POCZĄTEK ZMIAN ---
-// Przechowujemy instancje animacji, aby móc je później "zabić"
-let scrollTriggers: ScrollTrigger[] = [];
-let descriptionTimeline: gsap.core.Timeline | null = null;
+gsap.registerPlugin(ScrollTrigger);
 
 onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger);
+	
+  // Czekamy, aż DOM będzie gotowy
+  // Używamy setTimeout, aby upewnić się, że wszystko jest wyrenderowane przed inicjalizacją GSAP
+  setTimeout(() => {
+    // Pobieramy wszystkie elementy projektów
+    const projectItems = gsap.utils.toArray('.project-item');
 
-  // Obserwujemy, kiedy dane projektu są dostępne.
-  // To jest znacznie bardziej niezawodne niż setTimeout.
-  watch(projects, (newProjects) => {
-    if (newProjects?.data) {
-      // Czekamy, aż Vue zaktualizuje DOM na podstawie nowych danych
-      nextTick(() => {
-        // 1. NAJWAŻNIEJSZY KROK: "Zabijamy" wszystkie stare instancje ScrollTrigger.
-        // To zapobiega ich kumulacji przy zmianie języka.
-        scrollTriggers.forEach(st => st.kill());
-        scrollTriggers = []; // Czyścimy tablicę
-
-        // 2. Tworzymy nowe animacje dla aktualnie wyświetlonych elementów.
-        const projectItems = gsap.utils.toArray<HTMLElement>('.project-item');
-        projectItems.forEach((item, index) => {
-          const st = ScrollTrigger.create({
-            trigger: item,
-            start: 'top center',
-            end: 'bottom center',
-            onEnter: () => { activeProjectIndex.value = index; },
-            onEnterBack: () => { activeProjectIndex.value = index; },
-          });
-          // Dodajemy nową instancję do naszej tablicy, aby móc ją wyczyścić w przyszłości.
-          scrollTriggers.push(st);
-        });
+    projectItems.forEach((item, index) => {
+      ScrollTrigger.create({
+        trigger: item, // Element, który śledzimy
+        start: 'top center', // Uruchom, gdy góra elementu dotknie środka ekranu
+        end: 'bottom center', // Zakończ, gdy dół elementu opuści środek ekranu
+        
+        // Funkcja wywoływana, gdy element wchodzi w zdefiniowany obszar (scrollując w dół)
+        onEnter: () => {
+          activeProjectIndex.value = index;
+        },
+        // Funkcja wywoływana, gdy element wchodzi w obszar (scrollując w górę)
+        onEnterBack: () => {
+          activeProjectIndex.value = index;
+        },
       });
-    }
-  }, { immediate: true }); // `immediate: true` uruchamia watchera od razu po załadowaniu
+    });
+  }, 100);
 });
 
 
 watch(activeProjectIndex, (newIndex, oldIndex) => {
-  if (oldIndex === undefined) return; // Pomiń pierwszą inicjalizację
-
-  const descriptions = gsap.utils.toArray<HTMLElement>('.description-content');
+  const descriptions = gsap.utils.toArray('.description-content');
   const oldDescription = descriptions[oldIndex];
   const newDescription = descriptions[newIndex];
 
-  // Jeśli poprzednia animacja opisu jeszcze trwa, przerywamy ją.
-  if (descriptionTimeline) {
-    descriptionTimeline.kill();
-  }
-
   // Tworzymy nową animację i zapisujemy ją
-  descriptionTimeline = gsap.timeline();
-  descriptionTimeline.to(oldDescription, { autoAlpha: 0, y: -20, duration: 0.2, ease: 'power2.in' })
+  const tl = gsap.timeline();
+  tl.to(oldDescription, { autoAlpha: 0, y: -20, duration: 0.2, ease: 'power2.in' })
     .fromTo(newDescription, 
       { autoAlpha: 0, y: 20 }, 
       { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' },
-      '<' // Zacznij tę animację w tym samym czasie co poprzednia
+      '>-0.2' // Zacznij tę animację 0.2s przed końcem poprzedniej
     );
 });
 
@@ -227,15 +211,6 @@ const styleMap = {
     imgGlow: 'shadow-stone-400'
   }
 };
-
-// 3. OSTATECZNE SPRZĄTANIE: Gdy komponent jest niszczony (np. przy przejściu na inną stronę),
-// upewniamy się, że wszystkie animacje są usunięte z pamięci.
-onUnmounted(() => {
-  scrollTriggers.forEach(st => st.kill());
-  if (descriptionTimeline) {
-    descriptionTimeline.kill();
-  }
-});
 </script>
 
 <template>
@@ -281,7 +256,7 @@ onUnmounted(() => {
 			<div class="hidden h-[500px] w-5/12 lg:sticky top-64 lg:flex justify-center items-top pt-0">
 				<div class="relative w-full h-64">
 					<div
-						v-for="(project, index) in projects?.data"
+						v-for="(project, index) in projects.data"
 						:key="project.id"
 						class="description-content"
 						:class="{ 'is-active': activeProjectIndex === index }"
