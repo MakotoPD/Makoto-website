@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 	},
 
 	sitemap: {
-		hostname: 'https://dev.makoto.com.pl',
+		hostname: 'https://makoto.com.pl',
 		gzip: true,
 		defaults: {
 			changefreq: 'weekly',
@@ -47,7 +47,7 @@ export default defineNuxtConfig({
 	},
 
     site: {
-      url: 'https://dev.makoto.com.pl',
+      url: 'https://makoto.com.pl',
     },
 
 	tres: {
@@ -129,7 +129,7 @@ export default defineNuxtConfig({
 		],
 		langDir: 'lang/',
 		defaultLocale: 'en',
-		baseUrl: 'https://dev.makoto.com.pl',
+		baseUrl: 'https://makoto.com.pl',
 		strategy: 'prefix_except_default',
 		detectBrowserLanguage: {
 			useCookie: true,
@@ -208,21 +208,21 @@ export default defineNuxtConfig({
 				{
 					rel: 'alternate',
 					hreflang: 'pl-PL',
-					href: 'https://dev.makoto.com.pl/pl'
+					href: 'https://makoto.com.pl/pl'
 				},
 				{
 					rel: 'alternate',
 					hreflang: 'en',
-					href: 'https://dev.makoto.com.pl'
+					href: 'https://dmakoto.com.pl'
 				},
 				{
 					rel: 'alternate',
 					hreflang: 'x-default',
-					href: 'https://dev.makoto.com.pl'
+					href: 'https://makoto.com.pl'
 				},
 				{
 					rel: 'canonical',
-					href: 'https://dev.makoto.com.pl'
+					href: 'https://makoto.com.pl'
 				}
 			],
 			script: [{

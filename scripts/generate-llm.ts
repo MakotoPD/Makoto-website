@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import fetch from 'node-fetch'
 
-const SITE_URL = process.env.SITE_URL || 'https://dev.makoto.com.pl'
+const SITE_URL = process.env.SITE_URL || 'https://makoto.com.pl'
 
 // Funkcja pobiera linki z sitemap (rekurencyjnie jeśli indeks sitemap)
 async function fetchSitemapLinks(url: string): Promise<string[]> {
