@@ -1,32 +1,34 @@
 # 🌐 Website sitemap for makoto.com.pl
-# Last generated: 2025-10-10 13:33
+# Last generated: 2025-10-15 08:54
 
 ## ─────────────── EN pages (en)
-https://dev.makoto.com.pl/ | lang: en | type: page | title: Dev.Makoto.Com.Pl
-https://dev.makoto.com.pl/about | lang: en | type: page | title: Makoto - About
-https://dev.makoto.com.pl/admin | lang: en | type: page | title: Makoto - Fake Admin panel
-https://dev.makoto.com.pl/blog | lang: en | type: page | title: Makoto - Blog
-https://dev.makoto.com.pl/faq | lang: en | type: page | title: Makoto - FAQ
-https://dev.makoto.com.pl/links | lang: en | type: page | title: Makoto - Links
-https://dev.makoto.com.pl/portfolio | lang: en | type: page | title: Makoto - Portfolio
-https://dev.makoto.com.pl/privacy | lang: en | type: page | title: Makoto - Privacy Policy
-https://dev.makoto.com.pl/rules | lang: en | type: page | title: Makoto - Terms of Service
-https://dev.makoto.com.pl/uses | lang: en | type: page | title: Makoto - To co używam
-https://dev.makoto.com.pl/work | lang: en | type: page | title: Makoto - Projects built with Nuxt.js and Strapi
+https://makoto.com.pl/ | lang: en | type: page | title: Makoto.Com.Pl
+https://makoto.com.pl/about | lang: en | type: page | title: Makoto - About
+https://makoto.com.pl/admin | lang: en | type: page | title: Makoto - Fake Admin panel
+https://makoto.com.pl/blog | lang: en | type: page | title: Makoto - Blog
+https://makoto.com.pl/faq | lang: en | type: page | title: Makoto - FAQ
+https://makoto.com.pl/links | lang: en | type: page | title: Makoto - Links
+https://makoto.com.pl/portfolio | lang: en | type: page | title: Makoto - Portfolio
+https://makoto.com.pl/privacy | lang: en | type: page | title: Makoto - Privacy Policy
+https://makoto.com.pl/rules | lang: en | type: page | title: Makoto - Terms of Service
+https://makoto.com.pl/uses | lang: en | type: page | title: Makoto - To co używam
+https://makoto.com.pl/work | lang: en | type: page | title: Makoto - Projects built with Nuxt.js and Strapi
 
 ## ─────────────── PL pages (pl)
-https://dev.makoto.com.pl/pl | lang: pl | type: page | title: Makoto - Strony internetowe i Grafiki komputerowe
-https://dev.makoto.com.pl/pl/about | lang: pl | type: page | title: Makoto - O mnie
-https://dev.makoto.com.pl/pl/admin | lang: pl | type: page | title: Makoto - Fake Admin panel
-https://dev.makoto.com.pl/pl/blog | lang: pl | type: page | title: Makoto - Blog
-https://dev.makoto.com.pl/pl/faq | lang: pl | type: page | title: Makoto - FAQ
-https://dev.makoto.com.pl/pl/links | lang: pl | type: page | title: Makoto - Linki
-https://dev.makoto.com.pl/pl/portfolio | lang: pl | type: page | title: Makoto - Portfolio
-https://dev.makoto.com.pl/pl/privacy | lang: pl | type: page | title: Makoto - Polityka Prywatności
-https://dev.makoto.com.pl/pl/rules | lang: pl | type: page | title: Makoto - Regulamin
-https://dev.makoto.com.pl/pl/uses | lang: pl | type: page | title: Makoto - To co używam
-https://dev.makoto.com.pl/pl/work | lang: pl | type: page | title: Makoto - Projekty z wykorzystaniem Nuxt.js i Strapi
+https://makoto.com.pl/pl | lang: pl | type: page | title: Makoto - Strony internetowe i Grafiki komputerowe
+https://makoto.com.pl/pl/about | lang: pl | type: page | title: Makoto - O mnie
+https://makoto.com.pl/pl/admin | lang: pl | type: page | title: Makoto - Fake Admin panel
+https://makoto.com.pl/pl/blog | lang: pl | type: page | title: Makoto - Blog
+https://makoto.com.pl/pl/faq | lang: pl | type: page | title: Makoto - FAQ
+https://makoto.com.pl/pl/links | lang: pl | type: page | title: Makoto - Linki
+https://makoto.com.pl/pl/portfolio | lang: pl | type: page | title: Makoto - Portfolio
+https://makoto.com.pl/pl/privacy | lang: pl | type: page | title: Makoto - Polityka Prywatności
+https://makoto.com.pl/pl/rules | lang: pl | type: page | title: Makoto - Regulamin
+https://makoto.com.pl/pl/uses | lang: pl | type: page | title: Makoto - To co używam
+https://makoto.com.pl/pl/work | lang: pl | type: page | title: Makoto - Projekty z wykorzystaniem Nuxt.js i Strapi
 
 ## ─────────────── Blog posts
-https://dev.makoto.com.pl/blog/my-first-blog-post | lang: en | type: post | title: My first test blog post
-https://dev.makoto.com.pl/pl/blog/my-first-blog-post | lang: pl | type: post | title: My first test blog post
+https://makoto.com.pl/blog/my-first-blog-post | lang: en | type: post | title: My first test blog post
+https://makoto.com.pl/pl/blog/my-first-blog-post | lang: pl | type: post | title: My first test blog post
+https://makoto.com.pl/blog/my-first-blog-post2 | lang: en | type: post | title: My second test blog post
+https://makoto.com.pl/pl/blog/my-first-blog-post2 | lang: pl | type: post | title: My second test blog post
