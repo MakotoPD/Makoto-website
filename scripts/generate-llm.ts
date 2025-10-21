@@ -91,7 +91,7 @@ async function generateLLMFile() {
     llmLines.push(`${SITE_URL}/pl/blog/${post.slug} | lang: pl | type: post | title: ${post.title}`)
   }
 
-  const outputPath = path.resolve('public', 'llm.txt')
+  const outputPath = path.resolve('public', 'llms.txt')
   fs.writeFileSync(outputPath, llmLines.join('\n'), 'utf8')
 
   console.log(`✅ Wygenerowano ${allUrls.length} stron i ${posts.length} artykułów → ${outputPath}`)
