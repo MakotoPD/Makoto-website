@@ -43,7 +43,7 @@ function loadI18nTitles(lang: string) {
 }
 
 async function generateLLMFile() {
-  console.log('🧠 Generuję llm.txt...')
+  console.log('🧠 Generuję llms.txt...')
 
   const allUrls = await fetchSitemapLinks(`${SITE_URL}/sitemap.xml`)
 
@@ -98,5 +98,5 @@ async function generateLLMFile() {
 }
 
 generateLLMFile().catch(err => {
-  console.error('❌ Błąd podczas generowania llm.txt:', err)
+  console.error('❌ Błąd podczas generowania llms.txt:', err)
 })

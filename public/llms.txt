@@ -1,5 +1,5 @@
 # 🌐 Website sitemap for makoto.com.pl
-# Last generated: 2025-10-15 08:54
+# Last generated: 2025-10-21 08:09
 
 ## ─────────────── EN pages (en)
 https://makoto.com.pl/ | lang: en | type: page | title: Makoto.Com.Pl
