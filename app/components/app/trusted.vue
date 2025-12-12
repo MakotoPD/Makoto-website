@@ -34,7 +34,7 @@ const clientLogos = ref([
   	{ src: '/trusted/yc.png', alt: 'YesCandles' },
   	{ src: '/trusted/techtokpl.png', alt: 'techtok' },
 	{ src: '/trusted/rywal-rhc.png', alt: 'rywal-rhc' },
-	{ src: '/trusted/samvolvo.svg', alt: 'samvolvo' },
+	{ src: '/trusted/samvolvo.webp', alt: 'samvolvo' },
 	{ src: '/trusted/webstrong.png', alt: 'webstrong' },
 ]);
 
