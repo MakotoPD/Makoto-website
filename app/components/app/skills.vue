@@ -52,6 +52,7 @@ let skins = [
 	{ name: 'GraphQL', logo:'i-logos-graphql' },
 	{ name: 'NuxtUI', logo:'i-logos-vueuse' },
 	{ name: 'Fastify', logo:'i-simple-icons-fastify' },
+	{ name: 'AdonisJS', logo:'i-logos-adonisjs-icon' },
 	{ name: 'NodeJS', logo:'i-logos-nodejs-icon' },
 	{ name: 'Express', logo:'i-simple-icons-express' },
 	{ name: 'Pinia', logo:'i-logos-pinia' },
