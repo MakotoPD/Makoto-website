@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine', 'nuxt-gtag'],
 
 
 	image: {
@@ -46,9 +46,9 @@ export default defineNuxtConfig({
 		autoI18n: true,
 	},
 
-    site: {
-      url: 'https://makoto.com.pl',
-    },
+	site: {
+		url: 'https://makoto.com.pl',
+	},
 
 	tres: {
 		devtools: true,
@@ -111,8 +111,7 @@ export default defineNuxtConfig({
 
 
 	i18n: {
-		locales: [
-			{
+		locales: [{
 				code: 'en',
 				name: 'English',
 				iso: 'en-US',
@@ -146,11 +145,15 @@ export default defineNuxtConfig({
 		version: 'v5',
 		cookie: {
 			path: '/',
-      		maxAge: 14 * 24 * 60 * 60,
+			maxAge: 14 * 24 * 60 * 60,
 			secure: process.env.NODE_ENV === 'production',
 			sameSite: true
 		},
 		cookieName: 'strapi_jwt'
+	},
+
+	gtag: {
+		id: 'G-7P472XF9TT'
 	},
 
 	runtimeConfig: {
@@ -159,21 +162,24 @@ export default defineNuxtConfig({
 		turnstile: {
 			secretKey: process.env.TURNSTILE,
 		},
-        public: {
-            apiUrl: process.env.STRAPI_URL
-        }
+		public: {
+			apiUrl: process.env.STRAPI_URL
+		}
 	},
 
 
 
 	postcss: {
 		plugins: {
-		  '@tailwindcss/postcss': {},
+			'@tailwindcss/postcss': {},
 		},
-	  },
+	},
 
 	app: {
-		pageTransition: { name: 'page', mode: 'out-in' },
+		pageTransition: {
+			name: 'page',
+			mode: 'out-in'
+		},
 		head: {
 			title: 'Makoto - Website Developer and Graphic designer',
 			meta: [{
@@ -224,8 +230,15 @@ export default defineNuxtConfig({
 					rel: 'canonical',
 					href: 'https://makoto.com.pl'
 				},
-				{ rel: 'apple-touch-icon', sizes: '512x512', href: '/icon512_maskable.png' },
-				{ rel: 'manifest', href: '/manifest.json' }
+				{
+					rel: 'apple-touch-icon',
+					sizes: '512x512',
+					href: '/icon512_maskable.png'
+				},
+				{
+					rel: 'manifest',
+					href: '/manifest.json'
+				}
 			],
 			script: [{
 					children: "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MMVH46RC');"
@@ -246,7 +259,7 @@ export default defineNuxtConfig({
 					defer: true,
 					src: "https://cloud.umami.is/script.js",
 					'data-website-id': '84056d40-a170-4a24-9d8a-e10d2144dd7e'
-				}
+				},
 			],
 		},
 
