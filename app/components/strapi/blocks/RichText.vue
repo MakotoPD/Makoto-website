@@ -49,27 +49,27 @@ const renderedHtml = computed(() => data.value?.html || '')
 	@apply my-1;
 }
 .prose h1{
-	@apply text-4xl md:text-6xl;
+	@apply text-4xl md:text-6xl mb-5;
 }
 
 .prose h2{
-	@apply text-3xl md:text-4xl;
+	@apply text-3xl md:text-4xl mb-5;
 }
 
 .prose h3{
-	@apply text-2xl md:text-2xl;
+	@apply text-2xl md:text-2xl mb-4;
 }
 
 .prose h4{
-	@apply text-xl md:text-xl;
+	@apply text-xl md:text-xl mb-3;
 }
 
 .prose h5{
-	@apply text-lg;
+	@apply text-lg mb-2;
 }
 
 .prose h6{
-	@apply text-base ;
+	@apply text-base mb-2;
 }
 
 .prose p{
@@ -152,7 +152,7 @@ const renderedHtml = computed(() => data.value?.html || '')
 }
 
 .prose hr {
-	@apply border-slate-700;
+	@apply border-slate-700 my-3;
 }
 
 

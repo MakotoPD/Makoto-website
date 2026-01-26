@@ -189,8 +189,8 @@ async function ensureMarkdown(): Promise<MarkdownIt> {
 
       // Enable GitHub-style task lists: "- [ ]" and "- [x]"
       instance.use(taskLists, {
-        label: true,
-        labelAfter: true,
+        label: false,
+        labelAfter: false,
       })
 
       // Dodaj plugin dla alertów
