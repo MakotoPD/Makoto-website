@@ -93,7 +93,7 @@ export const categoryIcons: Record<string, string> = {
   'woocommerce': 'i-simple-icons-woocommerce',
   'wordpress': 'i-simple-icons-wordpress',
   'denalify': 'i-solar-code-square-bold-duotone',
-  'adonisjs': 'i-logos-adonisjs-icon'
+  'adonisjs': 'i-simple-icons-adonisjs'
 }
 
 // Helper do pobierania ikony dla kategorii
