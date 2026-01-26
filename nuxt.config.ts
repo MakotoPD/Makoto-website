@@ -163,7 +163,8 @@ export default defineNuxtConfig({
 			secretKey: process.env.TURNSTILE,
 		},
 		public: {
-			apiUrl: process.env.STRAPI_URL
+			apiUrl: process.env.STRAPI_URL,
+			siteUrl: 'https://makoto.com.pl'
 		}
 	},
 

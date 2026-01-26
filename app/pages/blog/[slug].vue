@@ -135,13 +135,141 @@ const blockNodes = computed(() => articleData.value?.blocks ?? [])
 const article = computed(() => articleData.value)
 
 
-// SEO
+// SEO - Computed values for reactivity
+const pageTitle = computed(() => 
+	article.value?.title ? `${article.value.title} | Makoto Blog` : 'Blog | Makoto'
+)
+
+const pageDescription = computed(() => 
+	article.value?.description || 'Artykuł na blogu Makoto'
+)
+
+const coverImageUrl = computed(() => 
+	article.value?.cover ? `${config.public.apiUrl}${article.value.cover.url}` : `${config.public.siteUrl}/og-default.jpg`
+)
+
+const canonicalUrl = computed(() => 
+	`${config.public.siteUrl}/blog/${slug.value}`
+)
+
+const publishedTime = computed(() => 
+	article.value?.publishedAt ? new Date(article.value.publishedAt).toISOString() : undefined
+)
+
+const updatedTime = computed(() => 
+	article.value?.updatedAt ? new Date(article.value.updatedAt).toISOString() : undefined
+)
+
+const authorName = computed(() => 
+	article.value?.author?.name || 'Makoto'
+)
+
+const categoryName = computed(() => 
+	article.value?.categories?.[0]?.name || 'Blog'
+)
+
+// OpenGraph & Twitter meta tags
 useSeoMeta({
-	title: `Makoto - ${article.value?.title}` || 'Blog',
-	description: article.value?.description || '',
-	ogTitle: `Makoto - ${article.value?.title}` || 'Blog',
-	ogDescription: article.value?.description || '',
-	ogImage: article.value?.cover ? config.public.apiUrl + article.value.cover.url : ''
+	title: pageTitle,
+	description: pageDescription,
+	
+	// OpenGraph
+	ogType: 'article',
+	ogTitle: pageTitle,
+	ogDescription: pageDescription,
+	ogImage: coverImageUrl,
+	ogImageAlt: () => article.value?.title || 'Makoto Blog',
+	ogUrl: canonicalUrl,
+	ogSiteName: 'Makoto',
+	ogLocale: () => locale.value === 'pl' ? 'pl_PL' : 'en_US',
+	
+	// Article-specific OpenGraph
+	articlePublishedTime: publishedTime,
+	articleModifiedTime: updatedTime,
+	articleAuthor: authorName,
+	articleSection: categoryName,
+	
+	// Twitter Cards
+	twitterCard: 'summary_large_image',
+	twitterTitle: pageTitle,
+	twitterDescription: pageDescription,
+	twitterImage: coverImageUrl,
+	twitterImageAlt: () => article.value?.title || 'Makoto Blog',
+})
+
+// Canonical URL & hreflang alternates
+useHead({
+	link: computed(() => {
+		const links: Array<{ rel: string; href: string; hreflang?: string }> = [
+			{ rel: 'canonical', href: canonicalUrl.value }
+		]
+		
+		// Add hreflang for current locale
+		links.push({
+			rel: 'alternate',
+			hreflang: locale.value,
+			href: canonicalUrl.value
+		})
+		
+		// Add hreflang alternates for other locales
+		if (article.value?.localizations) {
+			for (const localization of article.value.localizations) {
+				links.push({
+					rel: 'alternate',
+					hreflang: localization.locale,
+					href: `${config.public.siteUrl}/${localization.locale}/blog/${localization.slug}`
+				})
+			}
+		}
+		
+		// x-default for language selection
+		links.push({
+			rel: 'alternate',
+			hreflang: 'x-default',
+			href: `${config.public.siteUrl}/blog/${slug.value}`
+		})
+		
+		return links
+	}),
+	
+	// JSON-LD Structured Data
+	script: computed(() => {
+		if (!article.value) return []
+		
+		const jsonLd = {
+			'@context': 'https://schema.org',
+			'@type': 'BlogPosting',
+			'headline': article.value.title,
+			'description': article.value.description || '',
+			'image': coverImageUrl.value,
+			'url': canonicalUrl.value,
+			'datePublished': publishedTime.value,
+			'dateModified': updatedTime.value || publishedTime.value,
+			'author': {
+				'@type': 'Person',
+				'name': authorName.value
+			},
+			'publisher': {
+				'@type': 'Organization',
+				'name': 'Makoto',
+				'logo': {
+					'@type': 'ImageObject',
+					'url': `${config.public.siteUrl}/logo.png`
+				}
+			},
+			'mainEntityOfPage': {
+				'@type': 'WebPage',
+				'@id': canonicalUrl.value
+			},
+			'articleSection': categoryName.value,
+			'inLanguage': locale.value === 'pl' ? 'pl-PL' : 'en-US'
+		}
+		
+		return [{
+			type: 'application/ld+json',
+			innerHTML: JSON.stringify(jsonLd)
+		}]
+	})
 })
 
 // 404 jeśli artykuł nie istnieje
