@@ -91,7 +91,8 @@ export const categoryIcons: Record<string, string> = {
   'typescript': 'i-simple-icons-typescript',
   'ui': 'i-solar-palette-bold-duotone',
   'woocommerce': 'i-simple-icons-woocommerce',
-  'wordpress': 'i-simple-icons-wordpress'
+  'wordpress': 'i-simple-icons-wordpress',
+  'denalify': 'i-solar-code-square-bold-duotone'
 }
 
 // Helper do pobierania ikony dla kategorii
