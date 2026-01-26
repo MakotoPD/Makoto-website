@@ -278,6 +278,11 @@ export class MeshTransmissionMaterialImpl extends THREE.MeshPhysicalMaterial {
         float runningSeed = 0.0;
         vec3 v = normalize( cameraPosition - pos );
         vec3 n = inverseTransformDirection( normal, viewMatrix );
+        
+        // Fresnel factor for edge detection - chromatic aberration only on edges
+        float fresnelFactor = pow(1.0 - max(dot(v, n), 0.0), 3.0);
+        float edgeChromaticAberration = chromaticAberration * fresnelFactor;
+        
         vec3 transmission = vec3(0.0);
         float transmissionR, transmissionB, transmissionG;
         float randomCoords = rand(runningSeed++);
@@ -296,12 +301,12 @@ export class MeshTransmissionMaterialImpl extends THREE.MeshPhysicalMaterial {
           ).r;
           transmissionG = getIBLVolumeRefraction(
             sampleNorm, v, material.roughness, material.diffuseColor, material.specularColor, material.specularF90,
-            pos, modelMatrix, viewMatrix, projectionMatrix, material.ior  * (1.0 + chromaticAberration * (i + randomCoords) / float(${samples})) , material.thickness + thickness_smear * (i + randomCoords) / float(${samples}),
+            pos, modelMatrix, viewMatrix, projectionMatrix, material.ior * (1.0 + edgeChromaticAberration * (i + randomCoords) / float(${samples})) , material.thickness + thickness_smear * (i + randomCoords) / float(${samples}),
             material.attenuationColor, material.attenuationDistance
           ).g;
           transmissionB = getIBLVolumeRefraction(
             sampleNorm, v, material.roughness, material.diffuseColor, material.specularColor, material.specularF90,
-            pos, modelMatrix, viewMatrix, projectionMatrix, material.ior * (1.0 + 2.0 * chromaticAberration * (i + randomCoords) / float(${samples})), material.thickness + thickness_smear * (i + randomCoords) / float(${samples}),
+            pos, modelMatrix, viewMatrix, projectionMatrix, material.ior * (1.0 + 2.0 * edgeChromaticAberration * (i + randomCoords) / float(${samples})), material.thickness + thickness_smear * (i + randomCoords) / float(${samples}),
             material.attenuationColor, material.attenuationDistance
           ).b;
           transmission.r += transmissionR;
