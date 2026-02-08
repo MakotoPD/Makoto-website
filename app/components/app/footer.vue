@@ -121,6 +121,7 @@
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
 								<li><NuxtLink :to="localePath('rules')">{{ $t('menu.rules') }}</NuxtLink></li>
 								<li><NuxtLink :to="localePath('privacy')">{{ $t('menu.privacy') }}</NuxtLink></li>
+								<li><button @click="reopenCookieConsent">{{ $t('cookie.settings') }}</button></li>
 							</ul>
 						</div>
 					</div>
@@ -138,6 +139,12 @@ import { en, pl } from '@nuxt/ui/locale'
 const { locale, setLocale } = useI18n()
 
 const localePath = useLocalePath()
+
+const { showBanner, showSettings } = useCookieConsent()
+function reopenCookieConsent() {
+  showSettings.value = false
+  showBanner.value = true
+}
 
 // Define the refs for the elements
 const btnGetInTouch = ref<HTMLButtonElement | null>(null)

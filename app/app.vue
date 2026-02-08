@@ -7,6 +7,8 @@
       </NuxtLayout>
     </div>
 
+    <UiCookieConsent />
+
     <div class="custom-cursor">
       <div ref="cursorRef" class="custom-cursor__cursor"></div>
       <div ref="followerRef" class="custom-cursor__follower"></div>

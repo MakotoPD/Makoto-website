@@ -18,6 +18,27 @@
 
 	"changelang": "Zmień język",
 
+	"cookie": {
+		"title": "Ustawienia cookies",
+		"description": "Używamy plików cookie i podobnych technologii, aby zapewnić najlepsze doświadczenia, analizować ruch i wyświetlać spersonalizowane reklamy. Możesz wybrać, które kategorie chcesz zaakceptować.",
+		"accept": "Akceptuj wszystkie",
+		"reject": "Odrzuć wszystkie",
+		"settings": "Ustawienia cookies",
+		"save": "Zapisz preferencje",
+		"necessary": {
+			"title": "Niezbędne",
+			"desc": "Wymagane do prawidłowego działania strony. Nie można ich wyłączyć."
+		},
+		"analytics": {
+			"title": "Analityczne",
+			"desc": "Pomagają nam zrozumieć, jak odwiedzający korzystają ze strony, abyśmy mogli ją ulepszać."
+		},
+		"marketing": {
+			"title": "Marketingowe",
+			"desc": "Służą do wyświetlania trafnych reklam i mierzenia ich skuteczności."
+		}
+	},
+
 	"footer": {
 		"sloganLine1": "Od wizji do {boldPart}",
 		"sloganLine1Bold": "rzeczywistości.",

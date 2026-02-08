@@ -18,6 +18,27 @@
 
 	"changelang": "Change lang",
 
+	"cookie": {
+		"title": "Cookie Settings",
+		"description": "We use cookies and similar technologies to provide you with the best experience, analyze traffic, and serve personalized ads. You can choose which categories to allow.",
+		"accept": "Accept All",
+		"reject": "Reject All",
+		"settings": "Cookie Settings",
+		"save": "Save Preferences",
+		"necessary": {
+			"title": "Necessary",
+			"desc": "Required for the website to function properly. Cannot be disabled."
+		},
+		"analytics": {
+			"title": "Analytics",
+			"desc": "Help us understand how visitors use the site, so we can improve it."
+		},
+		"marketing": {
+			"title": "Marketing",
+			"desc": "Used to deliver relevant ads and measure their effectiveness."
+		}
+	},
+
 	"footer": {
 		"sloganLine1": "From vision to {boldPart}",
 		"sloganLine1Bold": "reality.",
