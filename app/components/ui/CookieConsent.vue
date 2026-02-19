@@ -9,7 +9,7 @@
         <div v-if="!showSettings">
           <div class="flex items-start gap-3 mb-3">
             <div class="shrink-0 mt-0.5">
-              <UIcon name="i-solar-cookie-line-duotone" class="text-2xl text-[var(--color-primary)]" />
+              <UIcon name="i-lucide-cookie" class="text-2xl text-[var(--color-primary)]" />
             </div>
             <div>
               <h3 class="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
