@@ -37,10 +37,8 @@ export default defineNuxtConfig({
 
 	image: {
 		domains: ['makoto.com.pl', 'api.makoto.com.pl'],
-		providers: {
-			strapi: {
-				baseURL: 'https://api.makoto.com.pl/'
-			}
+		strapi: {
+			baseURL: 'https://api.makoto.com.pl'
 		}
 	},
 

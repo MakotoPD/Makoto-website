@@ -20,7 +20,6 @@ const queryParams = computed(() => {
 
 const STRAPI_URL = config.public.apiUrl;
 
-
 const { data: projects, pending, error, refresh } = useLazyAsyncData(
   `featured-projects`,
   () => find('featured-projects', queryParams.value),
