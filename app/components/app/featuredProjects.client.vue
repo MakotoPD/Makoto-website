@@ -21,13 +21,12 @@ const queryParams = computed(() => {
 const STRAPI_URL = config.public.apiUrl;
 
 
-const { data: projects, pending, error, refresh } = await useAsyncData(
-  `featured-rojects`,
-  () => find('featured-projects', queryParams.value), // Funkcja pobierająca dane
+const { data: projects, pending, error, refresh } = useLazyAsyncData(
+  `featured-projects`,
+  () => find('featured-projects', queryParams.value),
   {
     watch: [queryParams]
   }
-  
 )
 
 gsap.registerPlugin(ScrollTrigger);
@@ -215,7 +214,15 @@ const styleMap = {
 
 <template>
 	<div class="mt-24">
-		<div class="flex relative gap-x-4">
+<div v-if="pending" class="flex relative gap-x-4 animate-pulse">
+			<div class="grid grid-cols-1 gap-x-6 px-4 lg:px-0 gap-y-6 md:grid-cols-2 lg:flex lg:flex-col lg:gap-y-36 lg:w-7/12">
+				<div v-for="i in 3" :key="i" class="h-72 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
+			</div>
+			<div class="hidden lg:block w-5/12">
+				<div class="h-48 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
+			</div>
+		</div>
+		<div v-else class="flex relative gap-x-4">
 			<div class="grid grid-cols-1 gap-x-6 px-4 lg:px-0 gap-y-6 md:grid-cols-2 lg:flex lg:flex-col lg:gap-y-36 lg:w-7/12">
 				<div 
 					v-for="project in projects?.data" 
@@ -230,6 +237,7 @@ const styleMap = {
 							<p :class="styleMap[project.theme]?.textColor" class="hidden lg:block serif text-2xl mb-12">
 								{{ project.slogan }}
 							</p>
+
 							<NuxtImg class="scale-105 -rotate-3 lg:scale-100 lg:rotate-0 relative top-5 group-hover:scale-105 group-hover:-rotate-3 group-hover:translate-y-4 duration-100 rounded-t-xl shadow-[0px_-4px_25px_0px]"
                 :placeholder="[200, 250, 40, 10]"
                 :class="styleMap[project.theme]?.imgGlow"

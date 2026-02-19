@@ -19,13 +19,28 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine', 'nuxt-gtag'],
+	modules: [
+		'@nuxt/ui', 
+		'@nuxt/image', 
+		'@nuxtjs/color-mode', 
+		'@nuxt/scripts', 
+		'@tresjs/nuxt', 
+		'@nuxtjs/google-fonts', 
+		'@nuxtjs/i18n', 
+		'nuxt-vitalizer', 
+		'@nuxtjs/sitemap', 
+		'@nuxtjs/turnstile', 
+		'@nuxtjs/fontaine', 
+		'nuxt-gtag'
+	],
 
 
 	image: {
 		domains: ['makoto.com.pl', 'api.makoto.com.pl'],
-		strapi: {
-			baseURL: 'https://api.makoto.com.pl'
+		providers: {
+			strapi: {
+				baseURL: 'https://api.makoto.com.pl/'
+			}
 		}
 	},
 
