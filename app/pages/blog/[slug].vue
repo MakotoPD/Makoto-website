@@ -79,6 +79,8 @@
 import type { Article } from '~/types/article'
 import { getCategoryIcon } from '~/types/article'
 
+defineOptions({ inheritAttrs: false })
+
 const { locale } = useI18n()
 const { findOne, find } = useStrapi()
 const config = useRuntimeConfig()
