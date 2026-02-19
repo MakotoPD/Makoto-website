@@ -256,7 +256,7 @@ const styleMap = {
 			<div class="hidden h-[500px] w-5/12 lg:sticky top-64 lg:flex justify-center items-top pt-0">
 				<div class="relative w-full h-64">
 					<div
-						v-for="(project, index) in projects.data"
+						v-for="(project, index) in projects?.data"
 						:key="project.id"
 						class="description-content"
 						:class="{ 'is-active': activeProjectIndex === index }"

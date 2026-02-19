@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 		]
 	},
 
-	modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@nuxtjs/strapi', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine', 'nuxt-gtag'],
+	modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/color-mode', '@nuxt/scripts', '@tresjs/nuxt', '@nuxtjs/google-fonts', '@nuxtjs/i18n', 'nuxt-vitalizer', '@nuxtjs/sitemap', '@nuxtjs/turnstile', '@nuxtjs/fontaine', 'nuxt-gtag'],
 
 
 	image: {
@@ -137,21 +137,6 @@ export default defineNuxtConfig({
 		}
 	},
 
-	strapi: {
-		url: process.env.STRAPI_URL,
-		token: process.env.STRAPI_TOKEN,
-		prefix: '/api',
-		admin: '/admin',
-		version: 'v5',
-		cookie: {
-			path: '/',
-			maxAge: 14 * 24 * 60 * 60,
-			secure: process.env.NODE_ENV === 'production',
-			sameSite: true
-		},
-		cookieName: 'strapi_jwt'
-	},
-
 	gtag: {
 		id: 'G-7P472XF9TT',
 	},
@@ -163,7 +148,7 @@ export default defineNuxtConfig({
 			secretKey: process.env.TURNSTILE,
 		},
 		public: {
-			apiUrl: process.env.STRAPI_URL,
+			apiUrl: process.env.STRAPI_URL || 'https://api.makoto.com.pl',
 			siteUrl: 'https://makoto.com.pl'
 		}
 	},

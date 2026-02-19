@@ -13,6 +13,12 @@ RUN corepack enable pnpm
 COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 RUN pnpm --version && pnpm install --prod=false
 COPY . .
+
+ARG STRAPI_URL
+ARG STRAPI_TOKEN
+ENV STRAPI_URL=$STRAPI_URL
+ENV STRAPI_TOKEN=$STRAPI_TOKEN
+
 RUN pnpm run build
 
 RUN pnpm run gen:llm
