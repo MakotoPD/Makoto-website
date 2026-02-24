@@ -139,7 +139,7 @@ const items = [
   {
     label: 'Quick connect',
     description: '',
-    icon: 'i-mkt-link-bold-duotone',
+    icon: 'i-mkt-link-line-duotone',
     slot: 'quick' as const
   },
   {

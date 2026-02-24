@@ -54,11 +54,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@iconify-json/devicon": "^1.2.43",
-    "@iconify-json/logos": "^1.2.9",
-    "@iconify-json/lucide": "^1.2.66",
-    "@iconify-json/simple-icons": "^1.2.50",
-    "@iconify-json/solar": "^1.2.4",
     "@nuxtjs/fontaine": "^0.5.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.18",
