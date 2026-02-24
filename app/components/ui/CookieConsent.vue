@@ -12,7 +12,7 @@
               <UIcon name="i-lucide-cookie" class="text-2xl text-[var(--color-primary)]" />
             </div>
             <div>
-              <h3 class="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
+              <h3 class="text-sm text-black font-semibold dark:text-[var(--color-text-primary)] mb-1">
                 {{ $t('cookie.title') }}
               </h3>
               <p class="text-xs leading-relaxed text-[var(--color-text-secondary)]">

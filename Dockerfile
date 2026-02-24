@@ -19,9 +19,9 @@ ARG STRAPI_TOKEN
 ENV STRAPI_URL=$STRAPI_URL
 ENV STRAPI_TOKEN=$STRAPI_TOKEN
 
-RUN pnpm run build
-
 RUN pnpm run gen:llm
+
+RUN pnpm run build
 
 # Rebuild sharp dla Alpine
 RUN rm -rf /node_modules/sharp && npm install sharp
