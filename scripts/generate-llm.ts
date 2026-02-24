@@ -2,7 +2,8 @@ import fs from 'fs'
 import path from 'path'
 
 const SITE_URL = (process.env.SITE_URL || 'https://makoto.com.pl').replace(/\/$/, '')
-const STRAPI_URL = (process.env.STRAPI_URL || 'https://api.makoto.com.pl').replace(/\/$/, '')
+// Używa wewnętrznego URL (omija Cloudflare) jeśli ustawiony, fallback na publiczny
+const STRAPI_URL = (process.env.STRAPI_INTERNAL_URL || process.env.STRAPI_URL || 'https://api.makoto.com.pl').replace(/\/$/, '')
 
 // Strony wykluczone z llms.txt (panel admina itp.)
 const EXCLUDED_PREFIXES = ['/panel', '/admin']

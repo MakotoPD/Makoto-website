@@ -1,12 +1,11 @@
-# 🌐 Website sitemap for makoto.com.pl
-# Last generated: 2025-10-21 08:09
+# Website sitemap for makoto.com.pl
+# Last generated: 2026-02-24 12:51
 
-## ─────────────── EN pages (en)
-https://makoto.com.pl/ | lang: en | type: page | title: Makoto.Com.Pl
+## EN pages
 https://makoto.com.pl/about | lang: en | type: page | title: Makoto - About
-https://makoto.com.pl/admin | lang: en | type: page | title: Makoto - Fake Admin panel
 https://makoto.com.pl/blog | lang: en | type: page | title: Makoto - Blog
 https://makoto.com.pl/faq | lang: en | type: page | title: Makoto - FAQ
+https://makoto.com.pl | lang: en | type: page | title: Makoto - Website Developer and Graphic designer
 https://makoto.com.pl/links | lang: en | type: page | title: Makoto - Links
 https://makoto.com.pl/portfolio | lang: en | type: page | title: Makoto - Portfolio
 https://makoto.com.pl/privacy | lang: en | type: page | title: Makoto - Privacy Policy
@@ -14,12 +13,11 @@ https://makoto.com.pl/rules | lang: en | type: page | title: Makoto - Terms of S
 https://makoto.com.pl/uses | lang: en | type: page | title: Makoto - To co używam
 https://makoto.com.pl/work | lang: en | type: page | title: Makoto - Projects built with Nuxt.js and Strapi
 
-## ─────────────── PL pages (pl)
-https://makoto.com.pl/pl | lang: pl | type: page | title: Makoto - Strony internetowe i Grafiki komputerowe
+## PL pages
 https://makoto.com.pl/pl/about | lang: pl | type: page | title: Makoto - O mnie
-https://makoto.com.pl/pl/admin | lang: pl | type: page | title: Makoto - Fake Admin panel
 https://makoto.com.pl/pl/blog | lang: pl | type: page | title: Makoto - Blog
 https://makoto.com.pl/pl/faq | lang: pl | type: page | title: Makoto - FAQ
+https://makoto.com.pl/pl | lang: pl | type: page | title: Makoto - Strony internetowe i Grafiki komputerowe
 https://makoto.com.pl/pl/links | lang: pl | type: page | title: Makoto - Linki
 https://makoto.com.pl/pl/portfolio | lang: pl | type: page | title: Makoto - Portfolio
 https://makoto.com.pl/pl/privacy | lang: pl | type: page | title: Makoto - Polityka Prywatności
@@ -27,8 +25,8 @@ https://makoto.com.pl/pl/rules | lang: pl | type: page | title: Makoto - Regulam
 https://makoto.com.pl/pl/uses | lang: pl | type: page | title: Makoto - To co używam
 https://makoto.com.pl/pl/work | lang: pl | type: page | title: Makoto - Projekty z wykorzystaniem Nuxt.js i Strapi
 
-## ─────────────── Blog posts
+## Blog posts
 https://makoto.com.pl/blog/my-first-blog-post | lang: en | type: post | title: My first test blog post
-https://makoto.com.pl/pl/blog/my-first-blog-post | lang: pl | type: post | title: My first test blog post
-https://makoto.com.pl/blog/my-first-blog-post2 | lang: en | type: post | title: My second test blog post
-https://makoto.com.pl/pl/blog/my-first-blog-post2 | lang: pl | type: post | title: My second test blog post
+https://makoto.com.pl/pl/blog/my-first-blog-post | lang: pl | type: post | title: Mój pierwszy test post
+https://makoto.com.pl/blog/introducing-denalify | lang: en | type: post | title: Introducing Denalify
+https://makoto.com.pl/pl/blog/introducing-denalify | lang: pl | type: post | title: Introducing Denalify
