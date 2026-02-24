@@ -190,12 +190,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
-import { useRoute } from 'vue-router'
-
 const { locale, locales, setLocale, t } = useI18n()
-
-const currentLocale = locale.value
 
 const availableLocales = computed(() => {
   return locales.value.filter(i => i.code)
@@ -234,22 +229,6 @@ const links = computed(() => [
   { label: t('menu.work'), to: '/work' },
   { label: t('menu.blog'), to: '/blog' },
 ])
-
-// More menu items
-const more = [
-  {
-    type: 'label',
-    slot: 'links' as const
-  },
-  {
-    type: 'label',
-    slot: 'uses' as const
-  },
-  {
-    type: 'label',
-    slot: 'attr' as const
-  },
-] as const
 
 
 </script>

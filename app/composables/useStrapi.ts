@@ -12,15 +12,32 @@ function buildQuery(params: Record<string, any>): string {
 
 export const useStrapi = () => {
   const config = useRuntimeConfig()
-  const baseURL = `${config.public.apiUrl}/api`
+
+  /**
+   * Na serwerze (SSR) → wywołuj Strapi bezpośrednio z tokenem.
+   * Na kliencie (nawigacja klientem) → wywołuj serwer-proxy Nuxt,
+   * który doda token po stronie serwera. Dzięki temu token nigdy
+   * nie trafia do przeglądarki (nie jest w config.public).
+   */
+  const getBaseURL = () => {
+    if (import.meta.server) {
+      return `${config.public.apiUrl}/api`
+    }
+    return '/api/strapi'
+  }
 
   const getHeaders = (): Record<string, string> => {
-    const token = config.strapiToken as string | undefined
-    return token ? { Authorization: `Bearer ${token}` } : {}
+    // Nagłówek potrzebny tylko po stronie serwera (na kliencie proxy go doda)
+    if (import.meta.server) {
+      const token = config.strapiToken as string | undefined
+      return token ? { Authorization: `Bearer ${token}` } : {}
+    }
+    return {}
   }
 
   const find = <T = any>(collection: string, params?: Record<string, any>) => {
     const query = params ? buildQuery(params) : ''
+    const baseURL = getBaseURL()
     return $fetch<T>(`${baseURL}/${collection}${query ? '?' + query : ''}`, {
       headers: getHeaders(),
     })
@@ -28,6 +45,7 @@ export const useStrapi = () => {
 
   const findOne = <T = any>(collection: string, id: string | number, params?: Record<string, any>) => {
     const query = params ? buildQuery(params) : ''
+    const baseURL = getBaseURL()
     return $fetch<T>(`${baseURL}/${collection}/${id}${query ? '?' + query : ''}`, {
       headers: getHeaders(),
     })

@@ -7,10 +7,13 @@
 			{{ t('page.blog.hero.description') }}
 		</h2>
 		<div class="w-full max-w-5xl mx-auto px-12 mt-24">
-			<div v-if="pending" class="text-center">
+			<div v-if="pending" class="text-center text-zinc-400 py-16">
 				Loading...
 			</div>
-			<UPageGrid v-if="articles?.data">
+			<div v-else-if="error" class="text-center text-red-400 py-16">
+				{{ error.message || 'Nie udało się załadować artykułów.' }}
+			</div>
+			<UPageGrid v-else-if="articles?.data?.length">
 				<UPageCard
 					v-for="article in articles.data"
 					:key="article.id"
@@ -73,7 +76,7 @@ const queryParams = computed(() => {
   }
 })
 
-const { data: articles, pending, error, refresh } = useAsyncData<ArticlesResponse>(
+const { data: articles, pending, error } = await useAsyncData<ArticlesResponse>(
   () => `articles-${locale.value}`,
   () => find<ArticlesResponse>('articles', queryParams.value),
   {

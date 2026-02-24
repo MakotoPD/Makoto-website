@@ -150,9 +150,10 @@ const coverImageUrl = computed(() =>
 	article.value?.cover ? `${config.public.apiUrl}${article.value.cover.url}` : `${config.public.siteUrl}/og-default.jpg`
 )
 
-const canonicalUrl = computed(() => 
-	`${config.public.siteUrl}/blog/${slug.value}`
-)
+const canonicalUrl = computed(() => {
+	const prefix = locale.value !== 'en' ? `/${locale.value}` : ''
+	return `${config.public.siteUrl}${prefix}/blog/${slug.value}`
+})
 
 const publishedTime = computed(() => 
 	article.value?.publishedAt ? new Date(article.value.publishedAt).toISOString() : undefined

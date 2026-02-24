@@ -115,7 +115,7 @@
 				<h3 class="serif text-3xl text-shadow-lg/30 text-black dark:text-white text-shadow-black/30 dark:text-shadow-white font-semibold text-center">
 					{{ t('page.home.grid.question.line1') }} <br/> {{ t('page.home.grid.question.line2') }}
 				</h3> 
-				<UButton @click="copyemail" icon="i-solar-copy-line-duotone" variant="soft" size="xl" tabindex="0" id="copyemailgrid" data-clipboard-text="contact@makoto.com.pl" class="z-[50] mt-4 bg-sky-500/20 border border-sky-400/80 text-black/80 dark:text-white/80 rounded-lg px-5 py-3 hover:bg-sky-500/40  active:bg-sky-500/20">
+				<UButton @click="(e) => copyEmail(e, { title: t('page.home.grid.notification.title'), description: t('page.home.grid.notification.desc'), btnLabel: t('page.home.grid.notification.btn') })" icon="i-solar-copy-line-duotone" variant="soft" size="xl" tabindex="0" class="z-[50] mt-4 bg-sky-500/20 border border-sky-400/80 text-black/80 dark:text-white/80 rounded-lg px-5 py-3 hover:bg-sky-500/40  active:bg-sky-500/20">
 					contact@makoto.com.pl
 				</UButton>
 			</div>
@@ -123,108 +123,10 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
 const { t } = useI18n()
-const toast = useToast()
-
-const items = [
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-	{'title':'NuxJS', 'logo':'i-logos-nuxt-icon'},
-]
-
+const { copyEmail } = useCopyEmail()
 
 // Refs for animated beams hub
-const centerRef = ref<HTMLElement | null>(null);
-const clientRef = ref<HTMLElement | null>(null);
-
-const copyemail = async (e: Event) => {
-    const emailToCopy = 'contact@makoto.com.pl'
-    let success = false;
-
-    // --- POCZĄTEK LOGIKI KOPIOWANIA ---
-
-    // Metoda 1: Nowoczesne API (preferowane)
-    if (navigator.clipboard && window.isSecureContext) {
-        try {
-            await navigator.clipboard.writeText(emailToCopy);
-            success = true;
-        } catch (err) {
-            console.error('Nie udało się skopiować za pomocą navigator.clipboard:', err);
-            success = false;
-        }
-    } 
-    // Metoda 2: Klasyczne rozwiązanie (fallback) dla HTTP i starszych przeglądarek
-    else {
-        try {
-            const textArea = document.createElement('textarea');
-            textArea.value = emailToCopy;
-            
-            // Ukryj element poza ekranem
-            textArea.style.position = 'absolute';
-            textArea.style.left = '-9999px';
-            textArea.style.top = '0';
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            // Próba skopiowania
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            success = true;
-        } catch (err) {
-            console.error('Nie udało się skopiować za pomocą document.execCommand:', err);
-            success = false;
-        }
-    }
-
-    // --- KONIEC LOGIKI KOPIOWANIA ---
-
-    // Jeśli kopiowanie się powiodło, pokaż powiadomienie i animację
-    if (success) {
-        toast.add({
-            title: t('page.home.grid.notification.title'),
-            description: t('page.home.grid.notification.desc'),
-            color: 'info',
-            icon: 'i-solar-clipboard-check-linear',
-            progress: false,
-            orientation: 'horizontal',
-            actions: [{
-                icon: 'i-solar-plain-linear',
-                label: t('page.home.grid.notification.btn'),
-                color: 'neutral',
-                variant: 'solid',
-                onClick: () => {
-                    window.open(`mailto:${emailToCopy}`, '_blank')
-                }
-            }]
-        })
-
-        await nextTick();
-        
-        const target = e.target as HTMLElement
-        target.classList.add('wobble-hor-bottom')
-
-        setTimeout(function (){
-            target.classList.remove('wobble-hor-bottom')
-        }, 1000);
-    } 
-    // Opcjonalnie: Pokaż błąd, jeśli obie metody zawiodły
-    else {
-        toast.add({
-            title: 'Błąd',
-            description: 'Nie udało się skopiować adresu e-mail.',
-            color: 'red'
-        })
-    }
-}
-
+const centerRef = ref<HTMLElement | null>(null)
+const clientRef = ref<HTMLElement | null>(null)
 </script>

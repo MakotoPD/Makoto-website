@@ -1,61 +1,55 @@
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-const config = useRuntimeConfig()
+
 const { find } = useStrapi()
 const { locale, t } = useI18n();
 
 const localePath = useLocalePath()
 const activeProjectIndex = ref(0);
 
-const queryParams = computed(() => {
-  return {
-    locale: locale.value,
-    populate: '*',
-  }
-})
+const queryParams = computed(() => ({
+  locale: locale.value,
+  populate: '*',
+}))
 
-
-const STRAPI_URL = config.public.apiUrl;
-
-const { data: projects, pending, error, refresh } = useLazyAsyncData(
+const { data: projects, pending, error } = useLazyAsyncData(
   `featured-projects`,
   () => find('featured-projects', queryParams.value),
-  {
-    watch: [queryParams]
-  }
+  { watch: [queryParams] }
 )
 
 gsap.registerPlugin(ScrollTrigger);
+const scrollTriggers: ReturnType<typeof ScrollTrigger.create>[] = []
 
-onMounted(() => {
-	
-  // Czekamy, aż DOM będzie gotowy
-  // Używamy setTimeout, aby upewnić się, że wszystko jest wyrenderowane przed inicjalizacją GSAP
-  setTimeout(() => {
-    // Pobieramy wszystkie elementy projektów
-    const projectItems = gsap.utils.toArray('.project-item');
+const initScrollTrigger = async () => {
+  scrollTriggers.forEach(t => t.kill())
+  scrollTriggers.length = 0
 
-    projectItems.forEach((item, index) => {
-      ScrollTrigger.create({
-        trigger: item, // Element, który śledzimy
-        start: 'top center', // Uruchom, gdy góra elementu dotknie środka ekranu
-        end: 'bottom center', // Zakończ, gdy dół elementu opuści środek ekranu
-        
-        // Funkcja wywoływana, gdy element wchodzi w zdefiniowany obszar (scrollując w dół)
-        onEnter: () => {
-          activeProjectIndex.value = index;
-        },
-        // Funkcja wywoływana, gdy element wchodzi w obszar (scrollując w górę)
-        onEnterBack: () => {
-          activeProjectIndex.value = index;
-        },
-      });
-    });
-  }, 100);
-});
+  await nextTick()
+
+  const projectItems = gsap.utils.toArray<Element>('.project-item')
+  projectItems.forEach((item, index) => {
+    const st = ScrollTrigger.create({
+      markers: true,
+      trigger: item,
+      start: 'center center',
+      end: 'bottom center',
+      onEnter: () => { activeProjectIndex.value = index },
+      onEnterBack: () => { activeProjectIndex.value = index },
+    })
+    scrollTriggers.push(st)
+  })
+}
+
+watch(pending, (isPending) => {
+  if (!isPending) initScrollTrigger()
+}, { immediate: true })
+
+onUnmounted(() => {
+  scrollTriggers.forEach(t => t.kill())
+})
 
 
 watch(activeProjectIndex, (newIndex, oldIndex) => {
@@ -213,7 +207,7 @@ const styleMap = {
 
 <template>
 	<div class="mt-24">
-<div v-if="pending" class="flex relative gap-x-4 animate-pulse">
+    <div v-if="pending" class="flex relative gap-x-4 animate-pulse">
 			<div class="grid grid-cols-1 gap-x-6 px-4 lg:px-0 gap-y-6 md:grid-cols-2 lg:flex lg:flex-col lg:gap-y-36 lg:w-7/12">
 				<div v-for="i in 3" :key="i" class="h-72 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
 			</div>
@@ -226,7 +220,7 @@ const styleMap = {
 				<div 
 					v-for="project in projects?.data" 
 					:key="project.id" 
-					class="project-item lg:flex justify-end lg:pr-8 items-center rounded-2xl"
+					class="project-item min-h-[33rem] lg:flex justify-end lg:pr-8 items-center rounded-2xl"
 				>
 					<NuxtLink :to="localePath(project.link)" target="_blank" class="group block relative max-w-2xl bg-gray-200 dark:bg-gray-900/80  rounded-2xl p-1 lg:p-2 border border-gray-300 dark:border-gray-700 shadow-2xl lg:shadow-gray-800/40">
 						<div class="absolute -top-0.5 left-0 w-full h-px glowbig"></div>
@@ -303,9 +297,10 @@ const styleMap = {
   top: 0;
   left: 0;
   width: 100%;
-  opacity: 0; /* Domyślnie ukryte */
+  /* Stan początkowy — GSAP obsługuje przejścia przez autoAlpha */
+  opacity: 0;
   visibility: hidden;
-  transform: translateY(20px); /* Lekko przesunięte w dół */
+transform: translateY(20px); /* Lekko przesunięte w dół */
   transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
 }
 

@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Kolory podstawowe - domyślnie jasny motyw */
+  /* Kolory podstawowe - jasny motyw */
 	--color-primary: #287deb;
 	--color-background-app: #f8f9fd;
 	--color-background-card: #393f40;
@@ -18,7 +18,7 @@
 	--color-border: #597b80;
 	--color-highlight: #b9c8cc;
 
-  /* Primary color palette - wersja ciemna */
+  /* Primary color palette */
 	--color-primary-50: #eff6ff;
 	--color-primary-100: #dbeafe;
 	--color-primary-200: #bfdbfe;
@@ -42,8 +42,9 @@
 	--ui-primary-800: var(--color-primary-800);
 	--ui-primary-900: var(--color-primary-900);
 	--ui-primary-950: var(--color-primary-950);
-	--background: oklch(0.13 0.028 261.692);
-	--foreground: oklch(0.985 0.002 247.839);
+
+	--background: oklch(1 0 0);
+	--foreground: oklch(0.13 0.028 261.692);
 	--card: oklch(0.13 0.028 261.692);
 	--card-foreground: oklch(0.985 0.002 247.839);
 	--popover: oklch(0.13 0.028 261.692);
@@ -74,48 +75,12 @@
 	--sidebar-accent-foreground: oklch(0.985 0.002 247.839);
 	--sidebar-border: oklch(0.278 0.033 256.848);
 	--sidebar-ring: oklch(0.446 0.03 256.802);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0.028 261.692);
 }
 
 .dark {
-  /* Kolory podstawowe */
-	--color-primary: #287deb;
+  /* Nadpisz tylko to co się zmienia w dark mode */
 	--color-background-app: #0f1013;
-	--color-background-card: #393f40;
-	--color-background-input: #565f63;
-	--color-divide-card: #515b5e;
-	--color-text-primary: #f2fbff;
-	--color-text-secondary: #b9cacc;
-	--color-button-background: #2c95db;
-	--color-button-text: #f2fcff;
-	--color-border: #597b80;
-	--color-highlight: #b9c8cc;
 
-  /* Primary color palette - wersja ciemna */
-	--color-primary-50: #eff6ff;
-	--color-primary-100: #dbeafe;
-	--color-primary-200: #bfdbfe;
-	--color-primary-300: #93c5fd;
-	--color-primary-400: #60a5fa;
-	--color-primary-500: #287deb;
-	--color-primary-600: #2563eb;
-	--color-primary-700: #1d4ed8;
-	--color-primary-800: #1e40af;
-	--color-primary-900: #1e3a8a;
-	--color-primary-950: #172554;
-
-	--ui-primary-50: var(--color-primary-50);
-	--ui-primary-100: var(--color-primary-100);
-	--ui-primary-200: var(--color-primary-200);
-	--ui-primary-300: var(--color-primary-300);
-	--ui-primary-400: var(--color-primary-400);
-	--ui-primary-500: var(--color-primary-500);
-	--ui-primary-600: var(--color-primary-600);
-	--ui-primary-700: var(--color-primary-700);
-	--ui-primary-800: var(--color-primary-800);
-	--ui-primary-900: var(--color-primary-900);
-	--ui-primary-950: var(--color-primary-950);
 	--background: oklch(0.13 0.028 261.692);
 	--foreground: oklch(0.985 0.002 247.839);
 	--card: oklch(0.13 0.028 261.692);
@@ -181,25 +146,12 @@ body:before {
     height: 100%;
     pointer-events: none;
     opacity: .1;
-    z-index: -1;
-    backdrop-filter: blur(10px);
-}
-
-body:before {
-    background: black;
-	z-index: 1;
+    z-index: 1;
     background-image: url(/imgs/grain.svg);
     background-attachment: fixed;
     filter: contrast(2) brightness(.5);
 }
 
-.dark body:before {
-    background: none;
-	z-index: 1;
-    background-image: url(/imgs/grain.svg);
-    background-attachment: fixed;
-    filter: contrast(2) brightness(.5);
-}
 .serif {
   font-family: 'Playfair Display', 'Instrument Serif', 'Times New Roman', Times, serif;
 }
@@ -258,17 +210,30 @@ body:before {
 }
 
 .heading-text {
-  padding: 1rem; 
+  padding: 1rem;
   font-size: 3.75rem;
-  line-height: 1; 
-  font-weight: 800; 
-  color: transparent; 
-  background-clip: text; 
-  background-image: linear-gradient(to bottom, var(--color-button-background)); 
+  line-height: 1;
+  font-weight: 800;
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to bottom, var(--color-button-background));
 }
-
 
 section.section {
   content-visibility: auto;
-  contain-intrinsic-size: 1500px;
+  contain-intrinsic-size: auto 1500px;
+}
+
+/* Animacja przycisku kopiowania emaila */
+@keyframes wobble-hor-bottom {
+  0%, 100% { transform: translateX(0); transform-origin: 50% 50%; }
+  15%       { transform: translateX(-30px) rotate(-6deg); }
+  30%       { transform: translateX(15px) rotate(6deg); }
+  45%       { transform: translateX(-15px) rotate(-3.6deg); }
+  60%       { transform: translateX(9px) rotate(2.4deg); }
+  75%       { transform: translateX(-6px) rotate(-1.2deg); }
+}
+
+.wobble-hor-bottom {
+  animation: wobble-hor-bottom 0.8s both;
 }

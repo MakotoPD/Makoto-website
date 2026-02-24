@@ -1,7 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
-import fs from 'fs'
-import path from 'path'
 
 export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
@@ -119,7 +117,7 @@ export default defineNuxtConfig({
 	},
 
 	turnstile: {
-		siteKey: process.env.TURNSTILE,
+		siteKey: process.env.TURNSTILE_SITE_KEY,
 	},
 
 
@@ -155,14 +153,14 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
-
 		strapiToken: process.env.STRAPI_TOKEN,
 		turnstile: {
-			secretKey: process.env.TURNSTILE,
+			secretKey: process.env.TURNSTILE_SECRET_KEY,
 		},
 		public: {
 			apiUrl: process.env.STRAPI_URL || 'https://api.makoto.com.pl',
-			siteUrl: 'https://makoto.com.pl'
+			siteUrl: 'https://makoto.com.pl',
+			web3formsKey: process.env.WEB3FORMS_KEY || '',
 		}
 	},
 
@@ -196,11 +194,7 @@ export default defineNuxtConfig({
 					name: 'description',
 					content: 'Makoto - Web developer. Experienced web developer offers modern, responsive designs, SEO optimization and technical support. Specializing in JavaScript, VueJS and more. Create exceptional websites with us!'
 				},
-				{
-					name: 'keywords',
-					content: 'strony internetowe inowrocław, strony internetowe, strony, internetowe, inowrocław, łódź, bydgoszcz, toruń, strony internetowe bydgoszcz, strony internetowe toruń, strony internetowe torun, programista stron internetowych, tworzenie stron www, nowoczesne technologie webowe, Nuxt.js, Vue.js, React, optymalizacja SEO, responsywne strony, projektowanie stron internetowych, wsparcie techniczne, HTML5, CSS3, JavaScript, Node.js, WordPress, portfolio web development, usługi webowe, aktualizacja stron, utrzymanie stron internetowych, rozwój aplikacji webowych, Makoto, MakotoPD, web developer, website development, modern web technologies, Nuxt.js, Vue.js, React, SEO optimization, responsive websites, web design, technical support, HTML5, CSS3, JavaScript, Node.js, WordPress, web development portfolio, web services, website updates, website maintenance, web application development, Tworzenie stron internetowych Inowrocław, Profesjonalne strony internetowe, Projektowanie stron WWW, Nowoczesne strony internetowe, Projektowanie logo Inowrocław, Branding graficzny, Responsywne strony internetowe, Sklepy internetowe na zamówienie, Strony internetowe dla firm, Tworzenie sklepów internetowych, Projektowanie UI/UX, Web development Inowrocław, Grafik na zamówienie, Tworzenie logo na zamówienie, SEO optymalizacja stron, Profesjonalne bannery reklamowe, Tworzenie stron korporacyjnych, Projektowanie stron e-commerce, Pozycjonowanie stron internetowych, Kreatywne logo dla firm, Tworzenie unikalnych projektów graficznych, Innowacyjne strony internetowe, Studio graficzne Inowrocław, Grafik komputerowy na zlecenie, Skuteczna reklama online, Projektowanie identyfikacji wizualnej, Przebudowa i optymalizacja stron, Nowoczesny design stron, Wsparcie i aktualizacje stron internetowych, Projektowanie banerów internetowych, Profesjonalna grafika dla firm, Kompleksowe usługi graficzne, Strony internetowe dla międzynarodowych klientów, Tworzenie animowanych grafik, Wizualizacje dla stron WWW, Usługi projektowania graficznego, Blog o projektowaniu stron internetowych, Inowrocław usługi graficzne, Tworzenie minimalistycznych logo, Kreatywne rozwiązania graficzne, Projektowanie mobilnych wersji stron, Grafika komputerowa i branding, Rozwój i projektowanie stron, Studio tworzenia stron WWW, Optymalizacja stron pod SEO, Profesjonalne portfolio online, Nowe technologie w projektowaniu stron, Tworzenie treści SEO, Branding i wizerunek marki, Tworzenie stron dla startupów, Unikalne projekty graficzne, Projektowanie stron w oparciu o WordPress, Freelancer Inowrocław web developer, Projektowanie stron przyjaznych użytkownikom, Grafika komputerowa Inowrocław, Nowoczesne logo dla firm, Zwiększanie widoczności online, Usługi zdalnego web developmentu, Banery reklamowe na zamówienie, Grafik i web designer w Inowrocław.'
-				},
-				{
+					{
 					name: 'og:image',
 					content: '/og.png'
 				}
@@ -218,7 +212,7 @@ export default defineNuxtConfig({
 				{
 					rel: 'alternate',
 					hreflang: 'en',
-					href: 'https://dmakoto.com.pl'
+					href: 'https://makoto.com.pl'
 				},
 				{
 					rel: 'alternate',

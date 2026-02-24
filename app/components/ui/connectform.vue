@@ -75,6 +75,7 @@ import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const { t } = useI18n()
+const config = useRuntimeConfig()
 
 const schema = z.object({
   email: z.email('Invalid email'),
@@ -94,7 +95,7 @@ const state = reactive<Partial<Schema>>({
   message: '',
   token: '',
   subject: 'Nowa wiadomość z strony internetowej',
-  access_key: '5570e19a-cefa-433f-8b62-26c58fa27628'
+  access_key: config.public.web3formsKey
 })
 
 const toast = useToast()
