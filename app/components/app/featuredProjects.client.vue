@@ -32,7 +32,6 @@ const initScrollTrigger = async () => {
   const projectItems = gsap.utils.toArray<Element>('.project-item')
   projectItems.forEach((item, index) => {
     const st = ScrollTrigger.create({
-      markers: true,
       trigger: item,
       start: 'center center',
       end: 'bottom center',
