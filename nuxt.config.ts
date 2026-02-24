@@ -153,7 +153,6 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
-		strapiToken: process.env.STRAPI_TOKEN,
 		turnstile: {
 			secretKey: process.env.TURNSTILE_SECRET_KEY,
 		},
