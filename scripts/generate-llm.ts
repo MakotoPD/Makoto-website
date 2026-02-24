@@ -4,24 +4,37 @@ import path from 'path'
 const SITE_URL = (process.env.SITE_URL || 'https://makoto.com.pl').replace(/\/$/, '')
 const STRAPI_URL = (process.env.STRAPI_URL || 'https://api.makoto.com.pl').replace(/\/$/, '')
 
-async function fetchSitemapLinks(url: string): Promise<string[]> {
-  console.log(`Pobieram sitemap: ${url}`)
-  const res = await fetch(url)
-  if (!res.ok) throw new Error(`${res.status} ${url}`)
-  const xml = await res.text()
-  const links = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1].trim())
+// Strony wykluczone z llms.txt (panel admina itp.)
+const EXCLUDED_PREFIXES = ['/panel', '/admin']
 
-  if (xml.includes('<sitemapindex')) {
-    console.log(`Znaleziono ${links.length} submap — pobieram wszystkie...`)
-    const allUrls: string[] = []
-    for (const sm of links) {
-      allUrls.push(...await fetchSitemapLinks(sm))
+/**
+ * Skanuje app/pages/ i zwraca statyczne trasy (bez dynamicznych [slug])
+ */
+function getPagesRoutes(): string[] {
+  const pagesDir = path.resolve(process.cwd(), 'app/pages')
+  const routes: string[] = []
+
+  function scan(dir: string, prefix: string) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const name = entry.name
+
+      if (entry.isDirectory()) {
+        scan(path.join(dir, name), `${prefix}/${name}`)
+        continue
+      }
+
+      if (!name.endsWith('.vue')) continue
+      // Pomijaj dynamiczne trasy (blog/[slug].vue itp.)
+      if (name.includes('[')) continue
+
+      const base = name.replace(/\.vue$/, '')
+      const route = base === 'index' ? prefix || '/' : `${prefix}/${base}`
+      routes.push(route || '/')
     }
-    return allUrls
   }
 
-  console.log(`Znaleziono ${links.length} adresów`)
-  return links
+  scan(pagesDir, '')
+  return routes.filter(r => !EXCLUDED_PREFIXES.some(ex => r.startsWith(ex)))
 }
 
 function loadI18nTitles(lang: string): Record<string, string> {
@@ -53,13 +66,8 @@ async function fetchArticles(locale: string): Promise<{ slug: string; title: str
 async function generateLLMFile() {
   console.log('Generuję llms.txt...')
 
-  let allUrls: string[] = []
-  try {
-    allUrls = await fetchSitemapLinks(`${SITE_URL}/sitemap.xml`)
-  } catch (err) {
-    console.warn(`Nie udało się pobrać sitemapy (strona może jeszcze nie działać): ${err}`)
-    console.warn('Generuję llms.txt bez listy stron...')
-  }
+  const routes = getPagesRoutes()
+  console.log(`Znaleziono ${routes.length} stron z app/pages/`)
 
   console.log('Pobieram artykuły z API...')
   const [postsEn, postsPl] = await Promise.all([
@@ -73,30 +81,20 @@ async function generateLLMFile() {
     '',
   ]
 
-  if (allUrls.length > 0) {
-    const langs = ['en', 'pl'] as const
-    for (const lang of langs) {
-      const isDefault = lang === 'en'
-      const pages = allUrls.filter(u => {
-        if (/\/blog\/[^/]+$/.test(u)) return false
-        const normalized = u.replace(/\/$/, '')
-        return isDefault
-          ? !normalized.includes('/pl/') && !normalized.endsWith('/pl')
-          : normalized.includes(`/${lang}/`) || normalized.endsWith(`/${lang}`)
-      })
+  const langs = ['en', 'pl'] as const
 
-      const titlesMap = loadI18nTitles(lang)
+  for (const lang of langs) {
+    const titlesMap = loadI18nTitles(lang)
+    const prefix = lang === 'en' ? '' : `/${lang}`
 
-      llmLines.push(`## ${lang.toUpperCase()} pages`)
-      for (const url of pages) {
-        const normalized = url.replace(/\/$/, '')
-        const isHome = normalized === SITE_URL || normalized === `${SITE_URL}/${lang}`
-        const slug = isHome ? 'home' : (normalized.split('/').filter(Boolean).pop() || 'home')
-        const title = titlesMap[slug] || slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-        llmLines.push(`${url} | lang: ${lang} | type: page | title: ${title}`)
-      }
-      llmLines.push('')
+    llmLines.push(`## ${lang.toUpperCase()} pages`)
+    for (const route of routes) {
+      const url = `${SITE_URL}${prefix}${route === '/' ? '' : route}`
+      const slug = route === '/' ? 'home' : (route.split('/').filter(Boolean).pop() || 'home')
+      const title = titlesMap[slug] || slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+      llmLines.push(`${url} | lang: ${lang} | type: page | title: ${title}`)
     }
+    llmLines.push('')
   }
 
   const plBySlug = new Map(postsPl.map(p => [p.slug, p.title]))
@@ -110,7 +108,7 @@ async function generateLLMFile() {
 
   const outputPath = path.resolve(process.cwd(), 'public/llms.txt')
   fs.writeFileSync(outputPath, llmLines.join('\n'), 'utf8')
-  console.log(`Wygenerowano ${allUrls.length} stron i ${postsEn.length} artykułów → ${outputPath}`)
+  console.log(`Wygenerowano ${routes.length} stron i ${postsEn.length} artykułów → ${outputPath}`)
 }
 
 generateLLMFile().catch(err => {

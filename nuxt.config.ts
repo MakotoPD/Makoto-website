@@ -153,6 +153,10 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
+		// Wewnętrzny URL Strapi dla SSR (omija Cloudflare/CDN).
+		// Ustaw STRAPI_INTERNAL_URL w env produkcji, np. http://localhost:1337
+		// Jeśli nie ustawione, fallback na publiczny URL.
+		strapiInternalUrl: process.env.STRAPI_INTERNAL_URL || process.env.STRAPI_URL || 'https://api.makoto.com.pl',
 		turnstile: {
 			secretKey: process.env.TURNSTILE_SECRET_KEY,
 		},
