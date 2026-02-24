@@ -84,6 +84,7 @@
 									:model-value="locale"
 									:locales="[en, pl]"
 									@update:model-value="setLocale($event)"
+									trailingIcon="i-mkt-chevron-down"
 								/>
 							</div>
 						</ClientOnly>
