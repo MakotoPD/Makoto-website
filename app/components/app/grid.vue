@@ -35,7 +35,7 @@
 				/>
 			</div>
 			<div class="absolute z-10 left-0 bottom-0 pl-6 pb-0 group-hover:pb-6 duration-300">
-				<UIcon name="i-solar-window-frame-line-duotone" class="size-10 text-slate-600/60 dark:text-slate-400/40 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:size-8 duration-300" />
+				<UIcon name="i-mkt-window-frame-line-duotone" class="size-10 text-slate-600/60 dark:text-slate-400/40 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:size-8 duration-300" />
 				<h3 class="serif text-3xl text-slate-700 dark:text-slate-300 group-hover:text-black dark:group-hover:text-white duration-300">{{ t('page.home.grid.saas.heading') }}</h3>
 				<p class="serif text-md text-slate-600 dark:text-slate-400 opacity-0 group-hover:opacity-100 duration-300">{{ t('page.home.grid.saas.desc') }}</p>
 			</div>
@@ -92,7 +92,7 @@
 				</div>
 
 				<div ref="clientRef" class="absolute top-1/2 left-4 transform -translate-y-1/2 z-20 h-12 w-12 rounded-full border border-zinc-600 bg-gradient-to-br from-sky-300 to-teal-400 flex items-center justify-center shadow-md">
-					<UIcon name="i-solar-user-hand-up-bold-duotone" class="size-6" />
+					<UIcon name="i-mkt-user-hand-up-bold-duotone" class="size-6" />
 				</div>
 
 				<UiAnimatedBeam :fromRef="centerRef" :toRef="clientRef" :duration="2" :delay="2" :curvature="30" :path-width="2" :beam-length="40" :path-color="$colorMode.value === 'dark' ? '#e8f0fe' : '#2C2E31FF'" gradient-start-color="#42DFF4FF" gradient-stop-color="#A71AE8FF" />
@@ -100,7 +100,7 @@
 			</div>
 
 			<div class="absolute z-10 left-0 bottom-0 pl-6 pb-0 group-hover:pb-6 duration-300">
-				<UIcon name="i-solar-course-up-bold-duotone" class="size-10 text-slate-600/60 dark:text-slate-400/40 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:size-8 duration-300" />
+				<UIcon name="i-mkt-course-up-bold-duotone" class="size-10 text-slate-600/60 dark:text-slate-400/40 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:size-8 duration-300" />
 				<h3 class="serif text-3xl text-slate-700 dark:text-slate-300 group-hover:text-black dark:group-hover:text-white duration-300">{{ t('page.home.grid.communication.heading') }}</h3>
 				<p class="serif text-md text-slate-600 dark:text-slate-400 opacity-0 group-hover:opacity-100 duration-300">{{ t('page.home.grid.communication.desc') }}</p>
 			</div>
@@ -115,7 +115,7 @@
 				<h3 class="serif text-3xl text-shadow-lg/30 text-black dark:text-white text-shadow-black/30 dark:text-shadow-white font-semibold text-center">
 					{{ t('page.home.grid.question.line1') }} <br/> {{ t('page.home.grid.question.line2') }}
 				</h3> 
-				<UButton @click="(e) => copyEmail(e, { title: t('page.home.grid.notification.title'), description: t('page.home.grid.notification.desc'), btnLabel: t('page.home.grid.notification.btn') })" icon="i-solar-copy-line-duotone" variant="soft" size="xl" tabindex="0" class="z-[50] mt-4 bg-sky-500/20 border border-sky-400/80 text-black/80 dark:text-white/80 rounded-lg px-5 py-3 hover:bg-sky-500/40  active:bg-sky-500/20">
+				<UButton @click="(e) => copyEmail(e, { title: t('page.home.grid.notification.title'), description: t('page.home.grid.notification.desc'), btnLabel: t('page.home.grid.notification.btn') })" icon="i-mkt-copy-line-duotone" variant="soft" size="xl" tabindex="0" class="z-[50] mt-4 bg-sky-500/20 border border-sky-400/80 text-black/80 dark:text-white/80 rounded-lg px-5 py-3 hover:bg-sky-500/40  active:bg-sky-500/20">
 					contact@makoto.com.pl
 				</UButton>
 			</div>

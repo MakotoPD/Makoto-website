@@ -51,7 +51,7 @@
                     <div class="flex flex-col gap-2">
                       <NuxtLink prefetch :to="localePath('/links')" class="w-72 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
-                          <UIcon name="i-solar-link-line-duotone" class="size-6" />
+                          <UIcon name="i-mkt-link-line-duotone" class="size-6" />
                         </div>
                         <div class="px-4 text-left">
                           <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
@@ -60,7 +60,7 @@
                       </NuxtLink>
                       <NuxtLink prefetch :to="localePath('/uses')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
-                          <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
+                          <UIcon name="i-mkt-laptop-line-duotone" class="size-6" />
                         </div>
                         <div class="px-4 text-left">
                           <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
@@ -69,7 +69,7 @@
                       </NuxtLink>
                       <NuxtLink prefetch :to="localePath('/faq')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
                         <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
-                          <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
+                          <UIcon name="i-mkt-question-square-line-duotone" class="size-6" />
                         </div>
                         <div class="px-4 text-left">
                           <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
@@ -110,56 +110,56 @@
           </div>
 
           <div class="flex md:hidden">
-            <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-lucide-x' : 'i-lucide-align-justify'" size="md" color="primary" variant="soft" class="text-black dark:text-white"></UButton>
+            <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-mkt-x' : 'i-mkt-align-justify'" size="md" color="primary" variant="soft" class="text-black dark:text-white"></UButton>
           </div>
         </div>
         <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300 text-black dark:text-white">
           <div class="py-4 flex flex-col">
             <NuxtLink prefetch :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-solar-home-smile-line-duotone" class="size-6" />
+              <UIcon name="i-mkt-home-smile-line-duotone" class="size-6" />
               {{t('menu.home')}}
             </NuxtLink>
             <NuxtLink prefetch :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-solar-user-rounded-line-duotone" class="size-6" />
+              <UIcon name="i-mkt-user-rounded-line-duotone" class="size-6" />
               {{t('menu.about')}}
             </NuxtLink>
             <NuxtLink prefetch :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-solar-buildings-line-duotone" class="size-6" />
+              <UIcon name="i-mkt-buildings-line-duotone" class="size-6" />
               {{t('menu.work')}}
             </NuxtLink>
             <NuxtLink prefetch :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-solar-document-text-line-duotone" class="size-6" />
+              <UIcon name="i-mkt-document-text-line-duotone" class="size-6" />
               {{t('menu.blog')}}
             </NuxtLink>
             <button @click="openMoreMobile" class="flex items-center justify-between gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
               <div class="flex items-center gap-3">
-                <UIcon name="i-solar-layers-minimalistic-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-layers-minimalistic-line-duotone" class="size-6" />
                 {{t('menu.more')}}
               </div>
-              <UIcon :name="toggleMoreMobileButtonIcon ? 'i-solar-alt-arrow-up-line-duotone' : 'i-solar-alt-arrow-down-line-duotone'" class="size-6" />
+              <UIcon :name="toggleMoreMobileButtonIcon ? 'i-mkt-alt-arrow-up-line-duotone' : 'i-mkt-alt-arrow-down-line-duotone'" class="size-6" />
             </button>
             <div ref="moreMenuMobile" class="px-2 overflow-hidden max-h-0 transition-all duration-300">
               <NuxtLink prefetch :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-solar-folder-path-connect-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-folder-path-connect-line-duotone" class="size-6" />
                 Portfolio
               </NuxtLink>
               <NuxtLink prefetch :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-solar-laptop-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-laptop-line-duotone" class="size-6" />
                 {{ t('menu.more.uses') }}
               </NuxtLink>
               <NuxtLink prefetch :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-solar-question-square-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-question-square-line-duotone" class="size-6" />
                 {{ t('menu.more.attributons') }}
               </NuxtLink>
               <NuxtLink prefetch :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-solar-link-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-link-line-duotone" class="size-6" />
                 {{ t('menu.more.links') }}
               </NuxtLink>
             </div>
 
             <UDrawer should-scale-background set-background-color-on-scale>
               <button class="flex items-center gap-3 py-2">
-                <UIcon name="i-solar-chat-round-call-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-chat-round-call-line-duotone" class="size-6" />
                 {{ t('menu.call') }}
               </button>
 

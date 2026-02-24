@@ -168,6 +168,16 @@ export default defineNuxtConfig({
 	},
 
 
+	icon: {
+		customCollections: [
+			{
+				prefix: 'mkt',
+				dir: './app/assets/icons',
+			}
+			
+		]
+	},
+
 
 	postcss: {
 		plugins: {

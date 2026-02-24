@@ -7,7 +7,7 @@
 		:clear="{
 		color: 'neutral',
 		size: 'xl',
-		icon: 'i-lucide-arrow-left',
+		icon: 'i-mkt-arrow-left',
 		class: 'rounded-xl hover:scale-105 duration-300'
 		}"
 		:error="{

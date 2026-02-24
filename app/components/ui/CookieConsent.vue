@@ -9,7 +9,7 @@
         <div v-if="!showSettings">
           <div class="flex items-start gap-3 mb-3">
             <div class="shrink-0 mt-0.5">
-              <UIcon name="i-lucide-cookie" class="text-2xl text-[var(--color-primary)]" />
+              <UIcon name="i-mkt-cookie" class="text-2xl text-[var(--color-primary)]" />
             </div>
             <div>
               <h3 class="text-sm text-black font-semibold dark:text-[var(--color-text-primary)] mb-1">
@@ -58,7 +58,7 @@
               class="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
               @click="showSettings = false"
             >
-              <UIcon name="i-lucide-arrow-left" class="text-lg" />
+              <UIcon name="i-mkt-arrow-left" class="text-lg" />
             </button>
             <h3 class="text-sm font-semibold text-[var(--color-text-primary)]">
               {{ $t('cookie.settings') }}

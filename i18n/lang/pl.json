@@ -224,7 +224,7 @@
 			"faq": [
 				{
 					"name": "O Mnie i mojej pracy",
-					"icon": "i-solar-user-heart-rounded-line-duotone",
+					"icon": "i-mkt-user-heart-rounded-line-duotone",
 					"q": [
 					{
 						"label": "Jak zaczęła się Twoja przygoda z programowaniem?",
@@ -242,7 +242,7 @@
 				},
 				{
 					"name": "Projekty i doświadczenie",
-					"icon": "i-solar-folder-with-files-line-duotone",
+					"icon": "i-mkt-folder-with-files-line-duotone",
 					"q": [
 					{
 						"label": "Jakie projekty najbardziej lubisz robić?",
@@ -264,7 +264,7 @@
 				},
 				{
 					"name": "Narzędzia i workflow",
-					"icon": "i-solar-programming-line-duotone",
+					"icon": "i-mkt-programming-line-duotone",
 					"q": [
 					{
 						"label": "Jakie narzędzia i frameworki używasz na co dzień?",
@@ -286,7 +286,7 @@
 				},
 				{
 					"name": "Porady dla innych programistów",
-					"icon": "i-solar-notebook-minimalistic-line-duotone",
+					"icon": "i-mkt-notebook-minimalistic-line-duotone",
 					"q": [
 					{
 						"label": "Jakie książki / kursy / źródła polecasz dla początkujących?",
@@ -308,7 +308,7 @@
 				},
 				{
 					"name": "Współpraca i kontakt",
-					"icon": "i-solar-chat-round-line-line-duotone",
+					"icon": "i-mkt-chat-round-line-line-duotone",
 					"q": [
 					{
 						"label": "Czy przyjmujesz zlecenia lub współpracę?",

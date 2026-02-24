@@ -54,27 +54,27 @@
 // Zdefiniuj dane dla swoich plakietek. 
 // Możesz je wczytywać z API lub zdefiniować bezpośrednio tutaj.
 const topBadges = [
-  { name: 'NuxtJS', logo:'i-logos-nuxt-icon' },
-  { name: 'TailwindCSS', logo:'i-logos-tailwindcss-icon' },
-  { name: 'VueJS', logo:'i-logos-vue' },
-  { name: 'TypeScript', logo:'i-logos-typescript-icon' },
-  { name: 'GraphQL', logo:'i-logos-graphql' },
+  { name: 'NuxtJS', logo:'i-mkt-nuxt-icon' },
+  { name: 'TailwindCSS', logo:'i-mkt-tailwindcss-icon' },
+  { name: 'VueJS', logo:'i-mkt-vue' },
+  { name: 'TypeScript', logo:'i-mkt-typescript-icon' },
+  { name: 'GraphQL', logo:'i-mkt-graphql' },
 ];
 
 const middleBadges = [
-  { name: 'NuxtUI', logo:'i-logos-vueuse' },
-  { name: 'Fastify', logo:'i-simple-icons-fastify' },
-  { name: 'NodeJS', logo:'i-logos-nodejs-icon' },
-  { name: 'Express', logo:'i-logos-nuxt-icon' },
-  { name: 'Pinia', logo:'i-logos-pinia' },
+  { name: 'NuxtUI', logo:'i-mkt-vueuse' },
+  { name: 'Fastify', logo:'i-mkt-fastify' },
+  { name: 'NodeJS', logo:'i-mkt-nodejs-icon' },
+  { name: 'Express', logo:'i-mkt-express' },
+  { name: 'Pinia', logo:'i-mkt-pinia' },
 ];
 
 const bottomBadges = [
-  { name: 'Docker', logo:'i-logos-docker-icon' },
-  { name: 'Bun', logo:'i-logos-bun' },
-  { name: 'Framer', logo:'i-simple-icons-framer' },
-  { name: 'Strapi', logo:'i-logos-strapi-icon' },
-  { name: 'Figma', logo:'i-devicon-figma' },
+  { name: 'Docker', logo:'i-mkt-docker-icon' },
+  { name: 'Bun', logo:'i-mkt-bun' },
+  { name: 'Framer', logo:'i-mkt-framer' },
+  { name: 'Strapi', logo:'i-mkt-strapi-icon' },
+  { name: 'Figma', logo:'i-mkt-figma' },
 ];
 </script>
 

@@ -117,6 +117,10 @@ export default defineAppConfig({
 				body: 'flex-1',
 				footer: 'flex flex-col gap-1.5'
 			},
+		},
+		icons: {
+			light: 'i-mkt-sun',
+			dark: 'i-mkt-moon'
 		}
 	}
 })

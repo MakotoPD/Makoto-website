@@ -247,11 +247,11 @@ const copyemail = async (e: Event) => {
             title: t('page.home.hero.notification.title'),
             description: t('page.home.hero.notification.desc'),
             color: 'info',
-            icon: 'i-solar-clipboard-check-linear',
+            icon: 'i-mkt-clipboard-check-linear',
             progress: false,
             orientation: 'horizontal',
             actions: [{
-                icon: 'i-solar-plain-linear',
+                icon: 'i-mkt-plain-linear',
                 label: t('page.home.hero.notification.btn'),
                 color: 'neutral',
                 variant: 'solid',

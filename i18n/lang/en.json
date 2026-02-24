@@ -224,7 +224,7 @@
 			"faq": [
 				{
 					"name": "About Me and My Work",
-					"icon": "i-solar-user-heart-rounded-line-duotone",
+					"icon": "i-mkt-user-heart-rounded-line-duotone",
 					"q": [
 					{
 						"label": "How did your programming journey start?",
@@ -242,7 +242,7 @@
 				},
 				{
 					"name": "Projects and Experience",
-					"icon": "i-solar-folder-with-files-line-duotone",
+					"icon": "i-mkt-folder-with-files-line-duotone",
 					"q": [
 					{
 						"label": "Which projects do you enjoy working on the most?",
@@ -264,7 +264,7 @@
 				},
 				{
 					"name": "Tools and Workflow",
-					"icon": "i-solar-programming-line-duotone",
+					"icon": "i-mkt-programming-line-duotone",
 					"q": [
 					{
 						"label": "Which tools and frameworks do you use daily?",
@@ -286,7 +286,7 @@
 				},
 				{
 					"name": "Advice for Other Developers",
-					"icon": "i-solar-notebook-minimalistic-line-duotone",
+					"icon": "i-mkt-notebook-minimalistic-line-duotone",
 					"q": [
 					{
 						"label": "Which books/courses/resources do you recommend for beginners?",
@@ -308,7 +308,7 @@
 				},
 				{
 					"name": "Collaboration and Contact",
-					"icon": "i-solar-chat-round-line-line-duotone",
+					"icon": "i-mkt-chat-round-line-line-duotone",
 					"q": [
 					{
 						"label": "Do you accept commissions or collaborations?",

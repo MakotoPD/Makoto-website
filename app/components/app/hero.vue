@@ -39,7 +39,7 @@
 			<div class="flex justify-center mt-8">
 				<UButton
 					@click="(e) => copyEmail(e, { title: t('page.home.hero.notification.title'), description: t('page.home.hero.notification.desc'), btnLabel: t('page.home.hero.notification.btn') })"
-					icon="i-solar-copy-line-duotone"
+					icon="i-mkt-copy-line-duotone"
 					variant="soft"
 					size="xl"
 					tabindex="0"

@@ -79,21 +79,21 @@ export interface ImageFormat {
 
 
 export const categoryIcons: Record<string, string> = {
-  'css': 'i-simple-icons-css',
-  'nodejs': 'i-simple-icons-nodedotjs',
-  'web-dev': 'i-solar-global-linear',
-  'medusajs': 'i-solar-bag-5-bold-duotone',
-  'fastify': 'i-simple-icons-fastify',
-  'frontend': 'i-solar-monitor-bold-duotone',
-  'javascript': 'i-simple-icons-javascript',
-  'nuxtjs': 'i-simple-icons-nuxt',
-  'tailwindcss': 'i-simple-icons-tailwindcss',
-  'typescript': 'i-simple-icons-typescript',
-  'ui': 'i-solar-palette-bold-duotone',
-  'woocommerce': 'i-simple-icons-woocommerce',
-  'wordpress': 'i-simple-icons-wordpress',
-  'denalify': 'i-solar-code-square-bold-duotone',
-  'adonisjs': 'i-simple-icons-adonisjs'
+  'css': 'i-mkt-css',
+  'nodejs': 'i-mkt-nodedotjs',
+  'web-dev': 'i-mkt-www',
+  'medusajs': 'i-mkt-shopping-bag',
+  'fastify': 'i-mkt-fastify',
+  'frontend': 'i-mkt-round-monitor',
+  'javascript': 'i-mkt-javascript',
+  'nuxtjs': 'i-mkt-nuxt',
+  'tailwindcss': 'i-mkt-tailwindcss',
+  'typescript': 'i-mkt-typescript',
+  'ui': 'i-mkt-palette-linear',
+  'woocommerce': 'i-mkt-woocommerce',
+  'wordpress': 'i-mkt-wordpress',
+  'denalify': 'i-mkt-code-line',
+  'adonisjs': 'i-mkt-adonisjs'
 }
 
 // Helper do pobierania ikony dla kategorii

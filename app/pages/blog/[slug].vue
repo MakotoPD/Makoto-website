@@ -23,7 +23,7 @@
 						:name="article.author.name"
 						:avatar="{
 							src: config.public.apiUrl + article.author.avatar.url,
-							icon: 'i-lucide-image'
+							icon: 'i-mkt-image'
 						}"
 						size="sm"
 						:description="new Date(article.publishedAt).toLocaleDateString(locale)"

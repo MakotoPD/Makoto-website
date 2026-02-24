@@ -38,11 +38,11 @@ export const useCopyEmail = () => {
         title: messages.title,
         description: messages.description,
         color: 'info',
-        icon: 'i-solar-clipboard-check-linear',
+        icon: 'i-mkt-clipboard-check-linear',
         progress: false,
         orientation: 'horizontal',
         actions: [{
-          icon: 'i-solar-plain-linear',
+          icon: 'i-mkt-plain-linear',
           label: messages.btnLabel,
           color: 'neutral',
           variant: 'solid',

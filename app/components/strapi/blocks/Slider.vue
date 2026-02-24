@@ -1,23 +1,23 @@
 <template>
   <div v-if="carouselItems.length" class="my-6">
     <UCarousel
-      	v-slot="{ item }"
-      	:items="carouselItems"
+      v-slot="{ item }"
+      :items="carouselItems"
 	  	class-names
 	  	loop
 	  	dots
-		prev-icon="i-lucide-chevron-left"
-    	next-icon="i-lucide-chevron-right"
-		:autoplay="{ delay: 2000 }"
-      	:ui="{
-			viewport: 'rounded-xl',
-        	item: 'basis-[70%] transition-opacity [&:not(.is-snapped)]:opacity-10',
-        	container: 'rounded-lg',
-			prev: 'bg-zinc-700/60 border-zinc-600 hover:bg-zinc-600 text-white/60',
-			next: 'bg-zinc-700/60 border-zinc-600 hover:bg-zinc-600 text-white/60'
-      	}"
-      	arrows
-      	class="mx-auto max-w-xl"
+		  prev-icon="i-mkt-chevron-left"
+    	next-icon="i-mkt-chevron-right"
+		  :autoplay="{ delay: 2000 }"
+      :ui="{
+        viewport: 'rounded-xl',
+            item: 'basis-[70%] transition-opacity [&:not(.is-snapped)]:opacity-10',
+            container: 'rounded-lg',
+        prev: 'bg-zinc-700/60 border-zinc-600 hover:bg-zinc-600 text-white/60',
+        next: 'bg-zinc-700/60 border-zinc-600 hover:bg-zinc-600 text-white/60'
+      }"
+      arrows
+      class="mx-auto max-w-xl"
     >
       <img
         :src="item.src"
