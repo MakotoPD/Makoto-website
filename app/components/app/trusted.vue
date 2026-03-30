@@ -32,6 +32,7 @@ const clientLogos = ref([
   	{ src: '/trusted/8bitjelly.png', alt: '8bitjelly' },
   	{ src: '/trusted/radec.png', alt: 'Radec24' },
   	{ src: '/trusted/yc.png', alt: 'YesCandles' },
+	{ src: '/trusted/copernicus.png', alt: 'Copernicus Chapter Poland' },
   	{ src: '/trusted/techtokpl.png', alt: 'techtok' },
 	{ src: '/trusted/rywal-rhc.png', alt: 'rywal-rhc' },
 	{ src: '/trusted/samvolvo.webp', alt: 'samvolvo' },
