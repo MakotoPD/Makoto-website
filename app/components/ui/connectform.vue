@@ -59,7 +59,9 @@
 				<UFormField :label="t('contactform.labelMessage')" name="message" required>
 					<UTextarea v-model="state.message" :placeholder="t('contactform.message')" required autoresize class="w-full" />
 				</UFormField>
-				<NuxtTurnstile v-model="state.token" />
+				<UFormField name="token">
+					<NuxtTurnstile v-model="state.token" />
+				</UFormField>
 				<button type="submit" label="Send" class="w-full bg-sky-600/60 hover:bg-sky-500/90 dark:bg-sky-700/20 hover:dark:bg-sky-700/30 duration-150 border border-sky-600/90 dark:border-sky-600/50 py-1 rounded-lg flex items-center justify-center gap-2 hover:gap-4 relative">
 					Send
 					<UIcon name="i-mkt-map-arrow-right-outline" class="size-5" />
@@ -79,17 +81,15 @@ const config = useRuntimeConfig()
 
 const schema = z.object({
   email: z.email('Invalid email'),
-  name: z.string('Your name is required'),
-  message: z.string('Message is required').min(12, ('Message must be at least 12 characters')),
-  token: z.string('Token is required').min(12, ('Check you are not a robot.')),
-  subject: z.string('Subject is required'),
-  access_key: z.string('accesskey is required. Contact with admin! contact@makoto.com.pl')
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  message: z.string().min(12, 'Message must be at least 12 characters'),
+  token: z.string().min(1, 'Please complete the captcha'),
 })
 
 type Schema = z.output<typeof schema>
 
 
-const state = reactive<Partial<Schema>>({
+const state = reactive({
   name: '',
   email: '',
   message: '',
@@ -102,33 +102,45 @@ const toast = useToast()
 
 let onSubmit = async (event: FormSubmitEvent<Schema>) => {
 	try {
-		const json = JSON.stringify(state)
-		const { data, error } = await useFetch('https://api.web3forms.com/submit', {
+		const verifyRes = await fetch('/api/verify-turnstile', {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			},
-			body: json
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ token: state.token })
 		})
-
-		if (error.value) {
-		// obsługa błędu
+		if (verifyRes.status === 422) {
+			toast.add({ title: 'Error', description: 'Captcha verification failed. Refresh and try again.', color: 'error' })
+			return
+		}
+		if (!verifyRes.ok) {
 			toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
-		} else {
-		// obsługa odpowiedzi serwera
-			toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
-				
-			state.email = ''
-			state.message = ''
-			state.name = ''
+			return
 		}
 
-  	}catch (err) {
-		toast.add({ title: 'Error', description: 'Error when try to submit form. Contact with admin', color: 'error' })
-		console.error(err)
-  	}
+		const submitRes = await fetch('https://api.web3forms.com/submit', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+			body: JSON.stringify({
+				access_key: state.access_key,
+				subject: state.subject,
+				name: state.name,
+				email: state.email,
+				message: state.message,
+			})
+		})
+		if (!submitRes.ok) {
+			toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
+			return
+		}
 
+		toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
+		state.name = ''
+		state.email = ''
+		state.message = ''
+		state.token = ''
+
+	} catch (err) {
+		toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
+	}
 }
 
 
