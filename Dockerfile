@@ -8,8 +8,6 @@ RUN npm i -g pnpm@10
 # potrzebne są python3, g++ i make oraz vips-dev
 RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-compat autoconf automake libtool nasm libpng-dev
 
-RUN corepack enable pnpm
-
 COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 RUN pnpm --version && pnpm install --prod=false
 COPY . .
