@@ -1,3 +1,5 @@
+import { ref, getCurrentInstance, onUnmounted } from 'vue'
+
 export const useReducedMotion = () => {
   const reduced = ref(false)
 
@@ -7,7 +9,10 @@ export const useReducedMotion = () => {
 
     const handler = (e: MediaQueryListEvent) => { reduced.value = e.matches }
     mq.addEventListener('change', handler)
-    onUnmounted(() => mq.removeEventListener('change', handler))
+
+    if (getCurrentInstance()) {
+      onUnmounted(() => mq.removeEventListener('change', handler))
+    }
   }
 
   return reduced
