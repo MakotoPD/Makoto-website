@@ -3,16 +3,19 @@
     <div
       v-if="showBanner"
       class="fixed bottom-4 left-4 z-[9999] w-[calc(100%-2rem)] max-w-[420px] sm:w-[420px]"
+      role="dialog"
+      aria-modal="true"
+      :aria-labelledby="showSettings ? 'cookie-settings-title' : 'cookie-banner-title'"
     >
       <div class="cookie-card rounded-2xl border border-[var(--color-border)]/30 p-5 shadow-2xl">
         <!-- Main View -->
         <div v-if="!showSettings">
           <div class="flex items-start gap-3 mb-3">
             <div class="shrink-0 mt-0.5">
-              <UIcon name="i-mkt-cookie" class="text-2xl text-[var(--color-primary)]" />
+              <UIcon name="i-mkt-cookie" class="text-2xl text-[var(--color-primary)]" aria-hidden="true" />
             </div>
             <div>
-              <h3 class="text-sm text-black font-semibold dark:text-[var(--color-text-primary)] mb-1">
+              <h3 id="cookie-banner-title" class="text-sm text-black font-semibold dark:text-[var(--color-text-primary)] mb-1">
                 {{ $t('cookie.title') }}
               </h3>
               <p class="text-xs leading-relaxed text-[var(--color-text-secondary)]">
@@ -56,11 +59,12 @@
           <div class="flex items-center gap-2 mb-4">
             <button
               class="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+              :aria-label="$t('cookie.title')"
               @click="showSettings = false"
             >
-              <UIcon name="i-mkt-arrow-left" class="text-lg" />
+              <UIcon name="i-mkt-arrow-left" class="text-lg" aria-hidden="true" />
             </button>
-            <h3 class="text-sm font-semibold text-[var(--color-text-primary)]">
+            <h3 id="cookie-settings-title" class="text-sm font-semibold text-[var(--color-text-primary)]">
               {{ $t('cookie.settings') }}
             </h3>
           </div>
@@ -85,7 +89,7 @@
 
             <!-- Analytics -->
             <div class="flex items-start justify-between gap-3 p-3 rounded-xl bg-white/5 dark:bg-white/5">
-              <div class="min-w-0">
+              <div class="min-w-0" id="cookie-analytics-label">
                 <p class="text-xs font-medium text-[var(--color-text-primary)]">
                   {{ $t('cookie.analytics.title') }}
                 </p>
@@ -95,18 +99,21 @@
               </div>
               <div class="shrink-0 mt-0.5">
                 <button
+                  role="switch"
+                  :aria-checked="consentState.analytics"
+                  aria-labelledby="cookie-analytics-label"
                   class="w-9 h-5 rounded-full flex items-center px-0.5 transition-colors duration-200"
                   :class="consentState.analytics ? 'bg-[var(--color-primary)] justify-end' : 'bg-[var(--color-border)] justify-start'"
                   @click="consentState.analytics = !consentState.analytics"
                 >
-                  <div class="w-4 h-4 rounded-full bg-white shadow transition-transform" />
+                  <div class="w-4 h-4 rounded-full bg-white shadow transition-transform" aria-hidden="true" />
                 </button>
               </div>
             </div>
 
             <!-- Marketing -->
             <div class="flex items-start justify-between gap-3 p-3 rounded-xl bg-white/5 dark:bg-white/5">
-              <div class="min-w-0">
+              <div class="min-w-0" id="cookie-marketing-label">
                 <p class="text-xs font-medium text-[var(--color-text-primary)]">
                   {{ $t('cookie.marketing.title') }}
                 </p>
@@ -116,11 +123,14 @@
               </div>
               <div class="shrink-0 mt-0.5">
                 <button
+                  role="switch"
+                  :aria-checked="consentState.marketing"
+                  aria-labelledby="cookie-marketing-label"
                   class="w-9 h-5 rounded-full flex items-center px-0.5 transition-colors duration-200"
                   :class="consentState.marketing ? 'bg-[var(--color-primary)] justify-end' : 'bg-[var(--color-border)] justify-start'"
                   @click="consentState.marketing = !consentState.marketing"
                 >
-                  <div class="w-4 h-4 rounded-full bg-white shadow transition-transform" />
+                  <div class="w-4 h-4 rounded-full bg-white shadow transition-transform" aria-hidden="true" />
                 </button>
               </div>
             </div>

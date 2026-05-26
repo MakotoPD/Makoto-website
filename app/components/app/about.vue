@@ -24,23 +24,23 @@
                 <p>{{ $t('page.home.aboutMe.descriptionP2') }}</p>
 
                 <div class="flex gap-3 mx-auto -mt-4 w-fit lg:mx-0">
-                    <LazyNuxtLink to="https://github.com/makotopd" target="_blank" class="group flex items-center gap-1">
-                        <UIcon name="i-mkt-github" />
-                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <LazyNuxtLink to="https://github.com/makotopd" target="_blank" class="group flex items-center gap-1" :aria-label="$t('page.home.aboutMe.github')">
+                        <UIcon name="i-mkt-github" aria-hidden="true" />
+                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">
                             {{ $t('page.home.aboutMe.github') }}
                         </span>
                     </LazyNuxtLink>
 
-                    <LazyNuxtLink to="https://www.linkedin.com/in/makotopd/" target="_blank" class="group flex items-center gap-1">
-                        <UIcon name="i-mkt-linkedin" />
-                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <LazyNuxtLink to="https://www.linkedin.com/in/makotopd/" target="_blank" class="group flex items-center gap-1" :aria-label="$t('page.home.aboutMe.linkedin')">
+                        <UIcon name="i-mkt-linkedin" aria-hidden="true" />
+                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">
                             {{ $t('page.home.aboutMe.linkedin') }}
                         </span>
                     </LazyNuxtLink>
 
-                    <LazyNuxtLink to="mailto:contact@makoto.com.pl" target="_blank" class="group flex items-center gap-1">
-                        <UIcon name="i-mkt-maildotru" />
-                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <LazyNuxtLink to="mailto:contact@makoto.com.pl" target="_blank" class="group flex items-center gap-1" :aria-label="$t('page.home.aboutMe.email')">
+                        <UIcon name="i-mkt-maildotru" aria-hidden="true" />
+                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">
                             {{ $t('page.home.aboutMe.email') }}
                         </span>
                     </LazyNuxtLink>

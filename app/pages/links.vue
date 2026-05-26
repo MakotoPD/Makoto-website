@@ -1,11 +1,11 @@
 <template>
 	<div class="">
 		<div class="h-72 md:h-[30rem] w-full mask-y-from-60% mask-y-to-99%">
-			<NuxtImg 
-				src="/bg/footer.webp" 
-				alt="background"
-				arial-hidden 
-				class="imagemask w-full h-72 md:h-[30rem] object-cover"  
+			<NuxtImg
+				src="/bg/footer.webp"
+				alt=""
+				aria-hidden="true"
+				class="imagemask w-full h-72 md:h-[30rem] object-cover"
 			/>
 		</div>
 
@@ -14,7 +14,7 @@
 		<div v-if="makoto?.data" class="relative -mt-16 w-full max-w-4xl mx-auto px-12 flex flex-col items-center gap-3">
 
 				<NuxtImg loading="lazy" class="h-36 w-36 object-cover rounded-2xl outline-offset-3 outline-2 outline-sky-500" provider="strapi" :src="makoto.data.picture.url" alt="Makoto profile picture" />
-				<h2 class="text-3xl serif text-center text-black dark:text-white">{{ makoto.data.name }}</h2>
+				<h1 class="text-3xl serif text-center text-black dark:text-white">{{ makoto.data.name }}</h1>
 
 				<div class="flex gap-3">
 					<UBadge variant="soft" :class="styleMap[tag.theme]?.textColor + ' ' + styleMap[tag.theme]?.accentColor" v-for="tag in makoto.data.tags" :key="tag">{{ tag.name }}</UBadge>
@@ -195,7 +195,6 @@ const { data: makoto, pending, error, refresh } = useAsyncData(
   () => find('link', { populate: "picture"}),
 )
 
-console.log(makoto)
 
 
 const copyemail = async (e: Event) => {

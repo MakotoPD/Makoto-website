@@ -28,6 +28,18 @@
   filter: blur(1rem);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 0.1s;
+  }
+  .page-enter-from,
+  .page-leave-to {
+    opacity: 0;
+    filter: none;
+  }
+}
+
 .custom-cursor{
   position: fixed;
   top: 0;

@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const { find } = useStrapi()
 const { locale, t } = useI18n();
+const reducedMotion = useReducedMotion()
 
 const localePath = useLocalePath()
 const activeProjectIndex = ref(0);
@@ -52,17 +53,22 @@ onUnmounted(() => {
 
 
 watch(activeProjectIndex, (newIndex, oldIndex) => {
-  const descriptions = gsap.utils.toArray('.description-content');
+  const descriptions = gsap.utils.toArray('.description-content') as Element[];
   const oldDescription = descriptions[oldIndex];
   const newDescription = descriptions[newIndex];
 
-  // Tworzymy nową animację i zapisujemy ją
+  if (reducedMotion.value) {
+    gsap.set(oldDescription, { autoAlpha: 0, y: 0 })
+    gsap.set(newDescription, { autoAlpha: 1, y: 0 })
+    return
+  }
+
   const tl = gsap.timeline();
   tl.to(oldDescription, { autoAlpha: 0, y: -20, duration: 0.2, ease: 'power2.in' })
-    .fromTo(newDescription, 
-      { autoAlpha: 0, y: 20 }, 
+    .fromTo(newDescription,
+      { autoAlpha: 0, y: 20 },
       { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' },
-      '>-0.2' // Zacznij tę animację 0.2s przed końcem poprzedniej
+      '>-0.2'
     );
 });
 

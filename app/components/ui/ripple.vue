@@ -157,4 +157,12 @@ const circles = computed(() => {
     opacity: 0;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .circle-breathe,
+  .circle-expand {
+    animation: none;
+    opacity: 0;
+  }
+}
 </style>

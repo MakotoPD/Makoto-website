@@ -41,25 +41,19 @@
 			</div>
 			<NuxtImg src="/imgs/SnippetSAAS.webp" alt="Sample of code block" class="opacity-50 absolute -bottom-12 -right-8 h-64 -z-10 group-hover:h-72 group-hover:-right-3 group-hover:-bottom-8 group-hover:opacity-95 duration-300" />
 		</div>
-		<div 
+		<div
 			class="relative overflow-hidden [box-shadow:0_-20px_80px_-20px_#0000001F_inset] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] col-start-1 row-span-2 row-start-4 lg:col-start-3 md:row-start-2 bg-zinc-100/60 dark:bg-zinc-900/40 border border-gray-300/40 dark:border-gray-800/60 rounded-xl hover:bg-zinc-300/60 dark:hover:bg-zinc-900/60 duration-300"
 		>
-			<span
-				class="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10"
-			>
-				<div class="w-full text-center py-8 px-8 font-semibold">
-					<h3 class="flex flex-col">
-						<span class="serif text-3xl tracking-wide bg-gradient-to-t from-primary to-sky-800 dark:to-white bg-clip-text text-transparent">
-							{{ t('page.home.grid.globe.line1') }}
-						</span>
-						<span class="serif text-3xl tracking-wide bg-gradient-to-t from-primary to-sky-800 dark:to-white bg-clip-text text-transparent">
-							{{ t('page.home.grid.globe.line2') }}
-						</span>
-					</h3>
-
-				</div>
-				
-			</span>
+			<div class="w-full text-center py-8 px-8 font-semibold">
+				<h3 class="flex flex-col">
+					<span class="serif text-3xl tracking-wide bg-gradient-to-t from-primary to-sky-800 dark:to-white bg-clip-text text-transparent">
+						{{ t('page.home.grid.globe.line1') }}
+					</span>
+					<span class="serif text-3xl tracking-wide bg-gradient-to-t from-primary to-sky-800 dark:to-white bg-clip-text text-transparent">
+						{{ t('page.home.grid.globe.line2') }}
+					</span>
+				</h3>
+			</div>
 			
 			<ClientOnly>
 				<div class="absolute bottom-0 translate-y-1">

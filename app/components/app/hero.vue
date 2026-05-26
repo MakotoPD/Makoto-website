@@ -23,7 +23,7 @@
 						<div class="rounded-full overflow-hidden">
 						<NuxtImg src="/imgs/smallAvatar.jpg" title="Makoto image" alt="profile picture" height="36" loading="eager" class="group-hover:scale-110 group-hover:-rotate-12 duration-300" />
 						</div>
-						<div class="hidden group-hover:block group-hover:animate-bounce absolute -left-3 -bottom-3">
+						<div class="hidden group-hover:block group-hover:animate-bounce absolute -left-3 -bottom-3" aria-hidden="true">
 						👋
 						</div>
 					</div>

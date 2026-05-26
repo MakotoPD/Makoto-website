@@ -38,7 +38,7 @@
 					
 						<button ref="btnGetInTouch" class="flex items-center gap-2 px-6 py-3 text-xl font-semibold bg-black/80 dark:bg-white text-white dark:text-black rounded-xl hover:bg-black/60 hover:dark:bg-neutral-100 transition-colors duration-200">
 							{{ $t('footer.ctaButton') }}
-							<UIcon name="i-mkt-alt-arrow-right-linear" class="size-6" />
+							<UIcon name="i-mkt-alt-arrow-right-linear" class="size-6" aria-hidden="true" />
 						</button>
 					</div>
 
@@ -91,8 +91,9 @@
 					</div>
 					<div class="flex flex-col items-start justify-end gap-6 md:mx-4 md:w-1/2 md:flex-row md:gap-24">
 						<div class="flex flex-col gap-2 md:gap-4">
-							<h4 class="text-base text-black dark:text-white">{{ $t('footer.menu.general') }}</h4>
+							<h4 class="text-base text-black dark:text-white" id="footer-nav-general">{{ $t('footer.menu.general') }}</h4>
 							<ul
+								aria-labelledby="footer-nav-general"
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
 								<li>
 									<NuxtLink class="link-underline" :to="localePath('/')" prefetch>
@@ -117,8 +118,9 @@
 							</ul>
 						</div>
 						<div class="flex flex-col gap-2 md:gap-4">
-							<h4 class="text-base text-black dark:text-white">{{ $t('footer.menu.more') }}</h4>
+							<h4 class="text-base text-black dark:text-white" id="footer-nav-more">{{ $t('footer.menu.more') }}</h4>
 							<ul
+								aria-labelledby="footer-nav-more"
 								class="flex flex-wrap items-start gap-x-4 gap-y-2 text-sm md:flex-col md:gap-y-3 text-neutral-700 dark:text-neutral-300">
 								<li><NuxtLink :to="localePath('rules')">{{ $t('menu.rules') }}</NuxtLink></li>
 								<li><NuxtLink :to="localePath('privacy')">{{ $t('menu.privacy') }}</NuxtLink></li>

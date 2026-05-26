@@ -28,9 +28,9 @@
 
                 <div class="flex gap-3 mx-auto -mt-4 w-fit lg:mx-0">
                   <ClientOnly>
-                    <LazyNuxtLink v-for="link in about.data.links" :to="link.link" target="_blank" class="group flex items-center gap-1">
-                        <UIcon :name="link.icon" />
-                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <LazyNuxtLink v-for="link in about.data.links" :key="link.link" :to="link.link" target="_blank" class="group flex items-center gap-1" :aria-label="link.name">
+                        <UIcon :name="link.icon" aria-hidden="true" />
+                        <span class="max-w-0 group-hover:max-w-xs opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">
                             {{ link.name }}
                         </span>
                     </LazyNuxtLink>

@@ -1,12 +1,12 @@
 <template>
 	<div class="pt-36">
-		<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
+		<h1 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
 			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
 				{{ t('page.faq.header.subtitle') }}
 			</p>
-			<i18n-t 
-				keypath="page.faq.header.heading" 
-				tag="span" 
+			<i18n-t
+				keypath="page.faq.header.heading"
+				tag="span"
 				class="serif text-black dark:text-white"
 				scope="global"
 			>
@@ -16,7 +16,7 @@
 					</span>
 				</template>
 			</i18n-t>
-		</h2>
+		</h1>
 		<div class="px-4 xl:px-0 mt-12 w-full max-w-2xl mx-auto flex flex-col items-center">
 				<div class="w-full" v-for="(section, i) in faq" :key="i">
 					<div class="flex gap-4 items-center mb-2 mt-6">

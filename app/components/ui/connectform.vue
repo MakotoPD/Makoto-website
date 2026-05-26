@@ -7,7 +7,7 @@
 					<NuxtLink to="mailto:contact@makoto.com.pl?subject=Let's catch up for a opportunity!" target="_blank" class="w-full group">
 						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
 							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-sky-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-mkt-mailbox-line-duotone" class="size-8" />
+								<UIcon name="i-mkt-mailbox-line-duotone" class="size-8" aria-hidden="true" />
 								<p>Email</p>
 							</div>
 							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
@@ -17,22 +17,22 @@
 						</div>
 					</NuxtLink>
 
-					<div class="w-full group">
+					<button type="button" class="w-full group text-left" @click="copyDiscord" :aria-label="`Discord: @MakotoPD — ${discordCopied ? 'Copied!' : 'Click to copy'}`">
 						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
 							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-purple-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-mkt-discord" class="size-8" />
+								<UIcon name="i-mkt-discord" class="size-8" aria-hidden="true" />
 								<p>Discord</p>
 							</div>
 							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
 								<p class="text-black dark:text-white">@MakotoPD</p>
-								<p class="mt-2 text-zinc-600 dark:text-zinc-400">Text to me on Discord</p>
+								<p class="mt-2 text-zinc-600 dark:text-zinc-400">{{ discordCopied ? 'Copied!' : 'Click to copy username' }}</p>
 							</div>
 						</div>
-					</div>
+					</button>
 					<NuxtLink to="https://instagram.com/MakotoPD" target="_blank" class="w-full group">
 						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
 							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-rose-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-mkt-instagram" class="size-8" />
+								<UIcon name="i-mkt-instagram" class="size-8" aria-hidden="true" />
 								<p>Instagram</p>
 							</div>
 							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
@@ -64,7 +64,7 @@
 				</UFormField>
 				<button type="submit" label="Send" class="w-full bg-sky-600/60 hover:bg-sky-500/90 dark:bg-sky-700/20 hover:dark:bg-sky-700/30 duration-150 border border-sky-600/90 dark:border-sky-600/50 py-1 rounded-lg flex items-center justify-center gap-2 hover:gap-4 relative">
 					Send
-					<UIcon name="i-mkt-map-arrow-right-outline" class="size-5" />
+					<UIcon name="i-mkt-map-arrow-right-outline" class="size-5" aria-hidden="true" />
 				</button>
 			</UForm>
 			</template>
@@ -78,6 +78,15 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 const { t } = useI18n()
 const config = useRuntimeConfig()
+
+const discordCopied = ref(false)
+const copyDiscord = async () => {
+  try {
+    await navigator.clipboard.writeText('@MakotoPD')
+    discordCopied.value = true
+    setTimeout(() => { discordCopied.value = false }, 2000)
+  } catch {}
+}
 
 const schema = z.object({
   email: z.email('Invalid email'),
