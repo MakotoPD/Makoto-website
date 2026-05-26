@@ -9,95 +9,125 @@
       <div class="py-1 px-2 rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 shadow-lg">
         <div class="flex justify-between items-center ">
           <div class="flex gap-1">
-            <NuxtLink :to="localePath('/')" title="Home page">
-              <NuxtImg src="/logo.png" alt="Makoto Logo" aria-hidden class="h-7 dark:block hidden" />
-              <NuxtImg src="/logo-dark.png" alt="Makoto Logo" aria-hidden class=" h-7 dark:hidden block" />
+            <NuxtLink :to="localePath('/')" aria-label="Home page">
+              <NuxtImg src="/logo.png" alt="" aria-hidden class="h-7 dark:block hidden" />
+              <NuxtImg src="/logo-dark.png" alt="" aria-hidden class=" h-7 dark:hidden block" />
             </NuxtLink>
             <UColorModeButton />
           </div>
 
-
-
           <div class="hidden md:flex gap-x-1">
-            <UButton 
+            <UButton
               v-for="link in links"
               :key="link.to"
-              variant="ghost" 
+              variant="ghost"
               :to="localePath(link.to)"
               prefetch
-              active-class="bg-gradient-to-t from-sky-300 dark:from-sky-700/40 to-transparent" 
+              active-class="bg-gradient-to-t from-sky-300 dark:from-sky-700/40 to-transparent"
               class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
             >
               {{ link.label }}
             </UButton>
-            <UButton 
-              variant="ghost" 
-              class="group relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
+
+            <div
+              ref="moreMenuContainer"
+              class="relative"
+              @mouseenter="isMoreOpen = true"
+              @mouseleave="handleMoreMouseLeave"
+              @focusin="isMoreOpen = true"
+              @focusout="handleMoreFocusOut"
             >
-              {{ $t('menu.more') }}
+              <UButton
+                variant="ghost"
+                class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
+                :aria-expanded="isMoreOpen.toString()"
+                aria-haspopup="true"
+                aria-controls="more-menu-dropdown"
+                @keydown.escape="isMoreOpen = false"
+              >
+                {{ $t('menu.more') }}
+              </UButton>
 
-              <span class="absolute right-0 translate-x-1 top-[100%] pt-2 opacity-0 scale-95 invisible group-hover:visible group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-in-out">
-                <div  class="z-[100] px-2 py-2 text-black dark:text-white rounded-3xl border border-zinc-600/20 dark:border-zinc-400/20 bg-white dark:bg-black flex flex-col gap-y-1">
-                  <div class="flex gap-x-4">
-                    <div>
-                      <NuxtLink prefetch :to="localePath('/portfolio')" class="z-[40] h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4">
-                        <div class="flex flex-col  items-start">
-                          <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
-                          <p class="text-md group-hover/portfolio:text-lg duration-300 text-white/70 group-hover/portfolio:text-white">{{ t('menu.more.portfolio.desc') }}</p>
-                        </div>
-                        <NuxtImg src="/imgs/portfolio.webp" alt="Portfolio image" loading="lazy" aria-hidden class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
-                      </NuxtLink>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                      <NuxtLink prefetch :to="localePath('/links')" class="w-72 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
-                        <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
-                          <UIcon name="i-mkt-link-line-duotone" class="size-6" />
-                        </div>
-                        <div class="px-4 text-left">
-                          <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
-                          <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.links.desc') }}</p>
-                        </div>
-                      </NuxtLink>
-                      <NuxtLink prefetch :to="localePath('/uses')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
-                        <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
-                          <UIcon name="i-mkt-laptop-line-duotone" class="size-6" />
-                        </div>
-                        <div class="px-4 text-left">
-                          <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
-                          <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.uses.desc') }}</p>
-                        </div>
-                      </NuxtLink>
-                      <NuxtLink prefetch :to="localePath('/faq')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4">
-                        <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
-                          <UIcon name="i-mkt-question-square-line-duotone" class="size-6" />
-                        </div>
-                        <div class="px-4 text-left">
-                          <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
-                          <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
-                        </div>
-                      </NuxtLink>
-                    </div>
-                  </div>
-                  <div class="flex gap-3 justify-end pr-2 w-full">
-                    <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
-                    <ClientOnly>
-                      <div class="flex justify-center gap-x-2">
-                        <button class="bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
-                          <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
-                          {{ locale.name }}
-                        </button>
+              <Transition
+                enter-active-class="transition-all duration-200 ease-in-out origin-top-right"
+                enter-from-class="opacity-0 scale-95"
+                enter-to-class="opacity-100 scale-100"
+                leave-active-class="transition-all duration-200 ease-in-out origin-top-right"
+                leave-from-class="opacity-100 scale-100"
+                leave-to-class="opacity-0 scale-95"
+              >
+                <div
+                  v-show="isMoreOpen"
+                  id="more-menu-dropdown"
+                  class="absolute right-0 top-[100%] pt-2 z-[100]"
+                  @keydown.escape="isMoreOpen = false"
+                >
+                  <div class="z-[100] px-2 py-2 text-black dark:text-white rounded-3xl border border-zinc-600/20 dark:border-zinc-400/20 bg-white dark:bg-black flex flex-col gap-y-1">
+                    <div class="flex gap-x-4">
+                      <div>
+                        <NuxtLink prefetch :to="localePath('/portfolio')" class="z-[40] h-full w-64 relative group/portfolio flex flex-col justify-end items-start p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded-2xl">
+                          <div class="flex flex-col  items-start">
+                            <p class="serif text-2xl group-hover/portfolio:text-3xl duration-300 text-white">Portfolio</p>
+                            <p class="text-md group-hover/portfolio:text-lg duration-300 text-white/70 group-hover/portfolio:text-white">{{ t('menu.more.portfolio.desc') }}</p>
+                          </div>
+                          <NuxtImg src="/imgs/portfolio.webp" alt="Portfolio image" loading="lazy" aria-hidden class="absolute -z-10 top-0 left-0 w-full h-full object-cover rounded-2xl opacity-55 group-hover/portfolio:opacity-100 duration-300" />
+                        </NuxtLink>
                       </div>
-                    </ClientOnly>
+                      <div class="flex flex-col gap-2">
+                        <NuxtLink prefetch :to="localePath('/links')" class="w-72 bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded-2xl">
+                          <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
+                            <UIcon name="i-mkt-link-line-duotone" class="size-6" aria-hidden />
+                          </div>
+                          <div class="px-4 text-left">
+                            <p class="font-semibold mb-1">{{ $t('menu.more.links') }}</p>
+                            <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.links.desc') }}</p>
+                          </div>
+                        </NuxtLink>
+                        <NuxtLink prefetch :to="localePath('/uses')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded-2xl">
+                          <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
+                            <UIcon name="i-mkt-laptop-line-duotone" class="size-6" aria-hidden />
+                          </div>
+                          <div class="px-4 text-left">
+                            <p class="font-semibold mb-1">{{ $t('menu.more.uses') }}</p>
+                            <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.uses.desc') }}</p>
+                          </div>
+                        </NuxtLink>
+                        <NuxtLink prefetch :to="localePath('/faq')" class="bg-zinc-300/30 dark:bg-zinc-700/30 flex hover:bg-zinc-300/50 hover:dark:bg-zinc-700/50 duration-100 rounded-2xl p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded-2xl">
+                          <div class="h-12 w-12 min-w-12 flex justify-center items-center bg-zinc-500/30 rounded-xl">
+                            <UIcon name="i-mkt-question-square-line-duotone" class="size-6" aria-hidden />
+                          </div>
+                          <div class="px-4 text-left">
+                            <p class="font-semibold mb-1">{{ $t('menu.more.attributons') }}</p>
+                            <p class="font-normal text-black/50 dark:text-white/50">{{ $t('menu.more.attributons.desc') }}</p>
+                          </div>
+                        </NuxtLink>
+                      </div>
+                    </div>
+                    <div class="flex gap-3 justify-end pr-2 w-full">
+                      <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
+                      <ClientOnly>
+                        <div class="flex justify-center gap-x-2">
+                          <button
+                            v-for="locale in availableLocales"
+                            :key="locale.code"
+                            class="bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                            :aria-label="`${$t('changelang')}: ${locale.name}`"
+                            @click.prevent.stop="setLocale(locale.code)"
+                          >
+                            <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" aria-hidden />
+                            {{ locale.name }}
+                          </button>
+                        </div>
+                      </ClientOnly>
+                    </div>
                   </div>
-
                 </div>
-              </span>
-
-            </UButton>
+              </Transition>
+            </div>
 
             <UDrawer should-scale-background set-background-color-on-scale >
-              <UButton 
-                variant="soft" 
+              <UButton
+                variant="soft"
                 class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 bg-gradient-to-t from-gray-500/30 to-gray-400/10 hover:bg-zinc-300 hover:dark:bg-zinc-600"
               >
                 {{t('menu.call')}}
@@ -110,56 +140,71 @@
           </div>
 
           <div class="flex md:hidden">
-            <UButton  @click="togglemobilemenu" :icon="isClicked ? 'i-mkt-x' : 'i-mkt-align-justify'" size="md" color="primary" variant="soft" class="text-black dark:text-white"></UButton>
+            <UButton
+              @click="togglemobilemenu"
+              :icon="isClicked ? 'i-mkt-x' : 'i-mkt-align-justify'"
+              size="md"
+              color="primary"
+              variant="soft"
+              class="text-black dark:text-white"
+              :aria-expanded="isClicked.toString()"
+              aria-controls="mobile-menu"
+              aria-label="Toggle navigation menu"
+            ></UButton>
           </div>
         </div>
-        <div ref="mobilemenu" class="w-full overflow-hidden max-h-0 transition-all duration-300 text-black dark:text-white">
+        <div ref="mobilemenu" id="mobile-menu" class="w-full overflow-hidden max-h-0 transition-all duration-300 text-black dark:text-white">
           <div class="py-4 flex flex-col">
-            <NuxtLink prefetch :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-mkt-home-smile-line-duotone" class="size-6" />
+            <NuxtLink prefetch :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+              <UIcon name="i-mkt-home-smile-line-duotone" class="size-6" aria-hidden />
               {{t('menu.home')}}
             </NuxtLink>
-            <NuxtLink prefetch :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-mkt-user-rounded-line-duotone" class="size-6" />
+            <NuxtLink prefetch :to="localePath('/about')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+              <UIcon name="i-mkt-user-rounded-line-duotone" class="size-6" aria-hidden />
               {{t('menu.about')}}
             </NuxtLink>
-            <NuxtLink prefetch :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-mkt-buildings-line-duotone" class="size-6" />
+            <NuxtLink prefetch :to="localePath('/work')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+              <UIcon name="i-mkt-buildings-line-duotone" class="size-6" aria-hidden />
               {{t('menu.work')}}
             </NuxtLink>
-            <NuxtLink prefetch :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-              <UIcon name="i-mkt-document-text-line-duotone" class="size-6" />
+            <NuxtLink prefetch :to="localePath('/blog')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+              <UIcon name="i-mkt-document-text-line-duotone" class="size-6" aria-hidden />
               {{t('menu.blog')}}
             </NuxtLink>
-            <button @click="openMoreMobile" class="flex items-center justify-between gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
+            <button
+              @click="openMoreMobile"
+              class="flex items-center justify-between gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded"
+              :aria-expanded="toggleMoreMobileButtonIcon.toString()"
+              aria-controls="more-menu-mobile"
+            >
               <div class="flex items-center gap-3">
-                <UIcon name="i-mkt-layers-minimalistic-line-duotone" class="size-6" />
+                <UIcon name="i-mkt-layers-minimalistic-line-duotone" class="size-6" aria-hidden />
                 {{t('menu.more')}}
               </div>
-              <UIcon :name="toggleMoreMobileButtonIcon ? 'i-mkt-alt-arrow-up-line-duotone' : 'i-mkt-alt-arrow-down-line-duotone'" class="size-6" />
+              <UIcon :name="toggleMoreMobileButtonIcon ? 'i-mkt-alt-arrow-up-line-duotone' : 'i-mkt-alt-arrow-down-line-duotone'" class="size-6" aria-hidden />
             </button>
-            <div ref="moreMenuMobile" class="px-2 overflow-hidden max-h-0 transition-all duration-300">
-              <NuxtLink prefetch :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-mkt-folder-path-connect-line-duotone" class="size-6" />
+            <div ref="moreMenuMobile" id="more-menu-mobile" class="px-2 overflow-hidden max-h-0 transition-all duration-300">
+              <NuxtLink prefetch :to="localePath('/portfolio')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+                <UIcon name="i-mkt-folder-path-connect-line-duotone" class="size-6" aria-hidden />
                 Portfolio
               </NuxtLink>
-              <NuxtLink prefetch :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-mkt-laptop-line-duotone" class="size-6" />
+              <NuxtLink prefetch :to="localePath('/uses')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+                <UIcon name="i-mkt-laptop-line-duotone" class="size-6" aria-hidden />
                 {{ t('menu.more.uses') }}
               </NuxtLink>
-              <NuxtLink prefetch :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-mkt-question-square-line-duotone" class="size-6" />
+              <NuxtLink prefetch :to="localePath('/faq')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+                <UIcon name="i-mkt-question-square-line-duotone" class="size-6" aria-hidden />
                 {{ t('menu.more.attributons') }}
               </NuxtLink>
-              <NuxtLink prefetch :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2">
-                <UIcon name="i-mkt-link-line-duotone" class="size-6" />
+              <NuxtLink prefetch :to="localePath('/links')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+                <UIcon name="i-mkt-link-line-duotone" class="size-6" aria-hidden />
                 {{ t('menu.more.links') }}
               </NuxtLink>
             </div>
 
             <UDrawer should-scale-background set-background-color-on-scale>
-              <button class="flex items-center gap-3 py-2">
-                <UIcon name="i-mkt-chat-round-call-line-duotone" class="size-6" />
+              <button class="flex items-center gap-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
+                <UIcon name="i-mkt-chat-round-call-line-duotone" class="size-6" aria-hidden />
                 {{ t('menu.call') }}
               </button>
 
@@ -167,15 +212,21 @@
                   <UiConnectform />
                 </template>
             </UDrawer>
-            
+
           </div>
           <div>
             <div class="flex gap-3 justify-end pr-2 w-full">
               <p class="test-xm text-neutral-400">{{ $t('changelang') }}:</p>
               <ClientOnly>
                 <div class="flex justify-center gap-x-2">
-                  <button class="py-0 bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)">
-                    <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" />
+                  <button
+                    v-for="locale in availableLocales"
+                    :key="locale.code"
+                    class="py-0 bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                    :aria-label="`${$t('changelang')}: ${locale.name}`"
+                    @click.prevent.stop="setLocale(locale.code)"
+                  >
+                    <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" aria-hidden />
                     {{ locale.name }}
                   </button>
                 </div>
@@ -221,6 +272,33 @@ const openMoreMobile = () => {
     toggleMoreMobileButtonIcon.value = !toggleMoreMobileButtonIcon.value
   }
 }
+
+// Desktop "More" dropdown state
+const isMoreOpen = ref(false)
+const moreMenuContainer = ref<HTMLElement | null>(null)
+
+const handleMoreMouseLeave = () => {
+  // Keep open if keyboard focus is still inside the dropdown
+  if (!moreMenuContainer.value?.contains(document.activeElement)) {
+    isMoreOpen.value = false
+  }
+}
+
+const handleMoreFocusOut = (e: FocusEvent) => {
+  // Close only when focus moves completely outside the container
+  if (!moreMenuContainer.value?.contains(e.relatedTarget as Node)) {
+    isMoreOpen.value = false
+  }
+}
+
+const handleClickOutside = (e: MouseEvent) => {
+  if (moreMenuContainer.value && !moreMenuContainer.value.contains(e.target as Node)) {
+    isMoreOpen.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('mousedown', handleClickOutside))
+onUnmounted(() => document.removeEventListener('mousedown', handleClickOutside))
 
 // Navigation links
 const links = computed(() => [
