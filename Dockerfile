@@ -1,7 +1,7 @@
 # Etap 1: Budowanie aplikacji (Builder)
 FROM node:24-alpine AS builder
 WORKDIR /app
-RUN npm i -g pnpm
+RUN npm i -g pnpm@10
 
 # Zależności build-time dla "sharp" (Nuxt Image / IPX)
 # libc6-compat jest wymagane dla prekompilowanych binarek, a jeśli będą kompilowane z źródeł,
