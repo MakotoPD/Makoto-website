@@ -27,7 +27,6 @@
 
 <script setup lang="ts">
 const colorMode = useColorMode()
-const reducedMotion = useReducedMotion()
 
 const containerRef = ref<HTMLDivElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
@@ -87,7 +86,7 @@ async function createOrUpdateGlobe() {
       offset: [0, -0.3],
       markers: MARKERS,
       onRender: (state: any) => {
-        if (!pointerInteracting && !reducedMotion.value) phi += 0.004
+        if (!pointerInteracting) phi += 0.004
         state.phi = phi
         state.width = width * 2
         state.height = width * 2 * 0.7

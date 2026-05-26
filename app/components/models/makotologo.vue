@@ -26,16 +26,15 @@ import { TresCanvas } from '@tresjs/core'
 import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
 
 const modelRef = ref()
-const reducedMotion = useReducedMotion()
 
 const { onLoop } = useRenderLoop()
 const yRotation = shallowRef(0)
 onLoop(({ delta }) => {
-	if (!reducedMotion.value) yRotation.value += 0.02 * delta
+	yRotation.value += 0.02 * delta
 })
 onMounted(() => {
 	onLoop(({ delta }) => {
-		if (modelRef.value && !reducedMotion.value) {
+		if (modelRef.value) {
 			modelRef.value.rotation.y -= delta * 0.8
 			modelRef.value.position.y = progress.value * 2
 		}
