@@ -19,7 +19,7 @@
 		</h2>
 		<div class="px-4 xl:px-0 mt-12 w-full max-w-5xl mx-auto flex flex-col items-center">
 			<NuxtImg :placeholder="[300, 180, 30, 10]" src="/imgs/uses/macbook-air.jpg" loading="lazy" class="w-5xl rounded-3xl outline-offset-3 outline-2 outline-sky-500 shadow-2xl"  />
-			<p class="mt-4 serif text-2xl text-black dark:text-white"> MacBook Air M1 <span class="bg-gradient-to-r from-gray-400 to-gray-500 bg-clip-text text-transparent">Space Grey</span></p>
+			<p class="mt-4 serif text-2xl text-black dark:text-white"> MacBook Pro M5 <span class="bg-gradient-to-r from-gray-400 to-gray-500 bg-clip-text text-transparent">Space Grey</span></p>
 			
 			<div class="w-full mt-24">
 				<h2 class="text-3xl text-black dark:text-white">{{t('page.uses.soft')}}</h2>
