@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PublicEntry } from '#shared/content'
+import { safeHref, type PublicEntry } from '#shared/content'
 const { locale } = useI18n()
 const { data: page, error } = await useAsyncData(
   () => `about-${locale.value}`,
@@ -14,6 +14,7 @@ const { data: work } = await useAsyncData(
   { watch: [locale] }
 )
 useEntrySeo(page)
+const safeLinks = computed(() => Array.isArray(page.value?.data.links) ? (page.value.data.links as { link: string; name: string; icon: string }[]).filter(item => safeHref(item.link)) : [])
 </script>
 
 <template>
@@ -24,8 +25,8 @@ useEntrySeo(page)
         <p class="mb-3 text-xs uppercase tracking-widest text-black/70 dark:text-white/70">{{ page.summary }}</p>
         <h2 class="serif mb-8 text-balance text-4xl leading-tight md:text-6xl">{{ locale === 'pl' ? 'Poznajmy się bliżej' : 'A little more about me' }}</h2>
         <ContentDocument :document="page.body" />
-        <div v-if="Array.isArray(page.data.links)" class="mt-8 flex gap-4">
-          <a v-for="link in (page.data.links as any[])" :key="link.link" :href="link.link" target="_blank" rel="noopener noreferrer" :aria-label="link.name" class="group flex items-center gap-1 text-sky-500"><UIcon :name="link.icon" class="size-5" aria-hidden /><span class="text-sm text-black dark:text-white">{{ link.name }}</span></a>
+        <div v-if="safeLinks.length" class="mt-8 flex gap-4">
+          <a v-for="link in safeLinks" :key="link.link" :href="safeHref(link.link)" target="_blank" rel="noopener noreferrer" :aria-label="link.name" class="group flex items-center gap-1 text-sky-500"><UIcon :name="link.icon" class="size-5" aria-hidden /><span class="text-sm text-black dark:text-white">{{ link.name }}</span></a>
         </div>
       </div>
       <div class="relative aspect-square w-80 lg:w-[500px]">
