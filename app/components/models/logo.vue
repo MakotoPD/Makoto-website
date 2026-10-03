@@ -60,6 +60,8 @@ import { useGLTF } from '@tresjs/cientos'
 import { extend, useTresContext, useLoop } from '@tresjs/core'
 import { MeshTransmissionMaterialImpl } from '~/utils/MeshTransmissionMaterialImpl'
 
+const props = withDefaults(defineProps<{ animated?: boolean }>(), { animated: true })
+
 // Get color mode for theme-aware background
 const colorMode = useColorMode()
 
@@ -93,7 +95,7 @@ let elapsedTime = 0
 onBeforeRender(({ delta }) => {
   if (!renderer.instance || !camera.activeCamera.value || !scene.value) return
   
-  elapsedTime += delta
+  if (props.animated) elapsedTime += delta
   
   const meshes = [mesh1Ref.value, mesh2Ref.value].filter(Boolean) as THREE.Mesh[]
   if (meshes.length === 0) return
