@@ -8,6 +8,7 @@ import argon2 from 'argon2'
 import * as OTPAuth from 'otpauth'
 import pg from 'pg'
 import sharp from 'sharp'
+import jsQR from 'jsqr'
 import { markdownToDocument } from '../shared/markdown.ts'
 
 const connectionString = process.env.TEST_DATABASE_URL
@@ -17,12 +18,13 @@ if (!connectionString || new URL(connectionString).pathname !== '/makoto_verify'
 
 const origin = 'http://127.0.0.1:3101'
 const password = randomBytes(24).toString('base64url')
-const secret = new OTPAuth.Secret({ size: 20 })
-const totp = new OTPAuth.TOTP({ issuer: 'Makoto Test', label: 'integration', secret, digits: 6, period: 30 })
+const encryptionKey = randomBytes(32).toString('base64')
+const credentials = { login: 'integration', password, token: 'XXXX.DUMMY.TOKEN.XXXX' }
 const storage = await mkdtemp(join(tmpdir(), 'makoto-media-test-'))
 const database = new pg.Client({ connectionString })
 await database.connect()
 await database.query('TRUNCATE used_totp_steps, admin_login_attempts, admin_sessions')
+await database.query('UPDATE admin_security SET totp_secret=NULL, enabled_at=NULL, pending_secret=NULL, pending_expires_at=NULL, pending_session_hash=NULL WHERE id=1')
 const child = spawn(process.execPath, ['.output/server/index.mjs'], {
   cwd: process.cwd(),
   env: {
@@ -30,11 +32,12 @@ const child = spawn(process.execPath, ['.output/server/index.mjs'], {
     NODE_ENV: 'test', NITRO_HOST: '127.0.0.1', NITRO_PORT: '3101', SITE_URL: origin,
     DATABASE_URL: connectionString, ADMIN_LOGIN: 'integration',
     ADMIN_PASSWORD_HASH: await argon2.hash(password, { type: argon2.argon2id }),
-    ADMIN_TOTP_SECRET: secret.base32,
+    ADMIN_2FA_ENCRYPTION_KEY: encryptionKey,
     ADMIN_SESSION_SECRET: randomBytes(32).toString('hex'),
     R2_TEST_DIR: storage,
     R2_ACCOUNT_ID: '', R2_ACCESS_KEY_ID: '', R2_SECRET_ACCESS_KEY: '', R2_BUCKET_NAME: '',
-    WEB3FORMS_KEY: '', TURNSTILE_SECRET_KEY: ''
+    WEB3FORMS_KEY: '', TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA',
+    NUXT_PUBLIC_ADMIN_TURNSTILE_SITE_KEY: '1x00000000000000000000AA'
   },
   stdio: ['ignore', 'pipe', 'pipe']
 })
@@ -75,16 +78,65 @@ try {
   await request('/api/admin/entries', jsonPost({ kind: 'article' }), 401)
   await request('/api/contact', jsonPost({ name: 'A', email: 'bad', message: 'short', token: 'invalidtoken' }), 422)
   await request('/api/contact', jsonPost({ name: 'Local Test', email: 'test@example.invalid', message: 'This is a local test message.', token: 'invalidtoken' }), 503)
-  const code = totp.generate()
-  await request('/api/admin/login', jsonPost({ login: 'integration', password: 'wrong', code }), 401)
-  await request('/api/admin/login', jsonPost({ login: 'integration', password, code: '000000' }), 401)
-  const signedIn = await request('/api/admin/login', jsonPost({ login: 'integration', password, code }))
+  await request('/api/admin/security', {}, 401)
+  await request('/api/admin/security', jsonPost({ action: 'start', password }), 401)
+  await request('/api/admin/login', jsonPost(credentials, '', '', false), 403)
+  await request('/api/admin/login', jsonPost({ ...credentials, token: '' }), 422)
+  await request('/api/admin/login', jsonPost({ ...credentials, token: 'forged' }), 422)
+  await request('/api/admin/login', jsonPost({ ...credentials, password: 'wrong' }), 401)
+  const signedIn = await request('/api/admin/login', jsonPost(credentials))
   const cookie = signedIn.response.headers.getSetCookie().map(value => value.split(';')[0]).join('; ')
   const csrf = signedIn.json.csrf
   assert.match(cookie, /makoto_session=/)
-  await request('/api/admin/login', jsonPost({ login: 'integration', password, code }), 401)
   await request('/panel', { headers: { cookie } })
   await request('/api/admin/session', { headers: { cookie } })
+  assert.equal((await request('/api/admin/security', { headers: { cookie } })).json.enabled, false)
+  await request('/api/admin/security', jsonPost({ action: 'start', password }, cookie, 'wrong'), 403)
+  await request('/api/admin/security', jsonPost({ action: 'start', password: 'wrong' }, cookie, csrf), 401)
+  const other = await request('/api/admin/login', jsonPost(credentials))
+  const otherCookie = other.response.headers.getSetCookie().map(value => value.split(';')[0]).join('; ')
+  async function setup2fa() {
+    const setup = await request('/api/admin/security', jsonPost({ action: 'start', password }, cookie, csrf))
+    assert.ok(setup.json.qr.startsWith('data:image/png;base64,'))
+    const image = await sharp(Buffer.from(setup.json.qr.split(',')[1], 'base64')).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    const decoded = jsQR(new Uint8ClampedArray(image.data), image.info.width, image.info.height)
+    assert.ok(decoded, 'QR is machine-readable')
+    const otp = OTPAuth.URI.parse(decoded.data)
+    assert.equal(otp.issuer, 'Makoto')
+    assert.equal(otp.label, 'integration')
+    const stored = (await database.query('SELECT pending_secret FROM admin_security WHERE id=1')).rows[0].pending_secret
+    assert.ok(stored.startsWith('v1.') && !stored.includes(otp.secret.base32), 'Secret is encrypted in storage')
+    return otp
+  }
+  let otp = await setup2fa()
+  const status = await request('/api/admin/security', { headers: { cookie } })
+  assert.deepEqual(Object.keys(status.json).sort(), ['enabled', 'enabledAt'])
+  await request('/api/admin/security', jsonPost({ action: 'confirm', code: otp.generate() }, otherCookie, other.json.csrf), 409)
+  await database.query("UPDATE admin_security SET pending_expires_at=now() - interval '1 second' WHERE id=1")
+  await request('/api/admin/security', jsonPost({ action: 'confirm', code: otp.generate() }, cookie, csrf), 409)
+  otp = await setup2fa()
+  let invalidCode = '000000'
+  while (otp.validate({ token: invalidCode, window: 1 }) !== null) invalidCode = String(Number(invalidCode) + 1).padStart(6, '0')
+  await request('/api/admin/security', jsonPost({ action: 'confirm', code: invalidCode }, cookie, csrf), 422)
+  assert.equal((await request('/api/admin/security', { headers: { cookie } })).json.enabled, false)
+  const confirmationCode = otp.generate({ timestamp: Date.now() - 30_000 })
+  await request('/api/admin/security', jsonPost({ action: 'confirm', code: confirmationCode }, cookie, csrf))
+  assert.equal((await request('/api/admin/security', { headers: { cookie } })).json.enabled, true)
+  await request('/api/admin/session', { headers: { cookie: otherCookie } }, 401)
+  const required = await request('/api/admin/login', jsonPost(credentials), 401)
+  assert.equal(required.json.data.code, 'TOTP_REQUIRED')
+  await request('/api/admin/login', jsonPost({ ...credentials, code: confirmationCode }), 401)
+  await request('/api/admin/login', jsonPost({ ...credentials, code: invalidCode }), 401)
+  const code = otp.generate()
+  const concurrent = await Promise.all([1, 2].map(() => fetch(`${origin}/api/admin/login`, jsonPost({ ...credentials, code }))))
+  assert.deepEqual(concurrent.map(r => r.status).sort(), [200, 401], 'Concurrent replay accepts the code once')
+  await request('/api/admin/security', jsonPost({ action: 'disable', password: 'wrong' }, cookie, csrf), 401)
+  await request('/api/admin/security', jsonPost({ action: 'disable', password }, cookie, csrf))
+  assert.equal((await request('/api/admin/security', { headers: { cookie } })).json.enabled, false)
+  await setup2fa()
+  await request('/api/admin/security', jsonPost({ action: 'cancel' }, cookie, csrf))
+  assert.equal((await database.query('SELECT pending_secret FROM admin_security WHERE id=1')).rows[0].pending_secret, null)
+  console.log('Security: password-only login, Turnstile, readable QR, enrollment expiry/binding, encrypted storage, 2FA, replay and disable passed')
   if (process.env.VISUAL_OUTPUT_DIR) {
     const { chromium } = await import('playwright')
     const browser = await chromium.launch()
@@ -159,13 +211,12 @@ try {
 
   await request('/api/admin/logout', jsonPost({}, cookie, csrf))
   await request('/api/admin/session', { headers: { cookie } }, 401)
-  const nextCode = totp.generate({ timestamp: Date.now() + 30_000 })
-  const second = await request('/api/admin/login', jsonPost({ login: 'integration', password, code: nextCode }))
+  const second = await request('/api/admin/login', jsonPost(credentials))
   const secondCookie = second.response.headers.getSetCookie().map(value => value.split(';')[0]).join('; ')
   await database.query("UPDATE admin_sessions SET expires_at = now() - interval '1 second' WHERE revoked_at IS NULL")
   await request('/api/admin/session', { headers: { cookie: secondCookie } }, 401)
-  for (let attempt = 0; attempt < 5; attempt++) await request('/api/admin/login', jsonPost({ login: 'integration', password: 'wrong', code: '000000' }), 401)
-  await request('/api/admin/login', jsonPost({ login: 'integration', password: 'wrong', code: '000000' }), 429)
+  for (let attempt = 0; attempt < 5; attempt++) await request('/api/admin/login', jsonPost({ ...credentials, password: 'wrong' }), 401)
+  await request('/api/admin/login', jsonPost({ ...credentials, password: 'wrong' }), 429)
   console.log('Local integration: login, TOTP replay, CSRF, draft, publish, SSR, sitemap, media, version restore, logout and expiry passed')
 } finally {
   child.kill()

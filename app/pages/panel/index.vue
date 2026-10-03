@@ -16,7 +16,7 @@ const session = ref<{ csrf: string; expiresAt: string } | null>(null)
 const loading = ref(true)
 const error = ref('')
 const notice = ref('')
-const tab = ref<'content' | 'media'>('content')
+const tab = ref<'content' | 'media' | 'security'>('content')
 const filter = ref('all')
 const entries = ref<AdminEntry[]>([])
 const files = ref<MediaItem[]>([])
@@ -200,6 +200,7 @@ async function logout() {
       <nav aria-label="Sekcje panelu" class="mt-6 flex gap-2">
         <button type="button" :aria-current="tab === 'content' ? 'page' : undefined" class="panel-tab" @click="tab = 'content'">Treści</button>
         <button type="button" :aria-current="tab === 'media' ? 'page' : undefined" class="panel-tab" @click="tab = 'media'">Media</button>
+        <button type="button" :aria-current="tab === 'security' ? 'page' : undefined" class="panel-tab" @click="tab = 'security'">Ochrona</button>
       </nav>
 
       <div v-if="tab === 'content'" class="mt-6 grid gap-6 lg:grid-cols-[20rem_1fr]">
@@ -240,7 +241,7 @@ async function logout() {
 
           <div class="mt-10 border-t border-zinc-800 pt-8">
             <h3 class="font-serif text-2xl">Treść redakcyjna</h3>
-            <p class="mt-2 text-sm text-zinc-400">Nagłówek H1 jest tworzony z tytułu. W treści używaj H2–H4.</p>
+            <p class="mt-2 text-sm text-zinc-400">Nagłówek H1 jest tworzony z tytułu. W treści używaj H2–H6.</p>
             <ClientOnly><PanelEditor v-model="editing.body" :csrf="csrf" class="mt-5" /><template #fallback><p class="mt-5 text-zinc-400">Ładowanie edytora…</p></template></ClientOnly>
           </div>
 
@@ -279,7 +280,7 @@ async function logout() {
         <div v-else class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-10 text-zinc-400">Wybierz wpis z listy lub utwórz nowy.</div>
       </div>
 
-      <section v-else class="mt-6">
+      <section v-else-if="tab === 'media'" class="mt-6">
         <div class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
           <h2 class="font-serif text-3xl">Biblioteka mediów</h2>
           <p class="mt-2 text-sm text-zinc-400">JPG, PNG, WebP lub PDF do 10 MB. Obraz wymaga tekstu alternatywnego.</p>
@@ -300,6 +301,7 @@ async function logout() {
           </div>
         </div>
       </section>
+      <PanelSecurity v-else :csrf="csrf" class="mt-6" />
     </template>
   </main>
 </template>

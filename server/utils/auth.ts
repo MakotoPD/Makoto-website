@@ -3,7 +3,10 @@ import argon2 from 'argon2'
 import * as OTPAuth from 'otpauth'
 import { and, eq, gt, isNull, sql } from 'drizzle-orm'
 import { database } from '../db/client'
-import { loginAttempts, sessions, usedTotp } from '../db/schema'
+import { adminSecurity, loginAttempts, sessions, usedTotp } from '../db/schema'
+import { allowedAdminOrigin } from './admin-origin'
+import { verifyAdminTurnstile } from './admin-turnstile'
+import { decryptTotp } from './security-crypto'
 import type { H3Event } from 'h3'
 
 const cookieName = 'makoto_session'
@@ -11,11 +14,11 @@ const durationMs = 8 * 60 * 60 * 1000
 const loginError = () => createError({ statusCode: 401, statusMessage: 'Nieprawidłowe dane logowania' })
 
 function secrets() {
-  const { ADMIN_LOGIN, ADMIN_PASSWORD_HASH, ADMIN_TOTP_SECRET, ADMIN_SESSION_SECRET } = process.env
-  if (!ADMIN_LOGIN || !ADMIN_PASSWORD_HASH?.startsWith('$argon2id$') || !ADMIN_TOTP_SECRET || !ADMIN_SESSION_SECRET || ADMIN_SESSION_SECRET.length < 32) {
+  const { ADMIN_LOGIN, ADMIN_PASSWORD_HASH, ADMIN_SESSION_SECRET } = process.env
+  if (!ADMIN_LOGIN || !ADMIN_PASSWORD_HASH?.startsWith('$argon2id$') || !ADMIN_SESSION_SECRET || ADMIN_SESSION_SECRET.length < 32) {
     throw createError({ statusCode: 503, statusMessage: 'Panel is not configured' })
   }
-  return { ADMIN_LOGIN, ADMIN_PASSWORD_HASH, ADMIN_TOTP_SECRET, ADMIN_SESSION_SECRET }
+  return { ADMIN_LOGIN, ADMIN_PASSWORD_HASH, ADMIN_SESSION_SECRET }
 }
 
 function hash(value: string) {
@@ -39,66 +42,79 @@ function cookieOptions() {
 }
 
 function assertOrigin(event: H3Event) {
-  const origin = getHeader(event, 'origin')
-  const expected = process.env.SITE_URL || getRequestURL(event).origin
-  if (!origin || origin !== expected) throw createError({ statusCode: 403, statusMessage: 'Invalid request origin' })
+  if (!allowedAdminOrigin(getHeader(event, 'origin'), getRequestURL(event), process.env.SITE_URL, import.meta.dev)) {
+    throw createError({ statusCode: 403, message: 'Adres formularza nie zgadza się z adresem panelu. Odśwież stronę i spróbuj ponownie.' })
+  }
 }
 
-export async function signIn(event: H3Event, login: string, password: string, code: string) {
+export async function checkAttempts(key: string) {
+  const [attempt] = await database().select().from(loginAttempts).where(eq(loginAttempts.key, key)).limit(1)
+  if (attempt?.blockedUntil && attempt.blockedUntil > new Date()) {
+    throw createError({ statusCode: 429, message: 'Za dużo nieudanych prób. Spróbuj ponownie za 15 minut.' })
+  }
+}
+
+export async function recordFailure(key: string) {
+  await database().insert(loginAttempts).values({ key, attempts: 1 }).onConflictDoUpdate({
+    target: loginAttempts.key,
+    set: {
+      attempts: sql`CASE WHEN ${loginAttempts.updatedAt} < now() - interval '15 minutes' THEN 1 ELSE ${loginAttempts.attempts} + 1 END`,
+      blockedUntil: sql`CASE WHEN ${loginAttempts.updatedAt} >= now() - interval '15 minutes' AND ${loginAttempts.attempts} + 1 >= 5 THEN now() + interval '15 minutes' ELSE NULL END`,
+      updatedAt: new Date()
+    }
+  })
+}
+
+export async function verifyAdminPassword(password: string) {
+  return argon2.verify(secrets().ADMIN_PASSWORD_HASH, password).catch(() => false)
+}
+
+export function totpStep(secret: string, code: string) {
+  const now = Date.now()
+  const totp = new OTPAuth.TOTP({ issuer: 'Makoto', label: secrets().ADMIN_LOGIN, algorithm: 'SHA1', digits: 6, period: 30, secret: OTPAuth.Secret.fromBase32(secret) })
+  const delta = /^\d{6}$/.test(code) ? totp.validate({ token: code, window: 1, timestamp: now }) : null
+  return delta === null ? null : Math.floor(now / 30_000) + delta
+}
+
+export async function signIn(event: H3Event, login: string, password: string, code: string, token: string) {
   assertOrigin(event)
   const config = secrets()
   const db = database()
-  const ip = getRequestIP(event) || 'unknown'
-  const key = `login:${hash(ip)}`
-  const [attempt] = await db.select().from(loginAttempts).where(eq(loginAttempts.key, key)).limit(1)
-  if (attempt?.blockedUntil && attempt.blockedUntil > new Date()) throw createError({ statusCode: 429, statusMessage: 'Spróbuj ponownie później' })
-
-  let valid = false
-  let step = -1
-  try {
-    const passwordValid = await argon2.verify(config.ADMIN_PASSWORD_HASH, password)
-    const totp = new OTPAuth.TOTP({ issuer: 'Makoto', label: config.ADMIN_LOGIN, algorithm: 'SHA1', digits: 6, period: 30, secret: OTPAuth.Secret.fromBase32(config.ADMIN_TOTP_SECRET) })
-    const delta = /^\d{6}$/.test(code) ? totp.validate({ token: code, window: 1 }) : null
-    valid = sameSecret(login, config.ADMIN_LOGIN) && passwordValid && delta !== null
-    if (valid) step = Math.floor(Date.now() / 30_000) + delta!
-  } catch {
-    valid = false
-  }
-
-  if (!valid) {
-    await db.insert(loginAttempts).values({
-      key,
-      attempts: 1,
-      blockedUntil: null
-    }).onConflictDoUpdate({
-      target: loginAttempts.key,
-      set: {
-        attempts: sql`${loginAttempts.attempts} + 1`,
-        blockedUntil: sql`CASE WHEN ${loginAttempts.attempts} + 1 >= 5 THEN now() + interval '15 minutes' ELSE NULL END`,
-        updatedAt: new Date()
-      }
-    })
+  const key = `login:${hash(getRequestIP(event) || 'unknown')}`
+  await checkAttempts(key)
+  await verifyAdminTurnstile(event, token)
+  const passwordValid = await verifyAdminPassword(password)
+  if (!sameSecret(login, config.ADMIN_LOGIN) || !passwordValid) {
+    await recordFailure(key)
     throw loginError()
   }
-
-  const token = randomBytes(32).toString('base64url')
+  const sessionToken = randomBytes(32).toString('base64url')
   const csrf = randomBytes(32).toString('base64url')
-  try {
-    await db.transaction(async tx => {
-      await tx.insert(usedTotp).values({ step })
-      await tx.insert(sessions).values({
-        tokenHash: hash(token),
-        csrfHash: hash(csrf),
-        expiresAt: new Date(Date.now() + durationMs)
-      })
-      await tx.delete(loginAttempts).where(eq(loginAttempts.key, key))
-    })
-  } catch {
-    throw loginError()
+  const expiresAt = new Date(Date.now() + durationMs)
+  const result = await db.transaction(async tx => {
+    const [security] = await tx.select().from(adminSecurity).where(eq(adminSecurity.id, 1)).for('update')
+    if (!security) throw createError({ statusCode: 503, message: 'Panel wymaga migracji bazy danych.' })
+    if (security.totpSecret) {
+      if (!code) return 'requires2fa'
+      const step = totpStep(decryptTotp(security.totpSecret), code)
+      if (step === null) return 'invalid'
+      const claimed = await tx.insert(usedTotp).values({ step }).onConflictDoNothing().returning()
+      if (!claimed.length) return 'invalid'
+    }
+    await tx.insert(sessions).values({ tokenHash: hash(sessionToken), csrfHash: hash(csrf), expiresAt })
+    await tx.delete(loginAttempts).where(eq(loginAttempts.key, key))
+    return 'ok'
+  })
+  if (result === 'requires2fa') {
+    throw createError({ statusCode: 401, message: 'Wpisz aktualny kod z aplikacji uwierzytelniającej.', data: { code: 'TOTP_REQUIRED' } })
   }
-  setCookie(event, cookieName, token, cookieOptions())
+  if (result === 'invalid') {
+    await recordFailure(key)
+    throw createError({ statusCode: 401, message: 'Kod 2FA jest nieprawidłowy lub został już użyty. Poczekaj na nowy kod.', data: { code: 'TOTP_INVALID' } })
+  }
+  setCookie(event, cookieName, sessionToken, cookieOptions())
   setCookie(event, 'makoto_csrf', csrf, { ...cookieOptions(), httpOnly: false })
-  return { csrf, expiresAt: new Date(Date.now() + durationMs).toISOString() }
+  return { csrf, expiresAt: expiresAt.toISOString() }
 }
 
 export async function requireSession(event: H3Event, mutate = false) {

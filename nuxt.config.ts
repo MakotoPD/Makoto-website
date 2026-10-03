@@ -52,7 +52,10 @@ export default defineNuxtConfig({
   },
   gtag: { id: 'G-7P472XF9TT' },
   runtimeConfig: {
-    public: { siteUrl: 'https://makoto.com.pl' }
+    public: {
+      siteUrl: 'https://makoto.com.pl',
+      adminTurnstileSiteKey: process.env.NODE_ENV === 'development' ? '1x00000000000000000000AA' : process.env.TURNSTILE_SITE_KEY || ''
+    }
   },
   icon: {
     customCollections: [{ prefix: 'mkt', dir: './app/assets/icons' }]

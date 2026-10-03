@@ -62,6 +62,16 @@ export const usedTotp = pgTable('used_totp_steps', {
   usedAt: timestamp('used_at', { withTimezone: true }).notNull().defaultNow()
 })
 
+export const adminSecurity = pgTable('admin_security', {
+  id: integer('id').primaryKey(),
+  totpSecret: text('totp_secret'),
+  enabledAt: timestamp('enabled_at', { withTimezone: true }),
+  pendingSecret: text('pending_secret'),
+  pendingExpiresAt: timestamp('pending_expires_at', { withTimezone: true }),
+  pendingSessionHash: text('pending_session_hash'),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow()
+})
+
 export const loginAttempts = pgTable('admin_login_attempts', {
   key: text('key').primaryKey(),
   attempts: integer('attempts').notNull().default(0),
