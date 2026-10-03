@@ -3,13 +3,12 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { extname, join } from 'node:path'
 import { createHash } from 'node:crypto'
 import pg from 'pg'
-import MarkdownIt from 'markdown-it'
+import { markdownToDocument } from '../shared/markdown.ts'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
 const dryRun = process.argv.includes('--dry-run')
 const localMedia = process.argv.includes('--local-media')
 const archive = JSON.parse(await readFile('data/strapi-public-export.json', 'utf8'))
-const markdown = new MarkdownIt({ html: false, linkify: true })
 const report = {
   mode: dryRun ? 'dry-run' : 'import',
   storage: dryRun ? 'none' : localMedia ? 'local-test' : 'r2',
@@ -95,63 +94,7 @@ try {
     return value
   }
 
-  function textNodes(tokens) {
-    const nodes = []
-    let marks = []
-    for (const token of tokens || []) {
-      if (token.type === 'text') {
-        if (token.content) nodes.push({ type: 'text', text: token.content, ...(marks.length ? { marks: [...marks] } : {}) })
-      }
-      else if (token.type === 'code_inline') nodes.push({ type: 'text', text: token.content, marks: [...marks, { type: 'code' }] })
-      else if (token.type === 'softbreak' || token.type === 'hardbreak') nodes.push({ type: 'hardBreak' })
-      else if (token.type === 'image') nodes.push({ type: 'image', attrs: { src: mediaUrl(token.attrGet('src')), alt: token.content || 'Obraz' } })
-      else if (token.type === 'strong_open') marks.push({ type: 'bold' })
-      else if (token.type === 'em_open') marks.push({ type: 'italic' })
-      else if (token.type === 's_open') marks.push({ type: 'strike' })
-      else if (token.type === 'link_open') marks.push({ type: 'link', attrs: { href: token.attrGet('href') } })
-      else if (token.type === 'strong_close' || token.type === 'em_close' || token.type === 's_close' || token.type === 'link_close') marks.pop()
-      else if (!['html_inline'].includes(token.type)) report.unsupported.push(`Inline token: ${token.type}`)
-    }
-    return nodes
-  }
-
-  function fromMarkdown(source) {
-    const root = { type: 'doc', content: [] }
-    const stack = [root]
-    let skippedTable = false
-    for (const token of markdown.parse(source || '', {})) {
-      if (token.type === 'table_close') {
-        skippedTable = false
-        continue
-      }
-      if (token.type.startsWith('table_') || ['thead_open', 'thead_close', 'tbody_open', 'tbody_close', 'tr_open', 'tr_close', 'th_open', 'th_close', 'td_open', 'td_close'].includes(token.type)) {
-        if (!skippedTable) report.unsupported.push('Markdown table retained in original source only')
-        skippedTable = true
-        continue
-      }
-      const container = stack.at(-1)
-      if (token.type === 'inline') {
-        if (skippedTable) continue
-        container.content.push(...textNodes(token.children))
-      } else if (token.type.endsWith('_open')) {
-        const type = ({ paragraph: 'paragraph', heading: 'heading', bullet_list: 'bulletList', ordered_list: 'orderedList', list_item: 'listItem', blockquote: 'blockquote' })[token.type.slice(0, -5)]
-        if (!type) { report.unsupported.push(`Block token: ${token.type}`); continue }
-        const node = { type, content: [] }
-        if (type === 'heading') node.attrs = { level: Math.max(2, Math.min(4, Number(token.tag.slice(1)))) }
-        container.content.push(node)
-        stack.push(node)
-      } else if (token.type.endsWith('_close')) {
-        if (stack.length > 1) stack.pop()
-      } else if (token.type === 'fence' || token.type === 'code_block') {
-        container.content.push({ type: 'codeBlock', attrs: { language: token.info?.trim() || null }, content: [{ type: 'text', text: token.content }] })
-      } else if (token.type === 'hr') {
-        container.content.push({ type: 'horizontalRule' })
-      } else if (!['html_block'].includes(token.type)) {
-        report.unsupported.push(`Block token: ${token.type}`)
-      }
-    }
-    return root
-  }
+  const fromMarkdown = source => markdownToDocument(source, mediaUrl)
 
   function fromBlocks(blocks) {
     const content = []
@@ -173,7 +116,7 @@ try {
   const featured = new Set(['en', 'pl'].flatMap(locale => (archive.records[`featured-projects:${locale}`] || []).map(item => item.documentId)))
   const worksByCompany = new Map()
   for (const locale of ['en', 'pl']) for (const work of archive.records[`works:${locale}`] || []) {
-    worksByCompany.set(`${locale}:${slugify(work.company)}`, work)
+    worksByCompany.set(`${locale}:${slugify(work.company).replace(/-pl$/, '')}`, work)
   }
 
   function add(kind, locale, slug, source, title, summary, body, data = {}, status = 'published') {
@@ -200,7 +143,7 @@ try {
       }, status)
     }
     for (const project of archive.records[`projects:${locale}`] || []) {
-      const work = worksByCompany.get(`${locale}:${slugify(project.title)}`)
+      const work = worksByCompany.get(`${locale}:${slugify(project.title).replace(/-pl$/, '')}`)
       const scope = work?.description || ''
       add('project', locale, slugify(project.title), project, project.title, project.description,
         fromMarkdown(scope || project.description), {
@@ -211,7 +154,7 @@ try {
     }
     for (const work of archive.records[`works:${locale}`] || []) add(
       'work', locale, slugify(work.company), work, work.Title || work.company,
-      work.description, fromMarkdown(work.description), { company: work.company, from: work.from, to: work.to, tags: work.tags }
+      work.description, fromMarkdown(work.description), { company: work.company, from: work.from, to: work.to, tags: work.tags, location: work.location, isRemote: work.isRemote }
     )
     for (const [name, slug] of [['about', 'about'], ['Privacy', 'privacy'], ['Rule', 'rules']]) {
       const record = archive.records[`${name}:${locale}`]?.[0]

@@ -14,8 +14,6 @@
     "page": 8,
     "portfolio": 28
   },
-  "unsupported": [
-    "Markdown table retained in original source only"
-  ],
+  "unsupported": [],
   "errors": []
 }

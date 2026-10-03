@@ -11,9 +11,9 @@ const { data: project, error } = await useAsyncData(
 if (error.value) throw createError({ statusCode: error.value.statusCode || 500, statusMessage: error.value.statusMessage || 'Project unavailable' })
 if (!project.value) throw createError({ statusCode: 404 })
 const setParams = useSetI18nParams()
-watchEffect(() => {
-  if (project.value) setParams(Object.fromEntries((project.value.translations || []).map(item => [item.locale, { slug: item.slug }])))
-})
+watch(() => project.value?.translations, translations => {
+  if (translations) setParams(Object.fromEntries(translations.map(item => [item.locale, { slug: item.slug }])))
+}, { immediate: true })
 useEntrySeo(project)
 </script>
 
@@ -28,14 +28,13 @@ useEntrySeo(project)
     <section class="mt-16 grid gap-8 md:grid-cols-[12rem_1fr]">
       <h2 class="text-sm uppercase tracking-[.2em] text-sky-300">{{ locale === 'pl' ? 'Mój zakres' : 'My role' }}</h2>
       <div>
-        <p v-if="project.data.scope" class="makoto-muted text-lg leading-relaxed">{{ project.data.scope }}</p>
-        <ContentDocument v-else :document="project.body" />
+        <ContentDocument :document="project.body" />
       </div>
     </section>
     <section v-if="Array.isArray(project.data.stack)" class="makoto-rule mt-12 border-t pt-8">
       <h2 class="text-sm uppercase tracking-[.2em] text-sky-300">{{ locale === 'pl' ? 'Technologie' : 'Technology' }}</h2>
       <ul class="mt-4 flex flex-wrap gap-2">
-        <li v-for="(item, index) in project.data.stack" :key="index" class="makoto-card rounded-lg px-4 py-2 text-sm">{{ (item as any).name || item }}</li>
+        <li v-for="(item, index) in project.data.stack" :key="index"><UBadge :icon="(item as any).logo" variant="subtle" size="lg" class="text-black dark:text-white">{{ (item as any).name || item }}</UBadge></li>
       </ul>
     </section>
     <a v-if="safeHref(project.data.externalUrl)" :href="safeHref(project.data.externalUrl)" target="_blank" rel="noopener noreferrer" class="makoto-cta mt-10">{{ locale === 'pl' ? 'Otwórz projekt' : 'Visit project' }} ↗</a>

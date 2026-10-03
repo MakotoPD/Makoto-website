@@ -48,8 +48,9 @@ export function safeHref(value: unknown) {
   }
 }
 
-const allowedNodes = new Set(['doc', 'paragraph', 'heading', 'text', 'bulletList', 'orderedList', 'listItem', 'blockquote', 'codeBlock', 'hardBreak', 'horizontalRule', 'image', 'file'])
-const allowedMarks = new Set(['bold', 'italic', 'strike', 'code', 'link'])
+export const alertTypes = ['note', 'success', 'info', 'tip', 'important', 'warning', 'caution'] as const
+const allowedNodes = new Set(['doc', 'paragraph', 'heading', 'text', 'bulletList', 'orderedList', 'listItem', 'blockquote', 'codeBlock', 'hardBreak', 'horizontalRule', 'image', 'file', 'callout', 'taskList', 'taskItem', 'table', 'tableRow', 'tableHeader', 'tableCell'])
+const allowedMarks = new Set(['bold', 'italic', 'strike', 'code', 'link', 'highlight', 'kbd', 'subscript', 'superscript', 'underline'])
 
 export function validateRichDocument(value: unknown): asserts value is RichNode {
   let count = 0
@@ -58,7 +59,14 @@ export function validateRichDocument(value: unknown): asserts value is RichNode 
     const item = node as RichNode
     if (!allowedNodes.has(item.type)) throw new Error('Unsupported document node')
     if (item.type === 'text' && (typeof item.text !== 'string' || item.text.length > 100_000)) throw new Error('Invalid text')
-    if (item.type === 'heading' && ![2, 3, 4].includes(Number(item.attrs?.level))) throw new Error('Headings must use H2-H4')
+    if (item.type === 'heading' && ![2, 3, 4, 5, 6].includes(Number(item.attrs?.level))) throw new Error('Headings must use H2-H6')
+    if (item.type === 'callout' && !alertTypes.includes(item.attrs?.kind as typeof alertTypes[number])) throw new Error('Invalid callout kind')
+    if (item.type === 'taskItem' && typeof item.attrs?.checked !== 'boolean') throw new Error('Invalid task state')
+    if (item.type === 'orderedList' && item.attrs?.start != null && (!Number.isInteger(item.attrs.start) || Number(item.attrs.start) < 1)) throw new Error('Invalid list start')
+    if (item.type === 'tableCell' || item.type === 'tableHeader') {
+      if (item.attrs?.textAlign != null && !['left', 'center', 'right'].includes(String(item.attrs.textAlign))) throw new Error('Invalid table alignment')
+      for (const span of ['colspan', 'rowspan']) if (item.attrs?.[span] != null && (!Number.isInteger(item.attrs[span]) || Number(item.attrs[span]) < 1 || Number(item.attrs[span]) > 50)) throw new Error('Invalid cell span')
+    }
     if (item.type === 'image' || item.type === 'file') {
       if (!safeHref(item.attrs?.src)) throw new Error('Invalid media URL')
       if (item.type === 'image' && (typeof item.attrs?.alt !== 'string' || !item.attrs.alt.trim())) throw new Error('Image alt text is required')

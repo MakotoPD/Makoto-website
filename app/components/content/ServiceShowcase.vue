@@ -12,7 +12,7 @@ const icons = ['i-mkt-window-frame-line-duotone', 'i-mkt-shopping-bag', 'i-mkt-p
         <template v-if="index === 0">
           <div class="design-orbit orbit-one" /><div class="design-orbit orbit-two" />
           <img src="/imgs/steel-flower.webp" alt="" width="512" height="512" loading="lazy" class="steel-flower">
-          <div class="design-cursor"><UIcon name="i-mkt-map-arrow-right-bold-duotone" class="size-7" /><span>Makoto</span></div>
+          <div class="design-cursor"><svg class="size-7" viewBox="0 0 28 28" fill="none"><path d="M4 3L23 14L14 16L10 24L4 3Z" fill="currentColor" stroke="var(--color-background-app)" stroke-width="1.5" stroke-linejoin="round" /></svg><span>Makoto</span></div>
           <div class="design-handle handle-one" /><div class="design-handle handle-two" />
         </template>
         <template v-else-if="index === 1">
@@ -26,7 +26,7 @@ const icons = ['i-mkt-window-frame-line-duotone', 'i-mkt-shopping-bag', 'i-mkt-p
         <template v-else-if="index === 3">
           <div class="site-map">
             <span class="map-root"><UIcon name="i-mkt-www" class="size-7" /></span>
-            <svg viewBox="0 0 200 60" fill="none"><path d="M100 0V25M30 60V25H170V60M100 25V60" /></svg>
+            <svg viewBox="0 0 200 60" preserveAspectRatio="none" fill="none"><path d="M100 0V25M27 60V25H173V60M100 25V60" /></svg>
             <div class="map-pages"><UIcon v-for="i in 3" :key="i" name="i-mkt-document-text-line-duotone" class="size-8" /></div>
           </div>
         </template>
@@ -72,12 +72,12 @@ const icons = ['i-mkt-window-frame-line-duotone', 'i-mkt-shopping-bag', 'i-mkt-p
 .code-icons { position: absolute; left: 1.5rem; bottom: .5rem; display: flex; align-items: center; gap: 1rem; padding: .75rem; background: #18181be6; border: 1px solid #71717a66; border-radius: .75rem; box-shadow: 0 10px 25px #0003; }
 .site-map { position: absolute; width: 13rem; left: calc(50% - 6.5rem); top: 1rem; }
 .map-root { display: grid; place-items: center; margin: auto; width: 3.25rem; height: 3.25rem; border: 1px solid #38bdf866; border-radius: .5rem; color: #38bdf8; background: #0c4a6e33; }
-.site-map svg { width: 100%; height: 3rem; stroke: #559dbb; stroke-width: 1; opacity: .5; }
-.map-pages { display: flex; justify-content: space-between; margin-inline: .75rem; color: #7e9cab; }
+.site-map svg { display: block; width: 100%; height: 3rem; stroke: #559dbb; stroke-width: 1; opacity: .5; }
+.map-pages { display: flex; justify-content: space-between; margin-inline: calc(13.5% - 1rem); color: #7e9cab; }
 .map-pages > * { transition: transform .25s var(--ease-out), color .25s; }
 .care-connection { display: flex; align-items: center; position: absolute; width: 80%; left: 10%; top: 2rem; }
 .care-client { display: grid; place-items: center; flex-shrink: 0; width: 3.5rem; height: 3.5rem; border-radius: 50%; border: 1px solid #38bdf880; background: #164e63; color: #a5f3fc; }
-.care-avatar { width: 5rem; height: 5rem; border-radius: 50%; border: 2px solid #71717a; transition: transform .3s var(--ease-out); }
+.care-avatar { flex: 0 0 5rem; width: 5rem; height: 5rem; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 2px solid #71717a; transition: transform .3s var(--ease-out); }
 .care-connection svg { flex: 1; min-width: 0; }.connection-track { stroke: #6b8a9a; stroke-width: 1; }.connection-pulse { stroke: #38bdf8; stroke-width: 2; stroke-dasharray: 30 200; }
 .care-rings { position: absolute; inset: 0; display: grid; place-items: center; }
 .care-rings span { position: absolute; width: 12rem; height: 12rem; border: 1px solid #7dd3fc12; border-radius: 50%; }.care-rings span:nth-child(2) { width: 20rem; height: 20rem; }.care-rings span:nth-child(3) { width: 28rem; height: 28rem; }

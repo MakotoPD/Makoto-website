@@ -19,9 +19,9 @@ const articleCategories = computed(() => categories.value?.filter(item => (artic
 const cover = computed(() => article.value?.data.cover as { url?: string; alternativeText?: string } | undefined)
 
 const setParams = useSetI18nParams()
-watchEffect(() => {
-  if (article.value) setParams(Object.fromEntries((article.value.translations || []).map(item => [item.locale, { slug: item.slug }])))
-})
+watch(() => article.value?.translations, translations => {
+  if (translations) setParams(Object.fromEntries(translations.map(item => [item.locale, { slug: item.slug }])))
+}, { immediate: true })
 useEntrySeo(article)
 </script>
 

@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict'
 import { spawn } from 'node:child_process'
 import { randomBytes, randomUUID } from 'node:crypto'
-import { mkdir, mkdtemp, rmdir } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rmdir } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import argon2 from 'argon2'
 import * as OTPAuth from 'otpauth'
 import pg from 'pg'
 import sharp from 'sharp'
+import { markdownToDocument } from '../shared/markdown.ts'
 
 const connectionString = process.env.TEST_DATABASE_URL
 if (!connectionString || new URL(connectionString).pathname !== '/makoto_verify' || !['127.0.0.1', 'localhost'].includes(new URL(connectionString).hostname)) {
@@ -107,7 +108,7 @@ try {
   }
 
   const slug = `integration-${randomUUID().slice(0, 8)}`
-  const body = { type: 'doc', content: [{ type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Scope' }] }] }
+  const body = markdownToDocument(await readFile(new URL('./fixtures/markdown-rendering.md', import.meta.url), 'utf8'))
   const entry = { kind: 'article', locale: 'pl', slug, translationGroup: randomUUID(), title: 'Test lokalny', summary: 'Treść testowa', body, sections: [], data: {}, seoTitle: 'Test lokalny', seoDescription: 'Treść testowa', coverMediaId: null }
   await request('/api/admin/entries', jsonPost(entry, cookie, '', false), 403)
   await request('/api/admin/entries', jsonPost(entry, cookie, 'wrong'), 403)
@@ -128,6 +129,7 @@ try {
   entry.body.content.push({ type: 'image', attrs: { src: `/api/media/${mediaId}`, alt: 'Test image' } })
   entry.data = { cover: { url: `/api/media/${mediaId}` } }
   const created = await request('/api/admin/entries', jsonPost(entry, cookie, csrf), 201)
+  assert.deepEqual(created.json.body, JSON.parse(JSON.stringify(entry.body)), 'CMS retains every rich-text node and mark')
   const id = created.json.id
   await request(`/api/content/article?locale=pl&slug=${slug}`, {}, 404)
   await request(`/api/admin/preview/${id}`, {}, 401)
@@ -138,6 +140,8 @@ try {
   await request(`/api/content/article?locale=pl&slug=${slug}`)
   const publicPage = await request(`/pl/blog/${slug}`)
   assert.match(publicPage.text, /Test lokalny/)
+  for (const marker of ['alert-note', 'alert-success', 'alert-info', 'alert-tip', 'alert-important', 'alert-warning', 'alert-caution', '<mark>', '<kbd>', '<sub>', '<sup>', '<h6>', '<table>', 'hljs-keyword']) assert.ok(publicPage.text.includes(marker), `Published SSR retains ${marker}`)
+  await request('/__preview/markdown', {}, 404)
   assert.match(publicPage.text, new RegExp(`rel="canonical" href="https://makoto.com.pl/pl/blog/${slug}"`))
   await request(`/api/media/${mediaId}`)
   const after = await request('/sitemap.xml')
