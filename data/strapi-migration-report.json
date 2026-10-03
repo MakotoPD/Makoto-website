@@ -1,0 +1,21 @@
+{
+  "mode": "dry-run",
+  "storage": "none",
+  "created": 0,
+  "skipped": 0,
+  "mediaCreated": 0,
+  "mediaSkipped": 0,
+  "counts": {
+    "author": 2,
+    "category": 12,
+    "article": 4,
+    "project": 12,
+    "work": 8,
+    "page": 8,
+    "portfolio": 28
+  },
+  "unsupported": [
+    "Markdown table retained in original source only"
+  ],
+  "errors": []
+}

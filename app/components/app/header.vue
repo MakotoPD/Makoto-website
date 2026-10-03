@@ -1,11 +1,11 @@
 <template>
   <div class="w-full py-3 flex justify-center items-center">
-    <div class="fixed top-0 left-0 w-screen h-24">
+    <div class="pointer-events-none fixed top-0 left-0 w-screen h-24">
       <div class="absolute inset-0 overflow-hidden">
         <div class="pointer-events-none absolute inset-0 z-10 opacity-100" style="backdrop-filter:blur(3px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%)"></div>
         <div class="pointer-events-none absolute inset-0 z-20 opacity-100" style="backdrop-filter:blur(5px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 1) 100%)"></div></div>
     </div>
-    <div class="fixed max-w-6xl mx-auto top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-200 dark:border-zinc-600">
+    <nav aria-label="Primary navigation" class="fixed z-50 max-w-6xl mx-auto top-2 left-2 right-2 py-1 px-1 rounded-2xl border border-zinc-200 dark:border-zinc-600">
       <div class="py-1 px-2 rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 shadow-lg">
         <div class="flex justify-between items-center ">
           <div class="flex gap-1">
@@ -29,6 +29,15 @@
               {{ link.label }}
             </UButton>
 
+            <div class="relative" @mouseenter="isServicesOpen = true" @mouseleave="isServicesOpen = false" @focusin="isServicesOpen = true" @focusout="handleServicesFocusOut">
+              <UButton variant="ghost" class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10" :aria-expanded="isServicesOpen" aria-controls="services-dropdown" @click="isServicesOpen = !isServicesOpen" @keydown.escape="isServicesOpen = false">{{ locale === 'pl' ? 'Usługi' : 'Services' }}</UButton>
+              <div v-if="isServicesOpen" id="services-dropdown" class="absolute right-0 top-full z-[100] w-72 pt-2" @keydown.escape="isServicesOpen = false">
+                <div class="rounded-2xl border border-zinc-600/20 bg-white p-2 shadow-xl dark:border-zinc-400/20 dark:bg-black">
+                  <NuxtLink v-for="service in services" :key="service.path" :to="service.path" class="block rounded-xl px-4 py-3 text-sm text-black hover:bg-zinc-300/30 focus-visible:ring-2 focus-visible:ring-sky-400 dark:text-white dark:hover:bg-zinc-700/30">{{ service.label }}</NuxtLink>
+                </div>
+              </div>
+            </div>
+
             <div
               ref="moreMenuContainer"
               class="relative"
@@ -40,7 +49,7 @@
               <UButton
                 variant="ghost"
                 class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 duration-150 hover:bg-gradient-to-t from-zinc-300/60 dark:from-zinc-700/30 to-transparent/10"
-                :aria-expanded="isMoreOpen.toString()"
+                :aria-expanded="isMoreOpen"
                 aria-haspopup="true"
                 aria-controls="more-menu-dropdown"
                 @keydown.escape="isMoreOpen = false"
@@ -105,20 +114,16 @@
                     </div>
                     <div class="flex gap-3 justify-end pr-2 w-full">
                       <p class="test-xm text-neutral-600">{{ $t('changelang') }}:</p>
-                      <ClientOnly>
-                        <div class="flex justify-center gap-x-2">
-                          <button
-                            v-for="locale in availableLocales"
-                            :key="locale.code"
+                      <div v-if="languagePath" class="flex justify-center gap-x-2">
+                          <NuxtLink
+                            :to="languagePath"
                             class="bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-                            :aria-label="`${$t('changelang')}: ${locale.name}`"
-                            @click.prevent.stop="setLocale(locale.code)"
+                            :aria-label="`${$t('changelang')}: ${targetLocale.toUpperCase()}`"
                           >
-                            <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" aria-hidden />
-                            {{ locale.name }}
-                          </button>
+                            <NuxtImg :src="'/lang/'+targetLocale+'.png'" class="object-contain h-4" height="16px" :alt="targetLocale" aria-hidden />
+                            {{ targetLocale.toUpperCase() }}
+                          </NuxtLink>
                         </div>
-                      </ClientOnly>
                     </div>
                   </div>
                 </div>
@@ -147,13 +152,13 @@
               color="primary"
               variant="soft"
               class="text-black dark:text-white"
-              :aria-expanded="isClicked.toString()"
+              :aria-expanded="isClicked"
               aria-controls="mobile-menu"
-              aria-label="Toggle navigation menu"
+                :aria-label="locale === 'pl' ? 'Otwórz menu' : 'Open menu'"
             ></UButton>
           </div>
         </div>
-        <div ref="mobilemenu" id="mobile-menu" class="w-full overflow-hidden max-h-0 transition-all duration-300 text-black dark:text-white">
+        <div ref="mobilemenu" id="mobile-menu" class="w-full overflow-y-auto max-h-0 transition-all duration-300 text-black dark:text-white">
           <div class="py-4 flex flex-col">
             <NuxtLink prefetch :to="localePath('/')" class="flex items-center gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
               <UIcon name="i-mkt-home-smile-line-duotone" class="size-6" aria-hidden />
@@ -171,10 +176,12 @@
               <UIcon name="i-mkt-document-text-line-duotone" class="size-6" aria-hidden />
               {{t('menu.blog')}}
             </NuxtLink>
+            <div class="border-b border-zinc-300 py-2 text-xs uppercase tracking-wider text-zinc-500 dark:border-zinc-700">{{ locale === 'pl' ? 'Usługi' : 'Services' }}</div>
+            <NuxtLink v-for="service in services" :key="service.path" :to="service.path" class="flex items-center gap-3 border-b border-zinc-300 py-2 text-sm focus-visible:ring-2 focus-visible:ring-sky-400 dark:border-zinc-700">{{ service.label }}</NuxtLink>
             <button
               @click="openMoreMobile"
               class="flex items-center justify-between gap-3 border-b border-zinc-300 dark:border-zinc-700 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded"
-              :aria-expanded="toggleMoreMobileButtonIcon.toString()"
+              :aria-expanded="toggleMoreMobileButtonIcon"
               aria-controls="more-menu-mobile"
             >
               <div class="flex items-center gap-3">
@@ -217,35 +224,28 @@
           <div>
             <div class="flex gap-3 justify-end pr-2 w-full">
               <p class="test-xm text-neutral-400">{{ $t('changelang') }}:</p>
-              <ClientOnly>
-                <div class="flex justify-center gap-x-2">
-                  <button
-                    v-for="locale in availableLocales"
-                    :key="locale.code"
+              <div v-if="languagePath" class="flex justify-center gap-x-2">
+                  <NuxtLink
+                    :to="languagePath"
                     class="py-0 bg-zinc-200/60 dark:bg-neutral-800/60 rounded-md border border-neutral-700/50 hover:bg-neutral-800/30 duration-200 px-1 text-neutral-500 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-                    :aria-label="`${$t('changelang')}: ${locale.name}`"
-                    @click.prevent.stop="setLocale(locale.code)"
+                    :aria-label="`${$t('changelang')}: ${targetLocale.toUpperCase()}`"
                   >
-                    <NuxtImg :src="'/lang/'+locale.code+'.png'" class="object-contain h-4" height="16px" :alt="locale.code" aria-hidden />
-                    {{ locale.name }}
-                  </button>
+                    <NuxtImg :src="'/lang/'+targetLocale+'.png'" class="object-contain h-4" height="16px" :alt="targetLocale" aria-hidden />
+                    {{ targetLocale.toUpperCase() }}
+                  </NuxtLink>
                 </div>
-              </ClientOnly>
             </div>
           </div>
         </div>
       </div>
 
-    </div>
+    </nav>
   </div>
 </template>
 
 <script setup lang="ts">
-const { locale, locales, setLocale, t } = useI18n()
-
-const availableLocales = computed(() => {
-  return locales.value.filter(i => i.code)
-})
+const { locale, t } = useI18n()
+const { targetLocale, languagePath } = useAvailableLocaleSwitch()
 
 const localePath = useLocalePath()
 const route = useRoute()
@@ -260,7 +260,7 @@ const moreMenuMobile = ref<HTMLElement | null>(null)
 const togglemobilemenu = (e: Event) => {
   e.preventDefault()
   if (mobilemenu.value) {
-    mobilemenu.value.classList.toggle('max-h-[30rem]')
+    mobilemenu.value.classList.toggle('max-h-[calc(100dvh-6rem)]')
     isClicked.value = !isClicked.value
   }
 }
@@ -275,6 +275,23 @@ const openMoreMobile = () => {
 
 // Desktop "More" dropdown state
 const isMoreOpen = ref(false)
+const isServicesOpen = ref(false)
+const services = computed(() => locale.value === 'pl' ? [
+  { label: 'Strony internetowe', path: '/pl/strony-internetowe' },
+  { label: 'Sklepy internetowe', path: '/pl/sklepy-internetowe' },
+  { label: 'Aplikacje internetowe', path: '/pl/aplikacje-internetowe' },
+  { label: 'Optymalizacja SEO', path: '/pl/optymalizacja-seo' },
+  { label: 'Opieka techniczna', path: '/pl/opieka-techniczna' }
+] : [
+  { label: 'Websites', path: '/websites' },
+  { label: 'Online stores', path: '/online-stores' },
+  { label: 'Web applications', path: '/web-applications' },
+  { label: 'Technical SEO', path: '/technical-seo' },
+  { label: 'Website care', path: '/website-care' }
+])
+const handleServicesFocusOut = (e: FocusEvent) => {
+  if (!(e.currentTarget as HTMLElement)?.contains(e.relatedTarget as Node)) isServicesOpen.value = false
+}
 const moreMenuContainer = ref<HTMLElement | null>(null)
 
 const handleMoreMouseLeave = () => {

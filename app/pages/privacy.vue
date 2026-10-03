@@ -1,54 +1,18 @@
-<template>
-	<div class="pt-44" >
-    <div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
-		<div v-else-if="error">Błąd: {{ error }}</div>
-    
-    <div v-if="privacy?.data">
-      <h1 class="text-6xl pb-1 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-800 dark:via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
-        {{ privacy.data.title }}
-      </h1>
-      <div class="mt-12 container mx-auto">
-        <StrapiBlocksRichText :body="blockNodes" />
-      </div>
-      <div class="container mx-auto mt-4">
-        <p class="text-neutral-400">{{ t('page.privacy.lastupdate') }} <span>{{ new Date(privacy.data.updatedAt).toLocaleDateString()}}</span></p>
-      </div>
-    </div>
-
-
-  </div>
-</template>
-
-<script lang="ts" setup>
-const { t, locale } = useI18n()
-const { find } = useStrapi()
-
-const queryParams = computed(() => {
-  return {
-    locale: locale.value,
-  }
-})
-
-const { data: privacy, pending, error, refresh } = useAsyncData(
-  () => `Privacy-${locale.value}`,
-  () => find('Privacy', queryParams.value),
-  {
-    watch: [() => locale.value]
-  }
+<script setup lang="ts">
+import type { PublicEntry } from '#shared/content'
+const { locale } = useI18n()
+const { data: page, error } = await useAsyncData(
+  () => `privacy-${locale.value}`,
+  () => $fetch<PublicEntry>('/api/content/page', { query: { locale: locale.value, slug: 'privacy' } }),
+  { watch: [locale] }
 )
-
-console.log(privacy)
-
-const blockNodes = computed(() => privacy.value?.data?.description ?? [])
-
-const title = computed(() => t('page.privacy.seo.title'))
-const description = computed(() => t('page.privacy.seo.description'))
-
-// Ustawianie metadanych SEO
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: title,
-  ogDescription: description,
-})
+if (error.value) throw createError({ statusCode: error.value.statusCode || 500, statusMessage: error.value.statusMessage || 'Content unavailable' })
+if (!page.value) throw createError({ statusCode: 404 })
+useEntrySeo(page)
 </script>
+<template>
+  <article v-if="page" class="mx-auto max-w-4xl px-5 pb-24 pt-40 text-zinc-100">
+    <h1 class="font-serif text-5xl">{{ page.title }}</h1>
+    <ContentDocument class="mt-10" :document="page.body" />
+  </article>
+</template>

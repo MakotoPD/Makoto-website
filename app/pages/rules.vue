@@ -1,49 +1,18 @@
-<template>
-	<div class="pt-44">
-    <div v-if="pending" class="w-full max-w-4xl mx-auto px-12">Ładowanie...</div>
-		<div v-else-if="error">Błąd: {{ error }}</div>
-
-    <div v-if="rule?.data">
-      <h1 class="text-6xl pb-1 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-800 dark:via-zinc-200 to-zinc-50 bg-clip-text text-transparent">
-        {{ rule.data.title }}
-      </h1>
-      <div class="mt-12 container mx-auto">
-        <StrapiBlocksRichText :body="blockNodes" />
-      </div>
-    </div>
-  </div>
-</template>
-
-<script lang="ts" setup>
-const { t, locale } = useI18n()
-const { find } = useStrapi()
-
-const queryParams = computed(() => {
-  return {
-    locale: locale.value,
-  }
-})
-
-const { data: rule, pending, error, refresh } = useAsyncData(
-  () => `Rule-${locale.value}`,
-  () => find('Rule', queryParams.value),
-  {
-    watch: [() => locale.value]
-  }
+<script setup lang="ts">
+import type { PublicEntry } from '#shared/content'
+const { locale } = useI18n()
+const { data: page, error } = await useAsyncData(
+  () => `rules-${locale.value}`,
+  () => $fetch<PublicEntry>('/api/content/page', { query: { locale: locale.value, slug: 'rules' } }),
+  { watch: [locale] }
 )
-
-console.log(rule)
-
-const blockNodes = computed(() => rule.value?.data?.description ?? [])
-
-const title = computed(() => t('page.rules.seo.title'))
-const description = computed(() => t('page.rules.seo.description'))
-
-// Ustawianie metadanych SEO
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: title,
-  ogDescription: description,
-})
+if (error.value) throw createError({ statusCode: error.value.statusCode || 500, statusMessage: error.value.statusMessage || 'Content unavailable' })
+if (!page.value) throw createError({ statusCode: 404 })
+useEntrySeo(page)
 </script>
+<template>
+  <article v-if="page" class="mx-auto max-w-4xl px-5 pb-24 pt-40 text-zinc-100">
+    <h1 class="font-serif text-5xl">{{ page.title }}</h1>
+    <ContentDocument class="mt-10" :document="page.body" />
+  </article>
+</template>

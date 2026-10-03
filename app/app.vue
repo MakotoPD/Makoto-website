@@ -7,7 +7,7 @@
       </NuxtLayout>
     </div>
 
-    <UiCookieConsent />
+    <UiCookieConsent v-if="!technical" />
 
     <div class="custom-cursor">
       <div ref="cursorRef" class="custom-cursor__cursor"></div>
@@ -91,41 +91,61 @@
 
 
 <script setup lang="ts">
-import { gsap } from "gsap";
-const { locale, locales } = useI18n()
+const route = useRoute()
+const { locale } = useI18n()
+const localeHead = useLocaleHead({ seo: false })
+const site = 'https://makoto.com.pl'
+const staticPairs = new Set(['/', '/about', '/work', '/blog', '/portfolio', '/uses', '/faq', '/links', '/privacy', '/rules'])
+const path = computed(() => route.path.replace(/\/+$/, '') || '/')
+const technical = computed(() => /^\/(?:pl\/)?(panel|admin|preview)(\/|$)/.test(path.value))
+const basePath = computed(() => path.value === '/pl' ? '/' : path.value.replace(/^\/pl(?=\/)/, ''))
 
-onMounted(() => {
-  if (innerWidth > 1023) {
-    gsap.set(".custom-cursor", {xPercent: -50, yPercent: -50});
-
-    let xTo = gsap.quickTo(".custom-cursor__cursor", "x", {duration: 0.3, ease: "power3"}),
-        yTo = gsap.quickTo(".custom-cursor__cursor", "y", {duration: 0.3, ease: "power3"}),
-        xTo2 = gsap.quickTo(".custom-cursor__follower", "x", {duration: 0.5, ease: "power3"}),
-        yTo2 = gsap.quickTo(".custom-cursor__follower", "y", {duration: 0.5, ease: "power3"});
-
-    window.addEventListener("mousemove", e => {
-      xTo(e.clientX);
-      yTo(e.clientY);
-      xTo2(e.clientX);
-      yTo2(e.clientY);
-  });
-  }
-
-
-})
-
-
-// Znajdź pełne dane dla bieżącego locale
-const currentLocale = computed(() => {
-  return locales.value.find(l => l.code === locale.value)
-})
-
-// Użyj useHead do dynamicznego ustawienia atrybutów
 useHead({
   htmlAttrs: {
-    lang: () => currentLocale.value?.code,
-    dir: () => currentLocale.value?.dir
-  }
+    lang: () => localeHead.value.htmlAttrs?.lang || (locale.value === 'pl' ? 'pl-PL' : 'en-US'),
+    dir: () => localeHead.value.htmlAttrs?.dir || 'ltr'
+  },
+  link: computed(() => {
+    if (technical.value) return []
+    const links: ({ key: string; rel: 'canonical'; href: string } | { key: string; rel: 'alternate'; href: string; type: 'text/html'; hreflang: string })[] = [{ key: 'canonical', rel: 'canonical', href: `${site}${path.value}` }]
+    if (staticPairs.has(basePath.value)) {
+      const en = `${site}${basePath.value}`
+      const pl = `${site}${basePath.value === '/' ? '/pl' : `/pl${basePath.value}`}`
+      return [
+        ...links,
+        { key: 'alternate-en', rel: 'alternate', hreflang: 'en-US', href: en, type: 'text/html' },
+        { key: 'alternate-pl', rel: 'alternate', hreflang: 'pl-PL', href: pl, type: 'text/html' },
+        { key: 'alternate-default', rel: 'alternate', hreflang: 'x-default', href: en, type: 'text/html' }
+      ]
+    }
+    return links
+  }),
+  script: computed(() => {
+    if (path.value !== '/' && path.value !== '/pl') return []
+    const graph = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'WebSite', name: 'Makoto', url: `${site}/`, inLanguage: ['pl-PL', 'en-US'] },
+        { '@type': 'Person', name: 'Patryk Dąbrowski', url: `${site}/about`, email: 'contact@makoto.com.pl' }
+      ]
+    }
+    return [{ key: 'site-schema', type: 'application/ld+json', innerHTML: JSON.stringify(graph).replace(/</g, '\\u003c') }]
+  })
 })
+useSeoMeta({ robots: () => technical.value ? 'noindex, nofollow' : 'index, follow' })
 
+let stopCursor: (() => void) | undefined
+onMounted(async () => {
+  if (window.innerWidth <= 1023 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  const { gsap } = await import('gsap')
+  gsap.set('.custom-cursor', { xPercent: -50, yPercent: -50 })
+  const x = gsap.quickTo('.custom-cursor__cursor', 'x', { duration: 0.3, ease: 'power3' })
+  const y = gsap.quickTo('.custom-cursor__cursor', 'y', { duration: 0.3, ease: 'power3' })
+  const fx = gsap.quickTo('.custom-cursor__follower', 'x', { duration: 0.5, ease: 'power3' })
+  const fy = gsap.quickTo('.custom-cursor__follower', 'y', { duration: 0.5, ease: 'power3' })
+  const move = (event: MouseEvent) => { x(event.clientX); y(event.clientY); fx(event.clientX); fy(event.clientY) }
+  window.addEventListener('mousemove', move)
+  stopCursor = () => window.removeEventListener('mousemove', move)
+})
+onUnmounted(() => stopCursor?.())
 </script>

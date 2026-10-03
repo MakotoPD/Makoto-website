@@ -10,7 +10,20 @@ const report = { source: base, exportedAt: new Date().toISOString(), records: {}
 async function request(name, locale, page = 1) {
   const url = new URL(`/api/${name}`, base)
   if (name !== 'Portfolios' && name !== 'link') url.searchParams.set('locale', locale)
-  url.searchParams.set('populate', '*')
+  if (name === 'articles') {
+    for (const [field, value] of Object.entries({
+      'populate[cover]': 'true',
+      'populate[author][populate]': '*',
+      'populate[categories]': 'true',
+      'populate[localizations]': 'true',
+      'populate[blocks][populate]': '*'
+    })) url.searchParams.set(field, value)
+  } else if (name === 'about') {
+    url.searchParams.set('populate[blocks][populate]', '*')
+    url.searchParams.set('populate[localizations]', 'true')
+  } else {
+    url.searchParams.set('populate', '*')
+  }
   url.searchParams.set('pagination[page]', String(page))
   url.searchParams.set('pagination[pageSize]', '100')
   const response = await fetch(url, { headers: process.env.STRAPI_TOKEN ? { Authorization: `Bearer ${process.env.STRAPI_TOKEN}` } : {} })

@@ -1,30 +1,22 @@
-<template>
-	<div class="pt-44">
-		<h1 class="text-6xl pb-2 text-center italic bg-gradient-to-b bg-linear-to-b from-zinc-700 via-zinc-800 dark:via-zinc-200 to-zinc-50  bg-clip-text text-transparent">
-			{{ t('page.work.hero.title') }}
-		</h1>
-		<h2 class="serif text-4xl text-center text-zinc-400 max-w-4xl mx-auto">
-			{{ t('page.work.hero.description') }}
-		</h2>
-		<div class="container mx-auto mt-24">
-			<AppProjects/>
-		</div>
-	</div>
-</template>
-
 <script setup lang="ts">
-
-const { t, locale } = useI18n()
-
-
-
-const title = computed(() => t('page.work.seo.title'))
-const description = computed(() => t('page.work.seo.description'))
-
+import type { PublicEntry } from '#shared/content'
+const { locale } = useI18n()
+const { data: projects, error } = await useAsyncData(
+  () => `projects-${locale.value}`,
+  () => $fetch<PublicEntry[]>('/api/content/project', { query: { locale: locale.value } }),
+  { watch: [locale] }
+)
+if (error.value) throw createError({ statusCode: error.value.statusCode || 500, statusMessage: error.value.statusMessage || 'Content unavailable' })
 useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: title,
-  ogDescription: description,
+  title: () => locale.value === 'pl' ? 'Realizacje i zakres mojej pracy | Makoto' : 'Projects and my role | Makoto',
+  description: () => locale.value === 'pl' ? 'Wybrane strony, sklepy i aplikacje wraz z opisem mojego zakresu pracy.' : 'Selected websites, stores and applications with details of my contribution.'
 })
 </script>
+
+<template>
+  <div class="mx-auto max-w-6xl px-5 pb-24 pt-44 text-black dark:text-white">
+    <h1 class="makoto-heading pb-2 text-center text-6xl">{{ locale === 'pl' ? 'Realizacje' : 'Selected work' }}</h1>
+    <p class="serif text-center text-4xl text-zinc-400">{{ locale === 'pl' ? 'Wybrane projekty' : 'Projects I have worked on' }}</p>
+    <ContentProjectShowcase v-if="projects?.length" class="mt-24" :projects="projects" />
+  </div>
+</template>

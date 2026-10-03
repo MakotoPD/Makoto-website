@@ -27,19 +27,21 @@ import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
 
 const modelRef = ref()
 
-const { onLoop } = useRenderLoop()
 const yRotation = shallowRef(0)
-onLoop(({ delta }) => {
-	yRotation.value += 0.02 * delta
-})
-onMounted(() => {
-	onLoop(({ delta }) => {
-		if (modelRef.value) {
-			modelRef.value.rotation.y -= delta * 0.8
-			modelRef.value.position.y = progress.value * 2
-		}
-	})
-})
+let frameId = 0
+let lastFrame = 0
+const animate = (time: number) => {
+  const delta = lastFrame ? Math.min((time - lastFrame) / 1000, .1) : 0
+  lastFrame = time
+  yRotation.value += 0.02 * delta
+  if (modelRef.value) {
+    modelRef.value.rotation.y -= delta * 0.8
+    modelRef.value.position.y = progress.value * 2
+  }
+  frameId = requestAnimationFrame(animate)
+}
+onMounted(() => { frameId = requestAnimationFrame(animate) })
+onUnmounted(() => cancelAnimationFrame(frameId))
 
 const progress = ref(0)
 

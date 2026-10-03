@@ -31,6 +31,7 @@ const colorMode = useColorMode()
 const containerRef = ref<HTMLDivElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 let globe: any = null
+let animationFrame = 0
 let phi = 0
 let width = 0
 const canvasOpacity = ref(0)
@@ -39,13 +40,11 @@ let pointerInteracting: number | null = null
 function resizeGlobe() {
   if (containerRef.value && canvasRef.value) {
     width = containerRef.value.offsetWidth
-    if (globe && typeof globe.resize === 'function') {
-      globe.resize(width * 2, width * 2 * 0.4)
-    }
+    globe?.update?.({ width: width * 2, height: width * 2 * 0.4 })
   }
 }
 
-const MARKERS = [
+const MARKERS: { location: [number, number]; size: number }[] = [
   { location: [37.7595, -122.4367], size: 0.05 },
   { location: [40.7128, -74.006], size: 0.1 },
   { location: [52.1423, 20.3612], size: 0.1 },
@@ -59,6 +58,7 @@ async function createOrUpdateGlobe() {
 
   // Zniszcz stary glob przed stworzeniem nowego
   if (globe?.destroy) globe.destroy()
+  cancelAnimationFrame(animationFrame)
   canvasOpacity.value = 0
 
   try {
@@ -85,15 +85,14 @@ async function createOrUpdateGlobe() {
         : [168 / 225, 202 / 255, 219 / 255],
       offset: [0, -0.3],
       markers: MARKERS,
-      onRender: (state: any) => {
-        if (!pointerInteracting) phi += 0.004
-        state.phi = phi
-        state.width = width * 2
-        state.height = width * 2 * 0.7
-        state.scale = 1.5
-        state.offset = [0, -0.3]
-      },
     })
+
+    const render = () => {
+      if (!pointerInteracting) phi += 0.004
+      globe?.update?.({ phi, width: width * 2, height: width * 2 * 0.7, scale: 1.5, offset: [0, -0.3] })
+      animationFrame = requestAnimationFrame(render)
+    }
+    animationFrame = requestAnimationFrame(render)
 
     canvasOpacity.value = 1
     canvasRef.value.addEventListener('contextmenu', e => e.preventDefault())
@@ -111,6 +110,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopColorWatch?.()
+  cancelAnimationFrame(animationFrame)
   globe?.destroy?.()
   window.removeEventListener('resize', resizeGlobe)
 })

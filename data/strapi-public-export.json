@@ -1,6 +1,6 @@
 {
   "source": "https://api.makoto.com.pl",
-  "exportedAt": "2026-10-02T22:19:34.109Z",
+  "exportedAt": "2026-10-02T22:35:55.958Z",
   "records": {
     "articles:en": [
       {
@@ -90,7 +90,123 @@
           "email": "contact@makoto.com.pl",
           "createdAt": "2025-09-16T20:16:08.276Z",
           "updatedAt": "2026-02-01T08:23:37.886Z",
-          "publishedAt": "2026-02-01T08:23:37.805Z"
+          "publishedAt": "2026-02-01T08:23:37.805Z",
+          "avatar": {
+            "id": 30,
+            "documentId": "nczp7fgarrnqrts32uq3l0ts",
+            "name": "avatar-square.webp",
+            "alternativeText": null,
+            "caption": null,
+            "width": 1412,
+            "height": 1412,
+            "formats": {
+              "large": {
+                "ext": ".webp",
+                "url": "/uploads/large_avatar_square_7e52eabd7f.webp",
+                "hash": "large_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "large_avatar-square.webp",
+                "path": null,
+                "size": 20.31,
+                "width": 1000,
+                "height": 1000,
+                "sizeInBytes": 20314
+              },
+              "small": {
+                "ext": ".webp",
+                "url": "/uploads/small_avatar_square_7e52eabd7f.webp",
+                "hash": "small_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "small_avatar-square.webp",
+                "path": null,
+                "size": 8.81,
+                "width": 500,
+                "height": 500,
+                "sizeInBytes": 8806
+              },
+              "medium": {
+                "ext": ".webp",
+                "url": "/uploads/medium_avatar_square_7e52eabd7f.webp",
+                "hash": "medium_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "medium_avatar-square.webp",
+                "path": null,
+                "size": 14.19,
+                "width": 750,
+                "height": 750,
+                "sizeInBytes": 14190
+              },
+              "thumbnail": {
+                "ext": ".webp",
+                "url": "/uploads/thumbnail_avatar_square_7e52eabd7f.webp",
+                "hash": "thumbnail_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "thumbnail_avatar-square.webp",
+                "path": null,
+                "size": 2.14,
+                "width": 156,
+                "height": 156,
+                "sizeInBytes": 2144
+              }
+            },
+            "hash": "avatar_square_7e52eabd7f",
+            "ext": ".webp",
+            "mime": "image/webp",
+            "size": 33.6,
+            "url": "/uploads/avatar_square_7e52eabd7f.webp",
+            "previewUrl": null,
+            "provider": "local",
+            "provider_metadata": null,
+            "createdAt": "2025-09-16T20:15:56.138Z",
+            "updatedAt": "2026-02-19T10:31:54.335Z",
+            "publishedAt": "2025-09-16T20:15:56.139Z"
+          },
+          "articles": [
+            {
+              "id": 14,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "My first test blog post",
+              "description": "test short description",
+              "slug": "my-first-blog-post",
+              "createdAt": "2025-09-30T19:30:22.904Z",
+              "updatedAt": "2026-02-01T08:52:40.232Z",
+              "publishedAt": "2026-02-01T08:52:43.174Z",
+              "locale": "en"
+            },
+            {
+              "id": 9,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Introducing Denalify",
+              "description": "Meet Denalify - the Kanban app with no user limits and native integrations.",
+              "slug": "introducing-denalify",
+              "createdAt": "2026-01-26T10:14:32.142Z",
+              "updatedAt": "2026-02-01T08:47:17.156Z",
+              "publishedAt": "2026-02-01T08:47:20.572Z",
+              "locale": "en"
+            },
+            {
+              "id": 11,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Przedstawiam Denalify",
+              "description": "Poznaj Denalify - aplikację Kanban bez limitów użytkowników i z integracjami.",
+              "slug": "przedstawiam-denalify",
+              "createdAt": "2026-02-01T08:50:52.130Z",
+              "updatedAt": "2026-02-01T08:50:52.130Z",
+              "publishedAt": "2026-02-01T08:50:54.738Z",
+              "locale": "pl"
+            },
+            {
+              "id": 13,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "Mój pierwszy test post",
+              "description": "test krótkiego opisu",
+              "slug": "my-first-blog-post",
+              "createdAt": "2026-02-01T08:52:13.209Z",
+              "updatedAt": "2026-02-01T08:52:13.209Z",
+              "publishedAt": "2026-02-01T08:52:15.423Z",
+              "locale": "pl"
+            }
+          ]
         },
         "categories": [
           {
@@ -124,22 +240,6 @@
             "publishedAt": "2026-01-26T10:30:59.433Z"
           }
         ],
-        "blocks": [
-          {
-            "__component": "shared.rich-text",
-            "id": 16,
-            "body": "# Introducing Denalify - The Next-Generation Kanban App\n---\n\n## Breaking the Limits of Traditional Project Management\n\nAfter spending countless hours wrestling with the limitations of existing project management tools like Trello, Asana, and Monday.com, I decided it was time to build something better. Something that doesn't cap your team size behind expensive paywalls. Something that integrates seamlessly with your entire tech stack.\n\n<mark>Introducing **Denalify**</mark> - a modern, open-source Kanban application built for teams who refuse to compromise.\n\n> [!TIP]\n> Denalify is currently in active development. Follow this blog to stay updated on new features and release dates!\n"
-          },
-          {
-            "__component": "shared.media",
-            "id": 5
-          },
-          {
-            "__component": "shared.rich-text",
-            "id": 17,
-            "body": "\n## 💡 Why Another Kanban App?\n\nLet's be honest - the current landscape of project management tools is riddled with frustrating limitations:\n\n| Problem | How Denalify Solves It |\n|---------|----------------------|\n| **User Limits** | No artificial caps on team members |\n| **Integration Limits** | Native Discord, Slack, GitHub & Google Calendar sync |\n| **Real-time Collaboration** | Built-in WebSocket support for instant updates |\n| **Enterprise Security** | 2FA with recovery codes, OAuth, and more |\n| **Subscription Lock-in** | Open development with transparent pricing |\n\n> [!IMPORTANT]\n> Unlike competitors that charge per seat or limit integrations to premium tiers, Denalify is designed with **unlimited collaboration** in mind from day one.\n\n---\n\n## 🛠️ The Tech Stack\n\nDenalify is engineered with a modern, scalable architecture:\n\n### Frontend\n- **Framework:** Nuxt 4 (the latest and greatest!)\n- **UI Library:** Nuxt UI v3\n- **State Management:** Pinia\n- **Real-time:** Socket.io\n- **Drag & Drop:** vuedraggable\n\n### Backend  \n- **Framework:** AdonisJS v6\n- **Database:** PostgreSQL\n- **Auth:** Session-based + OAuth (Google, GitHub, Discord) + 2FA\n- **Payments:** Stripe integration\n- **Background Jobs:** BullMQ\n- **File Storage:** AWS S3\n\n> [!SUCCESS]\n> The stack is production-ready and built for scale from the ground up!\n\n---\n\n## ✅ Features Already Implemented\n\nEven in this early stage, Denalify already packs a punch:\n\n### Organizations & Projects\n- 🏢 Multi-tenant architecture\n- 👥 Team roles and invitations with email notifications\n- 📁 Multiple projects per organization\n- 🎨 Custom branding (logos & icons)\n\n### Kanban Boards\n- 📋 Drag-and-drop columns and tasks\n- 🖼️ Custom board backgrounds\n- 📝 Rich task descriptions with Tiptap editor\n- ✅ Checklists within tasks\n- 🏷️ Color-coded labels and priorities\n\n### Task Management\n- 👤 Multiple assignees per task\n- ⏰ Deadline tracking with visual indicators\n- 📎 File attachments\n- 💬 Comments with attachments\n- 📜 Activity history (audit log)\n- 🔢 Smart task numbering (<kbd>PRJ-123</kbd> format)\n\n### Integrations\n- 🎮 **Discord Webhook** - Get notifications in your server\n- 💼 **Slack Webhook** - Stay updated in Slack channels\n- 🐙 **GitHub Commit Linking** - Link commits directly to tasks\n- 📅 **Google Calendar** - Sync deadlines automatically\n- 🔗 **Custom Webhooks** - Build your own integrations\n\n### Security & Billing\n- 🔐 Two-Factor Authentication with recovery codes\n- 🔑 OAuth login (Google, GitHub, Discord)\n- 💳 Stripe subscription management\n- ✉️ Transactional emails for all key events\n\n---\n\n## 🔮 What's Already There & What's Coming\n\n> [!SUCCESS]\n> Many enterprise features are **already implemented** - here's the current status:\n\n### ✅ Already Implemented\n- [x] **\"My Tasks\" dashboard** - Personal task view with list/kanban modes, filters & sorting\n- [x] **Teams/Groups management** - Create teams, assign leaders, colorful organization\n- [x] **Analytics dashboard** - Cumulative flow charts, workload balance, KPIs (cycle time, throughput)\n- [x] **Audit logging** - Full activity history with search, export to CSV, trend statistics\n- [x] **Task templates** - Pre-defined templates with checklists and priorities\n- [x] **Real-time notifications** - WebSocket-powered notification system\n- [X] **Global search** - Backend search API ready\n\n### 🚧 In Active Development\n- [ ] In-app notification center UI (bell icon dropdown)\n- [ ] Subtasks with hierarchy (parent-child tasks)\n- [ ] Board templates (Scrum, Kanban presets)\n- [ ] Archiving system\n\n### 🔮 Coming Soon - Enterprise Features\n- [ ] Advanced RBAC (granular permissions per board)\n- [ ] Workflow automation (auto-move, triggers)\n- [ ] Time tracking per task\n- [ ] Gantt chart view\n- [ ] SSO (SAML 2.0, OpenID Connect)\n\n---\n\n## 🤝 Join the Journey\n\nDenalify is more than just a tool - it's a vision for what project management *should* be. No arbitrary limits. No feature gatekeeping. Just powerful, intuitive collaboration.\n\n> [!CAUTION]\n> This is an early-stage project. Expect rapid changes and improvements as development progresses!\n\n**Want to stay updated?** Follow this blog and watch for upcoming announcements!\n\n\n<sub>© 2026 Denalify - Built with ❤️ and ☕</sub>"
-          }
-        ],
         "localizations": [
           {
             "id": 11,
@@ -151,6 +251,92 @@
             "updatedAt": "2026-02-01T08:50:52.130Z",
             "publishedAt": "2026-02-01T08:50:54.738Z",
             "locale": "pl"
+          }
+        ],
+        "blocks": [
+          {
+            "__component": "shared.rich-text",
+            "id": 16,
+            "body": "# Introducing Denalify - The Next-Generation Kanban App\n---\n\n## Breaking the Limits of Traditional Project Management\n\nAfter spending countless hours wrestling with the limitations of existing project management tools like Trello, Asana, and Monday.com, I decided it was time to build something better. Something that doesn't cap your team size behind expensive paywalls. Something that integrates seamlessly with your entire tech stack.\n\n<mark>Introducing **Denalify**</mark> - a modern, open-source Kanban application built for teams who refuse to compromise.\n\n> [!TIP]\n> Denalify is currently in active development. Follow this blog to stay updated on new features and release dates!\n"
+          },
+          {
+            "__component": "shared.media",
+            "id": 5,
+            "file": {
+              "id": 45,
+              "documentId": "vyj8q918hf9aq2lt6vo9882e",
+              "name": "dashboard.png",
+              "alternativeText": null,
+              "caption": null,
+              "width": 1917,
+              "height": 962,
+              "formats": {
+                "large": {
+                  "ext": ".png",
+                  "url": "/uploads/large_dashboard_628af0896d.png",
+                  "hash": "large_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "large_dashboard.png",
+                  "path": null,
+                  "size": 216.44,
+                  "width": 1000,
+                  "height": 502,
+                  "sizeInBytes": 216437
+                },
+                "small": {
+                  "ext": ".png",
+                  "url": "/uploads/small_dashboard_628af0896d.png",
+                  "hash": "small_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "small_dashboard.png",
+                  "path": null,
+                  "size": 61.75,
+                  "width": 500,
+                  "height": 251,
+                  "sizeInBytes": 61752
+                },
+                "medium": {
+                  "ext": ".png",
+                  "url": "/uploads/medium_dashboard_628af0896d.png",
+                  "hash": "medium_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "medium_dashboard.png",
+                  "path": null,
+                  "size": 125.44,
+                  "width": 750,
+                  "height": 376,
+                  "sizeInBytes": 125439
+                },
+                "thumbnail": {
+                  "ext": ".png",
+                  "url": "/uploads/thumbnail_dashboard_628af0896d.png",
+                  "hash": "thumbnail_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "thumbnail_dashboard.png",
+                  "path": null,
+                  "size": 20.74,
+                  "width": 245,
+                  "height": 123,
+                  "sizeInBytes": 20737
+                }
+              },
+              "hash": "dashboard_628af0896d",
+              "ext": ".png",
+              "mime": "image/png",
+              "size": 124.07,
+              "url": "/uploads/dashboard_628af0896d.png",
+              "previewUrl": null,
+              "provider": "local",
+              "provider_metadata": null,
+              "createdAt": "2026-01-26T10:38:55.553Z",
+              "updatedAt": "2026-02-19T10:30:35.523Z",
+              "publishedAt": "2026-01-26T10:38:55.554Z"
+            }
+          },
+          {
+            "__component": "shared.rich-text",
+            "id": 17,
+            "body": "\n## 💡 Why Another Kanban App?\n\nLet's be honest - the current landscape of project management tools is riddled with frustrating limitations:\n\n| Problem | How Denalify Solves It |\n|---------|----------------------|\n| **User Limits** | No artificial caps on team members |\n| **Integration Limits** | Native Discord, Slack, GitHub & Google Calendar sync |\n| **Real-time Collaboration** | Built-in WebSocket support for instant updates |\n| **Enterprise Security** | 2FA with recovery codes, OAuth, and more |\n| **Subscription Lock-in** | Open development with transparent pricing |\n\n> [!IMPORTANT]\n> Unlike competitors that charge per seat or limit integrations to premium tiers, Denalify is designed with **unlimited collaboration** in mind from day one.\n\n---\n\n## 🛠️ The Tech Stack\n\nDenalify is engineered with a modern, scalable architecture:\n\n### Frontend\n- **Framework:** Nuxt 4 (the latest and greatest!)\n- **UI Library:** Nuxt UI v3\n- **State Management:** Pinia\n- **Real-time:** Socket.io\n- **Drag & Drop:** vuedraggable\n\n### Backend  \n- **Framework:** AdonisJS v6\n- **Database:** PostgreSQL\n- **Auth:** Session-based + OAuth (Google, GitHub, Discord) + 2FA\n- **Payments:** Stripe integration\n- **Background Jobs:** BullMQ\n- **File Storage:** AWS S3\n\n> [!SUCCESS]\n> The stack is production-ready and built for scale from the ground up!\n\n---\n\n## ✅ Features Already Implemented\n\nEven in this early stage, Denalify already packs a punch:\n\n### Organizations & Projects\n- 🏢 Multi-tenant architecture\n- 👥 Team roles and invitations with email notifications\n- 📁 Multiple projects per organization\n- 🎨 Custom branding (logos & icons)\n\n### Kanban Boards\n- 📋 Drag-and-drop columns and tasks\n- 🖼️ Custom board backgrounds\n- 📝 Rich task descriptions with Tiptap editor\n- ✅ Checklists within tasks\n- 🏷️ Color-coded labels and priorities\n\n### Task Management\n- 👤 Multiple assignees per task\n- ⏰ Deadline tracking with visual indicators\n- 📎 File attachments\n- 💬 Comments with attachments\n- 📜 Activity history (audit log)\n- 🔢 Smart task numbering (<kbd>PRJ-123</kbd> format)\n\n### Integrations\n- 🎮 **Discord Webhook** - Get notifications in your server\n- 💼 **Slack Webhook** - Stay updated in Slack channels\n- 🐙 **GitHub Commit Linking** - Link commits directly to tasks\n- 📅 **Google Calendar** - Sync deadlines automatically\n- 🔗 **Custom Webhooks** - Build your own integrations\n\n### Security & Billing\n- 🔐 Two-Factor Authentication with recovery codes\n- 🔑 OAuth login (Google, GitHub, Discord)\n- 💳 Stripe subscription management\n- ✉️ Transactional emails for all key events\n\n---\n\n## 🔮 What's Already There & What's Coming\n\n> [!SUCCESS]\n> Many enterprise features are **already implemented** - here's the current status:\n\n### ✅ Already Implemented\n- [x] **\"My Tasks\" dashboard** - Personal task view with list/kanban modes, filters & sorting\n- [x] **Teams/Groups management** - Create teams, assign leaders, colorful organization\n- [x] **Analytics dashboard** - Cumulative flow charts, workload balance, KPIs (cycle time, throughput)\n- [x] **Audit logging** - Full activity history with search, export to CSV, trend statistics\n- [x] **Task templates** - Pre-defined templates with checklists and priorities\n- [x] **Real-time notifications** - WebSocket-powered notification system\n- [X] **Global search** - Backend search API ready\n\n### 🚧 In Active Development\n- [ ] In-app notification center UI (bell icon dropdown)\n- [ ] Subtasks with hierarchy (parent-child tasks)\n- [ ] Board templates (Scrum, Kanban presets)\n- [ ] Archiving system\n\n### 🔮 Coming Soon - Enterprise Features\n- [ ] Advanced RBAC (granular permissions per board)\n- [ ] Workflow automation (auto-move, triggers)\n- [ ] Time tracking per task\n- [ ] Gantt chart view\n- [ ] SSO (SAML 2.0, OpenID Connect)\n\n---\n\n## 🤝 Join the Journey\n\nDenalify is more than just a tool - it's a vision for what project management *should* be. No arbitrary limits. No feature gatekeeping. Just powerful, intuitive collaboration.\n\n> [!CAUTION]\n> This is an early-stage project. Expect rapid changes and improvements as development progresses!\n\n**Want to stay updated?** Follow this blog and watch for upcoming announcements!\n\n\n<sub>© 2026 Denalify - Built with ❤️ and ☕</sub>"
           }
         ]
       },
@@ -241,7 +427,123 @@
           "email": "contact@makoto.com.pl",
           "createdAt": "2025-09-16T20:16:08.276Z",
           "updatedAt": "2026-02-01T08:23:37.886Z",
-          "publishedAt": "2026-02-01T08:23:37.805Z"
+          "publishedAt": "2026-02-01T08:23:37.805Z",
+          "avatar": {
+            "id": 30,
+            "documentId": "nczp7fgarrnqrts32uq3l0ts",
+            "name": "avatar-square.webp",
+            "alternativeText": null,
+            "caption": null,
+            "width": 1412,
+            "height": 1412,
+            "formats": {
+              "large": {
+                "ext": ".webp",
+                "url": "/uploads/large_avatar_square_7e52eabd7f.webp",
+                "hash": "large_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "large_avatar-square.webp",
+                "path": null,
+                "size": 20.31,
+                "width": 1000,
+                "height": 1000,
+                "sizeInBytes": 20314
+              },
+              "small": {
+                "ext": ".webp",
+                "url": "/uploads/small_avatar_square_7e52eabd7f.webp",
+                "hash": "small_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "small_avatar-square.webp",
+                "path": null,
+                "size": 8.81,
+                "width": 500,
+                "height": 500,
+                "sizeInBytes": 8806
+              },
+              "medium": {
+                "ext": ".webp",
+                "url": "/uploads/medium_avatar_square_7e52eabd7f.webp",
+                "hash": "medium_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "medium_avatar-square.webp",
+                "path": null,
+                "size": 14.19,
+                "width": 750,
+                "height": 750,
+                "sizeInBytes": 14190
+              },
+              "thumbnail": {
+                "ext": ".webp",
+                "url": "/uploads/thumbnail_avatar_square_7e52eabd7f.webp",
+                "hash": "thumbnail_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "thumbnail_avatar-square.webp",
+                "path": null,
+                "size": 2.14,
+                "width": 156,
+                "height": 156,
+                "sizeInBytes": 2144
+              }
+            },
+            "hash": "avatar_square_7e52eabd7f",
+            "ext": ".webp",
+            "mime": "image/webp",
+            "size": 33.6,
+            "url": "/uploads/avatar_square_7e52eabd7f.webp",
+            "previewUrl": null,
+            "provider": "local",
+            "provider_metadata": null,
+            "createdAt": "2025-09-16T20:15:56.138Z",
+            "updatedAt": "2026-02-19T10:31:54.335Z",
+            "publishedAt": "2025-09-16T20:15:56.139Z"
+          },
+          "articles": [
+            {
+              "id": 14,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "My first test blog post",
+              "description": "test short description",
+              "slug": "my-first-blog-post",
+              "createdAt": "2025-09-30T19:30:22.904Z",
+              "updatedAt": "2026-02-01T08:52:40.232Z",
+              "publishedAt": "2026-02-01T08:52:43.174Z",
+              "locale": "en"
+            },
+            {
+              "id": 9,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Introducing Denalify",
+              "description": "Meet Denalify - the Kanban app with no user limits and native integrations.",
+              "slug": "introducing-denalify",
+              "createdAt": "2026-01-26T10:14:32.142Z",
+              "updatedAt": "2026-02-01T08:47:17.156Z",
+              "publishedAt": "2026-02-01T08:47:20.572Z",
+              "locale": "en"
+            },
+            {
+              "id": 11,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Przedstawiam Denalify",
+              "description": "Poznaj Denalify - aplikację Kanban bez limitów użytkowników i z integracjami.",
+              "slug": "przedstawiam-denalify",
+              "createdAt": "2026-02-01T08:50:52.130Z",
+              "updatedAt": "2026-02-01T08:50:52.130Z",
+              "publishedAt": "2026-02-01T08:50:54.738Z",
+              "locale": "pl"
+            },
+            {
+              "id": 13,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "Mój pierwszy test post",
+              "description": "test krótkiego opisu",
+              "slug": "my-first-blog-post",
+              "createdAt": "2026-02-01T08:52:13.209Z",
+              "updatedAt": "2026-02-01T08:52:13.209Z",
+              "publishedAt": "2026-02-01T08:52:15.423Z",
+              "locale": "pl"
+            }
+          ]
         },
         "categories": [
           {
@@ -265,13 +567,6 @@
             "publishedAt": "2025-09-17T10:22:04.406Z"
           }
         ],
-        "blocks": [
-          {
-            "__component": "shared.rich-text",
-            "id": 24,
-            "body": "# Markdown Rendering Test\n\n## Headers\n\n### Level 3 Header\n#### Level 4 Header\n##### Level 5 Header\n###### Level 6 Header\n\n## Text Formatting\n\nThis is **bold text** and __also bold__.\n\nThis is *italic text* and _also italic_.\n\nThis is ***bold and italic*** and ___also works___.\n\nThis is ~~strikethrough text~~.\n\nThis is `inline code` in text.\n\n## Lists\n\n### Unordered List\n\n- First item\n- Second item\n  - Subitem 2.1\n  - Subitem 2.2\n    - Nested item 2.2.1\n- Third item\n\n### Ordered List\n\n1. First step\n2. Second step\n   1. Substep 2.1\n   2. Substep 2.2\n3. Third step\n\n### Task List\n\n- [x] Completed task\n- [ ] Task to do\n- [x] Another completed task\n\n## Alerts\n\n> [!NOTE]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!SUCCESS]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!INFO]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!TIP]\n> Optional information to help a user be more successful.\n\n> [!IMPORTANT]  \n> Crucial information necessary for users to succeed.\n\n> [!WARNING]  \n> Critical content demanding immediate user attention due to potential risks.\n\n> [!CAUTION]\n> Negative potential consequences of an action.\n\n## Blockquotes\n\n> This is a blockquote.\n> It can span multiple lines.\n>\n> And multiple paragraphs.\n\n> Nested blockquote:\n>> This is a quote inside a quote.\n\n## Links and Images\n\n[Link to Google](https://www.google.com)\n\n[Link with title](https://www.example.com \"Link title\")\n\n## Code\n\n### Code Blocks with Syntax Highlighting\n\n```javascript\nfunction greeting(name) {\n  console.log(`Hello, ${name}!`);\n  return true;\n}\n\ngreeting(\"World\");\n```\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\nprint(fibonacci(10))\n```\n\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #f0f0f0;\n}\n```\n\n## Tables\n\n| Header 1 | Header 2 | Header 3 |\n|----------|:--------:|---------:|\n| Cell 1   | Cell 2   | Cell 3   |\n| Left     | Center   | Right    |\n| Data A   | Data B   | Data C   |\n\n## Horizontal Rule\n\n---\n\n## Special Characters and HTML\n\nThis is text with &copy; copyright symbol.\n\n<kbd>Ctrl</kbd> + <kbd>C</kbd>\n\n<mark>Highlighted text</mark>\n\nH<sub>2</sub>O (subscript)\n\nX<sup>2</sup> (superscript)\n\n## Escaping Characters\n\nYou can use \\* asterisks \\* without formatting.\n\nBackslash: \\\\\n\n## Automatic Links\n\nhttps://www.example.com\n\nemail@example.com\n\n## Emoji\n\nUnicode: 😀 ❤️ 🚀 🇺🇸\n\n\n## End of Test\n\nThis was a complete test of various Markdown elements!"
-          }
-        ],
         "localizations": [
           {
             "id": 13,
@@ -283,6 +578,13 @@
             "updatedAt": "2026-02-01T08:52:13.209Z",
             "publishedAt": "2026-02-01T08:52:15.423Z",
             "locale": "pl"
+          }
+        ],
+        "blocks": [
+          {
+            "__component": "shared.rich-text",
+            "id": 24,
+            "body": "# Markdown Rendering Test\n\n## Headers\n\n### Level 3 Header\n#### Level 4 Header\n##### Level 5 Header\n###### Level 6 Header\n\n## Text Formatting\n\nThis is **bold text** and __also bold__.\n\nThis is *italic text* and _also italic_.\n\nThis is ***bold and italic*** and ___also works___.\n\nThis is ~~strikethrough text~~.\n\nThis is `inline code` in text.\n\n## Lists\n\n### Unordered List\n\n- First item\n- Second item\n  - Subitem 2.1\n  - Subitem 2.2\n    - Nested item 2.2.1\n- Third item\n\n### Ordered List\n\n1. First step\n2. Second step\n   1. Substep 2.1\n   2. Substep 2.2\n3. Third step\n\n### Task List\n\n- [x] Completed task\n- [ ] Task to do\n- [x] Another completed task\n\n## Alerts\n\n> [!NOTE]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!SUCCESS]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!INFO]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!TIP]\n> Optional information to help a user be more successful.\n\n> [!IMPORTANT]  \n> Crucial information necessary for users to succeed.\n\n> [!WARNING]  \n> Critical content demanding immediate user attention due to potential risks.\n\n> [!CAUTION]\n> Negative potential consequences of an action.\n\n## Blockquotes\n\n> This is a blockquote.\n> It can span multiple lines.\n>\n> And multiple paragraphs.\n\n> Nested blockquote:\n>> This is a quote inside a quote.\n\n## Links and Images\n\n[Link to Google](https://www.google.com)\n\n[Link with title](https://www.example.com \"Link title\")\n\n## Code\n\n### Code Blocks with Syntax Highlighting\n\n```javascript\nfunction greeting(name) {\n  console.log(`Hello, ${name}!`);\n  return true;\n}\n\ngreeting(\"World\");\n```\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\nprint(fibonacci(10))\n```\n\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #f0f0f0;\n}\n```\n\n## Tables\n\n| Header 1 | Header 2 | Header 3 |\n|----------|:--------:|---------:|\n| Cell 1   | Cell 2   | Cell 3   |\n| Left     | Center   | Right    |\n| Data A   | Data B   | Data C   |\n\n## Horizontal Rule\n\n---\n\n## Special Characters and HTML\n\nThis is text with &copy; copyright symbol.\n\n<kbd>Ctrl</kbd> + <kbd>C</kbd>\n\n<mark>Highlighted text</mark>\n\nH<sub>2</sub>O (subscript)\n\nX<sup>2</sup> (superscript)\n\n## Escaping Characters\n\nYou can use \\* asterisks \\* without formatting.\n\nBackslash: \\\\\n\n## Automatic Links\n\nhttps://www.example.com\n\nemail@example.com\n\n## Emoji\n\nUnicode: 😀 ❤️ 🚀 🇺🇸\n\n\n## End of Test\n\nThis was a complete test of various Markdown elements!"
           }
         ]
       }
@@ -375,7 +677,123 @@
           "email": "contact@makoto.com.pl",
           "createdAt": "2025-09-16T20:16:08.276Z",
           "updatedAt": "2026-02-01T08:23:37.886Z",
-          "publishedAt": "2026-02-01T08:23:37.805Z"
+          "publishedAt": "2026-02-01T08:23:37.805Z",
+          "avatar": {
+            "id": 30,
+            "documentId": "nczp7fgarrnqrts32uq3l0ts",
+            "name": "avatar-square.webp",
+            "alternativeText": null,
+            "caption": null,
+            "width": 1412,
+            "height": 1412,
+            "formats": {
+              "large": {
+                "ext": ".webp",
+                "url": "/uploads/large_avatar_square_7e52eabd7f.webp",
+                "hash": "large_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "large_avatar-square.webp",
+                "path": null,
+                "size": 20.31,
+                "width": 1000,
+                "height": 1000,
+                "sizeInBytes": 20314
+              },
+              "small": {
+                "ext": ".webp",
+                "url": "/uploads/small_avatar_square_7e52eabd7f.webp",
+                "hash": "small_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "small_avatar-square.webp",
+                "path": null,
+                "size": 8.81,
+                "width": 500,
+                "height": 500,
+                "sizeInBytes": 8806
+              },
+              "medium": {
+                "ext": ".webp",
+                "url": "/uploads/medium_avatar_square_7e52eabd7f.webp",
+                "hash": "medium_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "medium_avatar-square.webp",
+                "path": null,
+                "size": 14.19,
+                "width": 750,
+                "height": 750,
+                "sizeInBytes": 14190
+              },
+              "thumbnail": {
+                "ext": ".webp",
+                "url": "/uploads/thumbnail_avatar_square_7e52eabd7f.webp",
+                "hash": "thumbnail_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "thumbnail_avatar-square.webp",
+                "path": null,
+                "size": 2.14,
+                "width": 156,
+                "height": 156,
+                "sizeInBytes": 2144
+              }
+            },
+            "hash": "avatar_square_7e52eabd7f",
+            "ext": ".webp",
+            "mime": "image/webp",
+            "size": 33.6,
+            "url": "/uploads/avatar_square_7e52eabd7f.webp",
+            "previewUrl": null,
+            "provider": "local",
+            "provider_metadata": null,
+            "createdAt": "2025-09-16T20:15:56.138Z",
+            "updatedAt": "2026-02-19T10:31:54.335Z",
+            "publishedAt": "2025-09-16T20:15:56.139Z"
+          },
+          "articles": [
+            {
+              "id": 14,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "My first test blog post",
+              "description": "test short description",
+              "slug": "my-first-blog-post",
+              "createdAt": "2025-09-30T19:30:22.904Z",
+              "updatedAt": "2026-02-01T08:52:40.232Z",
+              "publishedAt": "2026-02-01T08:52:43.174Z",
+              "locale": "en"
+            },
+            {
+              "id": 9,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Introducing Denalify",
+              "description": "Meet Denalify - the Kanban app with no user limits and native integrations.",
+              "slug": "introducing-denalify",
+              "createdAt": "2026-01-26T10:14:32.142Z",
+              "updatedAt": "2026-02-01T08:47:17.156Z",
+              "publishedAt": "2026-02-01T08:47:20.572Z",
+              "locale": "en"
+            },
+            {
+              "id": 11,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Przedstawiam Denalify",
+              "description": "Poznaj Denalify - aplikację Kanban bez limitów użytkowników i z integracjami.",
+              "slug": "przedstawiam-denalify",
+              "createdAt": "2026-02-01T08:50:52.130Z",
+              "updatedAt": "2026-02-01T08:50:52.130Z",
+              "publishedAt": "2026-02-01T08:50:54.738Z",
+              "locale": "pl"
+            },
+            {
+              "id": 13,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "Mój pierwszy test post",
+              "description": "test krótkiego opisu",
+              "slug": "my-first-blog-post",
+              "createdAt": "2026-02-01T08:52:13.209Z",
+              "updatedAt": "2026-02-01T08:52:13.209Z",
+              "publishedAt": "2026-02-01T08:52:15.423Z",
+              "locale": "pl"
+            }
+          ]
         },
         "categories": [
           {
@@ -409,22 +827,6 @@
             "publishedAt": "2026-01-26T10:30:59.433Z"
           }
         ],
-        "blocks": [
-          {
-            "__component": "shared.rich-text",
-            "id": 20,
-            "body": "# Przedstawiam Denalify - Nowa Generacja Aplikacji Kanban\n\n---\n\n## Przełamując Ograniczenia Tradycyjnych Narzędzi\n\nPo niezliczonych godzinach spędzonych na walce z ograniczeniami istniejących narzędzi do zarządzania projektami - Trello, Asana, Monday.com - postanowiłem stworzyć coś lepszego. Coś, co nie ogranicza wielkości zespołu drogimi planami cenowymi. Coś, co płynnie integruje się z całym Twoim stosem technologicznym.\n\n<mark>Przedstawiam **Denalify**</mark> - nowoczesną, otwartą aplikację Kanban stworzoną dla zespołów, które nie idą na kompromisy.\n\n> [!TIP]\n> Denalify jest aktualnie w fazie intensywnego rozwoju. Śledź tego bloga, aby być na bieżąco z nowymi funkcjami!"
-          },
-          {
-            "__component": "shared.media",
-            "id": 7
-          },
-          {
-            "__component": "shared.rich-text",
-            "id": 21,
-            "body": "\n\n## 💡 Dlaczego Kolejna Aplikacja Kanban?\n\nBądźmy szczerzy - obecny krajobraz narzędzi do zarządzania projektami jest pełen frustrujących ograniczeń:\n\n| Problem | Jak Denalify Go Rozwiązuje |\n|---------|---------------------------|\n| **Limity użytkowników** | Brak sztucznych limitów członków zespołu |\n| **Limity integracji** | Natywna synchronizacja z Discord, Slack, GitHub i Google Calendar |\n| **Współpraca w czasie rzeczywistym** | Wbudowane WebSockety dla natychmiastowych aktualizacji |\n| **Bezpieczeństwo Enterprise** | 2FA z kodami odzyskiwania, OAuth i więcej |\n| **Uzależnienie od subskrypcji** | Otwarty rozwój z przejrzystym cennikiem |\n\n> [!IMPORTANT]\n> W przeciwieństwie do konkurencji, która pobiera opłaty za użytkownika lub ogranicza integracje do planów premium, Denalify jest zaprojektowany z myślą o **nieograniczonej współpracy** od samego początku.\n\n---\n\n## 🛠️ Stos Technologiczny\n\nDenalify został zaprojektowany z nowoczesną, skalowalną architekturą:\n\n### Frontend\n- **Framework:** Nuxt 4 (najnowsza wersja!)\n- **Biblioteka UI:** Nuxt UI v3\n- **Zarządzanie stanem:** Pinia\n- **Real-time:** Socket.io\n- **Drag & Drop:** vuedraggable\n\n### Backend\n- **Framework:** AdonisJS v6\n- **Baza danych:** PostgreSQL\n- **Autoryzacja:** Sesje + OAuth (Google, GitHub, Discord) + 2FA\n- **Płatności:** Integracja ze Stripe\n- **Background Jobs:** BullMQ\n- **Storage plików:** AWS S3\n\n> [!SUCCESS]\n> Stos jest gotowy do produkcji i zbudowany z myślą o skalowalności od podstaw!\n\n---\n\n## ✅ Już Zaimplementowane Funkcje\n\nNawet na tym wczesnym etapie, Denalify już oferuje wiele:\n\n### Organizacje i Projekty\n- 🏢 Architektura multi-tenant\n- 👥 Role w zespole i zaproszenia z powiadomieniami email\n- 📁 Wiele projektów na organizację\n- 🎨 Własny branding (loga i ikony)\n\n### Tablice Kanban\n- 📋 Przeciągnij i upuść kolumny oraz zadania\n- 🖼️ Własne tła tablic\n- 📝 Bogate opisy zadań z edytorem Tiptap\n- ✅ Checklisty w zadaniach\n- 🏷️ Kolorowe etykiety i priorytety\n\n### Zarządzanie Zadaniami\n- 👤 Wielu przypisanych do zadania\n- ⏰ Śledzenie terminów z wizualnymi wskaźnikami\n- 📎 Załączniki plików\n- 💬 Komentarze z załącznikami\n- 📜 Historia aktywności (audit log)\n- 🔢 Inteligentna numeracja zadań (format <kbd>PRJ-123</kbd>)\n\n### Integracje\n- 🎮 **Discord Webhook** - Powiadomienia na Twoim serwerze\n- 💼 **Slack Webhook** - Bądź na bieżąco w kanałach Slack\n- 🐙 **GitHub Commit Linking** - Linkuj commity bezpośrednio do zadań\n- 📅 **Google Calendar** - Automatyczna synchronizacja terminów\n- 🔗 **Custom Webhooks** - Buduj własne integracje\n\n### Bezpieczeństwo i Rozliczenia\n- 🔐 Uwierzytelnianie dwuskładnikowe z kodami odzyskiwania\n- 🔑 Logowanie OAuth (Google, GitHub, Discord)\n- 💳 Zarządzanie subskrypcjami przez Stripe\n- ✉️ Emaile transakcyjne dla wszystkich kluczowych zdarzeń\n\n---\n\n## 🔮 Co Już Jest i Co Nadchodzi\n\n> [!SUCCESS]\n> Wiele funkcji enterprise jest **już zaimplementowanych** - oto aktualny status:\n\n### ✅ Już Zaimplementowane\n- [x] **Dashboard \"Moje Zadania\"** - Osobisty widok zadań z trybem listy/kanban, filtrami i sortowaniem\n- [x] **Zarządzanie zespołami/grupami** - Tworzenie zespołów, przypisywanie liderów, kolorowa organizacja\n- [x] **Dashboard analityczny** - Wykresy przepływu, balans obciążenia, KPI (czas cyklu, przepustowość)\n- [x] **Logowanie audytowe** - Pełna historia aktywności z wyszukiwaniem, eksport do CSV, statystyki trendów\n- [x] **Szablony zadań** - Predefiniowane szablony z checklistami i priorytetami\n- [x] **Powiadomienia w czasie rzeczywistym** - System powiadomień oparty na WebSocketach\n- [x] **Globalne wyszukiwanie** - API wyszukiwania gotowe na backendzie\n\n### 🚧 W Aktywnym Rozwoju\n- [ ] UI centrum powiadomień (dropdown z ikoną dzwonka)\n- [ ] Podzadania z hierarchią (zadania nadrzędne-podrzędne)\n- [ ] Szablony tablic (presety Scrum, Kanban)\n- [ ] System archiwizacji\n\n### 🔮 Wkrótce - Funkcje Enterprise\n- [ ] Zaawansowane RBAC (granularne uprawnienia per tablica)\n- [ ] Automatyzacja workflow (auto-przenoszenie, triggery)\n- [ ] Śledzenie czasu per zadanie\n- [ ] Widok wykresu Gantta\n- [ ] SSO (SAML 2.0, OpenID Connect)\n\n---\n\n## 🤝 Dołącz do Podróży\n\nDenalify to więcej niż tylko narzędzie - to wizja tego, jakie *powinno być* zarządzanie projektami. Bez arbitralnych limitów. Bez blokowania funkcji. Po prostu potężna, intuicyjna współpraca.\n\n> [!CAUTION]\n> To projekt we wczesnej fazie rozwoju. Spodziewaj się szybkich zmian i ulepszeń w miarę postępu prac!\n\n**Chcesz być na bieżąco?** Śledź tego bloga i wypatruj nadchodzących ogłoszeń!\n\n---\n\n<sub>© 2026 Denalify - Built with ❤️ and ☕</sub>"
-          }
-        ],
         "localizations": [
           {
             "id": 9,
@@ -436,6 +838,92 @@
             "updatedAt": "2026-02-01T08:47:17.156Z",
             "publishedAt": "2026-02-01T08:47:20.572Z",
             "locale": "en"
+          }
+        ],
+        "blocks": [
+          {
+            "__component": "shared.rich-text",
+            "id": 20,
+            "body": "# Przedstawiam Denalify - Nowa Generacja Aplikacji Kanban\n\n---\n\n## Przełamując Ograniczenia Tradycyjnych Narzędzi\n\nPo niezliczonych godzinach spędzonych na walce z ograniczeniami istniejących narzędzi do zarządzania projektami - Trello, Asana, Monday.com - postanowiłem stworzyć coś lepszego. Coś, co nie ogranicza wielkości zespołu drogimi planami cenowymi. Coś, co płynnie integruje się z całym Twoim stosem technologicznym.\n\n<mark>Przedstawiam **Denalify**</mark> - nowoczesną, otwartą aplikację Kanban stworzoną dla zespołów, które nie idą na kompromisy.\n\n> [!TIP]\n> Denalify jest aktualnie w fazie intensywnego rozwoju. Śledź tego bloga, aby być na bieżąco z nowymi funkcjami!"
+          },
+          {
+            "__component": "shared.media",
+            "id": 7,
+            "file": {
+              "id": 45,
+              "documentId": "vyj8q918hf9aq2lt6vo9882e",
+              "name": "dashboard.png",
+              "alternativeText": null,
+              "caption": null,
+              "width": 1917,
+              "height": 962,
+              "formats": {
+                "large": {
+                  "ext": ".png",
+                  "url": "/uploads/large_dashboard_628af0896d.png",
+                  "hash": "large_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "large_dashboard.png",
+                  "path": null,
+                  "size": 216.44,
+                  "width": 1000,
+                  "height": 502,
+                  "sizeInBytes": 216437
+                },
+                "small": {
+                  "ext": ".png",
+                  "url": "/uploads/small_dashboard_628af0896d.png",
+                  "hash": "small_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "small_dashboard.png",
+                  "path": null,
+                  "size": 61.75,
+                  "width": 500,
+                  "height": 251,
+                  "sizeInBytes": 61752
+                },
+                "medium": {
+                  "ext": ".png",
+                  "url": "/uploads/medium_dashboard_628af0896d.png",
+                  "hash": "medium_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "medium_dashboard.png",
+                  "path": null,
+                  "size": 125.44,
+                  "width": 750,
+                  "height": 376,
+                  "sizeInBytes": 125439
+                },
+                "thumbnail": {
+                  "ext": ".png",
+                  "url": "/uploads/thumbnail_dashboard_628af0896d.png",
+                  "hash": "thumbnail_dashboard_628af0896d",
+                  "mime": "image/png",
+                  "name": "thumbnail_dashboard.png",
+                  "path": null,
+                  "size": 20.74,
+                  "width": 245,
+                  "height": 123,
+                  "sizeInBytes": 20737
+                }
+              },
+              "hash": "dashboard_628af0896d",
+              "ext": ".png",
+              "mime": "image/png",
+              "size": 124.07,
+              "url": "/uploads/dashboard_628af0896d.png",
+              "previewUrl": null,
+              "provider": "local",
+              "provider_metadata": null,
+              "createdAt": "2026-01-26T10:38:55.553Z",
+              "updatedAt": "2026-02-19T10:30:35.523Z",
+              "publishedAt": "2026-01-26T10:38:55.554Z"
+            }
+          },
+          {
+            "__component": "shared.rich-text",
+            "id": 21,
+            "body": "\n\n## 💡 Dlaczego Kolejna Aplikacja Kanban?\n\nBądźmy szczerzy - obecny krajobraz narzędzi do zarządzania projektami jest pełen frustrujących ograniczeń:\n\n| Problem | Jak Denalify Go Rozwiązuje |\n|---------|---------------------------|\n| **Limity użytkowników** | Brak sztucznych limitów członków zespołu |\n| **Limity integracji** | Natywna synchronizacja z Discord, Slack, GitHub i Google Calendar |\n| **Współpraca w czasie rzeczywistym** | Wbudowane WebSockety dla natychmiastowych aktualizacji |\n| **Bezpieczeństwo Enterprise** | 2FA z kodami odzyskiwania, OAuth i więcej |\n| **Uzależnienie od subskrypcji** | Otwarty rozwój z przejrzystym cennikiem |\n\n> [!IMPORTANT]\n> W przeciwieństwie do konkurencji, która pobiera opłaty za użytkownika lub ogranicza integracje do planów premium, Denalify jest zaprojektowany z myślą o **nieograniczonej współpracy** od samego początku.\n\n---\n\n## 🛠️ Stos Technologiczny\n\nDenalify został zaprojektowany z nowoczesną, skalowalną architekturą:\n\n### Frontend\n- **Framework:** Nuxt 4 (najnowsza wersja!)\n- **Biblioteka UI:** Nuxt UI v3\n- **Zarządzanie stanem:** Pinia\n- **Real-time:** Socket.io\n- **Drag & Drop:** vuedraggable\n\n### Backend\n- **Framework:** AdonisJS v6\n- **Baza danych:** PostgreSQL\n- **Autoryzacja:** Sesje + OAuth (Google, GitHub, Discord) + 2FA\n- **Płatności:** Integracja ze Stripe\n- **Background Jobs:** BullMQ\n- **Storage plików:** AWS S3\n\n> [!SUCCESS]\n> Stos jest gotowy do produkcji i zbudowany z myślą o skalowalności od podstaw!\n\n---\n\n## ✅ Już Zaimplementowane Funkcje\n\nNawet na tym wczesnym etapie, Denalify już oferuje wiele:\n\n### Organizacje i Projekty\n- 🏢 Architektura multi-tenant\n- 👥 Role w zespole i zaproszenia z powiadomieniami email\n- 📁 Wiele projektów na organizację\n- 🎨 Własny branding (loga i ikony)\n\n### Tablice Kanban\n- 📋 Przeciągnij i upuść kolumny oraz zadania\n- 🖼️ Własne tła tablic\n- 📝 Bogate opisy zadań z edytorem Tiptap\n- ✅ Checklisty w zadaniach\n- 🏷️ Kolorowe etykiety i priorytety\n\n### Zarządzanie Zadaniami\n- 👤 Wielu przypisanych do zadania\n- ⏰ Śledzenie terminów z wizualnymi wskaźnikami\n- 📎 Załączniki plików\n- 💬 Komentarze z załącznikami\n- 📜 Historia aktywności (audit log)\n- 🔢 Inteligentna numeracja zadań (format <kbd>PRJ-123</kbd>)\n\n### Integracje\n- 🎮 **Discord Webhook** - Powiadomienia na Twoim serwerze\n- 💼 **Slack Webhook** - Bądź na bieżąco w kanałach Slack\n- 🐙 **GitHub Commit Linking** - Linkuj commity bezpośrednio do zadań\n- 📅 **Google Calendar** - Automatyczna synchronizacja terminów\n- 🔗 **Custom Webhooks** - Buduj własne integracje\n\n### Bezpieczeństwo i Rozliczenia\n- 🔐 Uwierzytelnianie dwuskładnikowe z kodami odzyskiwania\n- 🔑 Logowanie OAuth (Google, GitHub, Discord)\n- 💳 Zarządzanie subskrypcjami przez Stripe\n- ✉️ Emaile transakcyjne dla wszystkich kluczowych zdarzeń\n\n---\n\n## 🔮 Co Już Jest i Co Nadchodzi\n\n> [!SUCCESS]\n> Wiele funkcji enterprise jest **już zaimplementowanych** - oto aktualny status:\n\n### ✅ Już Zaimplementowane\n- [x] **Dashboard \"Moje Zadania\"** - Osobisty widok zadań z trybem listy/kanban, filtrami i sortowaniem\n- [x] **Zarządzanie zespołami/grupami** - Tworzenie zespołów, przypisywanie liderów, kolorowa organizacja\n- [x] **Dashboard analityczny** - Wykresy przepływu, balans obciążenia, KPI (czas cyklu, przepustowość)\n- [x] **Logowanie audytowe** - Pełna historia aktywności z wyszukiwaniem, eksport do CSV, statystyki trendów\n- [x] **Szablony zadań** - Predefiniowane szablony z checklistami i priorytetami\n- [x] **Powiadomienia w czasie rzeczywistym** - System powiadomień oparty na WebSocketach\n- [x] **Globalne wyszukiwanie** - API wyszukiwania gotowe na backendzie\n\n### 🚧 W Aktywnym Rozwoju\n- [ ] UI centrum powiadomień (dropdown z ikoną dzwonka)\n- [ ] Podzadania z hierarchią (zadania nadrzędne-podrzędne)\n- [ ] Szablony tablic (presety Scrum, Kanban)\n- [ ] System archiwizacji\n\n### 🔮 Wkrótce - Funkcje Enterprise\n- [ ] Zaawansowane RBAC (granularne uprawnienia per tablica)\n- [ ] Automatyzacja workflow (auto-przenoszenie, triggery)\n- [ ] Śledzenie czasu per zadanie\n- [ ] Widok wykresu Gantta\n- [ ] SSO (SAML 2.0, OpenID Connect)\n\n---\n\n## 🤝 Dołącz do Podróży\n\nDenalify to więcej niż tylko narzędzie - to wizja tego, jakie *powinno być* zarządzanie projektami. Bez arbitralnych limitów. Bez blokowania funkcji. Po prostu potężna, intuicyjna współpraca.\n\n> [!CAUTION]\n> To projekt we wczesnej fazie rozwoju. Spodziewaj się szybkich zmian i ulepszeń w miarę postępu prac!\n\n**Chcesz być na bieżąco?** Śledź tego bloga i wypatruj nadchodzących ogłoszeń!\n\n---\n\n<sub>© 2026 Denalify - Built with ❤️ and ☕</sub>"
           }
         ]
       },
@@ -526,7 +1014,123 @@
           "email": "contact@makoto.com.pl",
           "createdAt": "2025-09-16T20:16:08.276Z",
           "updatedAt": "2026-02-01T08:23:37.886Z",
-          "publishedAt": "2026-02-01T08:23:37.805Z"
+          "publishedAt": "2026-02-01T08:23:37.805Z",
+          "avatar": {
+            "id": 30,
+            "documentId": "nczp7fgarrnqrts32uq3l0ts",
+            "name": "avatar-square.webp",
+            "alternativeText": null,
+            "caption": null,
+            "width": 1412,
+            "height": 1412,
+            "formats": {
+              "large": {
+                "ext": ".webp",
+                "url": "/uploads/large_avatar_square_7e52eabd7f.webp",
+                "hash": "large_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "large_avatar-square.webp",
+                "path": null,
+                "size": 20.31,
+                "width": 1000,
+                "height": 1000,
+                "sizeInBytes": 20314
+              },
+              "small": {
+                "ext": ".webp",
+                "url": "/uploads/small_avatar_square_7e52eabd7f.webp",
+                "hash": "small_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "small_avatar-square.webp",
+                "path": null,
+                "size": 8.81,
+                "width": 500,
+                "height": 500,
+                "sizeInBytes": 8806
+              },
+              "medium": {
+                "ext": ".webp",
+                "url": "/uploads/medium_avatar_square_7e52eabd7f.webp",
+                "hash": "medium_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "medium_avatar-square.webp",
+                "path": null,
+                "size": 14.19,
+                "width": 750,
+                "height": 750,
+                "sizeInBytes": 14190
+              },
+              "thumbnail": {
+                "ext": ".webp",
+                "url": "/uploads/thumbnail_avatar_square_7e52eabd7f.webp",
+                "hash": "thumbnail_avatar_square_7e52eabd7f",
+                "mime": "image/webp",
+                "name": "thumbnail_avatar-square.webp",
+                "path": null,
+                "size": 2.14,
+                "width": 156,
+                "height": 156,
+                "sizeInBytes": 2144
+              }
+            },
+            "hash": "avatar_square_7e52eabd7f",
+            "ext": ".webp",
+            "mime": "image/webp",
+            "size": 33.6,
+            "url": "/uploads/avatar_square_7e52eabd7f.webp",
+            "previewUrl": null,
+            "provider": "local",
+            "provider_metadata": null,
+            "createdAt": "2025-09-16T20:15:56.138Z",
+            "updatedAt": "2026-02-19T10:31:54.335Z",
+            "publishedAt": "2025-09-16T20:15:56.139Z"
+          },
+          "articles": [
+            {
+              "id": 14,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "My first test blog post",
+              "description": "test short description",
+              "slug": "my-first-blog-post",
+              "createdAt": "2025-09-30T19:30:22.904Z",
+              "updatedAt": "2026-02-01T08:52:40.232Z",
+              "publishedAt": "2026-02-01T08:52:43.174Z",
+              "locale": "en"
+            },
+            {
+              "id": 9,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Introducing Denalify",
+              "description": "Meet Denalify - the Kanban app with no user limits and native integrations.",
+              "slug": "introducing-denalify",
+              "createdAt": "2026-01-26T10:14:32.142Z",
+              "updatedAt": "2026-02-01T08:47:17.156Z",
+              "publishedAt": "2026-02-01T08:47:20.572Z",
+              "locale": "en"
+            },
+            {
+              "id": 11,
+              "documentId": "fh19359ia0tmy15tttf5a6ek",
+              "title": "Przedstawiam Denalify",
+              "description": "Poznaj Denalify - aplikację Kanban bez limitów użytkowników i z integracjami.",
+              "slug": "przedstawiam-denalify",
+              "createdAt": "2026-02-01T08:50:52.130Z",
+              "updatedAt": "2026-02-01T08:50:52.130Z",
+              "publishedAt": "2026-02-01T08:50:54.738Z",
+              "locale": "pl"
+            },
+            {
+              "id": 13,
+              "documentId": "g0yx9cn74oizdsrs0fn8xb73",
+              "title": "Mój pierwszy test post",
+              "description": "test krótkiego opisu",
+              "slug": "my-first-blog-post",
+              "createdAt": "2026-02-01T08:52:13.209Z",
+              "updatedAt": "2026-02-01T08:52:13.209Z",
+              "publishedAt": "2026-02-01T08:52:15.423Z",
+              "locale": "pl"
+            }
+          ]
         },
         "categories": [
           {
@@ -570,13 +1174,6 @@
             "publishedAt": "2025-09-17T10:06:19.241Z"
           }
         ],
-        "blocks": [
-          {
-            "__component": "shared.rich-text",
-            "id": 23,
-            "body": "# Test Renderowania Markdown\n\n## Nagłówki\n\n### Nagłówek poziomu 3\n#### Nagłówek poziomu 4\n##### Nagłówek poziomu 5\n###### Nagłówek poziomu 6\n\n## Formatowanie tekstu\n\nTo jest **pogrubiony tekst** oraz __również pogrubiony__.\n\nTo jest *tekst kursywą* oraz _również kursywa_.\n\nTo jest ***pogrubiona kursywa*** oraz ___też działa___.\n\nTo jest ~~przekreślony tekst~~.\n\nTo jest `kod inline` w tekście.\n\n## Listy\n\n### Lista nieuporządkowana\n\n- Element pierwszy\n- Element drugi\n  - Podelement 2.1\n  - Podelement 2.2\n    - Zagnieżdżony element 2.2.1\n- Element trzeci\n\n### Lista uporządkowana\n\n1. Pierwszy krok\n2. Drugi krok\n   1. Podkrok 2.1\n   2. Podkrok 2.2\n3. Trzeci krok\n\n### Lista zadań\n\n- [x] Zadanie wykonane\n- [ ] Zadanie do zrobienia\n- [x] Kolejne wykonane zadanie\n\n## Alerty\n\n> [!NOTE]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!SUCCESS]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!INFO]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!TIP]\n> Optional information to help a user be more successful.\n\n> [!IMPORTANT]  \n> Crucial information necessary for users to succeed.\n\n> [!WARNING]  \n> Critical content demanding immediate user attention due to potential risks.\n\n> [!CAUTION]\n> Negative potential consequences of an action.\n\n## Cytaty\n\n> To jest cytat.\n> Może mieć wiele linii.\n>\n> Oraz wiele akapitów.\n\n> Cytat zagnieżdżony:\n>> To jest cytat wewnątrz cytatu.\n\n## Linki i obrazy\n\n[Link do Google](https://www.google.com)\n\n[Link z tytułem](https://www.example.com \"Tytuł linku\")\n\n## Kod\n\n### Blok kodu z podświetlaniem składni\n\n```javascript\nfunction powitanie(imie) {\n  console.log(`Cześć, ${imie}!`);\n  return true;\n}\n\npowitanie(\"Świat\");\n```\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\nprint(fibonacci(10))\n```\n\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #f0f0f0;\n}\n```\n\n## Tabele\n\n| Nagłówek 1 | Nagłówek 2 | Nagłówek 3 |\n|------------|:----------:|-----------:|\n| Komórka 1  | Komórka 2  | Komórka 3  |\n| Lewo       | Środek     | Prawo      |\n| Dane A     | Dane B     | Dane C     |\n\n## Linia pozioma\n\n---\n\n## Znaki specjalne i HTML\n\nTo jest tekst z &copy; symbolem copyright.\n\n<kbd>Ctrl</kbd> + <kbd>C</kbd>\n\n<mark>Zaznaczony tekst</mark>\n\nH<sub>2</sub>O (indeks dolny)\n\nX<sup>2</sup> (indeks górny)\n\n## Escape'owanie znaków\n\nMożna użyć \\* gwiazdek \\* bez formatowania.\n\nBackslash: \\\\\n\n## Linki automatyczne\n\nhttps://www.example.com\n\nemail@example.com\n\n## Emoji\n\nUnicode: 😀 ❤️ 🚀 🇵🇱\n\n\n## Koniec testu\n\nTo był kompletny test różnych elementów Markdown!"
-          }
-        ],
         "localizations": [
           {
             "id": 14,
@@ -588,6 +1185,13 @@
             "updatedAt": "2026-02-01T08:52:40.232Z",
             "publishedAt": "2026-02-01T08:52:43.174Z",
             "locale": "en"
+          }
+        ],
+        "blocks": [
+          {
+            "__component": "shared.rich-text",
+            "id": 23,
+            "body": "# Test Renderowania Markdown\n\n## Nagłówki\n\n### Nagłówek poziomu 3\n#### Nagłówek poziomu 4\n##### Nagłówek poziomu 5\n###### Nagłówek poziomu 6\n\n## Formatowanie tekstu\n\nTo jest **pogrubiony tekst** oraz __również pogrubiony__.\n\nTo jest *tekst kursywą* oraz _również kursywa_.\n\nTo jest ***pogrubiona kursywa*** oraz ___też działa___.\n\nTo jest ~~przekreślony tekst~~.\n\nTo jest `kod inline` w tekście.\n\n## Listy\n\n### Lista nieuporządkowana\n\n- Element pierwszy\n- Element drugi\n  - Podelement 2.1\n  - Podelement 2.2\n    - Zagnieżdżony element 2.2.1\n- Element trzeci\n\n### Lista uporządkowana\n\n1. Pierwszy krok\n2. Drugi krok\n   1. Podkrok 2.1\n   2. Podkrok 2.2\n3. Trzeci krok\n\n### Lista zadań\n\n- [x] Zadanie wykonane\n- [ ] Zadanie do zrobienia\n- [x] Kolejne wykonane zadanie\n\n## Alerty\n\n> [!NOTE]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!SUCCESS]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!INFO]  \n> Highlights information that users should take into account, even when skimming.\n\n> [!TIP]\n> Optional information to help a user be more successful.\n\n> [!IMPORTANT]  \n> Crucial information necessary for users to succeed.\n\n> [!WARNING]  \n> Critical content demanding immediate user attention due to potential risks.\n\n> [!CAUTION]\n> Negative potential consequences of an action.\n\n## Cytaty\n\n> To jest cytat.\n> Może mieć wiele linii.\n>\n> Oraz wiele akapitów.\n\n> Cytat zagnieżdżony:\n>> To jest cytat wewnątrz cytatu.\n\n## Linki i obrazy\n\n[Link do Google](https://www.google.com)\n\n[Link z tytułem](https://www.example.com \"Tytuł linku\")\n\n## Kod\n\n### Blok kodu z podświetlaniem składni\n\n```javascript\nfunction powitanie(imie) {\n  console.log(`Cześć, ${imie}!`);\n  return true;\n}\n\npowitanie(\"Świat\");\n```\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\nprint(fibonacci(10))\n```\n\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #f0f0f0;\n}\n```\n\n## Tabele\n\n| Nagłówek 1 | Nagłówek 2 | Nagłówek 3 |\n|------------|:----------:|-----------:|\n| Komórka 1  | Komórka 2  | Komórka 3  |\n| Lewo       | Środek     | Prawo      |\n| Dane A     | Dane B     | Dane C     |\n\n## Linia pozioma\n\n---\n\n## Znaki specjalne i HTML\n\nTo jest tekst z &copy; symbolem copyright.\n\n<kbd>Ctrl</kbd> + <kbd>C</kbd>\n\n<mark>Zaznaczony tekst</mark>\n\nH<sub>2</sub>O (indeks dolny)\n\nX<sup>2</sup> (indeks górny)\n\n## Escape'owanie znaków\n\nMożna użyć \\* gwiazdek \\* bez formatowania.\n\nBackslash: \\\\\n\n## Linki automatyczne\n\nhttps://www.example.com\n\nemail@example.com\n\n## Emoji\n\nUnicode: 😀 ❤️ 🚀 🇵🇱\n\n\n## Koniec testu\n\nTo był kompletny test różnych elementów Markdown!"
           }
         ]
       }
@@ -4863,6 +5467,56 @@
       "bytes": 34118,
       "sha256": "ad2489ad18ead98fbb6997510f6aa1f878c721082b7c53533c933045d462e593"
     },
+    "/uploads/avatar_square_7e52eabd7f.webp": {
+      "file": "strapi-media/0c30b957610b6ebf18407e91.webp",
+      "bytes": 33596,
+      "sha256": "83afc581f9f274f6d0c9e6c1344042ba49234bdd92b367abf797920ba5e7fcc9"
+    },
+    "/uploads/large_avatar_square_7e52eabd7f.webp": {
+      "file": "strapi-media/362c37f506d88e07f9143e2c.webp",
+      "bytes": 20314,
+      "sha256": "6892ff96b6220aa1e0142951b3ff44e447fa25163dd3f267288c7c3f80b62e9b"
+    },
+    "/uploads/small_avatar_square_7e52eabd7f.webp": {
+      "file": "strapi-media/3fa6c7fdcc0d9897dbb86a3c.webp",
+      "bytes": 8806,
+      "sha256": "bdffda2f91ea6f5db0b8684727a5f6c2af15bcf511c8c566062d2498892062ba"
+    },
+    "/uploads/medium_avatar_square_7e52eabd7f.webp": {
+      "file": "strapi-media/b6ab6afe2d3be59da07c20b6.webp",
+      "bytes": 14190,
+      "sha256": "366ba7ad5b90a58363374eca7ef702ff51b880ac341d853b05ec0b26a061e0f4"
+    },
+    "/uploads/thumbnail_avatar_square_7e52eabd7f.webp": {
+      "file": "strapi-media/b1cfc81264f6230b3e844510.webp",
+      "bytes": 2144,
+      "sha256": "9b08fe258fd9bf88f8c62fdc4c716b53811feda51e32488393469f184ef89c32"
+    },
+    "/uploads/dashboard_628af0896d.png": {
+      "file": "strapi-media/306337d51e3c114acb6e387a.png",
+      "bytes": 124070,
+      "sha256": "2fc2c9945af05d3d542798c976d4f40a0220910da52001185433b1da2f061f83"
+    },
+    "/uploads/large_dashboard_628af0896d.png": {
+      "file": "strapi-media/30b1895bdd57394582f2c3e0.png",
+      "bytes": 216437,
+      "sha256": "31374fdd71f81b675079129d27c17f0d8931c8c6280b2411754eecdd3b6d7ae8"
+    },
+    "/uploads/small_dashboard_628af0896d.png": {
+      "file": "strapi-media/5a09e44b2d253cda866a5840.png",
+      "bytes": 61752,
+      "sha256": "91199033b8c42af9555febd81d5dee9b44cafc8a15d6bc47221c24f322bd2dc7"
+    },
+    "/uploads/medium_dashboard_628af0896d.png": {
+      "file": "strapi-media/1eccdb34d31a026c36139c9a.png",
+      "bytes": 125439,
+      "sha256": "a1daad612b6813fe13e0cabe693a378450f04ab1e80134cac4efe40c219e8b8a"
+    },
+    "/uploads/thumbnail_dashboard_628af0896d.png": {
+      "file": "strapi-media/1e5ee3cb0fd5db3096c8d77a.png",
+      "bytes": 20737,
+      "sha256": "b385dce6cf90562e82ab6df95290e436d95a8780ebfc784116973339f313ef9a"
+    },
     "/uploads/export_fa8e178735.jpg": {
       "file": "strapi-media/a711488bd31653076bbaffd6.jpg",
       "bytes": 36914,
@@ -5337,31 +5991,6 @@
       "file": "strapi-media/d04312311387d6c1eee14be0.webp",
       "bytes": 5954,
       "sha256": "bb96d515b0ae445221bcdddc7a3afbaae22e06deaea7dccd1d26cd9368140d59"
-    },
-    "/uploads/avatar_square_7e52eabd7f.webp": {
-      "file": "strapi-media/0c30b957610b6ebf18407e91.webp",
-      "bytes": 33596,
-      "sha256": "83afc581f9f274f6d0c9e6c1344042ba49234bdd92b367abf797920ba5e7fcc9"
-    },
-    "/uploads/large_avatar_square_7e52eabd7f.webp": {
-      "file": "strapi-media/362c37f506d88e07f9143e2c.webp",
-      "bytes": 20314,
-      "sha256": "6892ff96b6220aa1e0142951b3ff44e447fa25163dd3f267288c7c3f80b62e9b"
-    },
-    "/uploads/small_avatar_square_7e52eabd7f.webp": {
-      "file": "strapi-media/3fa6c7fdcc0d9897dbb86a3c.webp",
-      "bytes": 8806,
-      "sha256": "bdffda2f91ea6f5db0b8684727a5f6c2af15bcf511c8c566062d2498892062ba"
-    },
-    "/uploads/medium_avatar_square_7e52eabd7f.webp": {
-      "file": "strapi-media/b6ab6afe2d3be59da07c20b6.webp",
-      "bytes": 14190,
-      "sha256": "366ba7ad5b90a58363374eca7ef702ff51b880ac341d853b05ec0b26a061e0f4"
-    },
-    "/uploads/thumbnail_avatar_square_7e52eabd7f.webp": {
-      "file": "strapi-media/b1cfc81264f6230b3e844510.webp",
-      "bytes": 2144,
-      "sha256": "9b08fe258fd9bf88f8c62fdc4c716b53811feda51e32488393469f184ef89c32"
     }
   },
   "errors": []

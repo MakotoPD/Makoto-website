@@ -76,18 +76,7 @@
 							{{ $t('footer.desc') }}
 						</p>
 
-						<ClientOnly>
-							<div class="">
-								<p class="test-xm text-black/50 dark:text-neutral-500">{{ $t('changelang') }}:</p>
-
-								<ULocaleSelect
-									:model-value="locale"
-									:locales="[en, pl]"
-									@update:model-value="setLocale($event)"
-									trailingIcon="i-mkt-chevron-down"
-								/>
-							</div>
-						</ClientOnly>
+						<NuxtLink v-if="languagePath" :to="languagePath" class="text-sm text-sky-600 underline dark:text-sky-300">{{ targetLocale === 'pl' ? 'Polski' : 'English' }}</NuxtLink>
 					</div>
 					<div class="flex flex-col items-start justify-end gap-6 md:mx-4 md:w-1/2 md:flex-row md:gap-24">
 						<div class="flex flex-col gap-2 md:gap-4">
@@ -136,10 +125,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
-import { gsap } from 'gsap'
-import { en, pl } from '@nuxt/ui/locale'
-
-const { locale, setLocale } = useI18n()
+const { targetLocale, languagePath } = useAvailableLocaleSwitch()
 
 const localePath = useLocalePath()
 
@@ -155,8 +141,10 @@ const buttonContainer = ref<HTMLDivElement | null>(null)
 
 const magnetoStrength = 20;
 
-onMounted(() => {
-    nextTick();
+let removeMotion: (() => void) | undefined
+onMounted(async () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const { gsap } = await import('gsap')
     
     // This is the correct way to get the element from the ref
     const buttonElement = btnGetInTouch.value;
@@ -165,7 +153,8 @@ onMounted(() => {
     if (buttonContainer.value && buttonElement && typeof buttonElement.getBoundingClientRect === 'function') {
         
         // Now it's safe to add listeners because we know the elements are not null.
-        buttonContainer.value.addEventListener("mousemove", (e) => {
+        const container = buttonContainer.value
+        const move = (e: MouseEvent) => {
             const boundBox = buttonElement.getBoundingClientRect(); // This will no longer cause an error
             
             const newX = ((e.clientX - boundBox.left) / buttonElement.offsetWidth) - 0.5;
@@ -178,9 +167,9 @@ onMounted(() => {
                 duration: 1,
                 ease: "power4.out",
             });
-        });
+        }
 
-        buttonContainer.value.addEventListener("mouseleave", () => {
+        const leave = () => {
             gsap.to(buttonElement, {
                 x: 0,
                 y: 0,
@@ -188,17 +177,12 @@ onMounted(() => {
                 duration: 1,
                 ease: "elastic.out(1, 0.3)",
             });
-        });
+        }
+        container.addEventListener('mousemove', move)
+        container.addEventListener('mouseleave', leave)
+        removeMotion = () => { container.removeEventListener('mousemove', move); container.removeEventListener('mouseleave', leave) }
 
-    } else {
-        // Optional: Log an error if elements weren't found, for easier debugging.
-        console.error("Magnetic button elements not found!");
     }
 })
-
-function handleLocaleChange(newLocale: string) {
-  if (newLocale === 'en' || newLocale === 'pl') {
-    setLocale(newLocale)
-  }
-}
+onUnmounted(() => removeMotion?.())
 </script>

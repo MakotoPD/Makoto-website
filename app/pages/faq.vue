@@ -20,17 +20,17 @@
 		<div class="px-4 xl:px-0 mt-12 w-full max-w-2xl mx-auto flex flex-col items-center">
 				<div class="w-full" v-for="(section, i) in faq" :key="i">
 					<div class="flex gap-4 items-center mb-2 mt-6">
-						<UIcon :name="rt(section.icon)" class="size-9 text-sky-400"/>
-						<h2 class="text-3xl serif text-black dark:text-white">{{ rt(section.name) }}</h2>
+						<UIcon :name="rt(section.icon || '')" class="size-9 text-sky-400"/>
+						<h2 class="text-3xl serif text-black dark:text-white">{{ rt(section.name || '') }}</h2>
 					</div>
 					
 					<UAccordion :items="section.q" class="text-black dark:text-white">
 						<template #="{item}" >
-							<p class="text-black dark:text-white">{{ rt(item.label) }}</p>
+							<p class="text-black dark:text-white">{{ rt(item.label || '') }}</p>
 						</template>
 						<template #content="{item}">
 							<p class="text-zinc-400">
-								{{ rt(item.content) }}
+								{{ rt(item.content || '') }}
 							</p>
 							
 						</template>

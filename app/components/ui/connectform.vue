@@ -1,173 +1,66 @@
-<template>
-	<div class="p-4">
-		 <UTabs :items="items" variant="pill" :ui="{ trigger: 'grow' }" class="gap-4 w-full">
-			<template #quick="{ item }">
-
-				<div class="flex flex-col md:flex-row justify-between gap-4 mt-3 mb-8">
-					<NuxtLink to="mailto:contact@makoto.com.pl?subject=Let's catch up for a opportunity!" target="_blank" class="w-full group">
-						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
-							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-sky-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-mkt-mailbox-line-duotone" class="size-8" aria-hidden="true" />
-								<p>Email</p>
-							</div>
-							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
-								<p class="text-black dark:text-white">contact@makoto.com.pl</p>
-								<p class="mt-2 text-zinc-600 dark:text-zinc-400">Send me a email</p>
-							</div>
-						</div>
-					</NuxtLink>
-
-					<button type="button" class="w-full group text-left" @click="copyDiscord" :aria-label="`Discord: @MakotoPD — ${discordCopied ? 'Copied!' : 'Click to copy'}`">
-						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
-							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-purple-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-mkt-discord" class="size-8" aria-hidden="true" />
-								<p>Discord</p>
-							</div>
-							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
-								<p class="text-black dark:text-white">@MakotoPD</p>
-								<p class="mt-2 text-zinc-600 dark:text-zinc-400">{{ discordCopied ? 'Copied!' : 'Click to copy username' }}</p>
-							</div>
-						</div>
-					</button>
-					<NuxtLink to="https://instagram.com/MakotoPD" target="_blank" class="w-full group">
-						<div class="border border-zinc-400 dark:border-zinc-800 rounded-xl overflow-hidden group-hover:border-zinc-600 duration-300">
-							<div class="text-black dark:text-white flex gap-4 group-hover:gap-5 items-center py-3 px-2 border-b border-zinc-400 dark:border-zinc-800 bg-gradient-to-r from-0% to-65% from-rose-500/20 to-transparent group-hover:border-zinc-600 group-hover:to-70% duration-300">
-								<UIcon name="i-mkt-instagram" class="size-8" aria-hidden="true" />
-								<p>Instagram</p>
-							</div>
-							<div class="py-4 px-3 group-hover:bg-zinc-300/50 group-hover:dark:bg-zinc-900/50 duration-300">
-								<p class="text-black dark:text-white">@MakotoPD</p>
-								<p class="mt-2 text-zinc-600 dark:text-zinc-400">Text to me on Instagram</p>
-							</div>
-						</div>
-					</NuxtLink>
-				</div>
-
-			</template>
-
-			<template #form="{ item }">
-
-			<UForm :schema="schema" :state="state" @submit="onSubmit" class="flex flex-col gap-4" >
-				<input type="hidden" name="access_key" v-model="state.access_key">
-				<input type="hidden" name="subject" v-model="state.subject">
-				<UFormField :label="t('contactform.labelName')" name="name" required>
-					<UInput v-model="state.name" type="text" :placeholder="t('contactform.name')" required class="w-full" />
-				</UFormField>
-				<UFormField :label="t('contactform.labelEmail')" name="email" required>
-					<UInput v-model="state.email" type="email" :placeholder="t('contactform.email')" required class="w-full" />
-				</UFormField>
-				<UFormField :label="t('contactform.labelMessage')" name="message" required>
-					<UTextarea v-model="state.message" :placeholder="t('contactform.message')" required autoresize class="w-full" />
-				</UFormField>
-				<UFormField name="token">
-					<NuxtTurnstile v-model="state.token" />
-				</UFormField>
-				<button type="submit" label="Send" class="w-full bg-sky-600/60 hover:bg-sky-500/90 dark:bg-sky-700/20 hover:dark:bg-sky-700/30 duration-150 border border-sky-600/90 dark:border-sky-600/50 py-1 rounded-lg flex items-center justify-center gap-2 hover:gap-4 relative">
-					Send
-					<UIcon name="i-mkt-map-arrow-right-outline" class="size-5" aria-hidden="true" />
-				</button>
-			</UForm>
-			</template>
-		</UTabs>
-	</div>
-</template>
 <script setup lang="ts">
-import type { TabsItem } from '@nuxt/ui'
-import * as z from 'zod'
+import { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
-const { t } = useI18n()
-const config = useRuntimeConfig()
-
-const discordCopied = ref(false)
-const copyDiscord = async () => {
-  try {
-    await navigator.clipboard.writeText('@MakotoPD')
-    discordCopied.value = true
-    setTimeout(() => { discordCopied.value = false }, 2000)
-  } catch {}
-}
-
+const { locale } = useI18n()
 const schema = z.object({
-  email: z.email('Invalid email'),
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  message: z.string().min(12, 'Message must be at least 12 characters'),
-  token: z.string().min(1, 'Please complete the captcha'),
+  name: z.string().trim().min(2).max(100),
+  email: z.email(),
+  message: z.string().trim().min(12).max(5000),
+  token: z.string().min(10)
 })
+type FormData = z.infer<typeof schema>
+const state = reactive({ name: '', email: '', message: '', token: '', website: '' })
+const sending = ref(false)
+const status = ref<'idle' | 'success' | 'error'>('idle')
+const errorMessage = ref('')
 
-type Schema = z.output<typeof schema>
-
-
-const state = reactive({
-  name: '',
-  email: '',
-  message: '',
-  token: '',
-  subject: 'Nowa wiadomość z strony internetowej',
-  access_key: config.public.web3formsKey
-})
-
-const toast = useToast()
-
-let onSubmit = async (event: FormSubmitEvent<Schema>) => {
-	try {
-		const verifyRes = await fetch('/api/verify-turnstile', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ token: state.token })
-		})
-		if (verifyRes.status === 422) {
-			toast.add({ title: 'Error', description: 'Captcha verification failed. Refresh and try again.', color: 'error' })
-			return
-		}
-		if (!verifyRes.ok) {
-			toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
-			return
-		}
-
-		const submitRes = await fetch('https://api.web3forms.com/submit', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-			body: JSON.stringify({
-				access_key: state.access_key,
-				subject: state.subject,
-				name: state.name,
-				email: state.email,
-				message: state.message,
-			})
-		})
-		if (!submitRes.ok) {
-			toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
-			return
-		}
-
-		toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
-		state.name = ''
-		state.email = ''
-		state.message = ''
-		state.token = ''
-
-	} catch (err) {
-		toast.add({ title: 'Error', description: "Can't send message. Try again", color: 'error' })
-	}
-}
-
-
-
-
-
-const items = [
-  {
-    label: 'Quick connect',
-    description: '',
-    icon: 'i-mkt-link-line-duotone',
-    slot: 'quick' as const
-  },
-  {
-    label: 'Contact form',
-    description: '',
-    icon: 'i-mkt-plain-linear',
-    slot: 'form' as const
+async function submit(event: FormSubmitEvent<FormData>) {
+  sending.value = true
+  status.value = 'idle'
+  try {
+    await $fetch('/api/contact', { method: 'POST', body: { ...event.data, website: state.website } })
+    status.value = 'success'
+    state.name = ''
+    state.email = ''
+    state.message = ''
+    state.token = ''
+  } catch {
+    status.value = 'error'
+    errorMessage.value = locale.value === 'pl' ? 'Nie udało się wysłać wiadomości. Spróbuj ponownie lub napisz e-mail.' : 'The message could not be sent. Please try again or email me.'
+  } finally {
+    sending.value = false
   }
-] satisfies TabsItem[]
+}
 </script>
+
+<template>
+  <div class="rounded-2xl border border-zinc-700 bg-zinc-900/80 p-6 text-zinc-100 md:p-8">
+    <h3 class="font-serif text-2xl">{{ locale === 'pl' ? 'Wyślij zapytanie' : 'Send an enquiry' }}</h3>
+    <p class="mt-2 text-sm text-zinc-400">{{ locale === 'pl' ? 'Opisz projekt, a skontaktuję się z Tobą, aby ustalić szczegóły.' : 'Describe your project and I will follow up to discuss the details.' }}</p>
+    <UForm :schema="schema" :state="state" class="mt-7 space-y-5" @submit="submit">
+      <div class="absolute -left-[10000px]" aria-hidden="true">
+        <label for="contact-website">Website</label>
+        <input id="contact-website" v-model="state.website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <UFormField name="name" :label="locale === 'pl' ? 'Imię i nazwisko' : 'Name'" required>
+        <UInput v-model="state.name" autocomplete="name" class="w-full" />
+      </UFormField>
+      <UFormField name="email" :label="locale === 'pl' ? 'Adres e-mail' : 'Email address'" required>
+        <UInput v-model="state.email" type="email" autocomplete="email" class="w-full" />
+      </UFormField>
+      <UFormField name="message" :label="locale === 'pl' ? 'Wiadomość' : 'Message'" required>
+        <UTextarea v-model="state.message" :rows="5" class="w-full" />
+      </UFormField>
+      <UFormField name="token" :label="locale === 'pl' ? 'Weryfikacja' : 'Verification'" required>
+        <NuxtTurnstile v-model="state.token" />
+      </UFormField>
+      <button type="submit" :disabled="sending" class="w-full rounded-xl bg-sky-400 px-5 py-3 font-semibold text-zinc-950 transition hover:bg-sky-300 disabled:cursor-wait disabled:opacity-60">
+        {{ sending ? (locale === 'pl' ? 'Wysyłanie…' : 'Sending…') : (locale === 'pl' ? 'Wyślij wiadomość' : 'Send message') }}
+      </button>
+    </UForm>
+    <p v-if="status === 'success'" role="status" class="mt-5 rounded-lg border border-emerald-400/40 bg-emerald-950/40 p-3 text-emerald-200">{{ locale === 'pl' ? 'Wiadomość została wysłana. Dziękuję!' : 'Your message has been sent. Thank you!' }}</p>
+    <p v-if="status === 'error'" role="alert" class="mt-5 rounded-lg border border-red-400/40 bg-red-950/40 p-3 text-red-200">{{ errorMessage }}</p>
+    <p class="mt-6 text-sm text-zinc-400">{{ locale === 'pl' ? 'Możesz też napisać bezpośrednio:' : 'You can also email me directly:' }} <a href="mailto:contact@makoto.com.pl" class="text-sky-300 underline">contact@makoto.com.pl</a></p>
+  </div>
+</template>

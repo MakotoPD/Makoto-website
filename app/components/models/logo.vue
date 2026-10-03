@@ -4,10 +4,10 @@
   <!-- First curve with liquid glass effect -->
   <TresMesh 
     ref="mesh1Ref" 
-    :geometry="nodes.Curve.geometry"
-    :position="[nodes.Curve.position.x, nodes.Curve.position.y, nodes.Curve.position.z]"
-    :rotation="[nodes.Curve.rotation.x, nodes.Curve.rotation.y, nodes.Curve.rotation.z]"
-    :scale="[nodes.Curve.scale.x, nodes.Curve.scale.y, nodes.Curve.scale.z]"
+    :geometry="curve.geometry"
+    :position="[curve.position.x, curve.position.y, curve.position.z]"
+    :rotation="[curve.rotation.x, curve.rotation.y, curve.rotation.z]"
+    :scale="[curve.scale.x, curve.scale.y, curve.scale.z]"
   >
     <TresMeshTransmissionMaterial
       :transmission="0"
@@ -30,10 +30,10 @@
   <!-- Second curve with liquid glass effect -->
   <TresMesh 
     ref="mesh2Ref" 
-    :geometry="nodes.Curve001.geometry"
-    :position="[nodes.Curve001.position.x, nodes.Curve001.position.y, nodes.Curve001.position.z]"
-    :rotation="[nodes.Curve001.rotation.x, nodes.Curve001.rotation.y, nodes.Curve001.rotation.z]"
-    :scale="[nodes.Curve001.scale.x, nodes.Curve001.scale.y, nodes.Curve001.scale.z]"
+    :geometry="curve001.geometry"
+    :position="[curve001.position.x, curve001.position.y, curve001.position.z]"
+    :rotation="[curve001.rotation.x, curve001.rotation.y, curve001.rotation.z]"
+    :scale="[curve001.scale.x, curve001.scale.y, curve001.scale.z]"
   >
     <TresMeshTransmissionMaterial
       :transmission="0"
@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import * as THREE from 'three'
 import { useGLTF } from '@tresjs/cientos'
-import { extend, useTresContext, useRenderLoop } from '@tresjs/core'
+import { extend, useTresContext, useLoop } from '@tresjs/core'
 import { MeshTransmissionMaterialImpl } from '~/utils/MeshTransmissionMaterialImpl'
 
 // Get color mode for theme-aware background
@@ -66,7 +66,10 @@ const colorMode = useColorMode()
 // Extend TresJS with our custom material
 extend({ MeshTransmissionMaterial: MeshTransmissionMaterialImpl })
 
-const { nodes } = await useGLTF('/models/makoto.glb')
+const { nodes, execute } = useGLTF('/models/makoto.glb')
+await execute()
+const curve = nodes.value.Curve! as THREE.Mesh
+const curve001 = nodes.value.Curve001! as THREE.Mesh
 
 const mesh1Ref = shallowRef<THREE.Mesh | null>(null)
 const mesh2Ref = shallowRef<THREE.Mesh | null>(null)
@@ -84,11 +87,11 @@ const fboMain = new THREE.WebGLRenderTarget(fboResolution, fboResolution, {
 })
 
 // Render loop for FBO updates
-const { onLoop } = useRenderLoop()
+const { onBeforeRender } = useLoop()
 let elapsedTime = 0
 
-onLoop(({ delta }) => {
-  if (!renderer.value || !camera.value || !scene.value) return
+onBeforeRender(({ delta }) => {
+  if (!renderer.instance || !camera.activeCamera.value || !scene.value) return
   
   elapsedTime += delta
   
@@ -96,7 +99,7 @@ onLoop(({ delta }) => {
   if (meshes.length === 0) return
   
   const sceneRef = scene.value
-  const gl = renderer.value
+  const gl = renderer.instance as THREE.WebGLRenderer
   
   // Store original state
   const oldBg = sceneRef.background
@@ -119,7 +122,7 @@ onLoop(({ delta }) => {
   // Render scene to FBO
   gl.setRenderTarget(fboMain)
   gl.clear()
-  gl.render(sceneRef, camera.value)
+  gl.render(sceneRef, camera.activeCamera.value)
   gl.setRenderTarget(null)
   
   // Restore original state
