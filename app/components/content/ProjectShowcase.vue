@@ -101,7 +101,7 @@ onBeforeUnmount(() => { disposed = true; dispose?.() })
           <div v-if="stackFor(project).length" class="project-stack mt-5 flex flex-wrap gap-2">
             <UBadge v-for="(tech, techIndex) in stackFor(project)" :key="techIndex" :icon="tech.logo" variant="subtle" size="lg" class="text-black dark:text-white" :ui="{ leadingIcon: 'size-5' }">{{ tech.name }}</UBadge>
           </div>
-          <NuxtLink :to="contentPath(project)" class="link-underline mt-6 inline-block text-sm text-sky-600 dark:text-sky-300">{{ project.locale === 'pl' ? 'Zobacz realizację' : 'View project' }} ↗</NuxtLink>
+          <NuxtLink :to="contentPath(project)" class="link-underline mt-6 inline-flex items-center gap-2 text-sm text-sky-600 dark:text-sky-300">{{ project.locale === 'pl' ? 'Zobacz realizację' : 'View project' }} <UIcon name="i-mkt-arrow-up-right" class="size-4 shrink-0" aria-hidden="true" /></NuxtLink>
         </div>
       </div>
     </article>

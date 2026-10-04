@@ -19,7 +19,7 @@ useEntrySeo(project)
 
 <template>
   <div v-if="project" class="mx-auto max-w-5xl px-5 pb-24 pt-40 text-black dark:text-white">
-    <NuxtLink :to="locale === 'pl' ? '/pl/work' : '/work'" class="text-sm text-sky-300 hover:underline">← {{ locale === 'pl' ? 'Wszystkie realizacje' : 'All projects' }}</NuxtLink>
+    <NuxtLink :to="locale === 'pl' ? '/pl/work' : '/work'" class="inline-flex items-center gap-2 text-sm text-sky-300 hover:underline"><UIcon name="i-mkt-arrow-left" class="size-4 shrink-0" aria-hidden="true" />{{ locale === 'pl' ? 'Wszystkie realizacje' : 'All projects' }}</NuxtLink>
     <h1 class="makoto-heading mt-12 text-center text-5xl md:text-7xl">{{ project.title }}</h1>
     <p class="serif makoto-muted mx-auto mt-6 max-w-3xl text-center text-2xl leading-relaxed">{{ project.summary }}</p>
     <div v-if="(project.data.image as any)?.url" class="makoto-card mt-12 overflow-hidden rounded-2xl p-2">
@@ -37,6 +37,6 @@ useEntrySeo(project)
         <li v-for="(item, index) in project.data.stack" :key="index"><UBadge :icon="(item as any).logo" variant="subtle" size="lg" class="text-black dark:text-white">{{ (item as any).name || item }}</UBadge></li>
       </ul>
     </section>
-    <a v-if="safeHref(project.data.externalUrl)" :href="safeHref(project.data.externalUrl)" target="_blank" rel="noopener noreferrer" class="makoto-cta mt-10">{{ locale === 'pl' ? 'Otwórz projekt' : 'Visit project' }} ↗</a>
+    <a v-if="safeHref(project.data.externalUrl)" :href="safeHref(project.data.externalUrl)" target="_blank" rel="noopener noreferrer" class="makoto-cta mt-10">{{ locale === 'pl' ? 'Otwórz projekt' : 'Visit project' }} <UIcon name="i-mkt-arrow-up-right" class="size-4 shrink-0" aria-hidden="true" /></a>
   </div>
 </template>

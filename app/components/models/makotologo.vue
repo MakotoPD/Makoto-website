@@ -1,6 +1,6 @@
 <template>
   <div ref="viewport" class="model-viewport">
-    <TresCanvas v-bind="gl" :render-mode="isAnimating ? 'always' : 'on-demand'" :dpr="[1, 1.5]">
+    <TresCanvas v-bind="gl" :style="{ pointerEvents: 'none', touchAction: 'auto' }" :render-mode="isAnimating ? 'always' : 'on-demand'" :dpr="[1, 1.5]">
       <TresPerspectiveCamera :position="[0, 0, 0.9]" />
       <TresAmbientLight />
       <TresDirectionalLight :position="[1, 1, 2]" />
@@ -46,5 +46,5 @@ const gl = { shadows: true, alpha: true, clearAlpha: 0, shadowMapType: BasicShad
 </script>
 
 <style scoped>
-.model-viewport { width: 100%; height: 100%; }
+.model-viewport { width: 100%; height: 100%; pointer-events: none; touch-action: auto; }
 </style>

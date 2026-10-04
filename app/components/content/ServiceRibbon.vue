@@ -8,7 +8,7 @@ defineProps<{ items: string[] }>()
     <div class="ribbon-front">
       <div class="ribbon-track serif">
         <div v-for="copy in 2" :key="copy" class="ribbon-items">
-          <template v-for="item in items" :key="item"><span>{{ item }}</span><span class="ribbon-star">✦</span></template>
+          <template v-for="item in items" :key="item"><span>{{ item }}</span><UIcon name="i-mkt-sparkle" class="ribbon-star size-4 shrink-0" /></template>
         </div>
       </div>
     </div>

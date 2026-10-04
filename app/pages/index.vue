@@ -55,7 +55,7 @@ useEntrySeo(home)
         </div>
         <p class="makoto-muted hero-summary mx-auto mt-5 max-w-lg text-sm leading-relaxed">{{ home?.summary }}</p>
         <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm">
-          <NuxtLink :to="contactPath" class="makoto-cta">{{ locale === 'pl' ? 'Zapytaj o wycenę' : 'Ask for an estimate' }} <span aria-hidden="true">↗</span></NuxtLink>
+          <NuxtLink :to="contactPath" class="makoto-cta">{{ locale === 'pl' ? 'Zapytaj o wycenę' : 'Ask for an estimate' }} <UIcon name="i-mkt-arrow-up-right" class="size-4 shrink-0" aria-hidden="true" /></NuxtLink>
           <NuxtLink :to="locale === 'pl' ? '/pl/work' : '/work'" class="link-underline py-2">{{ locale === 'pl' ? 'Zobacz realizacje' : 'See my work' }}</NuxtLink>
         </div>
       </div>

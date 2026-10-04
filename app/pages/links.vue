@@ -18,7 +18,7 @@ useEntrySeo(page)
     <h1 class="makoto-heading mt-6 text-4xl">{{ page.title }}</h1>
     <p class="makoto-muted mt-3">{{ locale === 'pl' ? 'Moje miejsca w sieci i kontakt' : 'Find me online and get in touch' }}</p>
     <div class="mt-9 grid gap-3">
-      <a v-for="item in links" :key="item.link" :href="safeHref(item.link)" :target="String(item.link).startsWith('http') ? '_blank' : undefined" rel="noopener noreferrer" class="makoto-card rounded-xl px-6 py-4 text-left hover:text-sky-500">{{ item.name }} <span aria-hidden="true" class="float-right">↗</span></a>
+      <a v-for="item in links" :key="item.link" :href="safeHref(item.link)" :target="String(item.link).startsWith('http') ? '_blank' : undefined" rel="noopener noreferrer" class="makoto-card flex items-center justify-between gap-4 rounded-xl px-6 py-4 text-left hover:text-sky-500"><span>{{ item.name }}</span><UIcon name="i-mkt-arrow-up-right" class="size-5 shrink-0" aria-hidden="true" /></a>
     </div>
   </div>
 </template>

@@ -83,7 +83,7 @@ const bytesLabel = (bytes: number) => bytes >= 1024 * 1024 ? `${(bytes / 1024 / 
     <div class="flex flex-wrap items-end gap-3">
       <div class="min-w-40 flex-1"><label for="media-search" class="panel-label">Szukaj mediów</label><input id="media-search" v-model="search" type="search" class="panel-input" placeholder="Nazwa lub opis obrazu…"></div>
       <div v-if="!imagesOnly"><label for="media-type" class="panel-label">Typ</label><select id="media-type" v-model="type" class="panel-input"><option value="all">Wszystkie</option><option value="images">Obrazy</option><option value="pdf">Dokumenty PDF</option></select></div>
-      <button class="panel-button" :aria-expanded="uploadOpen" @click="uploadOpen = !uploadOpen">+ Prześlij plik</button>
+      <button class="panel-button" :aria-expanded="uploadOpen" @click="uploadOpen = !uploadOpen"><UIcon name="i-mkt-plus" class="size-4 shrink-0" aria-hidden="true" />Prześlij plik</button>
     </div>
     <form v-if="uploadOpen" class="panel-card mt-4 space-y-4 p-4" @submit.prevent="upload">
       <p class="text-sm text-zinc-400">JPG, PNG, WebP{{ imagesOnly ? '' : ' lub PDF' }} · do 10 MB. Wystarczy przesłać oryginał.</p>
@@ -107,7 +107,7 @@ const bytesLabel = (bytes: number) => bytes >= 1024 * 1024 ? `${(bytes / 1024 / 
         <p class="mt-4 text-xs text-zinc-500">Pliki: {{ list.length }} · rozmiary obrazów powstają automatycznie</p>
       </div>
       <aside v-if="selected" ref="details" class="panel-card order-first space-y-4 p-4 lg:sticky lg:top-0 lg:order-last" aria-label="Szczegóły pliku">
-        <div class="flex items-start justify-between gap-3"><h3 class="min-w-0 break-words font-medium">{{ selected.name }}</h3><button class="shrink-0 text-zinc-400" aria-label="Zamknij szczegóły" @click="selected = null">✕</button></div>
+        <div class="flex items-start justify-between gap-3"><h3 class="min-w-0 break-words font-medium">{{ selected.name }}</h3><button class="grid size-10 shrink-0 place-items-center rounded-lg text-zinc-400 hover:text-sky-300" aria-label="Zamknij szczegóły" @click="selected = null"><UIcon name="i-mkt-x" class="size-5" aria-hidden="true" /></button></div>
         <img v-if="selected.mime.startsWith('image/')" :src="`/api/media/${selected.id}?size=medium`" :alt="selected.alt || selected.name" class="max-h-48 w-full rounded bg-black/30 object-contain">
         <p class="text-xs text-zinc-400">{{ bytesLabel(selected.bytes) }} · Odwołania w treści: {{ selected.uses || 0 }}</p>
         <label v-if="selected.mime.startsWith('image/')" class="panel-label">Opis obrazu (tekst alternatywny)<textarea v-model="selected.alt" class="panel-input mt-2" rows="2" maxlength="500" placeholder="Co przedstawia obraz?"></textarea></label>

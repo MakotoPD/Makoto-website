@@ -22,7 +22,7 @@ const navigation = [...panelSections, { slug: 'media', label: 'Media' }, { slug:
   <div class="cms min-h-dvh bg-[#101216]">
     <header class="flex flex-wrap items-center justify-between gap-3 border-b border-[#30343a] px-5 py-4 md:px-8">
       <NuxtLink to="/panel/blog" class="flex items-baseline gap-3"><span class="font-serif text-3xl text-white">Makoto</span><span class="text-xs uppercase tracking-[.18em] text-sky-300">Panel treści</span></NuxtLink>
-      <div class="flex items-center gap-4 text-sm"><NuxtLink to="/pl" target="_blank" class="text-zinc-400 hover:text-sky-300">Zobacz stronę ↗</NuxtLink><button class="panel-button" :disabled="loggingOut" @click="logout">Wyloguj</button></div>
+      <div class="flex items-center gap-4 text-sm"><NuxtLink to="/pl" target="_blank" class="inline-flex items-center gap-2 text-zinc-400 hover:text-sky-300">Zobacz stronę <UIcon name="i-mkt-arrow-up-right" class="size-4 shrink-0" aria-hidden="true" /></NuxtLink><button class="panel-button" :disabled="loggingOut" @click="logout">Wyloguj</button></div>
     </header>
     <div v-if="session" class="mx-auto grid max-w-[1680px] grid-cols-1 lg:grid-cols-[205px_minmax(0,1fr)]">
       <aside class="min-w-0 border-b border-[#30343a] px-4 py-4 lg:min-h-[calc(100dvh-80px)] lg:border-r lg:border-b-0 lg:py-7">

@@ -44,7 +44,7 @@ const icons = ['i-mkt-window-frame-line-duotone', 'i-mkt-shopping-bag', 'i-mkt-p
         <h3 class="serif text-2xl md:text-3xl">{{ service.title }}</h3>
         <p class="makoto-muted mt-3 text-sm leading-relaxed md:text-base">{{ service.summary }}</p>
       </div>
-      <span class="service-arrow" aria-hidden="true">↗</span>
+      <UIcon name="i-mkt-arrow-up-right" class="service-arrow size-6" aria-hidden="true" />
     </NuxtLink>
   </div>
 </template>

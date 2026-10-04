@@ -90,15 +90,15 @@ function insertMedia(file: MediaItem) {
           <button type="button" class="editor-tool" @click="editor?.chain().focus().toggleBlockquote().run()">Cytat</button>
           <button type="button" class="editor-tool" @click="editor?.chain().focus().toggleCodeBlock().run()">Kod</button>
           <button type="button" class="editor-tool" @click="editor?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">Tabela</button>
-          <button type="button" class="editor-tool" @click="moveBlock(-1)">↑ Blok</button>
-          <button type="button" class="editor-tool" @click="moveBlock(1)">↓ Blok</button>
+          <button type="button" class="editor-tool" aria-label="Przesuń blok w górę" @click="moveBlock(-1)"><UIcon name="i-mkt-alt-arrow-up-line-duotone" class="size-4" aria-hidden="true" />Blok</button>
+          <button type="button" class="editor-tool" aria-label="Przesuń blok w dół" @click="moveBlock(1)"><UIcon name="i-mkt-alt-arrow-down-line-duotone" class="size-4" aria-hidden="true" />Blok</button>
         </div>
       </details>
       <div v-if="editor?.isActive('table')" class="flex flex-wrap gap-2" role="toolbar" aria-label="Narzędzia tabeli">
-        <button type="button" class="editor-tool" @click="editor?.chain().focus().addRowAfter().run()">+ Wiersz</button>
-        <button type="button" class="editor-tool" @click="editor?.chain().focus().addColumnAfter().run()">+ Kolumna</button>
-        <button type="button" class="editor-tool" @click="editor?.chain().focus().deleteRow().run()">− Wiersz</button>
-        <button type="button" class="editor-tool" @click="editor?.chain().focus().deleteColumn().run()">− Kolumna</button>
+        <button type="button" class="editor-tool" aria-label="Dodaj wiersz" @click="editor?.chain().focus().addRowAfter().run()"><UIcon name="i-mkt-plus" class="size-4" aria-hidden="true" />Wiersz</button>
+        <button type="button" class="editor-tool" aria-label="Dodaj kolumnę" @click="editor?.chain().focus().addColumnAfter().run()"><UIcon name="i-mkt-plus" class="size-4" aria-hidden="true" />Kolumna</button>
+        <button type="button" class="editor-tool" aria-label="Usuń wiersz" @click="editor?.chain().focus().deleteRow().run()"><UIcon name="i-mkt-minus" class="size-4" aria-hidden="true" />Wiersz</button>
+        <button type="button" class="editor-tool" aria-label="Usuń kolumnę" @click="editor?.chain().focus().deleteColumn().run()"><UIcon name="i-mkt-minus" class="size-4" aria-hidden="true" />Kolumna</button>
         <button v-for="align in ['left', 'center', 'right']" :key="align" type="button" class="editor-tool" @click="editor?.chain().focus().setCellAttribute('textAlign', align).run()">{{ { left: 'Do lewej', center: 'Środek', right: 'Do prawej' }[align] }}</button>
       </div>
     </div>
@@ -117,6 +117,7 @@ function insertMedia(file: MediaItem) {
 
 <style scoped>
 .editor-tool { border: 1px solid #52525b; border-radius: .5rem; padding: .4rem .7rem; font-size: .8rem; color: #e4e4e7; }
+button.editor-tool { display: inline-flex; align-items: center; gap: .35rem; }
 .editor-tool[aria-pressed="true"] { background: #173847; border-color: #38bdf8; }
 .editor-tool:hover { border-color: #38bdf8; color: #7dd3fc; }
 .editor-tool:focus-visible { outline: 2px solid #7dd3fc; }

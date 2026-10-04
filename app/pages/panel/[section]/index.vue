@@ -20,7 +20,7 @@ const statusLabel = (value: string) => value === 'published' ? 'Opublikowany' : 
   <div>
     <header class="flex flex-wrap items-center justify-between gap-4">
       <div><p class="text-xs uppercase tracking-[.18em] text-zinc-500">Treści witryny</p><h1 class="mt-2 font-serif text-4xl">{{ section!.label }}</h1></div>
-      <NuxtLink :to="`/panel/${section!.slug}/nowy`" class="panel-button-primary">+ Dodaj: {{ section!.singular }}</NuxtLink>
+      <NuxtLink :to="`/panel/${section!.slug}/nowy`" class="panel-button-primary"><UIcon name="i-mkt-plus" class="size-4 shrink-0" aria-hidden="true" />Dodaj: {{ section!.singular }}</NuxtLink>
     </header>
     <p class="mt-4 text-sm text-zinc-400">Każda pozycja zawiera obie wersje językowe. Otwórz ją, aby edytować PL lub EN.</p>
     <div class="mt-7 flex flex-wrap items-end gap-3">
@@ -34,7 +34,7 @@ const statusLabel = (value: string) => value === 'published' ? 'Opublikowany' : 
       <NuxtLink v-for="group in groups" :key="group.key" :to="`/panel/${section!.slug}/${group.entry.id}`" class="group grid gap-3 border-b border-[#30343a] px-5 py-5 last:border-b-0 hover:bg-white/[.025] md:grid-cols-[1fr_14rem_6rem] md:items-center">
         <div class="min-w-0"><span class="block font-medium text-zinc-100 group-hover:text-sky-200">{{ (group.translations[language] || group.entry).title }}</span><span class="mt-1 block truncate text-xs text-zinc-500">/{{ (group.translations[language] || group.entry).slug }}</span></div>
         <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs"><span v-for="lang in (['pl', 'en'] as const)" :key="lang" class="flex items-center gap-1.5"><span class="size-1.5 rounded-full" :class="group.translations[lang]?.status === 'published' ? 'bg-emerald-400' : group.translations[lang] ? 'bg-amber-300' : 'bg-zinc-600'"></span><b>{{ lang.toUpperCase() }}</b><span class="text-zinc-400">{{ group.translations[lang] ? statusLabel(group.translations[lang]!.status) : 'Brak' }}</span></span></div>
-        <span class="text-sm text-sky-300 md:text-right">Otwórz ↗</span>
+        <span class="inline-flex items-center gap-2 text-sm text-sky-300 md:justify-end">Otwórz <UIcon name="i-mkt-arrow-up-right" class="size-4 shrink-0" aria-hidden="true" /></span>
       </NuxtLink>
       <p v-if="!groups.length" class="p-10 text-center text-zinc-400">{{ search || status !== 'all' ? 'Brak treści pasujących do wyszukiwania.' : 'Nie ma jeszcze treści w tej sekcji.' }}</p>
     </div>

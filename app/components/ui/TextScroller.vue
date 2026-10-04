@@ -15,13 +15,13 @@
       <div class="tag-list">
         <template v-for="(item, index) in items" :key="index">
           <span class="item">{{ item }}</span>
-          <span class="separator" aria-hidden="true">{{ separator }}</span>
+          <span class="separator" aria-hidden="true"><span v-if="separator">{{ separator }}</span><UIcon v-else name="i-mkt-sparkle" class="size-5" /></span>
         </template>
       </div>
       <div class="tag-list" aria-hidden="true">
         <template v-for="(item, index) in items" :key="`duplicate-${index}`">
           <span class="item">{{ item }}</span>
-          <span class="separator">{{ separator }}</span>
+          <span class="separator"><span v-if="separator">{{ separator }}</span><UIcon v-else name="i-mkt-sparkle" class="size-5" /></span>
         </template>
       </div>
     </div>
@@ -35,7 +35,7 @@ const props = defineProps({
   items: { type: Array, required: true },
   speed: { type: String, default: '40s' },
   gap: { type: String, default: '3rem' },
-  separator: { type: String, default: '✦' },
+  separator: { type: String, default: '' },
   textColor: { type: String, default: '#FFFFFF' },
   separatorColor: { type: String, default: '#FFFFFF' },
   draggable: { type: Boolean, default: false },
@@ -152,6 +152,9 @@ onUnmounted(() => {
 }
 
 .separator {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
   font-size: 1.2rem;
   color: var(--separator-color);
 }
