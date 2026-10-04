@@ -9,7 +9,9 @@ COPY . .
 ARG TURNSTILE_SITE_KEY
 ENV TURNSTILE_SITE_KEY=$TURNSTILE_SITE_KEY
 RUN pnpm build
-RUN cp -RL node_modules/dotenv .output/server/node_modules/dotenv
+# Nitro may trace only part of Drizzle when a server plugin imports the database.
+# Include the complete package, including its PostgreSQL driver, in the runtime.
+RUN cp -RL node_modules/dotenv node_modules/drizzle-orm .output/server/node_modules/
 
 FROM node:24-bookworm-slim AS runner
 WORKDIR /app
@@ -22,7 +24,7 @@ COPY --from=builder /app/data/strapi-public-export.json ./data/strapi-public-exp
 COPY --from=builder /app/data/strapi-media ./data/strapi-media
 COPY --from=builder /app/package.json ./package.json
 RUN ln -s .output/server/node_modules node_modules \
-    && node --input-type=module -e "await Promise.all(['pg','dotenv/config','markdown-it','@aws-sdk/client-s3','argon2','sharp'].map(name => import(name)))"
+    && node --input-type=module -e "await Promise.all(['pg','drizzle-orm/node-postgres','drizzle-orm/pg-core','dotenv/config','markdown-it','@aws-sdk/client-s3','argon2','sharp'].map(name => import(name)))"
 EXPOSE 3000
 CMD ["node", "scripts/start-production.mjs"]
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
