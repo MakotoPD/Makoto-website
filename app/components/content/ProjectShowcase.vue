@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { contentPath, type PublicEntry } from '#shared/content'
+import { projectAppearance } from '#shared/project-appearance'
 
 const props = defineProps<{ projects: PublicEntry[] }>()
 const root = useTemplateRef('root')
@@ -7,21 +8,8 @@ const enhanced = ref(false)
 const activeIndex = ref(0)
 let dispose: (() => void) | undefined
 let disposed = false
-const themeColors: Record<string, [string, string]> = {
-  red: ['#991b1b', '#ef4444'], orange: ['#9a3412', '#fb923c'],
-  amber: ['#92400e', '#fbbf24'], yellow: ['#854d0e', '#facc15'],
-  lime: ['#3f6212', '#a3e635'], green: ['#166534', '#4ade80'],
-  emerald: ['#065f46', '#34d399'], teal: ['#115e59', '#2dd4bf'],
-  cyan: ['#155e75', '#22d3ee'], sky: ['#075985', '#38bdf8'],
-  blue: ['#1e40af', '#60a5fa'], indigo: ['#3730a3', '#818cf8'],
-  violet: ['#5b21b6', '#a78bfa'], purple: ['#6b21a8', '#c084fc'],
-  fuchsia: ['#86198f', '#e879f9'], pink: ['#9d174d', '#f472b6'], rose: ['#9f1239', '#fb7185']
-}
-const colorsFor = (project: PublicEntry) => themeColors[String(project.data.theme || '')] || themeColors.sky!
-const gradientFor = (project: PublicEntry) => {
-  const [dark, light] = colorsFor(project)
-  return `linear-gradient(135deg, ${dark}, ${dark} 42%, ${light})`
-}
+const appearanceFor = (project: PublicEntry) => projectAppearance(project.data.theme, project.data.primaryColor)
+const gradientFor = (project: PublicEntry) => appearanceFor(project).gradient
 const imageFor = (project: PublicEntry) => project.data.image as { url?: string; alternativeText?: string; width?: number; height?: number } | undefined
 const stackFor = (project: PublicEntry) => (Array.isArray(project.data.stack) ? project.data.stack : []) as { name: string; logo?: string }[]
 
@@ -95,7 +83,7 @@ onBeforeUnmount(() => { disposed = true; dispose?.() })
       </NuxtLink>
       <div class="project-copy-slot">
         <div class="project-copy" :inert="enhanced && index !== activeIndex" :aria-hidden="enhanced && index !== activeIndex ? true : undefined">
-          <span aria-hidden="true" class="mb-5 block h-1 w-8 rounded-full" :style="{ backgroundColor: colorsFor(project)[1] }" />
+          <span aria-hidden="true" class="mb-5 block h-1 w-8 rounded-full" :style="{ backgroundColor: appearanceFor(project).primary }" />
           <h3 class="serif text-3xl text-black dark:text-white md:text-4xl">{{ project.title }}</h3>
           <p class="makoto-muted mt-4 leading-relaxed">{{ project.summary }}</p>
           <div v-if="stackFor(project).length" class="project-stack mt-5 flex flex-wrap gap-2">

@@ -1,22 +1,72 @@
 <script setup lang="ts">
+import type { ContentKind, Locale } from '#shared/content'
+import type { EntryReference } from '#shared/panel'
+const props = defineProps<{ entries: EntryReference[]; locale: Locale; disabled?: boolean }>()
 const sections = defineModel<any[]>({ required: true })
 const type = ref('scope')
-const labels: Record<string, string> = { audience: 'Dla kogo', scope: 'Zakres', process: 'Proces', pricing: 'Wycena', related: 'Powiązane treści', facts: 'Informacje', locations: 'Lokalizacje', services: 'Usługi', featured: 'Wyróżnione', note: 'Notatka', faq: 'Pytania i odpowiedzi' }
-function add() { sections.value.push({ type: type.value, title: '', items: type.value === 'faq' ? [['', '']] : [] }) }
+const labels: Record<string, string> = { audience: 'Dla kogo', scope: 'Zakres', process: 'Proces', pricing: 'Wycena', related: 'Powiązane realizacje', facts: 'Informacje', locations: 'Lokalizacje', services: 'Usługi', featured: 'Wyróżnione realizacje', note: 'Notatka', faq: 'Pytania i odpowiedzi' }
+const referenceKinds: Record<string, ContentKind> = { related: 'project', featured: 'project', locations: 'location', services: 'service' }
+const typeOptions = Object.entries(labels).map(([value, label]) => ({ value, label }))
+function add() {
+  sections.value.push({ type: type.value, title: '', ...(referenceKinds[type.value] ? { slugs: [] } : type.value === 'note' ? { text: '' } : { items: type.value === 'faq' ? [['', '']] : [] }) })
+}
 function move(index: number, delta: number) {
   const target = index + delta
   if (target < 0 || target >= sections.value.length) return
   ;[sections.value[index], sections.value[target]] = [sections.value[target], sections.value[index]]
 }
-function addItem(section: any) { if (section.slugs) section.slugs.push(''); else { section.items ||= []; section.items.push(section.type === 'faq' ? ['', ''] : '') } }
+function addItem(section: any) {
+  if (referenceKinds[section.type]) { section.slugs ||= []; section.slugs.push('') }
+  else { section.items ||= []; section.items.push(section.type === 'faq' ? ['', ''] : '') }
+}
+function options(section: any) {
+  const items = props.entries.filter(entry => entry.kind === referenceKinds[section.type] && entry.locale === props.locale && entry.status !== 'deleted').map(entry => ({ value: entry.slug, label: `${entry.title}${entry.status !== 'published' ? ' · szkic' : ''}` }))
+  for (const slug of section.slugs || []) if (slug && !items.some(item => item.value === slug)) items.push({ value: slug, label: `Niedostępna treść: ${slug}` })
+  return items
+}
+function values(section: any): any[] { return referenceKinds[section.type] ? section.slugs || [] : section.items || [] }
+function moveItem(section: any, index: number, delta: number) {
+  const items = values(section)
+  const target = index + delta
+  if (target < 0 || target >= items.length) return
+  ;[items[index], items[target]] = [items[target], items[index]]
+}
 </script>
 <template>
-  <section class="panel-card p-5"><h2 class="font-serif text-2xl">Sekcje strony</h2><div class="mt-4 flex gap-2"><select v-model="type" aria-label="Rodzaj sekcji" class="panel-input"><option v-for="(label, key) in labels" :key="key" :value="key">{{ label }}</option></select><button class="panel-button shrink-0" @click="add">Dodaj sekcję</button></div>
-    <div v-for="(section, index) in sections" :key="index" class="mt-4 space-y-3 rounded-lg border border-[#30343a] p-4">
-      <div class="flex flex-wrap items-center justify-between gap-2"><h3 class="text-sm text-sky-200">{{ labels[section.type] || section.type }}</h3><div class="flex gap-2"><button class="panel-button" aria-label="Przesuń sekcję w górę" :disabled="index === 0" @click="move(index, -1)"><UIcon name="i-mkt-alt-arrow-up-line-duotone" class="size-5" aria-hidden="true" /></button><button class="panel-button" aria-label="Przesuń sekcję w dół" :disabled="index === sections.length - 1" @click="move(index, 1)"><UIcon name="i-mkt-alt-arrow-down-line-duotone" class="size-5" aria-hidden="true" /></button><button class="panel-button" @click="sections.splice(index, 1)">Usuń sekcję</button></div></div>
-      <label class="panel-label">Nagłówek sekcji<input v-model="section.title" class="panel-input mt-2"></label>
-      <label v-if="section.type === 'note'" class="panel-label">Tekst<textarea v-model="section.text" class="panel-input mt-2" rows="3"></textarea></label>
-      <template v-else><div v-for="(item, itemIndex) in section.items || section.slugs || []" :key="itemIndex" class="flex flex-wrap gap-2"><template v-if="section.type === 'faq'"><input v-model="item[0]" aria-label="Pytanie" class="panel-input" placeholder="Pytanie"><input v-model="item[1]" aria-label="Odpowiedź" class="panel-input" placeholder="Odpowiedź"></template><input v-else v-model="(section.items || section.slugs)[itemIndex]" :aria-label="`Element ${Number(itemIndex) + 1}`" class="panel-input"><button class="text-xs text-red-300 underline" @click="(section.items || section.slugs).splice(itemIndex, 1)">Usuń element</button></div><button class="panel-button" @click="addItem(section)">Dodaj {{ section.type === 'faq' ? 'pytanie' : 'element' }}</button></template>
+  <section class="panel-card p-5 md:p-6">
+    <h2 class="font-serif text-2xl">Sekcje strony</h2>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <USelectMenu v-model="type" :items="typeOptions" value-key="value" :disabled="disabled" aria-label="Rodzaj sekcji" class="min-w-44 flex-1" />
+      <UButton color="neutral" variant="outline" icon="i-mkt-plus" :disabled="disabled" @click="add">Dodaj sekcję</UButton>
+    </div>
+    <div v-for="(section, index) in sections" :key="index" class="mt-5 space-y-4 rounded-lg border border-accented p-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-sm font-medium text-primary">{{ labels[section.type] || section.type }}</h3>
+        <div class="flex gap-1">
+          <UButton color="neutral" variant="ghost" icon="i-mkt-alt-arrow-up-line-duotone" aria-label="Przesuń sekcję w górę" :disabled="disabled || index === 0" @click="move(index, -1)" />
+          <UButton color="neutral" variant="ghost" icon="i-mkt-alt-arrow-down-line-duotone" aria-label="Przesuń sekcję w dół" :disabled="disabled || index === sections.length - 1" @click="move(index, 1)" />
+          <UButton color="error" variant="ghost" icon="i-mkt-x" aria-label="Usuń sekcję" :disabled="disabled" @click="sections.splice(index, 1)" />
+        </div>
+      </div>
+      <UFormField label="Nagłówek sekcji"><UInput v-model="section.title" :disabled="disabled" class="w-full" /></UFormField>
+      <UFormField v-if="section.type === 'note'" label="Tekst"><UTextarea v-model="section.text" :disabled="disabled" class="w-full" :rows="3" /></UFormField>
+      <template v-else>
+        <div v-for="(item, itemIndex) in values(section)" :key="itemIndex" class="space-y-3 rounded-lg border border-accented p-3">
+          <template v-if="section.type === 'faq'">
+            <UFormField label="Pytanie"><UInput v-model="item[0]" :disabled="disabled" class="w-full" /></UFormField>
+            <UFormField label="Odpowiedź"><UTextarea v-model="item[1]" :disabled="disabled" class="w-full" :rows="3" /></UFormField>
+          </template>
+          <USelectMenu v-else-if="referenceKinds[section.type]" v-model="section.slugs[itemIndex]" :items="options(section)" value-key="value" :disabled="disabled" :aria-label="`Wybierz treść ${Number(itemIndex) + 1}`" placeholder="Wybierz po tytule…" class="w-full" />
+          <UTextarea v-else v-model="section.items[itemIndex]" :disabled="disabled" :aria-label="`Element ${Number(itemIndex) + 1}`" class="w-full" :rows="2" />
+          <div class="flex items-center justify-end gap-1">
+            <UButton color="neutral" variant="ghost" icon="i-mkt-alt-arrow-up-line-duotone" aria-label="Przesuń element w górę" :disabled="disabled || itemIndex === 0" @click="moveItem(section, itemIndex, -1)" />
+            <UButton color="neutral" variant="ghost" icon="i-mkt-alt-arrow-down-line-duotone" aria-label="Przesuń element w dół" :disabled="disabled || itemIndex === values(section).length - 1" @click="moveItem(section, itemIndex, 1)" />
+            <UButton color="error" variant="ghost" icon="i-mkt-x" aria-label="Usuń element" :disabled="disabled" @click="values(section).splice(itemIndex, 1)" />
+          </div>
+        </div>
+        <UButton color="neutral" variant="outline" icon="i-mkt-plus" :disabled="disabled" @click="addItem(section)">Dodaj {{ section.type === 'faq' ? 'pytanie' : referenceKinds[section.type] ? 'treść' : 'element' }}</UButton>
+        <p v-if="referenceKinds[section.type]" class="text-xs text-muted">Wybieraj treści w języku {{ locale.toUpperCase() }}. Szkice pojawią się na stronie po opublikowaniu.</p>
+      </template>
     </div>
   </section>
 </template>

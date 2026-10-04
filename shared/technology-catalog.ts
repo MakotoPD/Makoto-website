@@ -1,0 +1,28 @@
+// Paths are relative to app/assets/icons. Add an SVG there, then add its display name here.
+export const technologyCatalog: { name: string; file: string }[] = [
+  // Example after adding angular.svg: { name: 'Angular', file: 'angular.svg' },
+  { name: 'Nuxt', file: 'nuxt.svg' },
+  { name: 'Vue.js', file: 'vuejs.svg' },
+  { name: 'TypeScript', file: 'typescript.svg' },
+  { name: 'JavaScript', file: 'javascript.svg' },
+  { name: 'Tailwind CSS', file: 'tailwindcss.svg' },
+  { name: 'Strapi', file: 'strapi-icon.svg' },
+  { name: 'WordPress', file: 'wordpress.svg' },
+  { name: 'WooCommerce', file: 'woocommerce.svg' },
+  { name: 'Node.js', file: 'nodejs-icon.svg' },
+  { name: 'PostgreSQL', file: 'postgresql.svg' },
+  { name: 'MongoDB', file: 'mongodb-icon.svg' },
+  { name: 'GraphQL', file: 'graphql.svg' },
+  { name: 'GSAP', file: 'gsap.svg' },
+  { name: 'Pinia', file: 'pinia.svg' },
+  { name: 'VueUse', file: 'vueuse.svg' },
+  { name: 'Docker', file: 'docker-icon.svg' },
+  { name: 'Git', file: 'git-icon.svg' },
+  { name: 'Figma', file: 'figma.svg' },
+  { name: 'Photoshop', file: 'photoshop.svg' },
+  { name: 'Illustrator', file: 'illustrator.svg' },
+  { name: 'Express', file: 'express.svg' },
+  { name: 'Fastify', file: 'fastify.svg' },
+  { name: 'Tauri', file: 'tauri.svg' },
+  { name: 'Vercel', file: 'vercel.svg' }
+]

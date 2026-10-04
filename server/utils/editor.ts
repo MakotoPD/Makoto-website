@@ -36,7 +36,7 @@ async function prepareCover(tx: Parameters<Parameters<ReturnType<typeof database
   if (!input.coverMediaId) return
   const [file] = await tx.select().from(media).where(eq(media.id, input.coverMediaId)).limit(1)
   if (!file || !file.mime.startsWith('image/')) throw createError({ statusCode: 422, statusMessage: 'Cover must be an image' })
-  input.data[input.kind === 'article' ? 'cover' : input.kind === 'author' ? 'avatar' : 'image'] = {
+  input.data[input.kind === 'article' ? 'cover' : input.kind === 'author' ? 'avatar' : input.kind === 'page' && input.slug === 'links' ? 'picture' : 'image'] = {
     url: `/api/media/${file.id}`, alternativeText: file.alt, name: file.name, width: file.width, height: file.height
   }
 }

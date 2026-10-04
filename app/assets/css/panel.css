@@ -1,4 +1,4 @@
-.cms { --panel-line: #30343a; color: #e8e9eb; }
+.cms { --panel-line: #30343a; --ui-bg: #101216; --ui-bg-elevated: #16191f; --ui-text: #e8e9eb; --ui-text-highlighted: #f4f4f5; --ui-border-accented: #424750; color: #e8e9eb; }
 .cms .panel-label { display: block; color: #b1b5bd; font-size: .85rem; margin-bottom: .5rem; }
 .cms .panel-input { display: block; width: 100%; min-width: 0; border: 1px solid #424750; border-radius: .5rem; background: #101216; padding: .7rem .85rem; color: #f4f4f5; }
 .cms .panel-input:focus { outline: 2px solid #38bdf8; outline-offset: 2px; }

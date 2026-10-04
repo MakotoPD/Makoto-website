@@ -23,6 +23,19 @@ export interface MediaItem {
   id: string; name: string; mime: string; bytes: number; alt: string; caption: string
   width?: number | null; height?: number | null; aliases?: string[]; uses?: number; published?: string | null
 }
+export type EntryReference = Pick<AdminEntry, 'id' | 'kind' | 'locale' | 'slug' | 'translationGroup' | 'title' | 'status'>
+
+export function controlledDataKeys(kind: ContentKind, slug: string) {
+  const keys = ['image', 'cover', 'avatar', 'picture', 'originalBlocks', 'id', 'documentId', 'createdAt', 'updatedAt', 'publishedAt', 'locale', 'localizations']
+  if (kind === 'project') keys.push('stack', 'theme', 'primaryColor', 'externalUrl', 'slogan', 'scope', 'featured')
+  if (kind === 'work') keys.push('company', 'from', 'to', 'tags', 'location', 'isRemote')
+  if (kind === 'article') keys.push('authorSource', 'categorySources')
+  if (kind === 'author') keys.push('email')
+  if (kind === 'portfolio') keys.push('type')
+  if (kind === 'location') keys.push('city', 'parentService')
+  if (kind === 'page' && ['about', 'links'].includes(slug)) keys.push('links', 'primarylinks')
+  return new Set(keys)
+}
 export function copyEntry(entry: AdminEntry): AdminEntry {
   // API records are JSON. This also works when Vue wraps a record in a reactive proxy.
   return JSON.parse(JSON.stringify(entry))

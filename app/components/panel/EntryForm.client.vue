@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeRouteLeave } from 'vue-router'
-import { contentPath, type Locale } from '#shared/content'
-import { copyEntry, emptyEntry, entrySlug, panelError, type AdminEntry, type MediaItem, type panelSections } from '#shared/panel'
+import { contentPath, safeHref, type Locale } from '#shared/content'
+import { controlledDataKeys, copyEntry, emptyEntry, entrySlug, panelError, type AdminEntry, type EntryReference, type MediaItem, type panelSections } from '#shared/panel'
 const props = defineProps<{ section: typeof panelSections[number]; entries: AdminEntry[]; entryId: string; csrf: string }>()
 const language = useState<Locale>('panel-language', () => 'pl')
 const anchor = props.entries.find(entry => entry.id === props.entryId)
@@ -23,16 +23,24 @@ const busy = ref(false)
 const coverOpen = ref(false)
 const revisions = ref<{ number: number; createdAt: string }[]>([])
 const files = ref<MediaItem[]>([])
+const references = ref<EntryReference[]>([])
 const advancedData = ref(false)
 const dataJson = ref('')
-const coverKey = computed(() => props.section.kind === 'article' ? 'cover' : props.section.kind === 'author' ? 'avatar' : 'image')
+const coverKey = computed(() => props.section.kind === 'article' ? 'cover' : props.section.kind === 'author' ? 'avatar' : props.section.kind === 'page' && editing.value.slug === 'links' ? 'picture' : 'image')
+const reservedDataKeys = computed(() => controlledDataKeys(editing.value.kind, editing.value.slug))
+const additionalData = computed(() => Object.fromEntries(Object.entries(editing.value.data).filter(([key]) => !reservedDataKeys.value.has(key))))
 const cover = computed(() => {
   const legacy = editing.value.data[coverKey.value]
   const id = editing.value.coverMediaId || String(legacy?.url || '').match(/\/api\/media\/([0-9a-f-]{36})/)?.[1]
   return files.value.find(file => file.id === id || (id && file.aliases?.includes(id))) || (id ? { id, name: legacy?.name || 'Obraz główny', alt: legacy?.alternativeText || editing.value.title } : null)
 })
 onMounted(async () => {
-  try { files.value = await $fetch('/api/admin/media') } catch (cause) { error.value = panelError(cause) }
+  try {
+    await Promise.all([
+      $fetch<MediaItem[]>('/api/admin/media').then(value => { files.value = value }),
+      $fetch<EntryReference[]>('/api/admin/entries', { query: { compact: true } }).then(value => { references.value = value })
+    ])
+  } catch (cause) { error.value = panelError(cause) }
 })
 watch(() => editing.value.id, async id => {
   revisions.value = []
@@ -65,6 +73,14 @@ async function save() {
   const current = drafts[lang]!
   if (!current.title.trim() || !current.slug.trim()) { error.value = 'Uzupełnij tytuł i adres wpisu.'; return false }
   if (current.title.length < 2 || !/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)?$/.test(current.slug)) { error.value = 'Tytuł musi mieć co najmniej 2 znaki. Adres może zawierać małe litery, cyfry i myślniki.'; return false }
+  if (current.kind === 'project') {
+    if (current.data.externalUrl && !safeHref(current.data.externalUrl)) { error.value = 'Podaj poprawny adres strony projektu.'; return false }
+    if (Array.isArray(current.data.stack) && current.data.stack.some(item => !(typeof item === 'string' ? item : item?.name)?.trim())) { error.value = 'Uzupełnij nazwę każdej technologii albo usuń pusty element.'; return false }
+  }
+  if (current.kind === 'page' && ['about', 'links'].includes(current.slug)) {
+    for (const key of ['links', 'primarylinks']) if (Array.isArray(current.data[key]) && current.data[key].some(item => !item?.name?.trim() || !safeHref(item?.link))) { error.value = 'Uzupełnij nazwę i poprawny adres każdego linku albo usuń pusty element.'; return false }
+  }
+  for (const section of current.sections) if (Array.isArray(section.slugs) && section.slugs.some((slug: string) => !slug)) { error.value = 'Wybierz treść w każdej pozycji sekcji albo usuń pusty element.'; return false }
   busy.value = true; error.value = ''
   try {
     const saved = await mutate<AdminEntry>(current.id ? `/api/admin/entries/${current.id}` : '/api/admin/entries', current.id ? 'PUT' : 'POST', current)
@@ -113,7 +129,10 @@ function applyData() {
   try {
     const parsed = JSON.parse(dataJson.value)
     if (!parsed || Array.isArray(parsed) || typeof parsed !== 'object') throw new Error()
-    editing.value.data = parsed; advancedData.value = false
+    if (Object.keys(parsed).some(key => reservedDataKeys.value.has(key) || ['__proto__', 'constructor', 'prototype'].includes(key))) { error.value = 'Te pola mają własne formularze. Edytuj je w odpowiedniej sekcji powyżej.'; return }
+    for (const key of Object.keys(additionalData.value)) delete editing.value.data[key]
+    Object.assign(editing.value.data, parsed)
+    advancedData.value = false
   } catch { error.value = 'Dodatkowe dane muszą być poprawnym obiektem JSON.' }
 }
 onBeforeRouteLeave(() => !busy.value && (!dirty.value || confirm('Masz niezapisane zmiany. Opuścić edytor?')))
@@ -140,10 +159,11 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', beforeUnload))
           <label class="panel-label">Adres wpisu<input v-model="editing.slug" class="panel-input mt-2" maxlength="160" placeholder="przykladowy-adres"><span class="mt-2 block break-all text-xs text-zinc-500">{{ contentPath(editing) }}</span></label>
           <label class="panel-label">Wprowadzenie<textarea v-model="editing.summary" class="panel-input mt-2" rows="3" maxlength="1000" placeholder="Krótki opis widoczny przed treścią…"></textarea></label>
         </section>
+        <PanelTemplateFields :key="language" v-model="editing.data" :kind="section.kind" :slug="editing.slug" :title="editing.title" :locale="language" :entries="references" :disabled="busy" />
         <section class="panel-card min-w-0 p-5 md:p-6"><h2 class="mb-4 font-serif text-2xl">Treść</h2><PanelEditor :key="language" v-model="editing.body" :csrf="csrf" /></section>
-        <PanelSections v-if="editing.sections.length || ['page', 'home', 'service', 'location'].includes(section.kind)" v-model="editing.sections" />
+        <PanelSections v-if="editing.sections.length || ['page', 'home', 'service', 'location'].includes(section.kind)" v-model="editing.sections" :entries="references" :locale="language" :disabled="busy" />
         <details class="panel-card p-5"><summary class="cursor-pointer text-sm text-zinc-400">Ustawienia wyszukiwarki (SEO)</summary><div class="mt-5 space-y-4"><label class="panel-label">Tytuł w wyszukiwarce<input v-model="editing.seoTitle" class="panel-input mt-2" :placeholder="editing.title" maxlength="180"></label><label class="panel-label">Opis w wyszukiwarce<textarea v-model="editing.seoDescription" class="panel-input mt-2" rows="3" :placeholder="editing.summary" maxlength="320"></textarea></label></div></details>
-        <details class="panel-card p-5"><summary class="cursor-pointer text-sm text-zinc-500">Zaawansowane dane strony</summary><p class="mt-4 text-xs text-zinc-400">Dane specyficzne dla szablonu tej strony.</p><button v-if="!advancedData" class="panel-button mt-4" @click="dataJson = JSON.stringify(editing.data, null, 2); advancedData = true">Edytuj dane JSON</button><template v-else><textarea v-model="dataJson" aria-label="Dodatkowe dane JSON" class="panel-input mt-4 min-h-64 font-mono text-xs" spellcheck="false"></textarea><button class="panel-button mt-3" @click="applyData">Zastosuj dane</button></template></details>
+        <details v-if="Object.keys(additionalData).length || advancedData" class="panel-card p-5"><summary class="cursor-pointer text-sm text-zinc-500">Pozostałe pola techniczne (opcjonalnie)</summary><p class="mt-4 text-xs leading-relaxed text-zinc-400">Dodatkowe dane niestandardowych szablonów. Technologie, kolor, linki i pozostałe ustawienia edytujesz w formularzach powyżej. Ten zapis JSON nie jest potrzebny do zwykłej edycji treści.</p><button v-if="!advancedData" class="panel-button mt-4" @click="dataJson = JSON.stringify(additionalData, null, 2); advancedData = true">Edytuj dodatkowe pola JSON</button><template v-else><textarea v-model="dataJson" aria-label="Dodatkowe pola techniczne JSON" class="panel-input mt-4 min-h-64 font-mono text-xs" spellcheck="false"></textarea><button class="panel-button mt-3" @click="applyData">Zastosuj dodatkowe pola</button></template></details>
       </div>
       <aside class="space-y-5">
         <section class="panel-card p-5"><h2 class="font-medium">Publikacja · {{ language.toUpperCase() }}</h2><p class="mt-2 text-xs leading-relaxed text-zinc-400">{{ editing.status === 'published' ? 'Zapisywane zmiany są od razu widoczne na stronie.' : 'Szkic jest widoczny tylko w panelu, dopóki go nie opublikujesz.' }}</p><div class="mt-4 flex flex-col gap-2"><button v-if="editing.status !== 'published'" class="panel-button" :disabled="busy" @click="changeStatus('published')">Opublikuj {{ language.toUpperCase() }}</button><button v-else class="panel-button" :disabled="busy" @click="changeStatus('draft')">Wycofaj do szkiców</button><NuxtLink v-if="editing.id" :to="`/panel/preview/${editing.id}`" target="_blank" class="panel-button">Podgląd zapisanej wersji <UIcon name="i-mkt-arrow-up-right" class="size-4 shrink-0" aria-hidden="true" /></NuxtLink></div></section>
