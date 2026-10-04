@@ -24,5 +24,6 @@ export const technologyCatalog: { name: string; file: string }[] = [
   { name: 'Express', file: 'express.svg' },
   { name: 'Fastify', file: 'fastify.svg' },
   { name: 'Tauri', file: 'tauri.svg' },
-  { name: 'Vercel', file: 'vercel.svg' }
+  { name: 'Vercel', file: 'vercel.svg' },
+  { name: 'Cloudflare R2', file: 'cloudflare.svg' }
 ]
