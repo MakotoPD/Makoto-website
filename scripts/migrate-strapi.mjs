@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto'
 import pg from 'pg'
 import { markdownToDocument } from '../shared/markdown.ts'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { r2Endpoint } from '../shared/r2-config.ts'
 
 const dryRun = process.argv.includes('--dry-run')
 const localMedia = process.argv.includes('--local-media')
@@ -28,7 +29,7 @@ if (!dryRun) {
   await database.connect()
   if (!localMedia) storage = new S3Client({
     region: 'auto',
-    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    endpoint: r2Endpoint(process.env.R2_ACCOUNT_ID, process.env.R2_ENDPOINT),
     credentials: { accessKeyId: process.env.R2_ACCESS_KEY_ID, secretAccessKey: process.env.R2_SECRET_ACCESS_KEY }
   })
 }

@@ -4,6 +4,29 @@
 
 Użyj PostgreSQL z regularnymi kopiami i prywatnego bucketa Cloudflare R2. Nadaj kluczowi R2 dostęp tylko do tego bucketa. Ustaw zmienne z `.env.example` w środowisku serwera. `DATABASE_URL`, hasło administratora, sekret TOTP, sekret sesji, klucze R2, sekret Turnstile i klucz Web3Forms pozostają po stronie serwera. `TURNSTILE_SITE_KEY` jest kluczem publicznym. `SITE_URL` ustaw na adres origin strony bez końcowego ukośnika; w produkcji `https://makoto.com.pl`.
 
+Bucket z jurysdykcją UE wymaga `R2_ENDPOINT=https://<ACCOUNT_ID>.eu.r2.cloudflarestorage.com`. Bez tej zmiennej klient używa standardowego endpointu R2. Przy prywatnych mediach pozostaw `R2_PUBLIC_BASE_URL` puste i wyłącz publiczną domenę oraz adres r2.dev bucketa. Aplikacja udostępnia opublikowane zdjęcia przez `/api/media/:id`; parametr `?size=small`, `medium` lub `big` tworzy wariant w tle. Szkice wymagają sesji panelu.
+
+## Obraz Docker i pierwszy import
+
+Obraz jest budowany na Node.js 24 i zawiera narzędzia migracji oraz zweryfikowane archiwum Strapi. `.dockerignore` wyklucza lokalne sekrety, `.data`, pliki Git i zależności Windows. W Dokploy ustaw Dockerfile `/Dockerfile`, a w Build Arguments wyłącznie publiczny `TURNSTILE_SITE_KEY`. Sekrety ustaw w Environment; nie przekazuj ich jako argumentów budowania.
+
+Przed pierwszym uruchomieniem wykonaj w prywatnej sieci Dokploy:
+
+```sh
+docker run --rm --network dokploy-network --env-file /bezpieczna/sciezka/production.env \
+  makoto-portfolio:prepared-new-seo node scripts/setup-production.mjs --import-strapi
+```
+
+To sprawdza pliki archiwum, wykonuje próbny import, migracje schematu, seed i właściwy import do PostgreSQL/R2. Ponowne wykonanie pomija istniejące rekordy źródłowe, więc nie aktualizuje już zaimportowanych tekstów ani zmian z lokalnego panelu. Raport znajduje się w `data/strapi-migration-report.json`; przy kontenerze jednorazowym zamontuj ten plik z hosta, aby zachować raport.
+
+Zwykły start obrazu wykonuje tylko migracje schematu, a potem uruchamia Nuxt. Blokada PostgreSQL zapobiega równoległemu wykonaniu migracji. Import Strapi jest osobną, świadomą operacją; kolejne wdrożenia nie nadpisują edytowanych treści. Healthcheck `/api/healthz` sprawdza również dostęp do tabel CMS.
+
+## Wdrożenie Makoto bez pushowania Git
+
+Gałąź robocza to `new-seo`. Kod można wdrożyć jako archiwum ZIP przez Dokploy **Manual Deployment**, zachowując wszystkie commity lokalnie. Aplikacja przechodzi wtedy na źródło `drop`; kolejne wdrożenie z Git wymaga ponownego wskazania repozytorium i gałęzi. Nie przełączaj automatycznie na stare `main` przed przeniesieniem nowych zmian do repozytorium.
+
+Docelowa usługa PostgreSQL to `maindatabase`, baza `dabropat`, z osobnym użytkownikiem `makoto_portfolio`. Strapi, `strapidb` i Umami pozostają osobnymi usługami. Kopie sprzed migracji, raport importu i pliki przygotowania są przechowywane w `/etc/dokploy/makoto-migration/2026-10-04-preparation/`, z ograniczonym dostępem. Kopie zawierają pełną bazę Strapi i jego uploady; publiczny eksport w repozytorium ich nie zastępuje.
+
 Wygeneruj hash hasła interaktywnie przez `pnpm cms:password`. Hasło musi mieć co najmniej 14 znaków, a `ADMIN_SESSION_SECRET` co najmniej 32 losowe znaki. Domyślnie logowanie wymaga loginu, hasła i poprawnego tokenu Turnstile zweryfikowanego przez serwer (hostname i akcja `admin-login`). Produkcja odrzuca testowe klucze Cloudflare. Lokalny `pnpm dev` używa oficjalnych kluczy testowych tylko dla adresów loopback; akceptuje formularz z `localhost` i `127.0.0.1` pod warunkiem zgodności Origin z adresem żądania. Nie oznacza to skutecznej ochrony przed botami w trybie developerskim.
 
 Opcjonalne 2FA konfiguruje się w panelu **Ochrona**. Wygeneruj osobny `ADMIN_2FA_ENCRYPTION_KEY` poleceniem `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64'))"` i zachowaj go w menedżerze sekretów wraz z kopią bazy. Sekrety TOTP są szyfrowane AES-256-GCM. Kod QR jest tworzony lokalnie na serwerze, udostępniany tylko po potwierdzeniu hasła i nie trafia do zewnętrznego generatora. Konfiguracja wygasa po 10 minutach, jest związana z bieżącą sesją i wymaga potwierdzenia kodem przed aktywacją. Wyłączenie 2FA wymaga ponownego podania hasła. Zmiana 2FA unieważnia pozostałe sesje. TOTP dopuszcza jedną sąsiednią jednostkę 30 sekund i blokuje ponowne użycie zaakceptowanego kodu.

@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import pg from 'pg'
-import { siteSeed } from '../shared/site-seed'
+import { siteSeed } from '../shared/site-seed.ts'
 
 if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is required')
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL })

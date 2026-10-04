@@ -20,6 +20,7 @@
     "db:seed": "tsx scripts/seed-site.ts",
     "cms:migrate:dry-run": "node scripts/migrate-strapi.mjs --dry-run",
     "cms:migrate": "node scripts/migrate-strapi.mjs",
+    "cms:setup": "node scripts/setup-production.mjs --import-strapi",
     "cms:password": "node scripts/hash-password.mjs",
     "cms:totp": "node scripts/setup-totp.mjs"
   },

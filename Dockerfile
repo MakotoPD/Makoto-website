@@ -1,42 +1,29 @@
-# Etap 1: Budowanie aplikacji (Builder)
-FROM node:24-alpine AS builder
+FROM node:24-bookworm-slim AS builder
 WORKDIR /app
-RUN npm i -g pnpm@10
-
-# Zależności build-time dla "sharp" (Nuxt Image / IPX)
-# libc6-compat jest wymagane dla prekompilowanych binarek, a jeśli będą kompilowane z źródeł,
-# potrzebne są python3, g++ i make oraz vips-dev
-RUN apk add --update --no-cache python3 make g++ vips-dev fftw-dev gcc libc6-compat autoconf automake libtool nasm libpng-dev
-
-COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
-RUN pnpm --version && pnpm install --prod=false
+RUN npm install --global pnpm@10.33.0
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
 
-ARG STRAPI_URL
-ARG STRAPI_TOKEN
-ENV STRAPI_URL=$STRAPI_URL
-ENV STRAPI_TOKEN=$STRAPI_TOKEN
+# Only the public widget key is needed while building the client.
+ARG TURNSTILE_SITE_KEY
+ENV TURNSTILE_SITE_KEY=$TURNSTILE_SITE_KEY
+RUN pnpm build
+RUN cp -RL node_modules/dotenv .output/server/node_modules/dotenv
 
-RUN pnpm run gen:llm
-
-RUN pnpm run build
-
-# Rebuild sharp dla Alpine
-RUN rm -rf /node_modules/sharp && npm install sharp
-RUN npm rebuild --arch=x64 --platform=linux --libc=musl sharp
-# Etap 2: Uruchomienie aplikacji (Runner)
-FROM node:24-alpine
-
-# ===================================================================
-# Zależności runtime dla "sharp" (IPX) – tylko biblioteki, bez narzędzi kompilacji
-# vips zapewnia biblioteki czasu wykonania, libc6-compat dla zgodności binarek
-RUN apk add --no-cache vips libc6-compat
-# ===================================================================
-
+FROM node:24-bookworm-slim AS runner
 WORKDIR /app
-ENV NODE_ENV=production
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000
 COPY --from=builder /app/.output ./.output
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/shared ./shared
+COPY --from=builder /app/db/migrations ./db/migrations
+COPY --from=builder /app/data/strapi-public-export.json ./data/strapi-public-export.json
+COPY --from=builder /app/data/strapi-media ./data/strapi-media
+COPY --from=builder /app/package.json ./package.json
+RUN ln -s .output/server/node_modules node_modules \
+    && node --input-type=module -e "await Promise.all(['pg','dotenv/config','markdown-it','@aws-sdk/client-s3','argon2','sharp'].map(name => import(name)))"
 EXPOSE 3000
-CMD ["node", ".output/server/index.mjs"]
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1:3000/ || exit 1
+CMD ["node", "scripts/start-production.mjs"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:3000/api/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

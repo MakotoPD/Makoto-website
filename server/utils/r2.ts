@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { env } from 'node:process'
+import { r2Endpoint } from '../../shared/r2-config'
 
 let client: S3Client | undefined
 
@@ -37,7 +38,7 @@ function r2() {
   const settings = config()
   client ||= new S3Client({
     region: 'auto',
-    endpoint: `https://${settings.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    endpoint: r2Endpoint(settings.R2_ACCOUNT_ID, env.R2_ENDPOINT),
     credentials: {
       accessKeyId: settings.R2_ACCESS_KEY_ID,
       secretAccessKey: settings.R2_SECRET_ACCESS_KEY
