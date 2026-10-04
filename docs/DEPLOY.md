@@ -2,7 +2,9 @@
 
 ## Usługi i zmienne
 
-Użyj PostgreSQL z regularnymi kopiami i prywatnego bucketa Cloudflare R2. Nadaj kluczowi R2 dostęp tylko do tego bucketa. Ustaw zmienne z `.env.example` w środowisku serwera. `DATABASE_URL`, hasło administratora, sekret TOTP, sekret sesji, klucze R2, sekret Turnstile i klucz Web3Forms pozostają po stronie serwera. `TURNSTILE_SITE_KEY` jest kluczem publicznym. `SITE_URL` ustaw na adres origin strony bez końcowego ukośnika; w produkcji `https://makoto.com.pl`.
+Użyj PostgreSQL z regularnymi kopiami i prywatnego bucketa Cloudflare R2. Nadaj kluczowi R2 dostęp tylko do tego bucketa. Ustaw zmienne z `.env.example` w środowisku serwera. `DATABASE_URL`, hasło administratora, sekret TOTP, sekret sesji, klucze R2 i sekret Turnstile pozostają po stronie serwera. `TURNSTILE_SITE_KEY` jest kluczem publicznym. `SITE_URL` ustaw na adres origin strony bez końcowego ukośnika; w produkcji `https://makoto.com.pl`.
+
+Formularz kontaktowy najpierw weryfikuje token Turnstile przez `/api/contact`, a następnie przeglądarka wysyła dane bezpośrednio do Web3Forms. `WEB3FORMS_KEY` jest publicznym identyfikatorem formularza i jest zwracany po weryfikacji. Darmowy Web3Forms blokuje wysyłkę przez backend; wysyłanie z serwera wymaga płatnego planu oraz zatwierdzenia jego IP przez dostawcę. [Dokumentacja błędu 403](https://docs.web3forms.com/getting-started/troubleshooting#403-this-method-is-not-allowed).
 
 Bucket z jurysdykcją UE wymaga `R2_ENDPOINT=https://<ACCOUNT_ID>.eu.r2.cloudflarestorage.com`. Bez tej zmiennej klient używa standardowego endpointu R2. Przy prywatnych mediach pozostaw `R2_PUBLIC_BASE_URL` puste i wyłącz publiczną domenę oraz adres r2.dev bucketa. Aplikacja udostępnia opublikowane zdjęcia przez `/api/media/:id`; parametr `?size=small`, `medium` lub `big` tworzy wariant w tle. Szkice wymagają sesji panelu.
 

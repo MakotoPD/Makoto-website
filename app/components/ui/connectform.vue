@@ -16,21 +16,43 @@ const state = reactive({ name: '', email: '', message: '', token: '', website: '
 const sending = ref(false)
 const status = ref<'idle' | 'success' | 'error'>('idle')
 const errorMessage = ref('')
+const turnstile = ref<{ reset: () => void } | null>(null)
+const widgetOptions = {
+  'expired-callback': () => { state.token = '' },
+  'timeout-callback': () => { state.token = '' },
+  'error-callback': () => { state.token = ''; return true }
+}
 
 async function submit(event: FormSubmitEvent<FormData>) {
+  if (sending.value) return
   sending.value = true
   status.value = 'idle'
+  errorMessage.value = ''
   try {
-    await $fetch('/api/contact', { method: 'POST', body: { ...event.data, website: state.website } })
+    const prepared = await $fetch<{ ok: boolean; submission?: Record<string, string | boolean> }>('/api/contact', {
+      method: 'POST', retry: 0, timeout: 15_000, body: { ...event.data, website: state.website }
+    })
+    if (!prepared.ok) throw new Error('Contact verification failed')
+    if (prepared.submission) {
+      const response = await $fetch<{ success?: boolean }>('https://api.web3forms.com/submit', {
+        method: 'POST', retry: 0, timeout: 20_000, body: prepared.submission
+      })
+      if (response.success !== true) throw new Error('Message was not accepted')
+    }
     status.value = 'success'
     state.name = ''
     state.email = ''
     state.message = ''
     state.token = ''
-  } catch {
+  } catch (cause: any) {
     status.value = 'error'
-    errorMessage.value = locale.value === 'pl' ? 'Nie udało się wysłać wiadomości. Spróbuj ponownie lub napisz e-mail.' : 'The message could not be sent. Please try again or email me.'
+    errorMessage.value = cause?.statusCode === 422
+      ? (locale.value === 'pl' ? 'Weryfikacja wygasła. Potwierdź ją ponownie i wyślij wiadomość.' : 'Verification expired. Complete it again and send your message.')
+      : (locale.value === 'pl' ? 'Nie udało się wysłać wiadomości. Spróbuj ponownie lub napisz e-mail.' : 'The message could not be sent. Please try again or email me.')
   } finally {
+    // A verified Turnstile token cannot be reused, even when delivery fails.
+    state.token = ''
+    turnstile.value?.reset()
     sending.value = false
   }
 }
@@ -56,9 +78,9 @@ async function submit(event: FormSubmitEvent<FormData>) {
       <UTextarea v-model="state.message" :rows="5" class="w-full" />
     </UFormField>
     <UFormField name="token" :label="locale === 'pl' ? 'Weryfikacja' : 'Verification'" required>
-      <NuxtTurnstile v-model="state.token" />
+      <NuxtTurnstile ref="turnstile" v-model="state.token" :options="widgetOptions" />
     </UFormField>
-    <button type="submit" :disabled="sending" class="w-full rounded-xl bg-sky-400 px-5 py-3 font-semibold text-zinc-950 transition hover:bg-sky-300 disabled:cursor-wait disabled:opacity-60">
+    <button type="submit" :disabled="sending || !state.token" class="w-full rounded-xl bg-sky-400 px-5 py-3 font-semibold text-zinc-950 transition hover:bg-sky-300 disabled:cursor-wait disabled:opacity-60">
       {{ sending ? (locale === 'pl' ? 'Wysyłanie…' : 'Sending…') : (locale === 'pl' ? 'Wyślij wiadomość' : 'Send message') }}
     </button>
     <p v-if="status === 'success'" role="status" class="mt-5 rounded-lg border border-emerald-400/40 bg-emerald-950/40 p-3 text-emerald-200">{{ locale === 'pl' ? 'Wiadomość została wysłana. Dziękuję!' : 'Your message has been sent. Thank you!' }}</p>
