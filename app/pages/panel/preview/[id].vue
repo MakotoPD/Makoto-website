@@ -18,6 +18,7 @@ else if (error.value) throw createError({ statusCode: error.value.statusCode || 
     <article v-else class="mx-auto max-w-4xl px-5 pb-24 pt-20">
       <h1 class="font-serif text-5xl">{{ entry.title }}</h1>
       <p class="mt-6 text-lg text-zinc-400">{{ entry.summary }}</p>
+      <img v-if="entry.coverMediaId || (entry.data.cover as any)?.url || (entry.data.image as any)?.url" :src="entry.coverMediaId ? `/api/media/${entry.coverMediaId}?size=big` : ((entry.data.cover || entry.data.image) as any).url" :alt="((entry.data.cover || entry.data.image) as any)?.alternativeText || entry.title" class="mt-8 max-h-[32rem] w-full rounded-xl object-contain">
       <ContentDocument class="mt-10" :document="entry.body" />
     </article>
   </main>

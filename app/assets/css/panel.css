@@ -1,0 +1,15 @@
+.cms { --panel-line: #30343a; color: #e8e9eb; }
+.cms .panel-label { display: block; color: #b1b5bd; font-size: .85rem; margin-bottom: .5rem; }
+.cms .panel-input { display: block; width: 100%; min-width: 0; border: 1px solid #424750; border-radius: .5rem; background: #101216; padding: .7rem .85rem; color: #f4f4f5; }
+.cms .panel-input:focus { outline: 2px solid #38bdf8; outline-offset: 2px; }
+.cms .panel-button, .cms .panel-button-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 40px; border: 1px solid #424750; border-radius: .5rem; padding: .55rem .9rem; font-size: .85rem; cursor: pointer; }
+.cms .panel-button:hover { border-color: #38bdf8; }
+.cms .panel-button-primary { background: #38bdf8; border-color: #38bdf8; color: #091017; font-weight: 600; }
+.cms button:disabled { opacity: .45; cursor: not-allowed; }
+.cms :is(button,a):focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3px; }
+.cms .panel-card { border: 1px solid var(--panel-line); border-radius: .75rem; background: #16191f; }
+.cms .panel-language { display: inline-flex; border: 1px solid #424750; border-radius: .5rem; padding: 3px; gap: 3px; }
+.cms .panel-language button { min-height: 34px; min-width: 44px; border-radius: .3rem; padding: .35rem .65rem; font-size: .8rem; font-weight: 600; color: #9fa7b3; cursor: pointer; }
+.cms .panel-language button[aria-pressed="true"] { color: #9fe6ff; background: #173847; }
+.cms .panel-message { border: 1px solid #295b48; background: #152921; color: #b1ead2; padding: .8rem 1rem; border-radius: .5rem; }
+.cms .panel-error { border-color: #71404a; background: #301d24; color: #ffbbc4; }

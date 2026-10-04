@@ -40,6 +40,9 @@ export const media = pgTable('media', {
   bytes: integer('bytes').notNull(),
   alt: text('alt').notNull().default(''),
   caption: text('caption').notNull().default(''),
+  originalId: uuid('original_id'),
+  width: integer('width'),
+  height: integer('height'),
   published: timestamp('published_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
 })

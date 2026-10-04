@@ -2,8 +2,19 @@ import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } fro
 import { randomUUID } from 'node:crypto'
 import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import { env } from 'node:process'
 
 let client: S3Client | undefined
+
+function developmentStorage() {
+  if (env.NODE_ENV !== 'development') return null
+  try {
+    const site = new URL(env.SITE_URL || '')
+    const db = new URL(env.DATABASE_URL || '')
+    if (['localhost', '127.0.0.1'].includes(site.hostname) && ['localhost', '127.0.0.1'].includes(db.hostname)) return join(process.cwd(), '.data', 'media')
+  } catch { /* Development storage is restricted to a local site and database. */ }
+  return null
+}
 
 function testStorage() {
   if (!process.env.R2_TEST_DIR || process.env.SITE_URL !== 'http://127.0.0.1:3101') return null
@@ -45,6 +56,12 @@ export async function uploadObject(data: Buffer, mime: string) {
     'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'application/pdf': 'pdf'
   }
   const key = `private/${randomUUID()}.${extension[mime]}`
+  const devDirectory = developmentStorage()
+  if (devDirectory) {
+    await mkdir(devDirectory, { recursive: true })
+    await writeFile(join(devDirectory, key.slice('private/'.length)), data)
+    return key.replace('private/', 'dev/')
+  }
   const localDirectory = testStorage()
   if (localDirectory) {
     const localKey = key.replace('private/', 'test/')
@@ -58,6 +75,11 @@ export async function uploadObject(data: Buffer, mime: string) {
 }
 
 export async function downloadObject(key: string) {
+  if (key.startsWith('dev/')) {
+    const directory = developmentStorage()
+    if (!directory || !/^dev\/[0-9a-f-]{36}\.(?:jpg|png|webp|pdf)$/.test(key)) throw createError({ statusCode: 404 })
+    return readFile(join(directory, key.slice('dev/'.length)))
+  }
   const localDirectory = testStorage()
   if (key.startsWith('test/') && localDirectory) {
     if (!/^test\/[0-9a-f-]{36}\.(?:jpg|png|webp|pdf)$/.test(key)) throw createError({ statusCode: 404 })
@@ -75,6 +97,12 @@ export async function downloadObject(key: string) {
 }
 
 export async function deleteObject(key: string) {
+  if (key.startsWith('dev/')) {
+    const directory = developmentStorage()
+    if (!directory || !/^dev\/[0-9a-f-]{36}\.(?:jpg|png|webp|pdf)$/.test(key)) throw createError({ statusCode: 404 })
+    await unlink(join(directory, key.slice('dev/'.length)))
+    return
+  }
   const localDirectory = testStorage()
   if (key.startsWith('test/') && localDirectory) {
     await unlink(join(localDirectory, key.slice('test/'.length)))

@@ -7,5 +7,5 @@ export default defineEventHandler(async event => {
   await requireSession(event)
   const kind = getQuery(event).kind
   const query = database().select().from(entries)
-  return (typeof kind === 'string' ? query.where(eq(entries.kind, kind)) : query).orderBy(desc(entries.updatedAt)).limit(250)
+  return (typeof kind === 'string' ? query.where(eq(entries.kind, kind)) : query).orderBy(desc(entries.updatedAt))
 })

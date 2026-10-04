@@ -27,3 +27,12 @@ pnpm build
 Test HTTP panelu i publikacji uruchamia `pnpm test:integration`. Wymaga lokalnej bazy PostgreSQL o nazwie `makoto_verify`, wykonanych `pnpm db:migrate` i `pnpm db:seed` oraz `TEST_DATABASE_URL` wskazującego tę bazę. Test sam uruchamia zbudowany serwer na `127.0.0.1:3101`, tworzy wyłącznie lokalne sekrety i nie wysyła formularza do odbiorcy. Czyści sesje i próby logowania w tej bazie. `pnpm test:visual` sprawdza sześć podstron na szerokościach desktopowej i mobilnej; wymaga uruchomionej lokalnej strony z zaimportowanymi przykładowymi treściami oraz Chromium z Playwright.
 
 Nie umieszczaj sekretów w repozytorium. `.env` jest ignorowany przez Git. Wersja angielska działa pod `/`, polska pod `/pl`.
+
+## Obsługa panelu
+
+- `/panel/blog`, `/panel/strony`, `/panel/projekty` i pozostałe sekcje mają osobne listy treści.
+- Jedna pozycja łączy wersje PL / EN. Przełącznik w edytorze zmienia język; brakującą wersję dodajesz w tym samym miejscu. Niezapisane zmiany pozostają przy przełączaniu języków. Zapis i publikacja dotyczą aktywnego języka.
+- Obraz główny i obrazy w treści wybierasz w bibliotece z podglądami. Możesz też przesłać nowy plik, podać opis i od razu go użyć.
+- Biblioteka pokazuje oryginały. `/api/media/ID` zwraca niezmieniony plik, a `?size=small`, `?size=medium` i `?size=big` tworzą WebP mieszczące się odpowiednio w 500, 1000 i 1800 px, bez rozciągania lub powiększania. Serwer buforuje warianty w pamięci do 64 MB; po restarcie odtwarza je na żądanie. Uprawnienia są sprawdzane także dla gotowych wariantów.
+- Stare adresy wariantów Strapi pozostają obsługiwane. Migracja `0003` scala je w bibliotece na podstawie metadanych importu, zachowując pliki i historię.
+- Przy `pnpm dev`, lokalnym `SITE_URL` i lokalnej bazie nowe pliki trafiają do ignorowanego `.data/media`. Produkcja nadal wymaga prywatnego R2. Pliki z `.data/media` trzeba zachować razem z kopią lokalnej bazy.

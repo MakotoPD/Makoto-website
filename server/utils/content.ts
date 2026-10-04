@@ -43,6 +43,7 @@ export async function getPublished(kind: ContentKind, locale: Locale, slug: stri
   )).limit(1)
   if (!row) return null
   const translations = await database().select({ locale: entries.locale, slug: entries.slug }).from(entries).where(and(
+    eq(entries.kind, row.kind),
     eq(entries.translationGroup, row.translationGroup),
     eq(entries.status, 'published'),
     lte(entries.publishedAt, sql`now()`)

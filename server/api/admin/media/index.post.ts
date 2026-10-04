@@ -13,10 +13,12 @@ export default defineEventHandler(async event => {
   if (!file?.data?.length || file.data.length > 10 * 1024 * 1024) throw createError({ statusCode: 413, statusMessage: 'File must be 1 byte to 10 MB' })
   const mime = detectedMime(file.data)
   if (!mime || mime !== file.type) throw createError({ statusCode: 415, statusMessage: 'Unsupported file format' })
+  let dimensions: { width?: number; height?: number } = {}
   if (mime.startsWith('image/')) {
     try {
       const info = await sharp(file.data, { limitInputPixels: 40_000_000, failOn: 'error' }).metadata()
       if (!info.width || !info.height || `image/${info.format === 'jpeg' ? 'jpeg' : info.format}` !== mime) throw new Error('Invalid image')
+      dimensions = info.autoOrient || { width: info.width, height: info.height }
     } catch {
       throw createError({ statusCode: 415, statusMessage: 'Invalid image data' })
     }
@@ -29,7 +31,7 @@ export default defineEventHandler(async event => {
   let row: typeof media.$inferSelect | undefined
   try {
     const inserted = await database().insert(media).values({
-      objectKey: key, name, mime, bytes: file.data.length, alt
+      objectKey: key, name, mime, bytes: file.data.length, alt, ...dimensions
     }).returning()
     row = inserted[0]
     if (!row) throw new Error('Media record was not created')

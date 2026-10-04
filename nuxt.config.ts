@@ -18,7 +18,8 @@ export default defineNuxtConfig({
   ],
   image: { domains: ['makoto.com.pl'] },
   tres: { devtools: false, glsl: true },
-  build: { transpile: ['gsap', 'sharp'] },
+  build: { transpile: ['gsap'] },
+  nitro: { externals: { external: ['sharp'] } },
   css: ['~/assets/css/main.css'],
   colorMode: {
     preference: 'dark',

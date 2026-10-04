@@ -195,6 +195,10 @@ try {
       report.errors.push(`Entry ${key}: ${String(error)}`)
     }
   }
+  if (!dryRun) {
+    const grouping = await readFile('db/migrations/0003_media_and_translations.sql', 'utf8')
+    await database.query(grouping.slice(grouping.indexOf('WITH originals')))
+  }
   if (!dryRun) await database.query(`UPDATE media m SET published_at = CASE WHEN EXISTS (
     SELECT 1 FROM content_media cm JOIN content_entries e ON e.id = cm.entry_id
     WHERE cm.media_id = m.id AND e.status = 'published' AND e.published_at <= now()

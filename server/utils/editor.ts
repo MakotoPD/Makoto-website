@@ -27,9 +27,23 @@ export function parseEntry(value: unknown) {
   return { ...parsed, body: parsed.body as unknown as Record<string, unknown> }
 }
 
+export function entryWriteError(error: any): never {
+  if ((error?.cause?.code || error?.code) === '23505') throw createError({ statusCode: 409, message: 'Ten adres lub wersja językowa już istnieje.' })
+  throw error
+}
+
+async function prepareCover(tx: Parameters<Parameters<ReturnType<typeof database>['transaction']>[0]>[0], input: ReturnType<typeof parseEntry>) {
+  if (!input.coverMediaId) return
+  const [file] = await tx.select().from(media).where(eq(media.id, input.coverMediaId)).limit(1)
+  if (!file || !file.mime.startsWith('image/')) throw createError({ statusCode: 422, statusMessage: 'Cover must be an image' })
+  input.data[input.kind === 'article' ? 'cover' : input.kind === 'author' ? 'avatar' : 'image'] = {
+    url: `/api/media/${file.id}`, alternativeText: file.alt, name: file.name, width: file.width, height: file.height
+  }
+}
+
 function linkedMedia(value: unknown, found = new Set<string>()) {
   if (typeof value === 'string') {
-    const match = value.match(/^\/api\/media\/([0-9a-f-]{36})$/i)
+    const match = value.match(/^\/api\/media\/([0-9a-f-]{36})(?:\?[^#]*)?$/i)
     if (match) found.add(match[1]!)
     return found
   }
@@ -75,6 +89,7 @@ async function snapshot(tx: Parameters<Parameters<ReturnType<typeof database>['t
 
 export async function createEntry(input: ReturnType<typeof parseEntry>) {
   return database().transaction(async tx => {
+    await prepareCover(tx, input)
     const [entry] = await tx.insert(entries).values({ ...input, status: 'draft' }).returning()
     await syncMedia(tx, entry!.id, input)
     await snapshot(tx, entry!.id)
@@ -84,6 +99,7 @@ export async function createEntry(input: ReturnType<typeof parseEntry>) {
 
 export async function updateEntry(id: string, input: ReturnType<typeof parseEntry>) {
   return database().transaction(async tx => {
+    await prepareCover(tx, input)
     await tx.execute(sql`SELECT id FROM content_entries WHERE id = ${id}::uuid FOR UPDATE`)
     const [entry] = await tx.update(entries).set({ ...input, updatedAt: new Date() }).where(eq(entries.id, id)).returning()
     if (!entry) throw createError({ statusCode: 404 })
