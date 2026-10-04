@@ -12,6 +12,16 @@ Wybierz treść w panelu i przełącz język PL / EN. Zmiany zapisujesz osobno d
 - **O mnie / Linki:** nazwy, adresy, ikony i kolejność linków; strona Linki ma też osobną listę wyróżnionych linków.
 - **Sekcje stron:** nagłówki, tekst, listy, pytania i odpowiedzi oraz wybór powiązanych realizacji, usług i lokalizacji po tytułach.
 
+## Lokalne SEO i kontakt
+
+W **Strony → Porozmawiajmy o Twoim projekcie** znajduje się formularz „Publiczne dane kontaktowe”: nazwa, e-mail, telefon, adres wizytówki Google, obszar współpracy i dodatkowy opis. Dane pojawiają się na stronie kontaktowej, stronie głównej i w stopce. Formularz kontaktowy używa tego samego publicznego adresu e-mail. Wysyłka wiadomości nadal korzysta z konfiguracji poczty aplikacji.
+
+W **Realizacje** dostępne są „Klient i efekty projektu” oraz „Opinia klienta”. Miejscowość klienta automatycznie wiąże projekt ze stronami tego miasta. Można też wybrać dodatkowe lokalizacje i powiązane usługi. Opinia jest wyświetlana, gdy ma treść i autora; źródło jest opcjonalnym linkiem.
+
+W **Lokalizacje** możesz wpisać dowolną miejscowość i wybrać nadrzędną usługę. Podstrony miast i usług łączą się automatycznie. Nagłówki, FAQ, opis współpracy, przykłady projektów i powiązane poradniki edytuje się w sekcjach. Sekcja „Powiązane poradniki” wybiera opublikowane artykuły po tytule.
+
+`0004_local_seo_content.sql` aktualizuje wcześniejsze domyślne treści i dodaje dwa poradniki. Migracja zapisuje poprzedni i nowy stan w historii wpisu. Zmienione przez użytkownika pola są zachowywane; nowe pola danych łączą się z istniejącymi. Migracja nie kasuje zdjęć, technologii ani kolorów realizacji.
+
 „Zaawansowane dane strony” było surowym zapisem ustawień szablonu w JSON. Standardowe ustawienia mają teraz formularze. Pozostałe niestandardowe pola techniczne pojawiają się w osobnej, opcjonalnej sekcji. Ich edycja nie zastępuje ustawień w formularzach. Dane archiwalne ze Strapi są zachowane.
 
 ## Dodawanie technologii, np. Angular

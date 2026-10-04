@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PublicEntry } from '#shared/content'
+import { contentPath, type PublicEntry } from '#shared/content'
 
 const { locale } = useI18n()
 const { data: home, error } = await useAsyncData(
@@ -25,7 +25,12 @@ const orderedServices = computed(() => (section('services')?.slugs || []).map((s
 const featured = computed(() => (section('featured')?.slugs || []).map((slug: string) => projects.value?.find(item => item.slug === slug)).filter(Boolean) as PublicEntry[])
 const facts = computed(() => section('facts')?.items as string[] || [])
 const process = computed(() => section('process')?.items as string[] || [])
-const locations = computed(() => section('locations')?.slugs as string[] || [])
+const { data: localPages } = await useAsyncData(
+  () => `locations-${locale.value}`,
+  () => $fetch<PublicEntry[]>('/api/content/location', { query: { locale: locale.value } }),
+  { watch: [locale] }
+)
+const locations = computed(() => (section('locations')?.slugs as string[] || []).map(slug => localPages.value?.find(item => item.slug === slug)).filter(Boolean) as PublicEntry[])
 const faqs = computed(() => section('faq')?.items as string[][] || [])
 const contactPath = computed(() => locale.value === 'pl' ? '/pl/kontakt' : '/contact')
 const showModel = ref(false)
@@ -104,13 +109,13 @@ useEntrySeo(home)
       </div>
     </section>
 
-    <section v-if="locale === 'pl'" class="px-5 py-24">
+    <section v-if="locations.length" class="px-5 py-24">
       <div class="mx-auto max-w-6xl">
         <p class="mb-4 text-xs uppercase tracking-[.28em] text-sky-500">Lokalnie</p>
-        <h2 class="makoto-heading text-4xl md:text-6xl">Inowrocław, Toruń, Bydgoszcz</h2>
-        <p class="makoto-muted mt-5 max-w-2xl leading-relaxed">Współpracuję z firmami z regionu.</p>
+        <h2 class="makoto-heading text-4xl md:text-6xl">{{ locale === 'pl' ? 'Strony internetowe dla firm z regionu' : 'Websites for regional businesses' }}</h2>
+        <p class="makoto-muted mt-5 max-w-2xl leading-relaxed">{{ locale === 'pl' ? 'Sprawdź ofertę dla swojej miejscowości: sposób współpracy, przykłady projektów i odpowiedzi przed zamówieniem strony.' : 'Explore the offer for your area, including collaboration, project examples and answers before commissioning a website.' }}</p>
         <div class="mt-9 flex flex-wrap gap-3">
-          <NuxtLink v-for="city in locations" :key="city" :to="`/pl/${city}`" class="makoto-card rounded-xl px-6 py-3 capitalize">{{ city.split('/')[1] }}</NuxtLink>
+          <NuxtLink v-for="city in locations" :key="city.id" :to="contentPath(city)" class="makoto-card rounded-xl px-6 py-3">{{ city.title }}</NuxtLink>
         </div>
       </div>
     </section>
@@ -134,6 +139,7 @@ useEntrySeo(home)
           <h2 class="makoto-heading text-4xl md:text-6xl">{{ locale === 'pl' ? 'Opowiedz mi o projekcie' : 'Tell me about your project' }}</h2>
           <p class="makoto-muted mt-5 max-w-md leading-relaxed">{{ locale === 'pl' ? 'Napisz, co chcesz zbudować lub poprawić. Odpowiem z pytaniami potrzebnymi do wyceny.' : 'Tell me what you want to build or improve. I will follow up with the questions needed for an estimate.' }}</p>
           <NuxtLink :to="contactPath" class="mt-6 inline-flex text-sky-300 underline underline-offset-4">{{ locale === 'pl' ? 'Pełna strona kontaktowa' : 'Contact page' }}</NuxtLink>
+          <ContentContactDetails class="mt-8" />
         </div>
         <UiConnectform />
       </div>

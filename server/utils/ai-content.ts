@@ -3,12 +3,25 @@ import type { Locale, RichNode } from '../../shared/content'
 import { richMarkdown } from '../../shared/rich-markdown'
 import { absoluteUrl, listingPages, pagePath } from '../../shared/seo'
 import { entryPath, publishedSeoEntries } from './seo-content'
+import { contactInfo } from '../../shared/local-seo'
 
 const line = (value: string) => value.replace(/\s+/g, ' ').trim()
 const label = (value: string) => line(value).replace(/([\[\]\\])/g, '\\$1')
 
-export function entryMarkdown(row: ContentEntry) {
+export function entryMarkdown(row: ContentEntry, published: ContentEntry[] = []) {
   const blocks = [`# ${row.title}`, row.summary, richMarkdown(row.body as unknown as RichNode).trim()]
+  if (row.kind === 'project') {
+    const study = row.data.caseStudy as Record<string, string> | undefined
+    for (const [heading, text] of [['Client', row.data.clientName], ['Location', row.data.clientCity], ['Industry', row.data.industry], ['Project goal', study?.challenge], ['Solution', study?.solution], ['Outcome', study?.outcome]]) if (text) blocks.push(`## ${heading}\n\n${text}`)
+    const review = row.data.testimonial as Record<string, string> | undefined
+    if (review?.quote && review.author) blocks.push(`## Client testimonial\n\n${review.quote}\n\n${review.author}${review.role ? ` — ${review.role}` : ''}`)
+  }
+  if (row.kind === 'page' && ['kontakt', 'contact'].includes(row.slug)) {
+    const contact = contactInfo(row.data)
+    blocks.push(contact.name, `Email: ${contact.email}`, `Service area: ${contact.areas.join(', ')}`)
+    if (contact.phoneHref) blocks.push(`Phone: ${contact.phone}`)
+    if (contact.mapsUrl) blocks.push(`Google Business Profile: ${contact.mapsUrl}`)
+  }
   for (const section of row.sections) {
     if (typeof section.heading === 'string') blocks.push(`## ${section.heading}`)
     else if (typeof section.title === 'string') blocks.push(`## ${section.title}`)
@@ -23,6 +36,13 @@ export function entryMarkdown(row: ContentEntry) {
           else if (typeof item.title === 'string') blocks.push(`### ${item.title}`)
           for (const key of ['answer', 'text', 'description']) if (typeof item[key] === 'string') blocks.push(item[key])
         }
+      }
+    }
+    if (Array.isArray(section.slugs)) {
+      const kind = section.type === 'related' || section.type === 'featured' ? 'project' : section.type === 'services' ? 'service' : section.type === 'locations' ? 'location' : section.type === 'articles' ? 'article' : undefined
+      for (const slug of section.slugs) {
+        const related = published.find(item => item.kind === kind && item.locale === row.locale && item.slug === slug)
+        if (related) blocks.push(`- [${label(related.title)}](${absoluteUrl(entryPath(related))})`)
       }
     }
   }
@@ -49,7 +69,7 @@ export async function llmsText(full = false) {
   }
   if (full) {
     for (const row of rows) {
-      blocks.push(`---\n\nCanonical URL: ${absoluteUrl(entryPath(row))}\nLanguage: ${row.locale as Locale}\nUpdated: ${row.updatedAt.toISOString()}${row.kind === 'article' && row.publishedAt ? `\nPublished: ${row.publishedAt.toISOString()}` : ''}\n\n${entryMarkdown(row)}`)
+      blocks.push(`---\n\nCanonical URL: ${absoluteUrl(entryPath(row))}\nLanguage: ${row.locale as Locale}\nUpdated: ${row.updatedAt.toISOString()}${row.kind === 'article' && row.publishedAt ? `\nPublished: ${row.publishedAt.toISOString()}` : ''}\n\n${entryMarkdown(row, rows)}`)
     }
   }
   return blocks.join('\n\n') + '\n'

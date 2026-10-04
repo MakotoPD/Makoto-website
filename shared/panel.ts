@@ -27,13 +27,14 @@ export type EntryReference = Pick<AdminEntry, 'id' | 'kind' | 'locale' | 'slug' 
 
 export function controlledDataKeys(kind: ContentKind, slug: string) {
   const keys = ['image', 'cover', 'avatar', 'picture', 'originalBlocks', 'id', 'documentId', 'createdAt', 'updatedAt', 'publishedAt', 'locale', 'localizations']
-  if (kind === 'project') keys.push('stack', 'theme', 'primaryColor', 'externalUrl', 'slogan', 'scope', 'featured')
+  if (kind === 'project') keys.push('stack', 'theme', 'primaryColor', 'externalUrl', 'slogan', 'scope', 'featured', 'clientName', 'clientCity', 'industry', 'caseStudy', 'testimonial', 'serviceSlugs', 'locationSlugs')
   if (kind === 'work') keys.push('company', 'from', 'to', 'tags', 'location', 'isRemote')
   if (kind === 'article') keys.push('authorSource', 'categorySources')
   if (kind === 'author') keys.push('email')
   if (kind === 'portfolio') keys.push('type')
   if (kind === 'location') keys.push('city', 'parentService')
   if (kind === 'page' && ['about', 'links'].includes(slug)) keys.push('links', 'primarylinks')
+  if (kind === 'page' && ['kontakt', 'contact'].includes(slug)) keys.push('contactName', 'contactEmail', 'contactPhone', 'googleMapsUrl', 'serviceArea', 'contactNote')
   return new Set(keys)
 }
 export function copyEntry(entry: AdminEntry): AdminEntry {

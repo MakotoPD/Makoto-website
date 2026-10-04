@@ -72,6 +72,7 @@
 						<p class="w-60 text-sm leading-5 text-zinc-700 dark:text-neutral-300">
 							{{ $t('footer.desc') }}
 						</p>
+						<ContentContactDetails class="mt-5 max-w-sm" />
 
 						<NuxtLink v-if="languagePath" :to="languagePath" class="text-sm text-sky-600 underline dark:text-sky-300">{{ targetLocale === 'pl' ? 'Polski' : 'English' }}</NuxtLink>
 					</div>

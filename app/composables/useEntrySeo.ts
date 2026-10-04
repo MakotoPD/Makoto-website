@@ -1,7 +1,8 @@
 import { contentPath, type PublicEntry } from '#shared/content'
 import { absoluteUrl, entryImage, listingPages, pagePath } from '#shared/seo'
+import { cityName, contactInfo } from '#shared/local-seo'
 
-export function useEntrySeo(entry: Ref<PublicEntry | null | undefined>, author?: Ref<PublicEntry | undefined>) {
+export function useEntrySeo(entry: Ref<PublicEntry | null | undefined>, author?: Ref<PublicEntry | undefined>, parentService?: Ref<PublicEntry | undefined>) {
   const route = useRoute()
   const { locale } = useI18n()
   const title = computed(() => entry.value?.seoTitle || entry.value?.title || 'Makoto')
@@ -38,6 +39,7 @@ export function useEntrySeo(entry: Ref<PublicEntry | null | undefined>, author?:
       const crumbs = [{ '@type': 'ListItem', position: 1, name: locale.value === 'pl' ? 'Start' : 'Home', item: absoluteUrl(locale.value === 'pl' ? '/pl' : '/') }]
       const collection = current.kind === 'article' ? 'blog' : current.kind === 'project' ? 'work' : undefined
       if (collection) crumbs.push({ '@type': 'ListItem', position: 2, name: listingPages[collection].label[current.locale], item: absoluteUrl(pagePath(collection, current.locale)) })
+      if (current.kind === 'location' && parentService?.value) crumbs.push({ '@type': 'ListItem', position: crumbs.length + 1, name: parentService.value.title, item: absoluteUrl(contentPath(parentService.value)) })
       crumbs.push({ '@type': 'ListItem', position: crumbs.length + 1, name: current.title, item: canonical.value })
       nodes.push({ '@type': 'BreadcrumbList', itemListElement: crumbs })
     }
@@ -48,13 +50,21 @@ export function useEntrySeo(entry: Ref<PublicEntry | null | undefined>, author?:
     })
     if (current.kind === 'service' || current.kind === 'location') nodes.push({
       '@type': 'Service', name: current.title, description: description.value, url: canonical.value,
-      provider: person, serviceType: current.title,
-      ...(typeof current.data.city === 'string' ? { areaServed: { '@type': 'City', name: { inowroclaw: 'Inowrocław', torun: 'Toruń', bydgoszcz: 'Bydgoszcz' }[current.data.city] || current.data.city } } : {})
+      provider: { '@id': absoluteUrl('/#identity') }, serviceType: parentService?.value?.title || current.title,
+      ...(typeof current.data.city === 'string' ? { areaServed: { '@type': 'City', name: cityName(current.data.city) } } : {})
     })
     if (current.kind === 'project') nodes.push({
       '@type': 'CreativeWork', name: current.title, description: description.value, url: canonical.value,
-      creator: person, image: cover.value, inLanguage: language.value
+      creator: { '@id': absoluteUrl('/#identity') }, image: cover.value, inLanguage: language.value,
+      ...(current.data.clientCity ? { contentLocation: { '@type': 'Place', name: cityName(current.data.clientCity) } } : {})
     })
+    if (current.kind === 'page' && ['kontakt', 'contact'].includes(current.slug)) {
+      const contact = contactInfo(current.data)
+      nodes.push({ '@type': 'Person', '@id': absoluteUrl('/#identity'), name: 'Patryk Dąbrowski', alternateName: 'Makoto', email: contact.email,
+        ...(contact.phoneHref ? { telephone: contact.phone } : {}),
+        sameAs: ['https://github.com/makotopd', 'https://www.linkedin.com/in/makotopd/', ...(contact.mapsUrl ? [contact.mapsUrl] : [])]
+      })
+    }
     return nodes
   }))
 }

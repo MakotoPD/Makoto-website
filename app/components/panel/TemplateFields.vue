@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ContentKind, Locale } from '#shared/content'
 import type { EntryReference } from '#shared/panel'
+import { cityName } from '#shared/local-seo'
 const props = defineProps<{ kind: ContentKind; slug: string; title: string; locale: Locale; entries: EntryReference[]; disabled?: boolean }>()
 const data = defineModel<Record<string, any>>({ required: true })
 const tags = computed<string[]>({ get: () => Array.isArray(data.value.tags) ? data.value.tags : [], set: value => { data.value.tags = [...new Set(value.map(item => item.trim()).filter(Boolean))] } })
@@ -18,11 +19,15 @@ function referenceOptions(kind: ContentKind) {
 const authors = computed(() => referenceOptions('author'))
 const categoryOptions = computed(() => referenceOptions('category'))
 const services = computed(() => props.entries.filter(item => item.kind === 'service' && item.locale === props.locale && item.status !== 'deleted').map(item => ({ value: item.slug, label: item.title })))
-const cityOptions = computed(() => {
-  const values = [{ value: 'inowroclaw', label: 'Inowrocław' }, { value: 'torun', label: 'Toruń' }, { value: 'bydgoszcz', label: 'Bydgoszcz' }]
-  if (data.value.city && !values.some(item => item.value === data.value.city)) values.push({ value: data.value.city, label: data.value.city })
-  return values
-})
+const city = computed({ get: () => cityName(data.value.city), set: value => { data.value.city = value } })
+const serviceSlugs = computed<string[]>({ get: () => Array.isArray(data.value.serviceSlugs) ? data.value.serviceSlugs : [], set: value => { data.value.serviceSlugs = value } })
+const locationSlugs = computed<string[]>({ get: () => Array.isArray(data.value.locationSlugs) ? data.value.locationSlugs : [], set: value => { data.value.locationSlugs = value } })
+const locations = computed(() => props.entries.filter(item => item.kind === 'location' && item.locale === props.locale && item.status !== 'deleted').map(item => ({ value: item.slug, label: item.title })))
+const areas = computed<string[]>({ get: () => Array.isArray(data.value.serviceArea) ? data.value.serviceArea : [], set: value => { data.value.serviceArea = value } })
+const study = computed<Record<string, string>>(() => data.value.caseStudy || {})
+const testimonial = computed<Record<string, string>>(() => data.value.testimonial || {})
+function setStudy(key: string, value: string) { data.value.caseStudy = { ...study.value, [key]: value } }
+function setTestimonial(key: string, value: string) { data.value.testimonial = { ...testimonial.value, [key]: value } }
 const portfolioOptions = computed(() => {
   const items = [{ value: 'web', label: 'Projekt strony / interfejsu' }, { value: 'logo', label: 'Logo / identyfikacja wizualna' }]
   if (data.value.type && !items.some(item => item.value === data.value.type)) items.push({ value: data.value.type, label: data.value.type })
@@ -40,6 +45,27 @@ const portfolioOptions = computed(() => {
       </section>
       <PanelTechnologyStack v-model="data.stack" :disabled="disabled" />
       <PanelProjectAppearance v-model="data" :title="title" :disabled="disabled" />
+      <section class="panel-card space-y-5 p-5 md:p-6">
+        <h2 class="font-serif text-2xl">Klient i efekty projektu</h2>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <UFormField label="Nazwa klienta"><UInput v-model="data.clientName" :disabled="disabled" class="w-full" /></UFormField>
+          <UFormField label="Branża"><UInput v-model="data.industry" :disabled="disabled" class="w-full" /></UFormField>
+        </div>
+        <UFormField label="Miejscowość klienta" description="Uzupełnij, gdy możesz opublikować tę informację. Projekt pojawi się na stronie tej miejscowości."><UInput v-model="data.clientCity" :disabled="disabled" placeholder="np. Inowrocław" class="w-full" /></UFormField>
+        <UFormField label="Cel projektu"><UTextarea :model-value="study.challenge" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('challenge', String($event))" /></UFormField>
+        <UFormField label="Rozwiązanie"><UTextarea :model-value="study.solution" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('solution', String($event))" /></UFormField>
+        <UFormField label="Co zyskał klient" description="Opisz rzeczywiste efekty. Liczby podaj, jeśli masz pomiar."><UTextarea :model-value="study.outcome" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('outcome', String($event))" /></UFormField>
+        <UFormField label="Powiązane usługi"><USelectMenu v-model="serviceSlugs" :items="services" value-key="value" multiple :disabled="disabled" class="w-full" /></UFormField>
+        <UFormField label="Dodatkowe powiązane lokalizacje"><USelectMenu v-model="locationSlugs" :items="locations" value-key="value" multiple :disabled="disabled" class="w-full" /></UFormField>
+      </section>
+      <section class="panel-card space-y-5 p-5 md:p-6">
+        <h2 class="font-serif text-2xl">Opinia klienta</h2>
+        <p class="text-sm text-muted">Opinia pojawi się przy realizacji po uzupełnieniu tekstu i autora.</p>
+        <UFormField label="Treść opinii"><UTextarea :model-value="testimonial.quote" :disabled="disabled" :rows="4" class="w-full" @update:model-value="setTestimonial('quote', String($event))" /></UFormField>
+        <UFormField label="Autor"><UInput :model-value="testimonial.author" :disabled="disabled" class="w-full" @update:model-value="setTestimonial('author', String($event))" /></UFormField>
+        <UFormField label="Firma lub stanowisko"><UInput :model-value="testimonial.role" :disabled="disabled" class="w-full" @update:model-value="setTestimonial('role', String($event))" /></UFormField>
+        <UFormField label="Link do źródła opinii"><UInput :model-value="testimonial.sourceUrl" :disabled="disabled" type="url" placeholder="https://…" class="w-full" @update:model-value="setTestimonial('sourceUrl', String($event))" /></UFormField>
+      </section>
     </template>
     <section v-if="kind === 'work'" class="panel-card space-y-5 p-5 md:p-6">
       <h2 class="font-serif text-2xl">Doświadczenie zawodowe</h2>
@@ -73,8 +99,18 @@ const portfolioOptions = computed(() => {
     </section>
     <section v-if="kind === 'location'" class="panel-card space-y-5 p-5 md:p-6">
       <h2 class="font-serif text-2xl">Obszar obsługi</h2>
-      <UFormField label="Miasto"><USelectMenu v-model="data.city" :items="cityOptions" value-key="value" :disabled="disabled" placeholder="Wybierz miasto" class="w-full" /></UFormField>
+      <UFormField label="Miasto" description="Możesz wpisać dowolną miejscowość. Nazwa pojawi się w danych dla wyszukiwarki."><UInput v-model="city" :disabled="disabled" placeholder="np. Inowrocław" class="w-full" /></UFormField>
       <UFormField label="Powiązana usługa"><USelectMenu v-model="data.parentService" :items="services" value-key="value" :disabled="disabled" placeholder="Wybierz usługę" class="w-full" /></UFormField>
+    </section>
+    <section v-if="kind === 'page' && ['kontakt', 'contact'].includes(slug)" class="panel-card space-y-5 p-5 md:p-6">
+      <h2 class="font-serif text-2xl">Publiczne dane kontaktowe</h2>
+      <p class="text-sm text-muted">Dane wyświetlane na stronie kontaktowej, stronie głównej i w stopce.</p>
+      <UFormField label="Nazwa usługodawcy"><UInput v-model="data.contactName" :disabled="disabled" placeholder="Patryk Dąbrowski — Makoto" class="w-full" /></UFormField>
+      <UFormField label="Adres e-mail"><UInput v-model="data.contactEmail" :disabled="disabled" type="email" placeholder="contact@makoto.com.pl" class="w-full" /></UFormField>
+      <UFormField label="Telefon"><UInput v-model="data.contactPhone" :disabled="disabled" type="tel" placeholder="+48 …" class="w-full" /></UFormField>
+      <UFormField label="Link do wizytówki Google"><UInput v-model="data.googleMapsUrl" :disabled="disabled" type="url" placeholder="https://maps.app.goo.gl/…" class="w-full" /></UFormField>
+      <UFormField label="Obszar współpracy"><UInputTags v-model="areas" :disabled="disabled" add-on-blur placeholder="Dodaj miejscowość i zatwierdź Enterem" class="w-full" delete-icon="i-mkt-x" /></UFormField>
+      <UFormField label="Dodatkowe informacje o kontakcie"><UTextarea v-model="data.contactNote" :disabled="disabled" :rows="3" placeholder="np. sposób umawiania rozmowy" class="w-full" /></UFormField>
     </section>
     <template v-if="kind === 'page' && ['about', 'links'].includes(slug)">
       <PanelLinksEditor v-if="slug === 'links'" v-model="data.primarylinks" title="Wyróżnione linki" :disabled="disabled" />

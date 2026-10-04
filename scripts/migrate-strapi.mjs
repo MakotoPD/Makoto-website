@@ -6,6 +6,7 @@ import pg from 'pg'
 import { markdownToDocument } from '../shared/markdown.ts'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { r2Endpoint } from '../shared/r2-config.ts'
+import { projectCaseStudy } from '../shared/project-case-studies.ts'
 
 const dryRun = process.argv.includes('--dry-run')
 const localMedia = process.argv.includes('--local-media')
@@ -121,11 +122,12 @@ try {
   }
 
   function add(kind, locale, slug, source, title, summary, body, data = {}, status = 'published') {
+    const project = kind === 'project' ? projectCaseStudy(slug, locale) : undefined
     inputs.push({
       kind, locale, slug, translationGroup: source.documentId || `strapi:${kind}:${slug}`,
       sourceKey: `strapi:${kind}:${source.documentId || source.id}:${locale}`,
-      title, summary: summary || '', body, sections: [],
-      data: rewrite(data), status, seoTitle: title, seoDescription: summary || null,
+      title, summary: project?.summary || summary || '', body, sections: [],
+      data: { ...rewrite(data), ...project?.data }, status, seoTitle: project?.seoTitle || title, seoDescription: project?.summary || summary || null,
       createdAt: source.createdAt || new Date().toISOString(),
       updatedAt: source.updatedAt || new Date().toISOString(),
       publishedAt: status === 'published' ? (source.publishedAt || source.updatedAt || new Date().toISOString()) : null

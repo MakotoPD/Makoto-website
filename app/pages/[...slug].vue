@@ -27,15 +27,31 @@ const { data: projects } = await useAsyncData(
   () => $fetch<PublicEntry[]>('/api/content/project', { query: { locale: locale.value } }),
   { watch: [locale] }
 )
-useEntrySeo(entry)
+const { data: services } = await useAsyncData(
+  () => `offer-services-${locale.value}-${slug.value}`,
+  () => ['service', 'location'].includes(entry.value?.kind || '') ? $fetch<PublicEntry[]>('/api/content/service', { query: { locale: locale.value } }) : Promise.resolve([]),
+  { watch: [locale, slug] }
+)
+const { data: articles } = await useAsyncData(
+  () => `offer-articles-${locale.value}-${slug.value}`,
+  () => ['service', 'location'].includes(entry.value?.kind || '') ? $fetch<PublicEntry[]>('/api/content/article', { query: { locale: locale.value } }) : Promise.resolve([]),
+  { watch: [locale, slug] }
+)
+const { data: locations } = await useAsyncData(
+  () => `locations-${locale.value}`,
+  () => $fetch<PublicEntry[]>('/api/content/location', { query: { locale: locale.value } }),
+  { watch: [locale] }
+)
+const parentService = computed(() => services.value?.find(service => service.slug === entry.value?.data.parentService))
+useEntrySeo(entry, undefined, parentService)
 </script>
 
 <template>
-  <ContentOfferPage v-if="entry?.kind === 'service' || entry?.kind === 'location'" :entry="entry" :projects="projects || []" />
+  <ContentOfferPage v-if="entry?.kind === 'service' || entry?.kind === 'location'" :entry="entry" :projects="projects || []" :services="services || []" :locations="locations || []" :articles="articles || []" />
   <div v-else-if="entry?.kind === 'page'" class="mx-auto max-w-4xl px-5 pb-24 pt-44 text-black dark:text-white">
     <h1 class="makoto-heading text-center text-5xl md:text-7xl">{{ entry.title }}</h1>
     <p class="serif makoto-muted mx-auto mt-5 max-w-2xl text-center text-2xl leading-relaxed">{{ entry.summary }}</p>
     <ContentDocument v-if="entry.body.content?.length" class="mt-12" :document="entry.body" />
-    <div v-if="['kontakt', 'contact'].includes(slug)" class="mt-12"><UiConnectform /></div>
+    <div v-if="['kontakt', 'contact'].includes(slug)" class="mt-12 space-y-10"><ContentContactDetails /><UiConnectform /></div>
   </div>
 </template>

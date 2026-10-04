@@ -76,6 +76,14 @@ async function save() {
   if (current.kind === 'project') {
     if (current.data.externalUrl && !safeHref(current.data.externalUrl)) { error.value = 'Podaj poprawny adres strony projektu.'; return false }
     if (Array.isArray(current.data.stack) && current.data.stack.some(item => !(typeof item === 'string' ? item : item?.name)?.trim())) { error.value = 'Uzupełnij nazwę każdej technologii albo usuń pusty element.'; return false }
+    const opinion = current.data.testimonial
+    if (opinion?.quote?.trim() && !opinion.author?.trim()) { error.value = 'Podaj autora opinii klienta.'; return false }
+    if (opinion?.sourceUrl && !/^https?:\/\//.test(safeHref(opinion.sourceUrl))) { error.value = 'Podaj poprawny link do źródła opinii.'; return false }
+  }
+  if (current.kind === 'page' && ['kontakt', 'contact'].includes(current.slug)) {
+    if (current.data.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(current.data.contactEmail)) { error.value = 'Podaj poprawny adres e-mail.'; return false }
+    if (current.data.contactPhone && !/^\+?\d{6,15}$/.test(current.data.contactPhone.replace(/[^\d+]/g, ''))) { error.value = 'Podaj poprawny numer telefonu.'; return false }
+    if (current.data.googleMapsUrl && !/^https?:\/\//.test(safeHref(current.data.googleMapsUrl))) { error.value = 'Podaj poprawny link do wizytówki Google.'; return false }
   }
   if (current.kind === 'page' && ['about', 'links'].includes(current.slug)) {
     for (const key of ['links', 'primarylinks']) if (Array.isArray(current.data[key]) && current.data[key].some(item => !item?.name?.trim() || !safeHref(item?.link))) { error.value = 'Uzupełnij nazwę i poprawny adres każdego linku albo usuń pusty element.'; return false }

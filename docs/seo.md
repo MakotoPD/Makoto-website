@@ -23,3 +23,11 @@ Outfit, Roboto Flex, Playfair Display i Instrument Serif są pobierane przez `@n
 Tytuł i opis SEO edytuje się we wpisie CMS. Pozostawienie ich pustych używa tytułu i podsumowania wpisu. Zmiany sitemap i plików llms nie wymagają nowego deployu. Nie jest potrzebna dodatkowa migracja bazy ani ponowny import ze Strapi.
 
 Schematy obejmują osobę, witrynę, strony, okruszki nawigacji, artykuły, usługi i realizacje. Dane pochodzą z publicznej treści; konfiguracja nie dodaje nieistniejących opinii ani adresów biur. Ułatwienie dostępu wyszukiwarkom i narzędziom AI nie gwarantuje pozycji ani cytowania.
+
+## Lokalne usługi i realizacje
+
+Strona usługi automatycznie pokazuje opublikowane lokalizacje, których `data.parentService` wskazuje jej adres. Okruszki na stronie miasta, także w JSON-LD, zawierają rzeczywistą usługę nadrzędną. Nazwa miasta obsługuje dotychczasowe identyfikatory i dowolną nazwę wpisaną w panelu.
+
+Miejscowość klienta w realizacji oraz dodatkowe wybrane lokalizacje łączą projekt z właściwymi stronami lokalnymi. Ogólne przykłady projektów są opisane jako przykłady, bez przypisywania im niepotwierdzonej miejscowości. Wspólna osoba usługodawcy ma identyfikator `https://makoto.com.pl/#identity`.
+
+Dwa poradniki dla zamawiających stronę są zwykłymi artykułami CMS. Ich treść, opis i publikację można zmieniać w panelu. Sitemap i OpenGraph korzystają z istniejących mechanizmów artykułów. Wersje Markdown uwzględniają opis celu, rozwiązania i efektów realizacji, publiczny kontakt oraz odnośniki do opublikowanych treści powiązanych.

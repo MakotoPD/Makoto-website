@@ -1,6 +1,7 @@
 import type { ContentKind, Locale, RichNode } from './content'
+import { improveLocalContent, buyerGuides } from './local-seo-content.ts'
 
-interface Seed {
+export interface Seed {
   kind: ContentKind
   locale: Locale
   slug: string
@@ -259,3 +260,6 @@ for (const locale of ['pl', 'en'] as const) siteSeed.push({
   seoTitle: locale === 'pl' ? 'Kontakt i wycena | Makoto' : 'Contact and project estimate | Makoto',
   seoDescription: locale === 'pl' ? 'Zapytaj o wycenę strony, sklepu lub aplikacji internetowej.' : 'Ask for an estimate for a website, store or web application.'
 })
+
+for (const entry of siteSeed) improveLocalContent(entry)
+siteSeed.push(...buyerGuides)

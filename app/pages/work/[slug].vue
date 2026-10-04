@@ -15,6 +15,8 @@ watch(() => project.value?.translations, translations => {
   if (translations) setParams(Object.fromEntries(translations.map(item => [item.locale, { slug: item.slug }])))
 }, { immediate: true })
 useEntrySeo(project)
+const { data: services } = await useAsyncData(() => `project-services-${locale.value}`, () => $fetch<PublicEntry[]>('/api/content/service', { query: { locale: locale.value } }), { watch: [locale] })
+const { data: locations } = await useAsyncData(() => `locations-${locale.value}`, () => $fetch<PublicEntry[]>('/api/content/location', { query: { locale: locale.value } }), { watch: [locale] })
 </script>
 
 <template>
@@ -25,6 +27,7 @@ useEntrySeo(project)
     <div v-if="(project.data.image as any)?.url" class="makoto-card mt-12 overflow-hidden rounded-2xl p-2">
       <img :src="(project.data.image as any).url" :alt="project.title" width="1200" height="750" class="aspect-[16/10] w-full rounded-xl object-cover">
     </div>
+    <ContentProjectContext :project="project" :services="services || []" :locations="locations || []" />
     <section class="mt-16 grid gap-8 md:grid-cols-[12rem_1fr]">
       <h2 class="text-sm uppercase tracking-[.2em] text-sky-300">{{ locale === 'pl' ? 'Mój zakres' : 'My role' }}</h2>
       <div>

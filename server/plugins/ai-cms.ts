@@ -12,7 +12,7 @@ export default defineNitroPlugin(nitro => {
     if (!row) return
     context.source = {
       title: row.title, description: row.summary,
-      markdown: entryMarkdown(row), updatedAt: row.updatedAt.toISOString()
+      markdown: entryMarkdown(row, rows), updatedAt: row.updatedAt.toISOString()
     }
   })
 })

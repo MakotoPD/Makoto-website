@@ -27,10 +27,10 @@ useEntrySeo(article, author)
 
 <template>
   <div v-if="article" class="pb-24 text-black dark:text-white">
-    <div class="h-72 w-full mask-y-from-60% mask-y-to-99% md:h-[35rem]">
+    <div v-if="cover?.url" class="h-72 w-full mask-y-from-60% mask-y-to-99% md:h-[35rem]">
       <img v-if="cover?.url" :src="cover.url" :alt="cover.alternativeText || article.title" width="1600" height="900" fetchpriority="high" class="imagemask h-72 w-full object-cover md:h-[35rem]">
     </div>
-    <article class="relative z-10 mx-auto -mt-16 w-full max-w-4xl px-5 sm:px-12">
+    <article class="relative z-10 mx-auto w-full max-w-4xl px-5 sm:px-12" :class="cover?.url ? '-mt-16' : 'pt-44'">
       <h1 class="mb-4 text-4xl font-bold leading-tight md:text-5xl">{{ article.title }}</h1>
       <div class="mb-8 flex items-center gap-4">
         <UUser :name="author?.title || 'Patryk Dąbrowski'" :avatar="{ src: '/imgs/smallAvatar.jpg', icon: 'i-mkt-image' }" size="sm" :description="article.publishedAt ? new Date(article.publishedAt).toLocaleDateString(locale) : undefined" />

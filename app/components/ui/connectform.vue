@@ -4,6 +4,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 defineProps<{ embedded?: boolean }>()
 const { locale } = useI18n()
+const { info } = await useSiteContact()
 const schema = z.object({
   name: z.string().trim().min(2).max(100),
   email: z.email(),
@@ -62,6 +63,6 @@ async function submit(event: FormSubmitEvent<FormData>) {
     </button>
     <p v-if="status === 'success'" role="status" class="mt-5 rounded-lg border border-emerald-400/40 bg-emerald-950/40 p-3 text-emerald-200">{{ locale === 'pl' ? 'Wiadomość została wysłana. Dziękuję!' : 'Your message has been sent. Thank you!' }}</p>
     <p v-if="status === 'error'" role="alert" class="mt-5 rounded-lg border border-red-400/40 bg-red-950/40 p-3 text-red-200">{{ errorMessage }}</p>
-    <p class="text-sm text-muted">{{ locale === 'pl' ? 'Możesz też napisać bezpośrednio:' : 'You can also email me directly:' }} <a href="mailto:contact@makoto.com.pl" class="text-sky-600 underline underline-offset-4 dark:text-sky-300">contact@makoto.com.pl</a></p>
+    <p class="text-sm text-muted">{{ locale === 'pl' ? 'Możesz też napisać bezpośrednio:' : 'You can also email me directly:' }} <a :href="`mailto:${info.email}`" class="text-sky-600 underline underline-offset-4 dark:text-sky-300">{{ info.email }}</a></p>
   </UForm>
 </template>

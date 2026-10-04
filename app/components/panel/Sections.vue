@@ -4,8 +4,8 @@ import type { EntryReference } from '#shared/panel'
 const props = defineProps<{ entries: EntryReference[]; locale: Locale; disabled?: boolean }>()
 const sections = defineModel<any[]>({ required: true })
 const type = ref('scope')
-const labels: Record<string, string> = { audience: 'Dla kogo', scope: 'Zakres', process: 'Proces', pricing: 'Wycena', related: 'Powiązane realizacje', facts: 'Informacje', locations: 'Lokalizacje', services: 'Usługi', featured: 'Wyróżnione realizacje', note: 'Notatka', faq: 'Pytania i odpowiedzi' }
-const referenceKinds: Record<string, ContentKind> = { related: 'project', featured: 'project', locations: 'location', services: 'service' }
+const labels: Record<string, string> = { audience: 'Dla kogo', scope: 'Zakres', process: 'Proces', pricing: 'Wycena', related: 'Powiązane realizacje', facts: 'Informacje', locations: 'Lokalizacje', services: 'Usługi', featured: 'Wyróżnione realizacje', articles: 'Powiązane poradniki', note: 'Tekst', faq: 'Pytania i odpowiedzi' }
+const referenceKinds: Record<string, ContentKind> = { related: 'project', featured: 'project', locations: 'location', services: 'service', articles: 'article' }
 const typeOptions = Object.entries(labels).map(([value, label]) => ({ value, label }))
 function add() {
   sections.value.push({ type: type.value, title: '', ...(referenceKinds[type.value] ? { slugs: [] } : type.value === 'note' ? { text: '' } : { items: type.value === 'faq' ? [['', '']] : [] }) })
