@@ -11,7 +11,8 @@ ENV TURNSTILE_SITE_KEY=$TURNSTILE_SITE_KEY
 RUN pnpm build
 # Nitro may trace only part of Drizzle when a server plugin imports the database.
 # Include the complete package, including its PostgreSQL driver, in the runtime.
-RUN cp -RL node_modules/dotenv node_modules/drizzle-orm .output/server/node_modules/
+RUN rm -rf .output/server/node_modules/dotenv .output/server/node_modules/drizzle-orm \
+    && cp -RL node_modules/dotenv node_modules/drizzle-orm .output/server/node_modules/
 
 FROM node:24-bookworm-slim AS runner
 WORKDIR /app
