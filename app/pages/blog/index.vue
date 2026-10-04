@@ -13,10 +13,7 @@ const { data: categories } = await useAsyncData(() => `blog-categories-${locale.
 const authorFor = (article: PublicEntry) => authors.value?.find(item => item.translationGroup === article.data.authorSource)
 const categoriesFor = (article: PublicEntry) => categories.value?.filter(item => (article.data.categorySources as string[] || []).includes(item.translationGroup)) || []
 const coverFor = (article: PublicEntry) => article.data.cover as { url?: string; alternativeText?: string } | undefined
-useSeoMeta({
-  title: () => locale.value === 'pl' ? 'Blog o stronach i technologiach | Makoto' : 'Web development blog | Makoto',
-  description: () => locale.value === 'pl' ? 'Artykuły o tworzeniu stron, aplikacji i praktycznych rozwiązaniach internetowych.' : 'Articles about websites, applications and practical web development.'
-})
+useStaticPageSeo('blog')
 </script>
 
 <template>

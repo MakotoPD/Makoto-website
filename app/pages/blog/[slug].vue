@@ -22,7 +22,7 @@ const setParams = useSetI18nParams()
 watch(() => article.value?.translations, translations => {
   if (translations) setParams(Object.fromEntries(translations.map(item => [item.locale, { slug: item.slug }])))
 }, { immediate: true })
-useEntrySeo(article)
+useEntrySeo(article, author)
 </script>
 
 <template>

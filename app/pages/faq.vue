@@ -1,9 +1,9 @@
 <template>
 	<div class="pt-36">
 		<h1 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
-			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
+			<span class="block mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
 				{{ t('page.faq.header.subtitle') }}
-			</p>
+			</span>
 			<i18n-t
 				keypath="page.faq.header.heading"
 				tag="span"
@@ -42,16 +42,7 @@
 <script setup lang="ts">
 const { t, tm, rt } = useI18n({useScope: "local"})
 
-const title = computed(() => t('page.faq.seo.title'))
-const description = computed(() => t('page.faq.seo.description'))
-
-// Ustawianie metadanych SEO
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: title,
-  ogDescription: description,
-})
+useStaticPageSeo('faq')
 
 const faq = computed(() => tm('page.faq.faq'))
 

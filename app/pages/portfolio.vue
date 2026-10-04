@@ -9,10 +9,7 @@ const { data: items, error } = await useAsyncData(
 )
 if (error.value) throw createError({ statusCode: error.value.statusCode || 500, statusMessage: error.value.statusMessage || 'Content unavailable' })
 const visible = computed(() => filter.value === 'all' ? items.value : items.value?.filter(item => item.data.type === filter.value))
-useSeoMeta({
-  title: () => locale.value === 'pl' ? 'Portfolio graficzne | Makoto' : 'Graphic portfolio | Makoto',
-  description: () => locale.value === 'pl' ? 'Wybrane prace graficzne i projekty wizualne.' : 'Selected graphic and visual design work.'
-})
+useStaticPageSeo('portfolio')
 </script>
 
 <template>

@@ -7,10 +7,7 @@ const { data: projects, error } = await useAsyncData(
   { watch: [locale] }
 )
 if (error.value) throw createError({ statusCode: error.value.statusCode || 500, statusMessage: error.value.statusMessage || 'Content unavailable' })
-useSeoMeta({
-  title: () => locale.value === 'pl' ? 'Realizacje i zakres mojej pracy | Makoto' : 'Projects and my role | Makoto',
-  description: () => locale.value === 'pl' ? 'Wybrane strony, sklepy i aplikacje wraz z opisem mojego zakresu pracy.' : 'Selected websites, stores and applications with details of my contribution.'
-})
+useStaticPageSeo('work')
 </script>
 
 <template>

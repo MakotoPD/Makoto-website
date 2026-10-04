@@ -1,9 +1,9 @@
 <template>
 	<div class="pt-36">
-		<h2 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
-			<p class="mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
+		<h1 class="text-shadow-[0_8px_30px_rgb(255_255_255_/_0.25)] relative text-5xl font-medium tracking-tight text-balance sm:text-5xl md:text-6xl text-center z-30 mb-8 md:mb-14 size-full -translate-y-6 md:-translate-y-10">
+			<span class="block mb-3 text-xs font-normal tracking-widest uppercase md:text-sm text-black/70 dark:text-white/70">
 				{{ t('page.uses.header.subtitle') }}
-			</p>
+			</span>
 			<i18n-t 
 				keypath="page.uses.header.heading" 
 				tag="span" 
@@ -16,7 +16,7 @@
 					</span>
 				</template>
 			</i18n-t>
-		</h2>
+		</h1>
 		<div class="px-4 xl:px-0 mt-12 w-full max-w-5xl mx-auto flex flex-col items-center">
 			<NuxtImg :placeholder="[300, 180, 30, 10]" src="/imgs/uses/macbook-air.jpg" loading="lazy" class="w-5xl rounded-3xl outline-offset-3 outline-2 outline-sky-500 shadow-2xl"  />
 			<p class="mt-4 serif text-2xl text-black dark:text-white"> MacBook Pro M5 <span class="bg-gradient-to-r from-gray-400 to-gray-500 bg-clip-text text-transparent">Space Grey</span></p>
@@ -40,19 +40,10 @@
 		</div>
 	</div>
 </template>
-<script setup lant="ts">
+<script setup lang="ts">
 	const { t } = useI18n()
 
-const title = computed(() => t('page.uses.seo.title'))
-const description = computed(() => t('page.uses.seo.description'))
-
-// Ustawianie metadanych SEO
-useSeoMeta({
-  title: title,
-  description: description,
-  ogTitle: title,
-  ogDescription: description,
-})
+useStaticPageSeo('uses')
 
 
 	const soft = [

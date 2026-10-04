@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
+import { resolve } from 'node:path'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -10,8 +11,10 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/color-mode',
     '@tresjs/nuxt',
-    '@nuxtjs/google-fonts',
+    '@nuxt/fonts',
     '@nuxtjs/i18n',
+    '@nuxtjs/seo',
+    'nuxt-ai-ready',
     'nuxt-vitalizer',
     '@nuxtjs/turnstile',
     'nuxt-gtag'
@@ -29,14 +32,54 @@ export default defineNuxtConfig({
     storageKey: 'nuxt-color-mode'
   },
   ui: { colorMode: true },
-  googleFonts: {
-    download: true,
-    display: 'swap',
-    families: {
-      'Roboto Flex': '100..900',
-      Outfit: '100..900',
-      'Instrument Serif': '100..900',
-      'Playfair Display': '100..900'
+  fonts: {
+    defaults: { display: 'swap', subsets: ['latin', 'latin-ext'] },
+    families: [
+      { name: 'Outfit', provider: 'fontsource', weights: ['100 900'], styles: ['normal'], global: true },
+      { name: 'Roboto Flex', provider: 'fontsource', weights: ['100 900'], styles: ['normal'], global: true },
+      { name: 'Playfair Display', provider: 'fontsource', weights: ['400 900'], styles: ['normal', 'italic'], global: true },
+      { name: 'Instrument Serif', provider: 'fontsource', weights: [400], styles: ['normal', 'italic'], global: true }
+    ]
+  },
+  site: { url: 'https://makoto.com.pl', name: 'Makoto', defaultLocale: 'en-US', trailingSlash: false },
+  seo: { canonicalQueryWhitelist: [], metaDataFiles: false },
+  sitemap: {
+    sources: ['/api/__sitemap__/urls'],
+    excludeAppSources: true,
+    autoI18n: false,
+    autoLastmod: false,
+    cacheMaxAgeSeconds: 300,
+    credits: false
+  },
+  robots: {
+    disallow: ['/panel', '/admin', '/preview', '/__preview', '/pl/panel', '/pl/admin', '/pl/preview', '/pl/__preview', '/api/admin/', '/api/content/', '/api/__sitemap__/'],
+    credits: false
+  },
+  schemaOrg: {
+    identity: {
+      type: 'Person', name: 'Patryk Dąbrowski', alternateName: 'Makoto',
+      image: '/imgs/smallAvatar.jpg', url: 'https://makoto.com.pl/about',
+      email: 'contact@makoto.com.pl', jobTitle: 'Web Developer'
+    }
+  },
+  ogImage: {
+    defaults: { width: 1200, height: 630, extension: 'png', emojis: false, cacheMaxAgeSeconds: 86400 },
+    security: { maxDimension: 1600, maxDpr: 1, maxQueryParamSize: 4096, renderTimeout: 10000, restrictRuntimeImagesToOrigin: true }
+  },
+  aiReady: {
+    database: false,
+    webmcp: false,
+    contentNegotiation: false,
+    sitemapMd: false,
+    agentSkills: false,
+    markdownCacheHeaders: { maxAge: 300, swr: false }
+  },
+  hooks: {
+    'nitro:config'(config) {
+      config.handlers = (config.handlers || []).filter(handler => !['/llms.txt', '/llms-full.txt'].includes(handler.route || ''))
+      for (const name of ['llms.txt', 'llms-full.txt']) {
+        config.handlers.push({ route: `/${name}`, handler: resolve(config.rootDir || '.', `server/handlers/${name}.get.ts`) })
+      }
     }
   },
   turnstile: { siteKey: process.env.TURNSTILE_SITE_KEY },
@@ -63,7 +106,9 @@ export default defineNuxtConfig({
   },
   postcss: { plugins: { '@tailwindcss/postcss': {} } },
   routeRules: {
-    '/panel/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'private, no-store' } },
+    '/panel/**': { robots: false, ogImage: false, schemaOrg: false, headers: { 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'private, no-store' } },
+    '/preview/**': { robots: false, ogImage: false, schemaOrg: false, headers: { 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'private, no-store' } },
+    '/__preview/**': { robots: false, ogImage: false, schemaOrg: false, headers: { 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'private, no-store' } },
     '/admin': { redirect: { to: '/panel', statusCode: 308 } },
     '/api/admin/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'private, no-store' } }
   },
@@ -71,6 +116,7 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: 'Makoto',
+      titleTemplate: '%s',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
