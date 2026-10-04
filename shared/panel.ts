@@ -27,7 +27,7 @@ export type EntryReference = Pick<AdminEntry, 'id' | 'kind' | 'locale' | 'slug' 
 
 export function controlledDataKeys(kind: ContentKind, slug: string) {
   const keys = ['image', 'cover', 'avatar', 'picture', 'originalBlocks', 'id', 'documentId', 'createdAt', 'updatedAt', 'publishedAt', 'locale', 'localizations']
-  if (kind === 'project') keys.push('stack', 'theme', 'primaryColor', 'externalUrl', 'slogan', 'scope', 'featured', 'clientName', 'clientCity', 'industry', 'caseStudy', 'testimonial', 'serviceSlugs', 'locationSlugs')
+  if (kind === 'project') keys.push('stack', 'theme', 'primaryColor', 'externalUrl', 'slogan', 'scope', 'featured', 'projectOwnership', 'clientName', 'clientCity', 'industry', 'caseStudy', 'testimonial', 'serviceSlugs', 'locationSlugs')
   if (kind === 'work') keys.push('company', 'from', 'to', 'tags', 'location', 'isRemote')
   if (kind === 'article') keys.push('authorSource', 'categorySources')
   if (kind === 'author') keys.push('email')

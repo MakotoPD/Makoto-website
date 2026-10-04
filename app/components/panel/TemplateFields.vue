@@ -25,6 +25,7 @@ const locationSlugs = computed<string[]>({ get: () => Array.isArray(data.value.l
 const locations = computed(() => props.entries.filter(item => item.kind === 'location' && item.locale === props.locale && item.status !== 'deleted').map(item => ({ value: item.slug, label: item.title })))
 const areas = computed<string[]>({ get: () => Array.isArray(data.value.serviceArea) ? data.value.serviceArea : [], set: value => { data.value.serviceArea = value } })
 const study = computed<Record<string, string>>(() => data.value.caseStudy || {})
+const ownership = computed({ get: () => data.value.projectOwnership === 'own' ? 'own' : 'client', set: value => { data.value.projectOwnership = value } })
 const testimonial = computed<Record<string, string>>(() => data.value.testimonial || {})
 function setStudy(key: string, value: string) { data.value.caseStudy = { ...study.value, [key]: value } }
 function setTestimonial(key: string, value: string) { data.value.testimonial = { ...testimonial.value, [key]: value } }
@@ -40,21 +41,22 @@ const portfolioOptions = computed(() => {
     <template v-if="kind === 'project'">
       <section class="panel-card space-y-5 p-5 md:p-6">
         <h2 class="font-serif text-2xl">Informacje o realizacji</h2>
+        <UFormField label="Rodzaj realizacji"><USelect v-model="ownership" :items="[{ label: 'Realizacja dla klienta', value: 'client' }, { label: 'Projekt własny', value: 'own' }]" value-key="value" :disabled="disabled" class="w-full" /></UFormField>
         <UFormField label="Adres strony projektu" description="Przycisk „Otwórz projekt” prowadzi pod ten adres."><UInput v-model="data.externalUrl" :disabled="disabled" type="url" placeholder="https://…" class="w-full" /></UFormField>
         <UFormField label="Hasło przy zdjęciu" description="Krótki tekst wyświetlany na kolorowym tle realizacji."><UTextarea v-model="data.slogan" :disabled="disabled" :rows="2" class="w-full" /></UFormField>
       </section>
       <PanelTechnologyStack v-model="data.stack" :disabled="disabled" />
       <PanelProjectAppearance v-model="data" :title="title" :disabled="disabled" />
       <section class="panel-card space-y-5 p-5 md:p-6">
-        <h2 class="font-serif text-2xl">Klient i efekty projektu</h2>
+        <h2 class="font-serif text-2xl">{{ ownership === 'own' ? 'Kontekst i efekty projektu' : 'Klient i efekty projektu' }}</h2>
         <div class="grid gap-5 sm:grid-cols-2">
-          <UFormField label="Nazwa klienta"><UInput v-model="data.clientName" :disabled="disabled" class="w-full" /></UFormField>
+          <UFormField v-if="ownership === 'client'" label="Nazwa klienta"><UInput v-model="data.clientName" :disabled="disabled" class="w-full" /></UFormField>
           <UFormField label="Branża"><UInput v-model="data.industry" :disabled="disabled" class="w-full" /></UFormField>
         </div>
-        <UFormField label="Miejscowość klienta" description="Uzupełnij, gdy możesz opublikować tę informację. Projekt pojawi się na stronie tej miejscowości."><UInput v-model="data.clientCity" :disabled="disabled" placeholder="np. Inowrocław" class="w-full" /></UFormField>
+        <UFormField :label="ownership === 'own' ? 'Miejscowość związana z projektem' : 'Miejscowość klienta'" description="Opcjonalnie. Projekt pojawi się na stronie tej miejscowości."><UInput v-model="data.clientCity" :disabled="disabled" placeholder="np. Inowrocław" class="w-full" /></UFormField>
         <UFormField label="Cel projektu"><UTextarea :model-value="study.challenge" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('challenge', String($event))" /></UFormField>
         <UFormField label="Rozwiązanie"><UTextarea :model-value="study.solution" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('solution', String($event))" /></UFormField>
-        <UFormField label="Co zyskał klient" description="Opisz rzeczywiste efekty. Liczby podaj, jeśli masz pomiar."><UTextarea :model-value="study.outcome" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('outcome', String($event))" /></UFormField>
+        <UFormField :label="ownership === 'own' ? 'Efekt projektu' : 'Co zyskał klient'" description="Opisz rzeczywiste efekty. Liczby podaj, jeśli masz pomiar."><UTextarea :model-value="study.outcome" :disabled="disabled" :rows="3" class="w-full" @update:model-value="setStudy('outcome', String($event))" /></UFormField>
         <UFormField label="Powiązane usługi"><USelectMenu v-model="serviceSlugs" :items="services" value-key="value" multiple :disabled="disabled" class="w-full" /></UFormField>
         <UFormField label="Dodatkowe powiązane lokalizacje"><USelectMenu v-model="locationSlugs" :items="locations" value-key="value" multiple :disabled="disabled" class="w-full" /></UFormField>
       </section>

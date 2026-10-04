@@ -25,7 +25,7 @@ const { data: locations } = await useAsyncData(() => `locations-${locale.value}`
     <h1 class="makoto-heading mt-12 text-center text-5xl md:text-7xl">{{ project.title }}</h1>
     <p class="serif makoto-muted mx-auto mt-6 max-w-3xl text-center text-2xl leading-relaxed">{{ project.summary }}</p>
     <div v-if="(project.data.image as any)?.url" class="makoto-card mt-12 overflow-hidden rounded-2xl p-2">
-      <img :src="(project.data.image as any).url" :alt="project.title" width="1200" height="750" class="aspect-[16/10] w-full rounded-xl object-cover">
+      <img :src="(project.data.image as any).url" :alt="(project.data.image as any).alternativeText || project.title" :width="(project.data.image as any).width || 1200" :height="(project.data.image as any).height || 750" class="h-auto w-full rounded-xl">
     </div>
     <ContentProjectContext :project="project" :services="services || []" :locations="locations || []" />
     <section class="mt-16 grid gap-8 md:grid-cols-[12rem_1fr]">

@@ -14,7 +14,7 @@ const sections = computed(() => {
   }
   if (props.entry.kind === 'location') {
     const localProjects = props.projects.filter(project => projectLocations(project, [props.entry]).length)
-    if (localProjects.length) items.unshift({ type: 'related', title: locale.value === 'pl' ? 'Projekty dla firm z tego obszaru' : 'Projects for businesses in this area', slugs: localProjects.map(project => project.slug) })
+    if (localProjects.length) items.unshift({ type: 'related', title: locale.value === 'pl' ? 'Realizacje związane z tym obszarem' : 'Projects connected with this area', slugs: localProjects.map(project => project.slug) })
     if (parentService.value && !items.some(item => item.type === 'services')) items.push({ type: 'services', title: locale.value === 'pl' ? 'Zakres usługi' : 'Service details', slugs: [parentService.value.slug] })
   }
   return items.filter(item => !['related', 'locations', 'services', 'articles'].includes(item.type) || references(item).length)

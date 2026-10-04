@@ -13,6 +13,7 @@ if (!process.argv.includes('--import-strapi')) throw new Error('Confirm the init
 for (const args of [
   ['scripts/verify-strapi-export.mjs'],
   ['scripts/migrate-strapi.mjs', '--dry-run'],
+  ['scripts/restore-project-media.mjs'],
   ['scripts/db-migrate.mjs'],
   ['scripts/seed-site.ts'],
   ['scripts/migrate-strapi.mjs']

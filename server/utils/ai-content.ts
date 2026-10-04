@@ -12,7 +12,8 @@ export function entryMarkdown(row: ContentEntry, published: ContentEntry[] = [])
   const blocks = [`# ${row.title}`, row.summary, richMarkdown(row.body as unknown as RichNode).trim()]
   if (row.kind === 'project') {
     const study = row.data.caseStudy as Record<string, string> | undefined
-    for (const [heading, text] of [['Client', row.data.clientName], ['Location', row.data.clientCity], ['Industry', row.data.industry], ['Project goal', study?.challenge], ['Solution', study?.solution], ['Outcome', study?.outcome]]) if (text) blocks.push(`## ${heading}\n\n${text}`)
+    const identity = row.data.projectOwnership === 'own' ? ['Project type', 'Personal project'] : ['Client', row.data.clientName]
+    for (const [heading, text] of [identity, ['Location', row.data.clientCity], ['Industry', row.data.industry], ['Project goal', study?.challenge], ['Solution', study?.solution], ['Outcome', study?.outcome]]) if (text) blocks.push(`## ${heading}\n\n${text}`)
     const review = row.data.testimonial as Record<string, string> | undefined
     if (review?.quote && review.author) blocks.push(`## Client testimonial\n\n${review.quote}\n\n${review.author}${review.role ? ` — ${review.role}` : ''}`)
   }

@@ -10,6 +10,7 @@ export const technologyCatalog: { name: string; file: string }[] = [
   { name: 'WordPress', file: 'wordpress.svg' },
   { name: 'WooCommerce', file: 'woocommerce.svg' },
   { name: 'Node.js', file: 'nodejs-icon.svg' },
+  { name: 'AdonisJS', file: 'adonisjs.svg' },
   { name: 'PostgreSQL', file: 'postgresql.svg' },
   { name: 'MongoDB', file: 'mongodb-icon.svg' },
   { name: 'GraphQL', file: 'graphql.svg' },

@@ -126,7 +126,7 @@ try {
     inputs.push({
       kind, locale, slug, translationGroup: source.documentId || `strapi:${kind}:${slug}`,
       sourceKey: `strapi:${kind}:${source.documentId || source.id}:${locale}`,
-      title, summary: project?.summary || summary || '', body, sections: [],
+      title, summary: project?.summary || summary || '', body: project?.body || body, sections: [],
       data: { ...rewrite(data), ...project?.data }, status, seoTitle: project?.seoTitle || title, seoDescription: project?.summary || summary || null,
       createdAt: source.createdAt || new Date().toISOString(),
       updatedAt: source.updatedAt || new Date().toISOString(),

@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "spectra",
+    "id": "fda158b5-6d53-4995-a521-19fa7d587f84",
+    "file": "spectra.png",
+    "objectKey": "private/fda158b5-6d53-4995-a521-19fa7d587f84.png",
+    "mime": "image/png",
+    "bytes": 1688269,
+    "width": 2244,
+    "height": 1265,
+    "sha256": "29723b636ff5a4d42c7aa725f49b99cf6ec44d7dcc788fa5c5168af2a0abfc42",
+    "alt": "Strona Spectra i podgląd launchera Minecraft"
+  },
+  {
+    "slug": "denalify",
+    "id": "e75596b0-4aff-46e5-b159-1f4217a6bb33",
+    "file": "denalify.png",
+    "objectKey": "private/e75596b0-4aff-46e5-b159-1f4217a6bb33.png",
+    "mime": "image/png",
+    "bytes": 169759,
+    "width": 1498,
+    "height": 914,
+    "sha256": "d8a2ffd9471de04466e8274ef3f0f2734dc61426e3b1e179d9dcf0143ac49f0b",
+    "alt": "Strona Denalify z podglądem tablicy zadań Kanban"
+  }
+]

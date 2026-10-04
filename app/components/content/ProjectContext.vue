@@ -4,15 +4,18 @@ import { cityName, projectLocations } from '#shared/local-seo'
 const props = defineProps<{ project: PublicEntry; services: PublicEntry[]; locations: PublicEntry[] }>()
 const study = computed(() => props.project.data.caseStudy as Record<string, string> | undefined)
 const testimonial = computed(() => props.project.data.testimonial as Record<string, string> | undefined)
+const ownProject = computed(() => props.project.data.projectOwnership === 'own')
 const facts = computed(() => [
-  [props.project.locale === 'pl' ? 'Klient' : 'Client', props.project.data.clientName],
+  ownProject.value
+    ? [props.project.locale === 'pl' ? 'Rodzaj realizacji' : 'Project type', props.project.locale === 'pl' ? 'Projekt własny' : 'Personal project']
+    : [props.project.locale === 'pl' ? 'Klient' : 'Client', props.project.data.clientName],
   [props.project.locale === 'pl' ? 'Branża' : 'Industry', props.project.data.industry],
   [props.project.locale === 'pl' ? 'Miejscowość' : 'Location', cityName(props.project.data.clientCity)]
 ].filter(item => item[1]))
 const blocks = computed(() => [
   [props.project.locale === 'pl' ? 'Cel projektu' : 'Project goal', study.value?.challenge],
   [props.project.locale === 'pl' ? 'Rozwiązanie' : 'Solution', study.value?.solution],
-  [props.project.locale === 'pl' ? 'Co zyskał klient' : 'What the client gained', study.value?.outcome]
+  [ownProject.value ? (props.project.locale === 'pl' ? 'Efekt projektu' : 'Project outcome') : (props.project.locale === 'pl' ? 'Co zyskał klient' : 'What the client gained'), study.value?.outcome]
 ].filter(item => item[1]))
 const related = computed(() => [
   ...props.services.filter(service => Array.isArray(props.project.data.serviceSlugs) && props.project.data.serviceSlugs.includes(service.slug)),

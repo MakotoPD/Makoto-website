@@ -59,7 +59,7 @@ const services = [
         ['Czy mogę samodzielnie dodawać produkty?', 'Tak. Sposób zarządzania katalogiem dobieram do liczby i rodzaju produktów.'],
         ['Czy przeniesiesz istniejące produkty?', 'Możemy zaplanować import po sprawdzeniu formatu danych i jakości obecnego katalogu.']
       ],
-      related: ['yescandles']
+      related: ['yescandles', 'denalify']
     },
     en: {
       title: 'Online stores', summary: 'I build stores where customers can find products and complete a purchase, while owners can manage orders efficiently.',
@@ -71,7 +71,7 @@ const services = [
         ['Can I add products myself?', 'Yes. The catalogue management workflow is chosen for the products you sell.'],
         ['Can you migrate my products?', 'We can plan an import after checking the current data format and quality.']
       ],
-      related: ['yescandles']
+      related: ['yescandles', 'denalify']
     }
   },
   {
@@ -86,7 +86,7 @@ const services = [
         ['Czy aplikacja połączy się z moim systemem?', 'Możliwość integracji sprawdzam na podstawie dokumentacji lub dostępu do API tego systemu.'],
         ['Czy możesz rozwijać aplikację po wdrożeniu?', 'Tak, zakres opieki i kolejnych etapów ustalamy osobno.']
       ],
-      related: ['samvolvo', 'voidlink']
+      related: ['samvolvo', 'voidlink', 'spectra', 'denalify']
     },
     en: {
       title: 'Web applications', summary: 'I build web tools around a specific process, from bookings to client portals and B2B systems.',
@@ -98,7 +98,7 @@ const services = [
         ['Can it connect to my current system?', 'I assess that after reviewing its API documentation or available access.'],
         ['Can you keep developing it?', 'Yes. We can agree ongoing support and further phases separately.']
       ],
-      related: ['samvolvo', 'voidlink']
+      related: ['samvolvo', 'voidlink', 'spectra', 'denalify']
     }
   },
   {

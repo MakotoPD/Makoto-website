@@ -23,6 +23,7 @@ COPY --from=builder /app/shared ./shared
 COPY --from=builder /app/db/migrations ./db/migrations
 COPY --from=builder /app/data/strapi-public-export.json ./data/strapi-public-export.json
 COPY --from=builder /app/data/strapi-media ./data/strapi-media
+COPY --from=builder /app/data/project-media ./data/project-media
 COPY --from=builder /app/package.json ./package.json
 RUN ln -s .output/server/node_modules node_modules \
     && node --input-type=module -e "await Promise.all(['pg','drizzle-orm/node-postgres','drizzle-orm/pg-core','dotenv/config','markdown-it','@aws-sdk/client-s3','argon2','sharp'].map(name => import(name)))"
