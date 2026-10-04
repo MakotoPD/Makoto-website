@@ -130,7 +130,7 @@
               </Transition>
             </div>
 
-            <UDrawer should-scale-background set-background-color-on-scale >
+            <UiContactdrawer>
               <UButton
                 variant="soft"
                 class="relative z-20 font-normal text-black/80 dark:text-white/80 rounded-lg px-3 bg-gradient-to-t from-gray-500/30 to-gray-400/10 hover:bg-zinc-300 hover:dark:bg-zinc-600"
@@ -138,10 +138,7 @@
                 {{ locale === 'pl' ? 'Kontakt' : 'Contact' }}
               </UButton>
 
-              <template #content>
-                <UiConnectform />
-              </template>
-            </UDrawer>
+            </UiContactdrawer>
           </div>
 
           <div class="flex md:hidden">
@@ -209,16 +206,13 @@
               </NuxtLink>
             </div>
 
-            <UDrawer should-scale-background set-background-color-on-scale>
+            <UiContactdrawer>
               <button class="flex items-center gap-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:rounded">
                 <UIcon name="i-mkt-chat-round-call-line-duotone" class="size-6" aria-hidden />
                 {{ locale === 'pl' ? 'Kontakt' : 'Contact' }}
               </button>
 
-              <template #content>
-                  <UiConnectform />
-                </template>
-            </UDrawer>
+            </UiContactdrawer>
 
           </div>
           <div>

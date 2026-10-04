@@ -33,7 +33,7 @@
 					</div>
 				</span>
 
-				<UDrawer should-scale-background set-background-color-on-scale>
+				<UiContactdrawer>
 					<div ref="buttonContainer" class="p-6" style="overflow: hidden;">
 					
 						<button ref="btnGetInTouch" class="flex items-center gap-2 px-6 py-3 text-xl font-semibold bg-black/80 dark:bg-white text-white dark:text-black rounded-xl hover:bg-black/60 hover:dark:bg-neutral-100 transition-colors duration-200">
@@ -42,10 +42,7 @@
 						</button>
 					</div>
 
-					<template #content>
-						<UiConnectform />
-					</template>
-				</UDrawer>
+				</UiContactdrawer>
 
 				<div class="text-xl font-semibold text-black dark:text-white">
 					<p>{{ $t('footer.availability') }}</p>

@@ -4,8 +4,7 @@ export default defineAppConfig({
 	ui: {
 		colors: {
 			primary: 'sky',
-			gray: 'zinc',
-			neutral: 'slate'
+			neutral: 'zinc'
 		},
 		toast: {
 			slots: {
@@ -102,19 +101,27 @@ export default defineAppConfig({
 				},
 			},
 		},
+		input: {
+			slots: { base: 'rounded-lg' },
+			defaultVariants: { size: 'lg' }
+		},
+		textarea: {
+			slots: { base: 'rounded-lg' },
+			defaultVariants: { size: 'lg' }
+		},
 		drawer: {
 			slots: {
-				overlay: 'fixed inset-0 bg-elevated/75',
-				content: 'fixed bg-slate-200 dark:bg-zinc-950 max-w-3xl mx-auto ring ring-zinc-300 dark:ring-zinc-700 flex focus:outline-none',
+				overlay: 'fixed inset-0 bg-black/60',
+				content: 'fixed bg-default max-w-3xl mx-auto ring ring-default flex focus:outline-none',
 				handle: [
-					'shrink-0 !bg-zinc-400 dark:!bg-accented',
+					'shrink-0 !bg-accented',
 					'transition-opacity'
 				],
-				container: 'w-full flex flex-col gap-4 p-4 overflow-y-auto',
-				header: '',
-				title: 'text-highlighted font-semibold',
-				description: 'mt-1 text-muted text-sm',
-				body: 'flex-1',
+				container: 'w-full flex flex-col gap-6 px-5 pb-6 pt-5 sm:px-8 sm:pb-8',
+				header: 'items-start shrink-0',
+				title: 'serif text-2xl font-medium text-highlighted',
+				description: 'mt-2 text-muted text-sm leading-relaxed',
+				body: 'flex-none',
 				footer: 'flex flex-col gap-1.5'
 			},
 		},
